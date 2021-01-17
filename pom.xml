@@ -64,6 +64,7 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+    
 
     <build>
         <defaultGoal>install</defaultGoal>
