@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 변경</title>
+    <link th:href="@{/css/resultIDPW.css}" rel="stylesheet"/>
+    <script th:src="@{/js/user.js}"></script>
+</head>
+
+<div class="find-page">
+    <h1>비밀번호 변경</h1>
+    <div class="form">
+        <form class="IDPW-form" method="post" action="">
+            <div class="result">
+                <p class="pwMessage" style="text-align: left;">비밀번호는 최소 8자 이상, 최대 20자 이하로 구성해주세요.</p>
+                <input type="password" id="password" name="password" onchange="fn_pw_lenCheck()" placeholder="변경할 비밀번호를 입력해주세요">
+                <input type="password" id="passwordChk" name="passwordChk" onchange="fn_pw_check()" placeholder="다시 한 번 더 입력해주세요">
+            </div>
+            <div class="button">
+                <!-- 완료 누를시, PW 변경되고 로그인으로 돌아가게 하기 -->
+                <input type="submit" id="signin" value="완료">
+                <!-- href 뒤에 홈url 삽입 -->
+                <input type="button" id="home" onClick="location.href=''" value="홈으로">
+            </div>
+        </form>
+    </div>
+</div>
