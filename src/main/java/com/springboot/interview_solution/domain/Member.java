@@ -1,6 +1,11 @@
 package com.springboot.interview_solution.domain;
 
-public class Member {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
+public class Member implements UserDetails {
     private String userId;
     private String username;
     private String password;
@@ -73,4 +78,38 @@ public class Member {
     public void setIsTeacher(Boolean is_Teacher) {
         this.isTeacher = isTeacher;
     }
+
+    // 계정 만료 여부 반환
+    @Override
+    public boolean isAccountNonExpired() {
+        // 만료되었는지 확인하는 로직
+        return true; // true -> 만료되지 않았음
+    }
+
+    // 계정 잠금 여부 반환
+    @Override
+    public boolean isAccountNonLocked() {
+        // 계정 잠금되었는지 확인하는 로직
+        return true; // true -> 잠금되지 않았음
+    }
+
+    // 패스워드의 만료 여부 반환
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // 패스워드가 만료되었는지 확인하는 로직
+        return true; // true -> 만료되지 않았음
+    }
+
+    // 계정 사용 가능 여부 반환
+    @Override
+    public boolean isEnabled() {
+        // 계정이 사용 가능한지 확인하는 로직
+        return true; // true -> 사용 가능
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.springboot.interview_solution;
+package com.springboot.interview_solution.config;
 
 import com.springboot.interview_solution.repository.MemberDao;
 import com.springboot.interview_solution.repository.MemberDaoImpl;

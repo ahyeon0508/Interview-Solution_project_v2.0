@@ -42,7 +42,7 @@ public class MemberDaoImpl implements MemberDao{
 
     @Override
     public Optional<Member> findByUserId(String userID){
-        List<Member> result = jdbcTemplate.query("select * from MEMBER where userID= ?", memberRowMapper(), userID);
+        List<Member> result = jdbcTemplate.query("select * from User where userID= ?", memberRowMapper(), userID);
         return result.stream().findAny();
     }
 

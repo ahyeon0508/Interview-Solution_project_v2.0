@@ -8,5 +8,4 @@ public interface MemberDao {
     // Sign up
     void save(Member member);
     Optional<Member> findByUserId(String userID);
-
 }

@@ -3,9 +3,11 @@ package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.domain.Member;
 import com.springboot.interview_solution.repository.MemberDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberDao memberDao;
 
@@ -26,4 +28,7 @@ public class MemberService {
         });
     }
 
+    public Member loadUserByUsername(String userId) throws UsernameNotFoundException {
+        return memberDao.findByUserId(userId).orElseThrow(() -> new UsernameNotFoundException(userId));
+    }
 }
