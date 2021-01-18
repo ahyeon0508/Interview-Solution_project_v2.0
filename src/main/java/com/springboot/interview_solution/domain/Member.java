@@ -1,21 +1,22 @@
 package com.springboot.interview_solution.domain;
 
 public class Member {
-    private String userId;
+    private String userID;
     private String username;
     private String password;
     private String phone;
     private String school;
     private Integer grade;
     private Integer sClass;
+    private String teacher;
     private Boolean isTeacher; //teacher = true, student = false
 
     public String getUserId() {
-        return userId;
+        return userID;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.userID = userId;
     }
 
     public String getUsername() {
@@ -64,6 +65,14 @@ public class Member {
 
     public void setsClass(Integer sClass) {
         this.sClass = sClass;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
     public Boolean getIsTeacher() {
