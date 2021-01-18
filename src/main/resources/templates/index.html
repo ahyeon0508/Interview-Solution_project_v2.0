@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인트로</title>
+    <link th:href="@{/css/intro.css}" rel="stylesheet" />
+    <script th:src="@{/js/main.js}"></script>
+    
+    <!--bootstrap cdn-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container-fluid set-bg" data-setbg="@{/img/introbackground.svg}">
+        <!-- 상단로고 -->
+        <div class="row">
+            <a id="intrologo" href="{% url 'website:intro' %}"><img th:src="@{/img/logo.png}" alt=""></a>
+        </div>
+
+        <!-- 내용 시작 -->
+        <div class="row justify-content-around">
+            <div class="col-lg-5 p-0">
+                <div id="intro">
+                    <h1 id="introh1">새내기路(로)</h1>
+                    <p id="introp">언제 어디서나 스스로 면접을 대비할 수 있는 모의 면접 서비스.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 p-0">
+                <a id="studentbutton" class="categories__item set-bg" data-setbg="@{/img/introstubutton.svg}" href="{% url 'website:studentHome' %}">
+                    <div class="categories__text">
+                        <h4>학생</h4>
+                        <p>질문을 골라 모의 면접을 진행하고, 결과 리포트를 확인할 수 있는 학생 홈페이지로 이동.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 p-0">
+                <a id="teacherbutton" class="categories__item set-bg" data-setbg="@{/img/introteabutton.svg}" href="{% url 'website:teacherHome' %}">
+                    <div class="categories__text">
+                        <h4>교사</h4>
+                        <p>지정한 학생들을 관리하고, 리포트를 공유하고 질문을 보낼 수 있는 교사 홈페이지로 이동.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <!-- 내용 끝 -->
+
+    <!-- 기능 소개 시작 -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="section-title">
+                        <h4>기능</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row property__gallery">
+                <div class="col-lg-6 col-md-6 col-sm-6 mix women">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@{/img/세팅화면.png}">
+                        </div>
+                        <div class="product__item__text">
+                            <h4>스스로 모의 면접</h4>
+                            <p>가이드라인에 따라 쉽게 스스로 모의면접을 진행하고, 질문별/날짜별/제목별 분류로 영상을 관리할 수 있는 기능.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 mix women">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@{/img/질문리스트.png}">
+                        </div>
+                        <div class="product__item__text">
+                            <h4>다양한 질문 제공</h4>
+                            <p>미리 준비된 공통 및 학과질문과, 선생님께 입력받는 질문 및 서류 분석을 통한 AI 질문까지 제공하는 기능.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 mix women">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@{/img/내 면접 리포트.png}">
+                        </div>
+                        <div class="product__item__text">
+                            <h4>면접 분석 리포트</h4>
+                            <p>질문별 영상 및 대본과, 자주쓰는 반복어 및 부사어와 말 빠르기를 자동으로 분석해 답변을 더 편하게 체크할 수 있는 기능.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-6 mix women">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@{/img/모의면접영상.png}">
+                        </div>
+                        <div class="product__item__text">
+                            <h4>선생님과 공유</h4>
+                            <p>담임선생님과 모의 면접 영상을 공유하고, 댓글 피드백 및 질문 전송이 가능한 기능.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 기능 소개 끝 -->
+
+    <!-- 질문리스트 시작 -->
+    <section class="banner set-bg" data-setbg="@{/img/introquestion.svg}">
+        <section class="shop-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="section-title">
+                            <h4>질문</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-md-1">
+                        <div class="shop__cart__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <div class="cart__product__item__title">
+                                                <h6>입학 후 학업계획에 대해 말해보세요.</h6>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price">기본질문</td>
+                                        <td class="cart__quantity">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <div class="cart__product__item__title">
+                                                <h6>스팸메일의 정의를 설명하고, 현재 기술동향에 대해 설명해보세요.</h6>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price">컴퓨터공학과</td>
+                                        <td class="cart__quantity">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <div class="cart__product__item__title">
+                                                <h6>한일무역규제에 대해 어떻게 생각하나요?</h6>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price">경영학과</td>
+                                        <td class="cart__quantity">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- 질문 소개 끝 -->
+
+    <!-- 풋터 시작 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright__text">
+                        <p>Copyright SSU Software18 made by 말하는 감자들(수현,아현,혜원,예진)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 풋터 끝 -->
+
+   <!--bootstrap cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
