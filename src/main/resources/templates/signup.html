@@ -74,10 +74,10 @@
     <div class="wrap">
         <div class="signup-page">
             <h1>회원가입</h1>
-            <form class="signup-form" method="post">
+            <form class="signup-form" method="post" onsubmit="return checkSignupForm();">
                 <input type="text" id="username" name="username" placeholder="이름을 입력해주세요">
                 <input type="text" id="userID" name="userID" placeholder="아이디를 입력해주세요">
-                <input id="userIDChk" type="button" value="중복확인">
+                <input id="userIDChk" type="button" name="userIdValidation" value="중복확인">
                 <input type="password" id="password" name="password" onchange="fn_pw_lenCheck()" placeholder="비밀번호를 입력해주세요">
                 <p class="pwMessage" style="text-align: left;">비밀번호는 최소 8자 이상, 최대 20자 이하로 구성해주세요.</p>
                 <input type="password" id="passwordChk" name="passwordChk" onchange="fn_pw_check()"
@@ -91,11 +91,11 @@
                     <p class="message" style="text-align: left;">자동검색 기능을 이용하여 학교명을 검색해주세요</p>
                     <input type="text" id="schoolName" name="school" placeholder="학교명을 검색하세요">
                     <select name="grade">
-                        <option id="grade" selected="selected">학년</option>
-                        <option value="1">1학년</option>
-                        <option value="2">2학년</option>
-                        <option value="3">3학년</option>
-                        <option value="0">졸업생</option>
+                        <option id="grade" selected="selected" value=null>학년</option>
+                        <option value=1>1학년</option>
+                        <option value=2>2학년</option>
+                        <option value=3>3학년</option>
+                        <option value=0>졸업생</option>
                     </select>
                     <input type="text" id="class" name="sClass" placeholder="반을 입력하세요">
                     <hr>
@@ -103,7 +103,7 @@
                 <!-- 로그인으로 이동 -->
                 <input type="button" id="cancle" onClick="location.href=''" value="취소">
                 <!-- 회원가입 시키기 -->
-                <input type="submit" id="complete" id_check_result="fail" value="완료">
+                <input type="submit" id="complete" id_check_result="fail" name="save" value="완료">
             </form>
         </div>
     </div>    

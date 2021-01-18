@@ -25,7 +25,7 @@ public class MemberDaoImpl implements MemberDao{
     @Override
     public void save(Member member){
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        jdbcInsert.withTableName("member");
+        jdbcInsert.withTableName("user");
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("userID",member.getUserId());
@@ -42,7 +42,7 @@ public class MemberDaoImpl implements MemberDao{
 
     @Override
     public Optional<Member> findByUserId(String userID){
-        List<Member> result = jdbcTemplate.query("select * from MEMBER where userID= ?", memberRowMapper(), userID);
+        List<Member> result = jdbcTemplate.query("select * from user where userID= ?", memberRowMapper(), userID);
         return result.stream().findAny();
     }
 
