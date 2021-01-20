@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
+    
+    <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
     <link th:href="@{/css/signup.css}" rel="stylesheet" />
+    <script th:src="@{/Semantic-UI-master/dist/semantic.min.js}"></script>
     <script th:src="@{/js/user.js}"></script>
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <script>
         // 학교명 자동검색
         $(document).ready(function () {
@@ -21,8 +25,8 @@
                 }
             });
         });
-    
-    
+
+
         // 아이디 중복확인
         $(function () {
             $('#userIDChk').click(function () {
@@ -31,7 +35,7 @@
                     alert('아이디를 입력해주세요')
                     return;
                 }
-    
+
                 $.ajax({
                     // url 채우기
                     url: '',
@@ -59,7 +63,7 @@
                     }
                 })
             });
-    
+
             $('#signup-form').submit(function () {
                 if ($("#complete").attr("id_check_result") == "fail") {
                     alert("아이디 중복확인을 해주세요");
@@ -70,20 +74,38 @@
         });
     </script>
 </head>
+
 <body>
     <div class="wrap">
         <div class="signup-page">
             <h1>회원가입</h1>
             <form class="signup-form" method="post" onsubmit="return checkSignupForm();">
+                <div class="ui form">
+                    <div class="inline fields">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="frequency" checked="checked">
+                          <label>학생</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="frequency">
+                          <label>교사</label>
+                        </div>
+                      </div>
+                    </div>
+                </div>
                 <input type="text" id="username" name="username" placeholder="이름을 입력해주세요">
                 <input type="text" id="userID" name="userID" placeholder="아이디를 입력해주세요">
                 <input id="userIDChk" type="button" name="userIdValidation" value="중복확인">
-                <input type="password" id="password" name="password" onchange="fn_pw_lenCheck()" placeholder="비밀번호를 입력해주세요">
+                <input type="password" id="password" name="password" onchange="fn_pw_lenCheck()"
+                    placeholder="비밀번호를 입력해주세요">
                 <p class="pwMessage" style="text-align: left;">비밀번호는 최소 8자 이상, 최대 20자 이하로 구성해주세요.</p>
                 <input type="password" id="passwordChk" name="passwordChk" onchange="fn_pw_check()"
                     placeholder="다시 한 번 더 입력해주세요">
-                <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' id="phone" name="phone"
-                    placeholder="핸드폰 번호를 입력해주세요">
+                <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' id="phone"
+                    name="phone" placeholder="핸드폰 번호를 입력해주세요">
                 <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
                 <div class="schoolInfo">
                     <hr>
@@ -106,10 +128,7 @@
                 <input type="submit" id="complete" id_check_result="fail" name="save" value="완료">
             </form>
         </div>
-    </div>    
+    </div>
 </body>
+
 </html>
-
-
-
-

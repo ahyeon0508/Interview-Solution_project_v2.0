@@ -8,7 +8,7 @@ h1{
 }
 
 .wrap{
-    width: 450px;
+    width: 550px;
     padding-top: 50px;
     padding-bottom: 50px;
     margin: auto;
@@ -18,11 +18,16 @@ h1{
     position: relative;
     z-index: 1;
     background: #FFFFFF;
-    max-width: 360px;
+    max-width: 450px;
     margin: 0 auto 15px;
     padding: 45px;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.ui.form{
+    margin-top: 15px;
+    float: right;
 }
 
 .signup-page input{
@@ -87,7 +92,6 @@ select{
     color:gray;
     display:inline-block;
     background: #f2f2f2;
-    float: left;
     box-sizing: border-box;
     font-size: 14px;
     border-radius: 30px;
@@ -103,7 +107,6 @@ select{
     font-family: 'Nanum Gothic', sans-serif;
     display:inline-block;
     width: 77%; 
-    float: left;
 }
 
 .signup-page #userIDChk{
