@@ -79,7 +79,7 @@ public class Member {
         return isTeacher;
     }
 
-    public void setIsTeacher(Boolean is_Teacher) {
+    public void setIsTeacher(Boolean isTeacher) {
         this.isTeacher = isTeacher;
     }
 }
