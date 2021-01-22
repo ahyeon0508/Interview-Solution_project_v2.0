@@ -1,6 +1,6 @@
 package com.springboot.interview_solution.service;
 
-import com.springboot.interview_solution.domain.Member;
+import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.repository.MemberDao;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

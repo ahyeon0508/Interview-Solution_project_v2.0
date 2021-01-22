@@ -1,11 +1,14 @@
 package com.springboot.interview_solution.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.Getter;
 
-import java.util.Collection;
+import javax.persistence.*;
 
-public class Member implements UserDetails {
+@Entity
+@Getter
+public class User{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String userID;
     private String username;
     private String password;
@@ -15,6 +18,17 @@ public class Member implements UserDetails {
     private Integer sClass;
     private String teacher;
     private Boolean isTeacher; //teacher = true, student = false
+
+    private String id;
+
+    public User(String userID, String password) {
+        this.userID = userID;
+        this.password = password;
+    }
+
+    public User() {
+
+    }
 
     public String getUserId() {
         return userID;
@@ -88,37 +102,11 @@ public class Member implements UserDetails {
         this.isTeacher = isTeacher;
     }
 
-    // 계정 만료 여부 반환
-    @Override
-    public boolean isAccountNonExpired() {
-        // 만료되었는지 확인하는 로직
-        return true; // true -> 만료되지 않았음
+    public void setId(String id) {
+        this.id = id;
     }
 
-    // 계정 잠금 여부 반환
-    @Override
-    public boolean isAccountNonLocked() {
-        // 계정 잠금되었는지 확인하는 로직
-        return true; // true -> 잠금되지 않았음
+    public String getId() {
+        return id;
     }
-
-    // 패스워드의 만료 여부 반환
-    @Override
-    public boolean isCredentialsNonExpired() {
-        // 패스워드가 만료되었는지 확인하는 로직
-        return true; // true -> 만료되지 않았음
-    }
-
-    // 계정 사용 가능 여부 반환
-    @Override
-    public boolean isEnabled() {
-        // 계정이 사용 가능한지 확인하는 로직
-        return true; // true -> 사용 가능
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
 }

@@ -1,10 +1,14 @@
 package com.springboot.interview_solution.service;
 
-import com.springboot.interview_solution.domain.Member;
+import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.repository.MemberDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.Arrays;
 
 public class MemberService implements UserDetailsService {
 
@@ -16,7 +20,7 @@ public class MemberService implements UserDetailsService {
     }
 
     // signup
-    public void signup(Member member){
+    public void signup(User member){
         memberDao.save(member);
     }
 
@@ -27,9 +31,9 @@ public class MemberService implements UserDetailsService {
         });
     }
 
-    public Member loadUserByUsername(String userId) throws UsernameNotFoundException {
-        System.out.println(memberDao.findByUserId(userId));
-
-        return memberDao.findByUserId(userId).orElseThrow(() -> new UsernameNotFoundException(userId));
+    @Override
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        UserDetails user = (UserDetails) memberDao.findByUserId(userId).orElseThrow(() -> new UsernameNotFoundException(userId));
+        return (UserDetails) new User("user.getUserID()", "user.getPassword()");
     }
 }

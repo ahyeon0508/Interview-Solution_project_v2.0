@@ -1,8 +1,11 @@
 package com.springboot.interview_solution.controller;
 
-import com.springboot.interview_solution.domain.Member;
+import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +33,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/student/signup",method=RequestMethod.POST)
-    public String postStudentSignup(Member student){
+    public String postStudentSignup(User student){
         student.setIsTeacher(false);
         memberService.signup(student);
         return "signup";
@@ -43,7 +46,7 @@ public class MemberController {
     }
 
     @PostMapping("/teacher/signup")
-    public String postTeacherSignup(Member teacher){
+    public String postTeacherSignup(User teacher){
         teacher.setIsTeacher(true);
         memberService.signup(teacher);
         return "signup";
@@ -54,5 +57,24 @@ public class MemberController {
     public String validUserId(String userID){
         memberService.validateDuplicateUserId(userID);
         return "signup";
+    }
+
+    @GetMapping("/signup")
+    public String signup(){
+        return "signup";
+    }
+
+    @GetMapping("/signin")
+    public String signin(){ return "signin"; }
+
+    @GetMapping("/signout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/signin";
+    }
+
+    @GetMapping("/main")
+    public String main() {
+        return "main";
     }
 }

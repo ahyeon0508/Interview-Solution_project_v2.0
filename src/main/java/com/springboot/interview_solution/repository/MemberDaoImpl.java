@@ -1,6 +1,10 @@
 package com.springboot.interview_solution.repository;
 
-import com.springboot.interview_solution.domain.Member;
+import com.springboot.interview_solution.domain.User;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -20,7 +24,7 @@ public class MemberDaoImpl implements MemberDao{
     }
 
     @Override
-    public void save(Member member){
+    public User save(User member){
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("user");
 
@@ -35,18 +39,19 @@ public class MemberDaoImpl implements MemberDao{
         parameters.put("isTeacher",member.getIsTeacher());
 
         jdbcInsert.execute(new MapSqlParameterSource(parameters));
+        return null;
     }
 
     @Override
-    public Optional<Member> findByUserId(String userID){
-        List<Member> result = jdbcTemplate.query("select * from User where userID= ?", memberRowMapper(), userID);
+    public Optional<User> findByUserId(String userID){
+        List<User> result = jdbcTemplate.query("select * from User where userID= ?", memberRowMapper(), userID);
         System.out.println(result);
         return result.stream().findAny();
     }
 
-    private RowMapper<Member> memberRowMapper(){
+    private RowMapper<User> memberRowMapper(){
         return (rs, rowNum) ->{
-            Member member = new Member();
+            User member = new User();
             member.setUserId(rs.getString("userID"));
             member.setUsername(rs.getString("username"));
             member.setPassword(rs.getString("password"));
@@ -57,5 +62,120 @@ public class MemberDaoImpl implements MemberDao{
             member.setIsTeacher(rs.getBoolean("isTeacher"));
             return member;
         };
+    }
+
+    @Override
+    public List<User> findAll() {
+        return null;
+    }
+
+    @Override
+    public List<User> findAll(Sort sort) {
+        return null;
+    }
+
+    @Override
+    public Page<User> findAll(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public List<User> findAllById(Iterable<Long> iterable) {
+        return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+
+    }
+
+    @Override
+    public void delete(User user) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends User> iterable) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
+    public <S extends User> List<S> saveAll(Iterable<S> iterable) {
+        return null;
+    }
+
+    @Override
+    public Optional<User> findById(Long aLong) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsById(Long aLong) {
+        return false;
+    }
+
+    @Override
+    public void flush() {
+
+    }
+
+    @Override
+    public <S extends User> S saveAndFlush(S s) {
+        return null;
+    }
+
+    @Override
+    public void deleteInBatch(Iterable<User> iterable) {
+
+    }
+
+    @Override
+    public void deleteAllInBatch() {
+
+    }
+
+    @Override
+    public User getOne(Long aLong) {
+        return null;
+    }
+
+    @Override
+    public <S extends User> Optional<S> findOne(Example<S> example) {
+        return Optional.empty();
+    }
+
+    @Override
+    public <S extends User> List<S> findAll(Example<S> example) {
+        return null;
+    }
+
+    @Override
+    public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
+        return null;
+    }
+
+    @Override
+    public <S extends User> Page<S> findAll(Example<S> example, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public <S extends User> long count(Example<S> example) {
+        return 0;
+    }
+
+    @Override
+    public <S extends User> boolean exists(Example<S> example) {
+        return false;
     }
 }
