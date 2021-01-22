@@ -1,6 +1,7 @@
 package com.springboot.interview_solution.repository;
 
 import com.springboot.interview_solution.domain.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 

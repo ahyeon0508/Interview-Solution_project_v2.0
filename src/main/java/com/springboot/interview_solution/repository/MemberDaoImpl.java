@@ -2,6 +2,10 @@ package com.springboot.interview_solution.repository;
 
 import com.springboot.interview_solution.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -43,6 +47,7 @@ public class MemberDaoImpl implements MemberDao{
     @Override
     public Optional<Member> findByUserId(String userID){
         List<Member> result = jdbcTemplate.query("select * from User where userID= ?", memberRowMapper(), userID);
+        System.out.println(result);
         return result.stream().findAny();
     }
 

@@ -29,6 +29,8 @@ public class MemberService implements UserDetailsService {
     }
 
     public Member loadUserByUsername(String userId) throws UsernameNotFoundException {
+        System.out.println(memberDao.findByUserId(userId));
+
         return memberDao.findByUserId(userId).orElseThrow(() -> new UsernameNotFoundException(userId));
     }
 }

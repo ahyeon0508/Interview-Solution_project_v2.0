@@ -32,4 +32,9 @@ public class MemberController {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/signin";
     }
+
+    @GetMapping("/main")
+    public String main() {
+        return "main";
+    }
 }
