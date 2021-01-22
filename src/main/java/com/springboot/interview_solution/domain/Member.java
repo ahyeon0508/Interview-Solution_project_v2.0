@@ -6,21 +6,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class Member implements UserDetails {
-    private String userId;
+    private String userID;
     private String username;
     private String password;
     private String phone;
     private String school;
     private Integer grade;
     private Integer sClass;
+    private String teacher;
     private Boolean isTeacher; //teacher = true, student = false
 
     public String getUserId() {
-        return userId;
+        return userID;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.userID = userId;
     }
 
     public String getUsername() {
@@ -71,11 +72,19 @@ public class Member implements UserDetails {
         this.sClass = sClass;
     }
 
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
     public Boolean getIsTeacher() {
         return isTeacher;
     }
 
-    public void setIsTeacher(Boolean is_Teacher) {
+    public void setIsTeacher(Boolean isTeacher) {
         this.isTeacher = isTeacher;
     }
 

@@ -3,7 +3,6 @@ package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.domain.Member;
 import com.springboot.interview_solution.repository.MemberDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
