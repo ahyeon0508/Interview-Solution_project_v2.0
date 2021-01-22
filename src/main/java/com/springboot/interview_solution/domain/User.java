@@ -1,6 +1,6 @@
 package com.springboot.interview_solution.domain;
 
-public class Member {
+public class User {
     private String userID;
     private String username;
     private String password;

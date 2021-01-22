@@ -1,7 +1,7 @@
 package com.springboot.interview_solution.controller;
 
-import com.springboot.interview_solution.domain.Member;
-import com.springboot.interview_solution.service.MemberService;
+import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class MemberController {
+public class UserController {
 
-    private final MemberService memberService;
+    private final UserService userService;
 
     @Autowired
-    public MemberController(MemberService memberService){
-        this.memberService = memberService;
+    public UserController(UserService userService){
+        this.userService = userService;
     }
 
     //student signup
@@ -26,9 +26,9 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/student/signup",method=RequestMethod.POST)
-    public String postStudentSignup(Member student){
+    public String postStudentSignup(User student){
         student.setIsTeacher(false);
-        memberService.signup(student);
+        userService.signup(student);
         return "signup";
     }
 
@@ -39,16 +39,16 @@ public class MemberController {
     }
 
     @PostMapping("/teacher/signup")
-    public String postTeacherSignup(Member teacher){
+    public String postTeacherSignup(User teacher){
         teacher.setIsTeacher(true);
-        memberService.signup(teacher);
+        userService.signup(teacher);
         return "signup";
     }
 
     //signup ->  UserId validate duplicate
     @RequestMapping(params = "userIdValidation", method = RequestMethod.POST)
     public String validUserId(String userID){
-        memberService.validateDuplicateUserId(userID);
+        userService.validateDuplicateUserId(userID);
         return "signup";
     }
 }
