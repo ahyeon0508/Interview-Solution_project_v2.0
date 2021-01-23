@@ -1,29 +1,48 @@
 package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.repository.UserDao;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @AllArgsConstructor
-public class UserService {
+@Service
+public class UserService implements UserDetailsService {
 
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    //Spring security 필수 구현 method
+    @Override
+    public User loadUserByUsername(String userID) throws UsernameNotFoundException{
+        return userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
+    }
 
     // signup
-    @Transactional
-    public void signup(User user){
+    public void signup(UserDto userDto){
+        Boolean isTeacher = false;
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        userDao.save(user);
+        userDto.setPassword(encoder.encode(userDto.getPassword()));
+        if(userDto.getIsTeacher().equals("teacher")){
+            isTeacher=true;
+        }
+        userDao.save(User.builder()
+                .userID(userDto.getUserID())
+                .username(userDto.getUsername())
+                .password(userDto.getPassword())
+                .phone(userDto.getPhone())
+                .school(userDto.getSchool())
+                .grade(userDto.getGrade())
+                .sClass(userDto.getSClass())
+                .isTeacher(isTeacher).build());
     }
 
     //validate duplication UserId
     public void validateDuplicateUserId(String userID){
-        userDao.findByUserId(userID).ifPresent(member -> {
+        userDao.findByUserID(userID).ifPresent(member -> {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         });
     }

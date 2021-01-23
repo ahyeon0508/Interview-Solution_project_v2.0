@@ -1,6 +1,6 @@
 package com.springboot.interview_solution.service;
 
-import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.repository.UserDao;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,31 +19,32 @@ class UserServiceTest {
 
     @Test
     void signup() {
-        User user = new User();
+        System.out.println(1);
+        UserDto user = new UserDto();
         user.setUsername("김감자");
-        user.setUserId("potatoe");
+        user.setUserID("potatoe");
         user.setPassword("impotatoe1234");
         user.setPhone("01012345678");
         user.setSchool("분당대진고등학교");
         user.setGrade(1);
-        user.setsClass(2);
-        user.setIsTeacher(false);
+        user.setSClass(2);
+        user.setIsTeacher("Student");
 
         userService.signup(user);
     }
 
     @Test
     void validateDuplicateUserId() {
-        User user1 = new User();
+        UserDto user1 = new UserDto();
         user1.setUsername("고구마");
-        user1.setUserId("sweetpt");
+        user1.setUserID("sweetpt");
         user1.setPassword("impotatoe1234");
         user1.setPhone("01012345678");
         user1.setSchool("송림고등학교");
         user1.setGrade(1);
-        user1.setsClass(2);
-        user1.setIsTeacher(false);
+        user1.setSClass(2);
         String member2UserId = "sweetpt";
+        user1.setIsTeacher("Student");
 
         userService.signup(user1);
         IllegalStateException e = assertThrows(IllegalStateException.class, ()-> userService.validateDuplicateUserId(member2UserId));
