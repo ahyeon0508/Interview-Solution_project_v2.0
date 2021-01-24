@@ -41,10 +41,8 @@ public class UserService implements UserDetailsService {
     }
 
     //validate duplication UserId
-    public void validateDuplicateUserId(String userID){
-        userDao.findByUserID(userID).ifPresent(member -> {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        });
+    public Boolean validateDuplicateUserId(String userID){
+        return userDao.findByUserID(userID).isPresent();
     }
 
 }

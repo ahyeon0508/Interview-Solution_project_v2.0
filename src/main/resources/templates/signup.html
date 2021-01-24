@@ -38,9 +38,11 @@
 
                 $.ajax({
                     // url 채우기
-                    url: '',
-                    type: 'get',
+                    url: "/userIdCheck",
+                    type: 'GET',
+                    data: {'userID':userID},
                     dataType: 'json',
+                    contentType: "application/json; charset=UTF-8",
                     success: function (response) {
                         if (response.result != 'success') {
                             console.error(response.data)
@@ -79,7 +81,7 @@
     <div class="wrap">
         <div class="signup-page">
             <h1>회원가입</h1>
-            <form class="signup-form" method="post" onsubmit="return checkSignupForm();">
+            <form th:action="@{/signup}" class="signup-form" method="post" onsubmit="return checkSignupForm();">
                 <div class="ui form">
                     <div class="inline fields">
                       <div class="field">
