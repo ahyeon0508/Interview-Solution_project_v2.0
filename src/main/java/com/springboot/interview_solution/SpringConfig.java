@@ -31,8 +31,17 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/signup", "/signin").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/signup", "/signin", "/main").permitAll()
+                .and().formLogin().permitAll() // 로그인관련 설정을 진행합니다.
+                .loginPage("/signin")
+                .usernameParameter("userID")
+                .passwordParameter("password")
+                .loginProcessingUrl("/signin")
+                .defaultSuccessUrl("/main")
+                .and().logout()
+                .logoutUrl("/signout")
+                .logoutSuccessUrl("/signin")
+                .permitAll();
     }
 
     @Override

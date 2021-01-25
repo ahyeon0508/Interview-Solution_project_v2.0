@@ -4,6 +4,7 @@ import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.repository.UserDao;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +18,7 @@ public class UserService implements UserDetailsService {
 
     //Spring security 필수 구현 method
     @Override
-    public User loadUserByUsername(String userID) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String userID) throws UsernameNotFoundException{
         return userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
     }
 
@@ -48,11 +49,9 @@ public class UserService implements UserDetailsService {
     // signin
     public Boolean signin(UserDto userDto) {
         String userID = userDto.getUserID();
-        Boolean validate = validateDuplicateUserId(userID);
-        if (validate = true) {
+        UserDetails user = userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
+        if (user != null){
             return true;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 }

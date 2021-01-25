@@ -62,16 +62,20 @@ public class UserController {
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public String postStudentSignin(UserDto student) {
-        boolean signin = userService.signin(student);
-        if (signin = true){
+        if (userService.signin(student) == true) {
             return "redirect:/main";
         } else {
             return "redirect:/signin";
         }
     }
 
+    @GetMapping(value = "/main")
+    public String main(){
+        return "main";
+    }
+
     @GetMapping(value = "/signout")
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+    public String signout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/signin";
     }
