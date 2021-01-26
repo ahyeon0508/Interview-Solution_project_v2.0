@@ -6,6 +6,9 @@ import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
 import org.junit.runner.Request;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -106,21 +109,37 @@ public class UserController {
 
     @RequestMapping(value = "findpw", method = RequestMethod.GET)
     public String getFindPW() {
-        return "/findPW";
+        return "findPW";
     }
 
     @RequestMapping(value = "findpw", method = RequestMethod.POST)
-    public String postFindPW(Model model, HttpServletResponse response, @RequestParam("userID") String userID,
-                             @RequestParam("username") String username, @RequestParam("phone") String phone) {
-        if (userService.loadUserByUsername(userID) != null && userService.loadUserByUserName(username) != null) {
-            User user = userService.loadUserByUserName(username);
-            if(user.getPhone().equals(phone)) {
+    public String postFindPW(Model model, @RequestParam("username") String username,
+                             @RequestParam("userID") String userID, @RequestParam("phone") String phone) {
+        if (userService.loadUserByUsername(userID) != null) {
+            User user = (User) userService.loadUserByUsername(userID);
+            if(user.getUsername().equals(username) && user.getPhone().equals(phone)) {
                 model.addAttribute("user", user.getUserID());
-                return "resultPW";
+                return "redirect:/resultpw/"+userID;
             }
-            else return "redirect:/findPW";
+            else return "redirect:/findpw";
         }
         else
-            return "redirect:/findPW";
+            return "redirect:/findpw";
+    }
+
+    @RequestMapping(value = "resultpw/{userid}", method = RequestMethod.GET)
+    public String getChangePW(@PathVariable String userid) {
+        return "resultPW";
+    }
+
+    @RequestMapping(value = "resultpw/{userid}", method = RequestMethod.POST)
+    public String postChangePW(@PathVariable String userid, @RequestParam("password") String password,
+                             @RequestParam("passwordChk") String passwordChk) throws Exception {
+        if (password.equals(passwordChk)){
+            userService.modifyPW(userid, password);
+            return "redirect:/signin";
+        } else {
+            return "redirect:/resultpw/"+userid;
+        }
     }
 }

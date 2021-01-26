@@ -4,6 +4,7 @@ import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.repository.UserDao;
 import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private final UserDao userDao;
+    private JdbcTemplate jdbcTemplate;
 
     //Spring security 필수 구현 method
     @Override
@@ -58,5 +60,12 @@ public class UserService implements UserDetailsService {
     // findID
     public User loadUserByUserName(String username) throws UsernameNotFoundException{
         return userDao.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
+    }
+
+    // changePW
+    public void modifyPW(String userID, String password) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String newPW = encoder.encode(password);
+        jdbcTemplate.update("update user set password=? where userID=?", new Object[]{newPW, userID});
     }
 }

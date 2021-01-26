@@ -12,7 +12,7 @@
     <div class="find-page">
         <h1>비밀번호 찾기</h1>
         <div class="form">
-            <form class="IDPW-form" method="post" action="">
+            <form th:action="@{/findpw}" class="IDPW-form" method="post">
                 <input type="text" name="username" id="username" placeholder="이름을 입력하세요">
                 <input type="text" name="userID" id="userID" placeholder="아이디를 입력하세요">
                 <input type="text" name="phone" id="phone" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'

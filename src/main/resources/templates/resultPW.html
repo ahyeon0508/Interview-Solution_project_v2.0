@@ -11,7 +11,7 @@
 <div class="find-page">
     <h1>비밀번호 변경</h1>
     <div class="form">
-        <form class="IDPW-form" method="post" action="">
+        <form th:action="@{/resultpw/__${userid}__}" class="IDPW-form" method="post">
             <div class="result">
                 <p class="pwMessage" style="text-align: left;">비밀번호는 최소 8자 이상, 최대 20자 이하로 구성해주세요.</p>
                 <input type="password" id="password" name="password" onchange="fn_pw_lenCheck()" placeholder="변경할 비밀번호를 입력해주세요">
@@ -19,9 +19,9 @@
             </div>
             <div class="button">
                 <!-- 완료 누를시, PW 변경되고 로그인으로 돌아가게 하기 -->
-                <input type="submit" id="signin" value="완료">
+                <a href="/signin"><input type="submit" id="signin" value="완료"></a>
                 <!-- href 뒤에 홈url 삽입 -->
-                <input type="button" id="home" onClick="location.href=''" value="홈으로">
+                <input type="button" id="home" onClick="location.href='/main'" value="홈으로">
             </div>
         </form>
     </div>

@@ -1,5 +1,6 @@
 package com.springboot.interview_solution.domain;
 
+import com.springboot.interview_solution.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -112,5 +113,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }
