@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +19,7 @@
     <nav id="Topbar" class="navbar navbar-expand-md navbar-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!--herf : 학생 홈으로-->
-            <a class="navbar-brand col-xl-1 col-lg-1" href="#">
+            <a class="navbar-brand col-xl-1 col-lg-1" href="/student">
                 <img src="@{/img/logo.png}" width="auto" height="30" class="d-inline-block align-top" alt="">
             </a>
             <ul class="navbar-nav mr-auto">
@@ -33,28 +34,31 @@
                 <div class="nav-item">
                   
                    <!--로그인 되어있을 때-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">유저이름</span>
-                            <!--유저 이미지 있으면-->
-                            <img class="img-profile rounded-circle" src="유저 이미지">
-                            <!--유저 이미지 없으면-->
-                            <img class="img-profile rounded-circle" width="30" height="30" src="@{/img/user.svg}">
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                           <!--herf : 마이 페이지로-->
-                            <a class="dropdown-item" href="#">Mypage</a>
-                            <!--herf : 로그아웃 -->
-                            <a class="dropdown-item" href="#">Logout</a>
-                            <!-- <div class="dropdown-divider"></div> -->
-                        </div>
+                    <li sec:authorize="isAuthenticated()">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
+                                <!--유저 이미지 있으면-->
+                                <img class="img-profile rounded-circle" src="유저 이미지">
+                                <!--유저 이미지 없으면-->
+                                <img class="img-profile rounded-circle" width="30" height="30" src="@{/img/user.svg}">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                               <!--herf : 마이 페이지로-->
+                                <a class="dropdown-item" href="#">Mypage</a>
+                                <!--herf : 로그아웃 -->
+                                <a class="dropdown-item" href="/signout">Logout</a>
+                                <!-- <div class="dropdown-divider"></div> -->
+                            </div>
+                        </li>
                     </li>
-                    
-                    <!--로그인 안 되어 있을 때-->
-                    <!--herf : 로그인 페이지로-->
-                    <a class="nav-link" href="#" id="user" role="button">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
-                    </a>
+
+
+                    <li sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" href="/signin" id="user" role="button">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
+                        </a>
+                    </li>
                     
                 </div>
             </ul>

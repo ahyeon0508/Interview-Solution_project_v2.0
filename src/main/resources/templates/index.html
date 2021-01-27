@@ -16,7 +16,7 @@
     <div class="container-fluid set-bg" data-setbg="@{/img/introbackground.svg}">
         <!-- 상단로고 -->
         <div class="row">
-            <a id="intrologo" href="{% url 'website:intro' %}"><img th:src="@{/img/logo.png}" alt=""></a>
+            <a id="intrologo" href="/"><img th:src="@{/img/logo.png}" alt=""></a>
         </div>
 
         <!-- 내용 시작 -->
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-lg-3 p-0">
-                <a id="studentbutton" class="categories__item set-bg" data-setbg="@{/img/introstubutton.svg}" href="{% url 'website:studentHome' %}">
+                <a id="studentbutton" class="categories__item set-bg" data-setbg="@{/img/introstubutton.svg}" href="/student">
                     <div class="categories__text">
                         <h4>학생</h4>
                         <p>질문을 골라 모의 면접을 진행하고, 결과 리포트를 확인할 수 있는 학생 홈페이지로 이동.</p>
@@ -36,7 +36,7 @@
                 </a>
             </div>
             <div class="col-lg-3 p-0">
-                <a id="teacherbutton" class="categories__item set-bg" data-setbg="@{/img/introteabutton.svg}" href="{% url 'website:teacherHome' %}">
+                <a id="teacherbutton" class="categories__item set-bg" data-setbg="@{/img/introteabutton.svg}" href="/teacher">
                     <div class="categories__text">
                         <h4>교사</h4>
                         <p>지정한 학생들을 관리하고, 리포트를 공유하고 질문을 보낼 수 있는 교사 홈페이지로 이동.</p>

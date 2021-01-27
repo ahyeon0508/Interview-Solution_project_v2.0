@@ -5,6 +5,7 @@ import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
 import org.junit.runner.Request;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,7 +27,25 @@ public class UserController {
 
     private final UserService userService;
 
-    //student signup
+    // main
+    @GetMapping(value = "/")
+    public String main(){
+        return "index";
+    }
+
+    // student home
+    @GetMapping(value = "/student")
+    public String getStudentHome() {
+        return "stuhome";
+    }
+
+    // teacher home
+    @GetMapping(value = "/teacher")
+    public String getTeacherHome() {
+        return "teahome";
+    }
+
+    // signup
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String getStudentSignup(){
         return "signup";
@@ -67,18 +86,14 @@ public class UserController {
         return "signin";
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public String postStudentSignin(UserDto student) {
-        if (userService.signin(student) == true) {
-            return "redirect:/main";
-        } else {
-            return "redirect:/signin";
-        }
-    }
-
-    @GetMapping(value = "/main")
-    public String main(){
-        return "main";
+    @RequestMapping(value = "/resultSignin", method = RequestMethod.GET)
+    public String resultStudentSignin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        System.out.println(user.getUserID());
+        if(userService.loadIsTeacherByUserID(user.getUserID()))
+            return "redirect:/teacher";
+        else return "redirect:/student";
     }
 
     @GetMapping(value = "/signout")
