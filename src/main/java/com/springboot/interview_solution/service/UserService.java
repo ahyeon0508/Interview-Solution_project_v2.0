@@ -100,4 +100,9 @@ public class UserService implements UserDetailsService {
         String newPW = encoder.encode(password);
         jdbcTemplate.update("update user set password=?, phone=?, school=?, grade=?, s_class=? where userID=?", newPW, phone, school, grade, s_class, userID);
     }
+
+    // 회원 탈퇴
+    public void deleteUser(String userID) {
+        jdbcTemplate.update("delete from user where userID=?", userID);
+    }
 }

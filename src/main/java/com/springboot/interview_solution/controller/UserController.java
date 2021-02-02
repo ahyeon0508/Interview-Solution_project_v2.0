@@ -184,4 +184,12 @@ public class UserController {
         }
         return "redirect:/mypage";
     }
+
+    @RequestMapping(value = "secede", method = RequestMethod.DELETE)
+    public String deleteUser(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        String userID = user.getUserID();
+        userService.deleteUser(userID);
+        return "redirect:/";
+    }
 }
