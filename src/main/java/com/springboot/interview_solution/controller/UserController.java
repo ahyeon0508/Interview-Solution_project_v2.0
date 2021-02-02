@@ -167,7 +167,6 @@ public class UserController {
         String userID = user.getUserID();
         model.addAttribute("userOne", userService.loadUser(userID));
         return "mypage";
-//        impotatoe1234
     }
 
     @RequestMapping(value = "mypage", method = RequestMethod.POST)
