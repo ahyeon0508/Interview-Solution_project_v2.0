@@ -38,7 +38,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
-                                <!--유저 이미지 있으면-->
+                                <!--유저 이미지 있으면 src에 유저 이미지-->
                                 <img class="img-profile rounded-circle" src="유저 이미지">
                                 <!--유저 이미지 없으면-->
                                 <img class="img-profile rounded-circle" width="30" height="30" src="@{/img/user.svg}">
@@ -48,7 +48,6 @@
                                 <a class="dropdown-item" href="#">Mypage</a>
                                 <!--herf : 로그아웃 -->
                                 <a class="dropdown-item" href="/signout">Logout</a>
-                                <!-- <div class="dropdown-divider"></div> -->
                             </div>
                         </li>
                     </li>
