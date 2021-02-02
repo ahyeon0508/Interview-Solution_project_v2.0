@@ -22,28 +22,49 @@
                     </div>
                 </div>
                 <div class="userModify">
-                    <input type="password" id="password" onchange="fn_pw_lenCheck()" placeholder="기존 비밀번호를 입력해주세요">
+                    <input type="password" id="password" name="password" onchange="fn_pw_lenCheck()" placeholder="기존 비밀번호를 입력해주세요">
                     <p class="pwMessage" style="text-align: left;">비밀번호는 최소 8자 이상, 최대 20자 이하로 구성해주세요.</p>
-                    <input type="password" id="newPassword" onchange="fn_pw_lenCheck()" placeholder="변경할 비밀번호를 입력해주세요">
+                    <input type="password" id="newPassword" name="newPassword" onchange="fn_pw_lenCheck()" placeholder="변경할 비밀번호를 입력해주세요">
+                    <input type="password" id="passwordChk" name="passwordChk" onchange="fn_pw_lenCheck()" placeholder="비밀번호를 한 번 더 입력해주세요">
                     <!-- 핸드폰 번호를 입력해주세요 지우고 핸드폰 번호 받아오기 -->
-                    <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' id="phone"
-                        placeholder="핸드폰 번호를 입력해주세요">
+                    <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' id="phone" name="phone"
+                        th:placeholder="${userOne.phone}">
                     <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
                     <div class="schoolInfo">
                         <hr>
                         <p class="schoolMessage" style="text-align: left;">▶ 학교정보 입력(교사일 경우, 담당 학급 입력)</p>
                         <p class="message" style="text-align: left;">자동검색 기능을 이용하여 학교명을 검색해주세요</p>
                         <!-- 학교명을 검색하세요 지우고 학교명 받아오기 -->
-                        <input type="text" id="school" placeholder="학교명을 검색하세요">
+                        <input type="text" id="school" name="school" th:placeholder="${userOne.school}">
                         <select name="grade">
                             <option id="grade">학년</option>
-                            <option value="1">1학년</option>
-                            <option value="2">2학년</option>
-                            <option value="3">3학년</option>
-                            <option value="0">졸업생</option>
+                            <li th:if="${userOne.grade}==1">
+                            <option value="1" selected="selected">1학년</option>
+                            </li>
+                            <li th:unless="${userOne.grade}==1">
+                                <option value="1">1학년</option>
+                            </li>
+                            <li th:if="${userOne.grade}==2">
+                                <option value="2" selected="selected">2학년</option>
+                            </li>
+                            <li th:unless="${userOne.grade}==2">
+                                <option value="2">2학년</option>
+                            </li>
+                            <li th:if="${userOne.grade}==3">
+                                <option value="3" selected="selected">3학년</option>
+                            </li>
+                            <li th:unless="${userOne.grade}==3">
+                                <option value="3">3학년</option>
+                            </li>
+                            <li th:if="${userOne.grade}==0">
+                                <option value="0" selected="selected">졸업생</option>
+                            </li>
+                            <li th:unless="${userOne.grade}==0">
+                                <option value="0">졸업생</option>
+                            </li>
                         </select>
                         <!-- 반을 입력하세요 지우고 반 받아오기 -->
-                        <input type="text" id="class" name="sClass" placeholder="반을 입력하세요">
+                        <input type="text" id="class" name="sClass" th:placeholder="${userOne.sClass}">
                         <hr>
                     </div>
                     <!-- 메인 페이지로 돌아가기 -->

@@ -95,9 +95,9 @@ public class UserService implements UserDetailsService {
     }
 
     // 회원 정보 수정
-    public void modifyUser(String userID, String password, String school, Integer grade, Integer s_class) throws Exception {
+    public void modifyUser(String userID, String password, String phone, String school, Integer grade, Integer s_class) throws Exception {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String newPW = encoder.encode(password);
-        jdbcTemplate.update("update user set (password, school, grade, s_class, is_teacher) where userID=?", new Object[]{newPW, school, grade, s_class, false, userID});
+        jdbcTemplate.update("update user set password=?, phone=?, school=?, grade=?, s_class=? where userID=?", newPW, phone, school, grade, s_class, userID);
     }
 }

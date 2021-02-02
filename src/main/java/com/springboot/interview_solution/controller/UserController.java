@@ -165,19 +165,24 @@ public class UserController {
     public String getMyPage(Authentication authentication, Model model) throws Exception {
         User user = (User) authentication.getPrincipal();
         String userID = user.getUserID();
-        System.out.println(userID);
-        model.addAttribute(userService.loadUser(userID));
+        model.addAttribute("userOne", userService.loadUser(userID));
         return "mypage";
 //        impotatoe1234
     }
 
     @RequestMapping(value = "mypage", method = RequestMethod.POST)
-    public String postMyPage(HttpSession session, @RequestParam("password") String password,
-                             @RequestParam("newPassword") String newPassword, @RequestParam("passwordChk") String passwordChk, @RequestParam("school") String school,
+    public String postMyPage(Authentication authentication, @RequestParam("password") String password,
+                             @RequestParam("newPassword") String newPassword, @RequestParam("passwordChk") String passwordChk, @RequestParam("phone") String phone, @RequestParam("school") String school,
                              @RequestParam("grade") Integer grade, @RequestParam("sClass") Integer sClass) throws Exception {
-        String userID = (String) session.getAttribute("userID");
-        if (newPassword.equals(passwordChk))
-            userService.modifyUser(userID, newPassword, school, grade, sClass);
-        return "redirect/mypage/";
+        User user = (User) authentication.getPrincipal();
+        String userID = user.getUserID();
+        User persistUser = (User) userService.loadUserByUsername(userID);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String newPW  = new BCryptPasswordEncoder().encode(newPassword);
+        if(!encoder.matches(newPW, persistUser.getPassword())) {
+            if (newPassword.equals(passwordChk))
+                userService.modifyUser(userID, newPassword, phone, school, grade, sClass);
+        }
+        return "redirect:/mypage";
     }
 }
