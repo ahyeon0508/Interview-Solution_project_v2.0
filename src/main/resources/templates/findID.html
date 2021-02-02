@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+    <link th:href="@{/css/findIDPW.css}" rel="stylesheet"/>
+    <script th:src="@{/js/user.js}"></script>
+</head>
+
+<body>
+    <div class="find-page">
+        <h1>아이디 찾기</h1>
+        <div class="form">
+            <form th:action="@{/findid}" class="IDPW-form" method="post">
+                <input type="text" name="username" id="username" placeholder="이름을 입력하세요">
+                <input type="text" name="phone" id="phone" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'
+                    placeholder="핸드폰 번호를 입력하세요">
+                <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
+                <div class="button">
+                    <!-- 해당회원 존재시 : 아이디 찾기 누르면 resultID 페이지로 이동해서 아이디 출력-->
+                    <!-- 해당회원 존재하지 않을시 : 아이디 찾기 누르면 에러발생-->
+                    <div th:if="${param.error}">
+                        Invalid username and password
+                    </div>
+                    <input type="submit" id="complete" value="아이디 찾기">
+                    <!-- href 뒤에 홈url 삽입 -->
+                    <a href="/"><input type="button" id="home" value="홈으로"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+

@@ -48,3 +48,21 @@ function secedeForm(){
         return false;
     }
 }
+function checkSignupForm(){
+    var username = document.getElementById("username").value;
+    var userID = document.getElementById("userID").value;
+    var pw = document.getElementById("password").value;
+
+    if(username==""){
+        alert("이름을 입력해주세요.");
+        return false;
+    }
+    if(userID==""){
+        alert("아이디 입력해주세요.");
+        return false;
+    }
+    if(pw==""){
+        alert("비밀번호 입력해주세요.");
+        return false;
+    }
+}

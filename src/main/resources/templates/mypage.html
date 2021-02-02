@@ -12,7 +12,7 @@
     <div class="mypage-page">
         <div class="form">
             <h1>개인정보 수정</h1>
-            <form class="mypage-form" method="post" action="">
+            <form th:action="@{/mypage}" class="mypage-form" method="post">
                 <div class="photoModify">
                     <!-- 해당 회원이 설정한 유저 이미지가 없다면 기본 이미지 -->
                     <img src="@{/img/user.png}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="userModify">
                     <!-- 회원의 정보들 받아오기(아이디, 핸드폰번호, 학교명, 학년, 반) -->
-                    <input type="text" id="id" placeholder="아이디를 입력해주세요">
+                    <input type="text" id="userId" placeholder="아이디를 입력해주세요">
                     <input type="password" id="password" onchange="fn_pw_lenCheck()" placeholder="기존 비밀번호를 입력해주세요">
                     <p class="pwMessage" style="text-align: left;">비밀번호는 최소 8자 이상, 최대 20자 이하로 구성해주세요.</p>
                     <input type="password" id="passwordChk" onchange="fn_pw_check()" placeholder="변경할 비밀번호를 입력해주세요">
@@ -34,7 +34,7 @@
                         <hr>
                         <p class="schoolMessage" style="text-align: left;">▶ 학교정보 입력(교사일 경우, 담당 학급 입력)</p>
                         <p class="message" style="text-align: left;">자동검색 기능을 이용하여 학교명을 검색해주세요</p>
-                        <input type="text" id="schoolName" placeholder="학교명을 검색하세요">
+                        <input type="text" id="school" placeholder="학교명을 검색하세요">
                         <select name="grade">
                             <option id="grade" selected="selected">학년</option>
                             <option value="1">1학년</option>
