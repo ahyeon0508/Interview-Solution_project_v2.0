@@ -2,7 +2,7 @@ package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.UserDto;
-import com.springboot.interview_solution.repository.UserDao;
+import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService implements UserDetailsService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     //Spring security 필수 구현 method
     @Override
     public User loadUserByUsername(String userID) throws UsernameNotFoundException{
-        return userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
+        return userRepository.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
     }
 
     // signup
@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
         if(userDto.getIsTeacher().equals("teacher")){
             isTeacher=true;
         }
-        userDao.save(User.builder()
+        userRepository.save(User.builder()
                 .userID(userDto.getUserID())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
 
     //validate duplication UserId
     public Boolean validateDuplicateUserId(String userID){
-        return userDao.findByUserID(userID).isPresent();
+        return userRepository.findByUserID(userID).isPresent();
     }
 
 }
