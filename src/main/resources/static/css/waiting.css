@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+h1{
+    color: #9CC1D9;
+    font-family: 'Nanum Gothic', sans-serif;
+    padding: 50px 0 30px 0;
+    font-size: 40px;
+    text-align: center;
+}
+
+a:link,
+a:visited,
+a:hover{
+    color: black;
+    text-decoration: none;
+} 
+
+.title-form{
+    margin-bottom: 30px;
+    margin: 0 auto 50px auto;
+}
+
+.ui.card{
+    width: 800px;
+    margin: 0 auto;
+    padding: 30px 50px 50px 50px;
+}
+
+.ui.card:first-child{
+    margin-top: 50px;
+}
+
+.ui.toggle.checkbox{
+    margin-left: 550px;
+}
+
+#notice, #title_notice{
+    font-family: 'Nanum Gothic', sans-serif;
+    text-align: center;
+    margin-top: -5px;
+}
+
+#title{
+    width: 500px;
+}
+
+#button{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.move{
+    display: inline-block;
+    border-radius: 15px;
+}
+
+#complete{
+    border-radius: 15px;
+}
+
+.ui.blue.basic.button{
+    border-radius: 15px;
+}
