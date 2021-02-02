@@ -178,8 +178,8 @@ public class UserController {
         String userID = user.getUserID();
         User persistUser = (User) userService.loadUserByUsername(userID);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String newPW  = new BCryptPasswordEncoder().encode(newPassword);
-        if(!encoder.matches(newPW, persistUser.getPassword())) {
+        String PW  = new BCryptPasswordEncoder().encode(password);
+        if(!encoder.matches(PW, persistUser.getPassword())) {
             if (newPassword.equals(passwordChk))
                 userService.modifyUser(userID, newPassword, phone, school, grade, sClass);
         }
