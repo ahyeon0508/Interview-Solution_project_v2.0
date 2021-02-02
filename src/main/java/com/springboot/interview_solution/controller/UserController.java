@@ -173,11 +173,11 @@ public class UserController {
 
     @RequestMapping(value = "mypage", method = RequestMethod.POST)
     public String postMyPage(HttpSession session, @RequestParam("password") String password,
-                             @RequestParam("passwordChk") String passwordChk, @RequestParam("school") String school,
+                             @RequestParam("newPassword") String newPassword, @RequestParam("passwordChk") String passwordChk, @RequestParam("school") String school,
                              @RequestParam("grade") Integer grade, @RequestParam("sClass") Integer sClass) throws Exception {
         String userID = (String) session.getAttribute("userID");
-        if (password.equals(passwordChk))
-            userService.modifyUser(userID, password, school, grade, sClass);
+        if (newPassword.equals(passwordChk))
+            userService.modifyUser(userID, newPassword, school, grade, sClass);
         return "redirect/mypage/";
     }
 }
