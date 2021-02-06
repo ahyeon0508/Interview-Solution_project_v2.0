@@ -13,9 +13,16 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,5 +148,38 @@ public class UserController {
         } else {
             return "redirect:/resultpw/"+userid;
         }
+    }
+
+    @RequestMapping(value = "/test.do", method = RequestMethod.GET)
+    public ModelAndView ModelAndViewTest(Model model) {
+        ModelAndView mv = new ModelAndView("flaskToSpring");
+
+        String url = "http://127.0.0.1:5000/tospring";
+        String sb = "";
+        try {
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+
+            String line = null;
+
+            while ((line = br.readLine()) != null) {
+                sb = sb + line + "\n";
+            }
+
+            br.close();
+
+            System.out.println("" + sb.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        mv.addObject("test", sb.toString());
+        mv.setViewName("flaskToSpring");
+        return mv;
+//        return "flaskToSpring";
     }
 }
