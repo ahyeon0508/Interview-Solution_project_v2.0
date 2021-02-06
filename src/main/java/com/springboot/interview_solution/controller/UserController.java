@@ -150,36 +150,64 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/test.do", method = RequestMethod.GET)
-    public ModelAndView ModelAndViewTest(Model model) {
+    @RequestMapping(value = "/ocr", method = RequestMethod.GET)
+    public ModelAndView getOCR() {
         ModelAndView mv = new ModelAndView("flaskToSpring");
 
         String url = "http://127.0.0.1:5000/tospring";
-        String sb = "";
+        String data = "";
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
 
             String line = null;
 
             while ((line = br.readLine()) != null) {
-                sb = sb + line + "\n";
+                data = data + line + "\n";
             }
 
             br.close();
 
-            System.out.println("" + sb.toString());
+            System.out.println("" + data.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        mv.addObject("test", sb.toString());
+        mv.addObject("test", data.toString());
         mv.setViewName("flaskToSpring");
         return mv;
-//        return "flaskToSpring";
+    }
+
+    @RequestMapping(value = "/ocr", method = RequestMethod.POST)
+    public ModelAndView sendOCR() {
+        ModelAndView mv = new ModelAndView("flaskToSpring");
+
+        String url = "http://127.0.0.1:5000/tospring";
+        String data = "";
+        try {
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+
+            String line = null;
+
+            while ((line = br.readLine()) != null) {
+                data = data + line + "\n";
+            }
+
+            br.close();
+
+            System.out.println("" + data.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        mv.setViewName("springToFlask");
+        return mv;
     }
 }
