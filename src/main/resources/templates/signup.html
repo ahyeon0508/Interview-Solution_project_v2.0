@@ -4,53 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ajax 통신을 위한 meta tag -->
+    <meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
     <title>회원가입</title>
     
     <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
     <link th:href="@{/css/signup.css}" rel="stylesheet" />
-    <script th:src="@{/Semantic-UI-master/dist/semantic.min.js}"></script>
+<!--    <script th:src="@{/Semantic-UI-master/dist/semantic.min.js}"></script>-->
     <script th:src="@{/js/user.js}"></script>
-
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
         // 학교명 자동검색
-        $(document).ready(function () {
-            // $("#schoolName").autocomplete({
-            //     source: '',
-            //     select: function (event, ui) {
-            //         var selectedObj = ui.item
-            //     }
-            // });
-            $('.ui.search')
-                // source 채우기
-                .search({
-                    source: 
-                })
-            ;
-        });
+        // $(document).ready(function () {
+        //     // $("#schoolName").autocomplete({
+        //     //     source: '',
+        //     //     select: function (event, ui) {
+        //     //         var selectedObj = ui.item
+        //     //     }
+        //     // });
+        //     $('.ui.search')
+        //         // source 채우기
+        //         .search({
+        //             source:
+        //         });
+        // });
 
 
         // 아이디 중복확인
         $(function () {
             $('#userIDChk').click(function () {
-                var userID = $('#userID').val()
+                var userID = $('#userID').val();
                 if (userID == '') {
-                    alert('아이디를 입력해주세요')
+                    alert('아이디를 입력해주세요');
                     return;
                 }
 
                 $.ajax({
                     // url 채우기
-                    url: "/userIdCheck",
-                    type: 'GET',
+                    url: '/userIdCheck',
+                    type: 'POST',
                     data: {'userID':userID},
                     dataType: 'json',
-                    contentType: "application/json; charset=UTF-8",
+                    contentType: "application/json",
                     success: function (response) {
-                        if (response.result != 'success') {
-                            console.error(response.data)
-                            return;
-                        }
                         if (response.data == 'exist') {
+                            console.log(response.data)
                             alert("존재하는 아이디입니다");
                             $('#userID').val('').focus();
                             return;
@@ -65,7 +65,7 @@
                         alert("서버와의 통신에서 문제가 발생했습니다");
                         console.error("error : " + error);
                     }
-                })
+                });
             });
 
             $('#signup-form').submit(function () {
@@ -77,6 +77,8 @@
             });
         });
     </script>
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 </head>
 
 <body>

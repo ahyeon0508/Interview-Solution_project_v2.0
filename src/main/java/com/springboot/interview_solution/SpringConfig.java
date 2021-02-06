@@ -4,6 +4,7 @@ import com.springboot.interview_solution.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -33,8 +34,9 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/signup").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/signup","/userIdCheck").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().ignoringAntMatchers("/userIdCheck");
     }
 
     @Override

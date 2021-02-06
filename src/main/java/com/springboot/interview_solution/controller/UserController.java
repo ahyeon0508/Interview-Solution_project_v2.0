@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.Map;
 
 @AllArgsConstructor
 @Controller
@@ -39,16 +36,17 @@ public class UserController {
     }*/
 
     //UserId validate duplicate
-    @RequestMapping(value = "/userIdCheck", method = RequestMethod.GET)
-    public Map validUserId(@RequestParam("userID") String userID){
-        Map responseMsg = new HashMap<String,Object>();
-        Boolean isNotValid = userService.validateDuplicateUserId(userID);
-        responseMsg.put("result","success");
+    @ResponseBody
+    @RequestMapping(value = "/userIdCheck", method = RequestMethod.POST)
+    public HashMap<String,String> validUserId(@RequestBody String userID){
+        HashMap responseMsg = new HashMap<String,String>();
+        Boolean isNotValid = userService.validateDuplicateUserId(userID.replace("userID=",""));
         if(isNotValid){     //UserId is not valid
-            responseMsg.put("data","notExist");
-        }else{
             responseMsg.put("data","exist");
+        }else{
+            responseMsg.put("data","notExist");
         }
         return responseMsg;
     }
+
 }
