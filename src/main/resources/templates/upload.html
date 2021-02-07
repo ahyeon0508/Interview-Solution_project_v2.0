@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link href="../static/css/upload.css" rel="stylesheet" />
+    <title>업로드</title>
+    <link th:href="@{/css/upload.css}" rel="stylesheet" />
     <!--<script th:src="@{/js/.js}"></script>-->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -94,9 +94,9 @@
 </head>
 
 <body>
-    <p class="header1">내 서류 정보 추가</p>
+    <p class="header1">내 서류 정보</p>
     <div class="container1">
-        <p class="header2">내신 성적</p>
+        <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;">그래프 보기</button></p>
         <div class="textbox">
             <div class="input-group">
                 <select class="form-select" id="grade" aria-label="Example select with button addon">
@@ -129,7 +129,52 @@
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 </tr>
                 <tr class="item1">
-                    <td><input type="text" /></td>
+                    <td><select id="Subject" aria-label="Example select with button addon">
+                        <option selected></option>
+                        <option value="S01">국어</option>
+                        <option value="S02">수학</option>
+                        <option value="S03">영어</option>
+                        <option value="S04">사회(역사/도덕포함)</option>
+                        <option value="S05">과학</option>
+                        <option value="S06">체육</option>
+                        <option value="S07">예술(음악/미술)</option>
+                        <option value="S08">예술</option>
+                        <option value="S09">기술·가정/제2외국어/한문/교양</option>
+                        <option value="S10">농생명 산업</option>
+                        <option value="S11">공업</option>
+                        <option value="S12">상업정보</option>
+                        <option value="S13">수산·해운</option>
+                        <option value="S14">가사·실업</option>
+                        <option value="S15">미술</option>
+                        <option value="S16">디자인·문화 콘텐츠</option>
+                        <option value="S17">미용·관광·레저</option>
+                        <option value="S18">식품 가공</option>
+                        <option value="S19">전기·전자</option>
+                        <option value="S20">건설</option>
+                        <option value="S21">경영·금융</option>
+                        <option value="S22">과학 계열</option>
+                        <option value="S23">교양</option>
+                        <option value="S24">국제 계열</option>
+                        <option value="S25">기계</option>
+                        <option value="S26">기술·가정</option>
+                        <option value="S27">농림·수산해양</option>
+                        <option value="S28">보건·복지</option>
+                        <option value="S29">선박 운항</option>
+                        <option value="S30">섬유·의류</option>
+                        <option value="S31">예술 계열</option>
+                        <option value="S32">외국어 계열</option>
+                        <option value="S33">음식 조리</option>
+                        <option value="S34">인쇄·출판·공예</option>
+                        <option value="S35">재료</option>
+                        <option value="S36">정보·통신</option>
+                        <option value="S37">제2외국어</option>
+                        <option value="S38">체육 계열</option>
+                        <option value="S39">한국사</option>
+                        <option value="S40">한문</option>
+                        <option value="S41">화학 공업</option>
+                        <option value="S42">환경·안전</option></select>
+                        </select>
+                    </td>
                     <td><input type="text" /></td>
                     <td><input type="number" min="1" max="9"></td>
                     <td><input type="number" min="1" max="9"></td>
@@ -163,7 +208,7 @@
                 <label class="btn btn-outline-secondary" for="image_uploads">찾기</label>
                 <button type="submit" value="Submit2" class="btn btn-outline-secondary" id="save2">등록</button>
             </div>
-            <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple>
+            <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple="multiple">
         </div>
     </div>
     <div class="container1">
@@ -236,20 +281,32 @@
                 const list = document.createElement('span');
                 preview.appendChild(list);
 
+                var count = 1;
                 for (const file of curFiles) {
                     const listItem = document.createElement('span');
                     const para = document.createElement('span');
+                    if (count == 1) {
+                        if (validFileType(file)) {
+                            para.textContent = `${file.name}`;
 
-                    if (validFileType(file)) {
-                        para.textContent = `${file.name}`;
-
-                        listItem.appendChild(para);
+                            listItem.appendChild(para);
+                        } else {
+                            para.textContent = `${file.name}는 이미지 파일이 아닙니다.`;
+                            listItem.appendChild(para);
+                        }
                     } else {
-                        para.textContent = `${file.name}는 이미지 파일이 아닙니다.`;
-                        listItem.appendChild(para);
+                        if (validFileType(file)) {
+                            para.textContent = `, ${file.name}`;
+
+                            listItem.appendChild(para);
+                        } else {
+                            para.textContent = `, ${file.name}는 이미지 파일이 아닙니다.`;
+                            listItem.appendChild(para);
+                        }
                     }
 
                     list.appendChild(listItem);
+                    count = count + 1;
                 }
             }
         }
