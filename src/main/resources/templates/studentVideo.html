@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link th:href="@{/css/studentVideo.css}" rel="stylesheet" />
+    <script th:src="@{/js/check.js}"></script>
+    <link href="../static/css/studentVideo.css" rel="stylesheet" />
+    <link href="../static/Semantic-UI-master/dist/semantic.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="student-interview-page">
+        <!-- ~에 해당 학생의 이름 출력하게 하기 ex) 이아현의 면접 영상-->
+        <h1 id="info">~의 면접 영상</h1>
+        <!-- ./questionSend.html 지우고 예상질문 보내기 페이지 url 넣기! -->
+        <button id="q_send" class="ui grey basic button"
+            onclick="window.open('./questionSend.html','예상질문 보내기','width=550,height=500,location=no,status=no,scrollbars=yes');">예상질문
+            전송</button>
+        <div class="info">
+            <!-- 제목 지우고 제목 넣기 / 생성일자 지우고 생성일자 넣기 -->
+            <p>제목 / 생성일자</p>
+        </div>
+
+        <!-- 백 완성하면 아현이가 면접영상2, 면접영상3도 만들 예정 -->
+        <div id="form1">
+            <div class="content">
+                <!-- ~~~~에 면접질문 출력하기 -->
+                <p class="question">Q. ~~~~</p>
+                <!-- src=""에 비디오 주소 넣기 -->
+                <video src="" controls width='70%'>
+                    현재 브라우저는 비디오를 지원하지 않습니다.
+                </video>
+            </div>
+            <!-- 피드백 폼 -->
+            <div class="ui comments">
+                <div class="comment">
+                    <!-- 만약 피드백이 존재하지 않으면?-->
+                    <p class="notFeedback">피드백이 존재하지 않습니다.</p>
+                    <!-- 피드백이 존재한다면? -->
+                    <div class="avatar">
+                        <!-- 교사 이미지 불러오기 -->
+                        <img
+                            src="data:image/jpeg;base64,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">
+                    </div>
+                    <div class="feedback">
+                        <!-- 교사 이름 불러오기 -->
+                        <a class="author">교사 이름</a>
+                        <div class="metadata">
+                            <!-- 작성 시간 불러오기 : 시간 형식은 편한걸로 -->
+                            <div class="date">1 day ago</div>
+                        </div>
+                        <!-- 피드백 불러오기 -->
+                        <div class="text">
+                            피드백 불러오기
+                            <!-- f_DeleteConfirm 함수의 인자에 전송한 질문 id 넣어주면 될듯? : 고영희 찾기와 유사-->
+                            <!-- js로 이동해서 삭제할 예정 : 삭제 관련 url을 아현이한테 알려주거나 check.js에 url 입력하면 됨!-->
+                            <button type="button" class="delete-btn" onclick="f_DeleteConfirm()">삭제</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="ui reply form">
+                <div class="field">
+                    <textarea></textarea>
+                </div>
+                <div class="ui basic submit labeled icon button" id="register-btn">
+                    <i class="icon edit"></i> 피드백 작성
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+#info{
+    color: #9CC1D9;
+    font-family: 'Nanum Gothic', sans-serif;
+    padding-bottom: 20px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.info{
+    margin-top: 80px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 20px;
+}
+
+#q_send{
+    font-family: 'Nanum Gothic', sans-serif;
+    float: right;
+    font-size: 19px;
+    margin-bottom: 50px;
+}
+
+.student-interview-page{
+    width: 70%;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    margin: auto;
+}
+
+#form1, #form2, #form3{
+    margin: 30px auto 20px 0;
+    border: 1px solid gray; 
+    border-radius: 15px;
+    padding : 20px 20px 50px 20px;
+}
+
+.question{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 20px;
+}
+
+.notFeedback{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.ui.comments{
+    margin: 0 auto;
+}
+
+.feedback{
+    margin-left: 50px;
+}
+
+.content{
+    text-align: center;
+}
+
+textarea{
+    margin: 0 auto;
+}
+
+#register-btn{
+    float: right
+}
+
+.delete-btn{
+    float: right;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
