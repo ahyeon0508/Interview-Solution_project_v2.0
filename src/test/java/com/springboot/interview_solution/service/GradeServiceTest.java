@@ -1,11 +1,14 @@
 package com.springboot.interview_solution.service;
 
+import com.springboot.interview_solution.domain.Grade;
 import com.springboot.interview_solution.dto.GradeDto;
 import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.repository.GradeDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
 
 @SpringBootTest
 public class GradeServiceTest {
@@ -20,7 +23,7 @@ public class GradeServiceTest {
     @Test
     void setStudentGrade() {
         System.out.println(1);
-        GradeDto grade = new GradeDto();
+        Grade grade = new Grade();
         grade.setGrade(2);
         grade.setSemester(1);
         grade.setUser(userService.loadUserByUserName("김감자"));
@@ -34,6 +37,8 @@ public class GradeServiceTest {
         grade.setAchievement("A");
         grade.setNumberOfStudents(30);
 
-        gradeService.setStudentGrade(grade);
+        ArrayList<Grade> gradeList = new ArrayList<>();
+        gradeList.add(grade);
+        gradeService.setStudentGrade(gradeList, userService.loadUserByUserName("김감자"));
     }
 }

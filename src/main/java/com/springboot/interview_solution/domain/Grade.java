@@ -5,6 +5,7 @@ import org.springframework.data.relational.core.sql.In;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
