@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GradeDao extends JpaRepository<Grade, String> {
+public interface InfoDao extends JpaRepository<Grade, String> {
 }

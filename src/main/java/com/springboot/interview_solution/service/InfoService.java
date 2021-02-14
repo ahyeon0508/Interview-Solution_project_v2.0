@@ -2,8 +2,7 @@ package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.Grade;
 import com.springboot.interview_solution.domain.User;
-import com.springboot.interview_solution.dto.GradeDto;
-import com.springboot.interview_solution.repository.GradeDao;
+import com.springboot.interview_solution.repository.InfoDao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +10,13 @@ import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
-public class GradeService {
+public class InfoService {
 
-    private final GradeDao gradeDao;
+    private final InfoDao infoDao;
 
     public void setStudentGrade(ArrayList<Grade> gradeList, User user) {
         for (int i = 0; i < gradeList.size(); i++) {
-            gradeDao.save(Grade.builder()
+            infoDao.save(Grade.builder()
                     .grade(gradeList.get(i).getGrade())
                     .semester(gradeList.get(i).getSemester())
                     .user(user)
