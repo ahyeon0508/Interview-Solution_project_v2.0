@@ -7,6 +7,7 @@ import com.springboot.interview_solution.dto.GradeDto;
 import com.springboot.interview_solution.payload.FileUploadResponse;
 import com.springboot.interview_solution.service.FileUploadDownloadService;
 import com.springboot.interview_solution.service.InfoService;
+import com.springboot.interview_solution.service.LetterService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class InfoController {
     private final UserService userService;
     @Autowired
     private final FileUploadDownloadService fileService;
+    @Autowired
+    private final LetterService letterService;
 
     private static ArrayList<Grade> gradeList = new ArrayList<Grade>();
     private static final Logger logger = LoggerFactory.getLogger(InfoController.class);

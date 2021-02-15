@@ -3,9 +3,11 @@ package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.exception.FileDownloadException;
 import com.springboot.interview_solution.exception.FileUploadException;
 import com.springboot.interview_solution.property.FileUploadProperties;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +17,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+@Service
+@AllArgsConstructor
 public class FileUploadDownloadService {
     private final Path fileLocation;
 

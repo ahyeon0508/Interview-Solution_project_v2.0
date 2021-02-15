@@ -38,8 +38,6 @@ function fn_pw_check() {
     }
 
     return true;
-<<<<<<< HEAD
-=======
 }
 function checkSignupForm(){
     var username = document.getElementById("username").value;
@@ -58,5 +56,4 @@ function checkSignupForm(){
         alert("비밀번호 입력해주세요.");
         return false;
     }
->>>>>>> 7035bc39ccf7b3bfb12348778704d65db0ed6994
 }
