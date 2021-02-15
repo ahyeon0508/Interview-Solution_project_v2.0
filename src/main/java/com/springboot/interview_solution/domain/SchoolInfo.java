@@ -23,4 +23,8 @@ public class SchoolInfo {
         this.name = name;
     }
 
+    interface SchoolName{
+        String getName();
+    }
+
 }

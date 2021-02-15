@@ -7,7 +7,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class SchoolInfoService {
@@ -38,4 +40,16 @@ public class SchoolInfoService {
         }
 
     }
+    public List<String> findAllByName(String schoolName){
+        List<String> allSchoolNames = schoolInfoRepository.findAllSchoolName();
+        List<String> schoolNames = new ArrayList<String>();
+        for(Iterator<String> iterator= allSchoolNames.iterator(); iterator.hasNext();){
+            String n = iterator.next();
+            if(n.contains(schoolName)){
+                schoolNames.add(n);
+            }
+        }
+        return schoolNames;
+    }
+
 }
