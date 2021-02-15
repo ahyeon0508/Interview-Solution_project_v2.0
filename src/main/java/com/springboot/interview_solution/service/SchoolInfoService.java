@@ -25,16 +25,13 @@ public class SchoolInfoService {
     }
 
     public void collectInfo() {
-        //ArrayList<String> schoolName = new ArrayList<String>();
         try {
             Document doc = Jsoup.connect(url).get();
-            Iterator<Element> region = doc.select("region").iterator();
-            Iterator<Element> highSchool = doc.select("content").select("schoolname").iterator();
-            while(highSchool.hasNext()){
-                String schoolInfo = "("+region.next().text()+") "+highSchool.next().text();
+
+            for(Element el : doc.select("content")){
+                String schoolInfo = "("+el.select("region").text()+") "+el.select("schoolname").text();
                 schoolInfoRepository.save(SchoolInfo.builder().name(schoolInfo).build());
             }
-
         }catch(Exception e){
             System.out.println(e);
         }
