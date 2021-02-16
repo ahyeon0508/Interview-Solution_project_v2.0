@@ -2,7 +2,7 @@ package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.UserDto;
-import com.springboot.interview_solution.repository.UserDao;
+import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService implements UserDetailsService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
     private JdbcTemplate jdbcTemplate;
 
     //Spring security 필수 구현 method
     @Override
-    public UserDetails loadUserByUsername(String userID) throws UsernameNotFoundException{
-        return userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
+    public User loadUserByUsername(String userID) throws UsernameNotFoundException{
+        return userRepository.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
     }
 
     // signup
@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
         if(userDto.getIsTeacher().equals("teacher")){
             isTeacher=true;
         }
-        userDao.save(User.builder()
+        userRepository.save(User.builder()
                 .userID(userDto.getUserID())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
@@ -45,13 +45,13 @@ public class UserService implements UserDetailsService {
 
     //validate duplication UserId
     public Boolean validateDuplicateUserId(String userID){
-        return userDao.findByUserID(userID).isPresent();
+        return userRepository.findByUserID(userID).isPresent();
     }
 
     // signin
     public Boolean signin(UserDto userDto) {
         String userID = userDto.getUserID();
-        UserDetails user = userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
+        UserDetails user = userRepository.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
         if (user != null){
             return true;
         } else return false;
@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
 
     // findID
     public User loadUserByUserName(String username) throws UsernameNotFoundException{
-        return userDao.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
+        return userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
     }
 
     // changePW
