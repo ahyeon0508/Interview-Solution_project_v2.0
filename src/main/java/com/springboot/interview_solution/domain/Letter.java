@@ -1,23 +1,19 @@
 package com.springboot.interview_solution.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import lombok.*;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
-@Data
 @Entity
-public class Letter {
+@NoArgsConstructor
+public class Letter implements Serializable {
+
+    @Id
+    private Integer id;
 
     @ManyToOne
-    @Id
     private User user;
 
     @Column(length = 1500)
@@ -39,8 +35,5 @@ public class Letter {
         this.content2 = content2;
         this.content3 = content3;
         this.question3 = question3;
-    }
-
-    public Letter(){
     }
 }
