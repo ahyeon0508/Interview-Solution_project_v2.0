@@ -5,6 +5,7 @@ import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.repository.UserDao;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -55,6 +56,11 @@ public class UserService implements UserDetailsService {
         if (user != null){
             return true;
         } else return false;
+    }
+
+    public Boolean loadIsTeacherByUserID(String userID){
+        Boolean isTeacher = jdbcTemplate.queryForObject("select is_teacher from user where userID=?", Boolean.class, userID);
+        return isTeacher;
     }
 
     // findID

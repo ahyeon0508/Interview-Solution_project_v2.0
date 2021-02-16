@@ -14,14 +14,14 @@
             <p>AI기반 대입 모의 면접 솔루션</p>
         </div>
         <div class="form">
-            <div th:if="${param.error}">
-                Invalid username and password
-            </div>
             <form th:action="@{/signin}" class="signin-form" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <input type="text" id="userID" name="userID" placeholder="아이디">
                 <input type="password" id="password" name="password" placeholder="비밀번호">
                 <!-- 로그인 실패시 error 발생 -->
+                <div th:if="${param.error}">
+                    Invalid username and password
+                </div>
                 <input type="submit" value="로그인" id="signin">
             </form>
             <!-- href에 회원가입 url 넣기 -->
