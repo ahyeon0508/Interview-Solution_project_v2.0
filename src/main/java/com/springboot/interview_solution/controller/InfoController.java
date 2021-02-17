@@ -2,8 +2,9 @@ package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.Grade;
 import com.springboot.interview_solution.domain.GradeList;
+import com.springboot.interview_solution.domain.Letter;
 import com.springboot.interview_solution.domain.User;
-import com.springboot.interview_solution.dto.GradeDto;
+import com.springboot.interview_solution.dto.LetterDto;
 import com.springboot.interview_solution.payload.FileUploadResponse;
 import com.springboot.interview_solution.service.FileUploadDownloadService;
 import com.springboot.interview_solution.service.InfoService;
@@ -50,12 +51,19 @@ public class InfoController {
 
     @RequestMapping(value = "/infoStudent", method = RequestMethod.GET)
     public ModelAndView getInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ModelAndView mv = new ModelAndView("upload");
         GradeList gradeInfo = new GradeList();
+        gradeList = infoService.getStudentGrade(user);
         gradeInfo.setGrades(gradeList);
-        return new ModelAndView("upload", "gradeInfo", gradeInfo);
+        mv.addObject("gradeInfo", gradeInfo);
+        Letter letter = letterService.getStudentLetter(user);
+        mv.addObject("letter", letter);
+        return mv;
     }
 
-    @RequestMapping(value = "/infoStudent", method = RequestMethod.POST)
+    @RequestMapping(value = "/infoStudent", params = "grade", method = RequestMethod.POST)
     public String postInfo(ArrayList<Grade> gradeInfo){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
@@ -63,7 +71,16 @@ public class InfoController {
         return "redirect:/infoStudent";
     }
 
-    @PostMapping("/uploadFile")
+
+    @RequestMapping(value = "/infoStudent", params = "letter", method = RequestMethod.POST)
+    public String postInfo(LetterDto letter){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        letterService.setStudentLetter(letter, user);
+        return "redirect:/infoStudent";
+    }
+
+    @RequestMapping(value="/uploadFile", params = "image_uploads", method=RequestMethod.POST)
     public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile file){
         String fileName = fileService.storeFile(file);
 
@@ -75,7 +92,7 @@ public class InfoController {
         return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
 
-    @PostMapping("/uploadMultipleFiles")
+    @PostMapping(value = "/uploadMultipleFiles", params = "image_uploads")
     public List<FileUploadResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
