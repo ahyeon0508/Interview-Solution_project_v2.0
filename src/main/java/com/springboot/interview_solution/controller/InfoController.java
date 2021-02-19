@@ -1,7 +1,6 @@
 package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.Grade;
-import com.springboot.interview_solution.domain.GradeList;
 import com.springboot.interview_solution.domain.Letter;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.LetterDto;
@@ -70,16 +69,19 @@ public class InfoController {
         infoService.setStudentGrade(gradeInfo, user);
         return "redirect:/infoStudent";
     }
+//
+//    @RequestMapping(value="/infoSutdent/lettter", method = RequestMethod.GET)
+//    public void getLetterInfo() {
+//        getInfo();
+//    }
 
-
-    @RequestMapping(value = "/infoStudent", params = "letter", method = RequestMethod.POST)
+    @RequestMapping(value = "/infoStudent/letter", method = RequestMethod.POST)
     public String postInfo(LetterDto letter){
         System.out.println("A");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         letterService.setStudentLetter(letter, user);
-        return "redirect:/signin";
-//        return "redirect:/infoStudent";
+        return "redirect:/infoStudent";
     }
 
     @RequestMapping(value="/uploadFile", params = "image_uploads", method=RequestMethod.POST)

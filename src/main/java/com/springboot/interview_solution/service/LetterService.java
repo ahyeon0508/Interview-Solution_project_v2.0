@@ -17,6 +17,9 @@ public class LetterService {
     private final LetterDao letterDao;
 
     public void setStudentLetter(LetterDto letterDto, User user) {
+        if(letterDao.findLetterByUser(user).isPresent()) {
+            letterDao.delete(letterDao.findLetterByUser(user).orElseThrow(() -> new UsernameNotFoundException(user.getUsername())));
+        }
         letterDao.save(Letter.builder()
                 .user(user)
                 .content1(letterDto.getContent1())
