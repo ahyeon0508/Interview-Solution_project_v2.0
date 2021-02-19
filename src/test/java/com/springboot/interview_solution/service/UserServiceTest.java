@@ -1,7 +1,7 @@
 package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.dto.UserDto;
-import com.springboot.interview_solution.repository.UserDao;
+import com.springboot.interview_solution.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +15,20 @@ class UserServiceTest {
     @Autowired
     UserService userService;
     @Autowired
-    UserDao userDao;
+    UserRepository userRepository;
 
     @Test
     void signup() {
         System.out.println(1);
         UserDto user = new UserDto();
-        user.setUsername("김감자");
-        user.setUserID("potatoe");
+        user.setUsername("김감자123");
+        user.setUserID("potatoe1234");
         user.setPassword("impotatoe1234");
         user.setPhone("01012345678");
         user.setSchool("분당대진고등학교");
         user.setGrade(1);
         user.setSClass(2);
-        user.setIsTeacher(false);
+        user.setIsTeacher("teacher");
 
         userService.signup(user);
     }
