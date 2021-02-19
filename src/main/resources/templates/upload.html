@@ -231,7 +231,7 @@
         </div>
         <div class="textbox">
             <table>
-                <th th:if="${letter.question3}">3. <a id="free" name="question3" th:text="${letter.question3}"/></th>
+                <th th:if="${letter.question3}">3. <input type="text" id="free1" name="question3" th:text="${letter.question3}"></th>
                 <th th:unless="${letter.question3}">3. <input type="text" id="free" name="question3" placeholder="대학별 자율 문항을 입력해 주시기 바랍니다."></th>
                 <tr>
                     <td><textarea th:text="${letter.content3}" class="form-control" id="content3" name="content3" rows="8" style="width:100%; border: 0; resize: none;" maxlength="800"></textarea><span id="counter3">###</span></td>
