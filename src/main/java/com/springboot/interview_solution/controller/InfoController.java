@@ -63,7 +63,7 @@ public class InfoController {
         return mv;
     }
 
-    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
+    @RequestMapping(value = "/infoStudent", params = "grade", method = RequestMethod.POST)
     public String postInfo(ArrayList<Grade> gradeInfo){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
@@ -72,13 +72,14 @@ public class InfoController {
     }
 
 
-    @RequestMapping(value = "/infoStudent/letter", method = RequestMethod.POST)
+    @RequestMapping(value = "/infoStudent", params = "letter", method = RequestMethod.POST)
     public String postInfo(LetterDto letter){
         System.out.println("A");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         letterService.setStudentLetter(letter, user);
-        return "redirect:/infoStudent";
+        return "redirect:/signin";
+//        return "redirect:/infoStudent";
     }
 
     @RequestMapping(value="/uploadFile", params = "image_uploads", method=RequestMethod.POST)
