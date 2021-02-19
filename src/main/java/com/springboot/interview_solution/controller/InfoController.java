@@ -54,10 +54,10 @@ public class InfoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("upload");
-        GradeList gradeInfo = new GradeList();
-        gradeList = infoService.getStudentGrade(user);
-        gradeInfo.setGrades(gradeList);
-        mv.addObject("gradeInfo", gradeInfo);
+//        GradeList gradeInfo = new GradeList();
+//        gradeList = infoService.getStudentGrade(user);
+//        gradeInfo.setGrades(gradeList);
+//        mv.addObject("gradeInfo", gradeInfo);
         Letter letter = letterService.getStudentLetter(user);
         mv.addObject("letter", letter);
         return mv;
