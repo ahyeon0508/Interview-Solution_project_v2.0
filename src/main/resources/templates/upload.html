@@ -90,6 +90,22 @@
         });
     </script>
 
+    <script>
+        $(function() {
+            $("#example").each(function(index) {
+                $(this).find("select[name=subject]").attr("name", "targets[" + index + "].subject");
+                $(this).find("input[name=course]").attr("name", "targets[" + index + "].course");
+                $(this).find("input[name=unitNumber]").attr("name", "targets[" + index + "].unitNumber");
+                $(this).find("input[name=ranking]").attr("name", "targets[" + index + "].ranking");
+                $(this).find("input[name=rawRanking]").attr("name", "targets[" + index + "].rawRanking");
+                $(this).find("input[name=subjectMean]").attr("name", "targets[" + index + "].subjectMean");
+                $(this).find("input[name=average]").attr("name", "targets[" + index + "].average");
+                $(this).find("select[name=achievement]").attr("name", "targets[" + index + "].achievement");
+                $(this).find("input[name=numberOfStudent]").attr("name", "targets[" + index + "].numberOfStudent");
+            });
+        });
+    </script>
+
 
 </head>
 
@@ -240,7 +256,6 @@
         </div>
         <button type="submit" value="Submit3" name="letter" class="btn btn-outline-secondary" id="save3">등록</button>
     </div>
-
     <script>
         function InputInfo() {
             var grade = document.getElementById("input-grade");
