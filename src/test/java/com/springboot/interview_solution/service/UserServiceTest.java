@@ -22,7 +22,7 @@ class UserServiceTest {
         System.out.println(1);
         UserDto user = new UserDto();
         user.setUsername("김감자");
-        user.setUserID("potatoe");
+        user.setUserID("potatoe1");
         user.setPassword("impotatoe1234");
         user.setPhone("01012345678");
         user.setSchool("분당대진고등학교");

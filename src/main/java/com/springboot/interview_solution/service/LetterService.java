@@ -30,6 +30,6 @@ public class LetterService {
     }
 
     public Letter getStudentLetter(User user){
-        return letterDao.findLetterByUser(user).orElseThrow(()-> new UsernameNotFoundException(user.getUsername()));
+        return letterDao.findLetterByUser(user).orElse(new Letter(user, null, null, null, null));
     }
 }
