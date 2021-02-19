@@ -69,11 +69,6 @@ public class InfoController {
         infoService.setStudentGrade(gradeInfo, user);
         return "redirect:/infoStudent";
     }
-//
-//    @RequestMapping(value="/infoSutdent/lettter", method = RequestMethod.GET)
-//    public void getLetterInfo() {
-//        getInfo();
-//    }
 
     @RequestMapping(value = "/infoStudent/letter", method = RequestMethod.POST)
     public String postInfo(LetterDto letter){
