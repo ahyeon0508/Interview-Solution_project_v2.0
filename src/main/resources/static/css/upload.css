@@ -130,7 +130,8 @@ input[type="file"] {
     opacity: 0;
 }
 
-#free {
+#free,
+#free1 {
     width: 97%;
     background-color: #6C757D;
     border: 0;

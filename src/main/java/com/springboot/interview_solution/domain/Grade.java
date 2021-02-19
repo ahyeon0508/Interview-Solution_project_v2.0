@@ -59,4 +59,5 @@ public class Grade {
 class GradePK implements Serializable{
     Integer grade;
     Integer semester;
+    private User user;
 }

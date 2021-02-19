@@ -8,10 +8,12 @@ import java.io.Serializable;
 @Setter
 @Entity
 @NoArgsConstructor
+@SequenceGenerator(name = "SEQ_GEN", sequenceName = "SEQ", initialValue = 1, allocationSize = 1)
 public class Letter implements Serializable {
 
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GEN")
+    private Long id;
 
     @ManyToOne
     private User user;

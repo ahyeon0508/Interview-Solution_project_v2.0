@@ -31,7 +31,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/signup", "/userIdCheck","/searchSchool", "/signin", "/", "/student", "/teacher").permitAll()
+                .antMatchers("/signup","/userIdCheck","/searchSchool", "/signin", "/main").permitAll()
                 .and().formLogin().permitAll() // 로그인관련 설정을 진행합니다.
                 .loginPage("/signin")
                 .usernameParameter("userID")

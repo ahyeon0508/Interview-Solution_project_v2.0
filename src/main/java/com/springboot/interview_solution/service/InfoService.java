@@ -4,6 +4,7 @@ import com.springboot.interview_solution.domain.Grade;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.repository.InfoDao;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,5 +32,11 @@ public class InfoService {
                     .numberOfStudents(gradeList.get(i).getNumberOfStudents()).build()
             );
         }
+    }
+
+    public ArrayList<Grade> getStudentGrade(User user){
+        ArrayList<Grade> gradeList = new ArrayList<>();
+        gradeList.add(infoDao.findGradeByUser(user).orElseThrow(()-> new UsernameNotFoundException(user.getUsername())));
+        return gradeList;
     }
 }
