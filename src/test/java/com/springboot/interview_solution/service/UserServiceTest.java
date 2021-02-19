@@ -21,14 +21,14 @@ class UserServiceTest {
     void signup() {
         System.out.println(1);
         UserDto user = new UserDto();
-        user.setUsername("김감자");
-        user.setUserID("potatoe1");
+        user.setUsername("김감자123");
+        user.setUserID("potatoe1234");
         user.setPassword("impotatoe1234");
         user.setPhone("01012345678");
         user.setSchool("분당대진고등학교");
         user.setGrade(1);
         user.setSClass(2);
-        user.setIsTeacher(false);
+        user.setIsTeacher("teacher");
 
         userService.signup(user);
     }

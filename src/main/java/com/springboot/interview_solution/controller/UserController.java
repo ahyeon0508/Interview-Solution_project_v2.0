@@ -6,6 +6,7 @@ import com.springboot.interview_solution.service.SchoolInfoService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+>>>>>>>>> Temporary merge branch 2
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
