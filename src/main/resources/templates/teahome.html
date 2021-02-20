@@ -19,44 +19,44 @@
 
 <body>
 <!-- 상단 바 시작 -->
-<nav id="Topbar" class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <!--herf : 교사 홈으로-->
+        <!--herf : 학생 홈으로-->
         <a class="navbar-brand" href="/teacher">
-            <img th:src="@{/img/logo.png}" width="auto" height="30" class="d-inline-block align-top" alt="">
+            <img th:src="@{/img/logo.png}" alt="" height="25" class="d-inline-block align-top">
         </a>
-        <!--로그인 되어있을 때-->
-        <div class="nav-item dropdown" sec:authorize="isAuthenticated()">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">유저이름</span>
-                <!--유저 이미지 있으면 src에 유저이미지-->
-                <img class="img-profile rounded-circle" src="유저 이미지">
-                <!--유저 이미지 없으면-->
-                <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.svg}">
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <!--herf : 마이 페이지로-->
-                <a class="dropdown-item" href="#">Mypage</a>
-                <!--herf : 로그아웃 -->
-                <a class="dropdown-item" href="/signout">Logout</a>
-                <!-- <div class="dropdown-divider"></div> -->
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            <!--로그인 되어있을 때-->
+            <div sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="true">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
+                    <!--유저 이미지 있으면 src에 유저 이미지-->
+                    <img class="img-profile rounded-circle" th:src="@{유저이미지}">
+                    <!--유저 이미지 없으면-->
+                    <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.svg}">
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">mypage</a></li>
+                    <li><a class="dropdown-item" href="/signout">Logout</a></li>
+                </ul>
             </div>
-        </div>
 
-        <!--로그인 안 되어 있을 때-->
-        <!--herf : 로그인 페이지로-->
-        <div class="nav-item dropdown" sec:authorize="!isAuthenticated()">
-            <a class="nav-link" href="/signin" id="user" role="button">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
-            </a>
+
+            <div sec:authorize="!isAuthenticated()">
+                <a class="nav-link" href="/signin" id="user" role="button">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
+                    <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.svg}">
+                </a>
+            </div>
         </div>
     </div>
 </nav>
 <!-- 상단 바 끝 -->
 
 <!-- 내용 시작 -->
-<div class="container-fluid" th:style="'background:url('+ @{/img/teabackground.svg} +');'">
+<div class="container-fluid" th:style="'background:url('+ @{/img/teabackground.svg} +') no-repeat fixed;">
     <div id="stuwrapper" class="row">
         <div class="col-lg-6 p-0">
             <div class="categories__item">
