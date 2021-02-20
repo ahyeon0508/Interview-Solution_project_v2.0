@@ -26,7 +26,6 @@
 }
 
 #background {
-    background-image: url();
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -2624,7 +2623,7 @@ fieldset:disabled a.btn {
 
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
-.show > .btn-primary.dropdown-toggle {
+.show > .btn-primary.-toggle {
     color: #fff;
     background-color: #2653d4;
     border-color: #244ec9

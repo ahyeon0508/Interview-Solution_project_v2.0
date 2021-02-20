@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>인트로</title>
     <link th:href="@{/css/intro.css}" rel="stylesheet" />
-
+    <script th:src="@{/js/intro.js}"></script>
     <!--bootstrap cdn-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="container-fluid set-bg" data-setbg="@{/img/introbackground.svg}">
+    <div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +');'">
         <!-- 상단로고 -->
         <div class="row">
             <a id="intrologo" href="/"><img th:src="@{/img/logo.png}" alt=""></a>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-lg-3 p-0">
-                <a id="studentbutton" class="categories__item set-bg" data-setbg="@{/img/introstubutton.svg}" href="/student">
+                <a id="studentbutton" class="categories__item" href="/student" th:style="'background:url('+ @{/img/introstubutton.svg} +');'">
                     <div class="categories__text">
                         <h4>학생</h4>
                         <p>질문을 골라 모의 면접을 진행하고, 결과 리포트를 확인할 수 있는 학생 홈페이지로 이동.</p>
@@ -36,7 +36,7 @@
                 </a>
             </div>
             <div class="col-lg-3 p-0">
-                <a id="teacherbutton" class="categories__item set-bg" data-setbg="@{/img/introteabutton.svg}" href="/teacher">
+                <a id="teacherbutton" class="categories__item" href="/teacher" th:style="'background:url('+ @{/img/introteabutton.svg} +');'">
                     <div class="categories__text">
                         <h4>교사</h4>
                         <p>지정한 학생들을 관리하고, 리포트를 공유하고 질문을 보낼 수 있는 교사 홈페이지로 이동.</p>
@@ -61,7 +61,7 @@
             <div class="row property__gallery">
                 <div class="col-lg-6 col-md-6 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="@{/img/세팅화면.png}">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/세팅화면.png} +');'">
                         </div>
                         <div class="product__item__text">
                             <h4>스스로 모의 면접</h4>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="@{/img/질문리스트.png}">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/질문리스트.png} +');'">
                         </div>
                         <div class="product__item__text">
                             <h4>다양한 질문 제공</h4>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="@{/img/내 면접 리포트.png}">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/내면접리포트.png} +');'">
                         </div>
                         <div class="product__item__text">
                             <h4>면접 분석 리포트</h4>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="col-lg-6 col-md-4 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="@{/img/모의면접영상.png}">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/모의면접영상.png} +');'">
                         </div>
                         <div class="product__item__text">
                             <h4>선생님과 공유</h4>
@@ -105,7 +105,7 @@
     <!-- 기능 소개 끝 -->
 
     <!-- 질문리스트 시작 -->
-    <section class="banner set-bg" data-setbg="@{/img/introquestion.svg}">
+    <section class="banner" th:style="'background:url('+ @{/img/introquestion.svg} +');'">
         <section class="shop-cart spad">
             <div class="container">
                 <div class="row">
@@ -178,11 +178,7 @@
     </footer>
     <!-- 풋터 끝 -->
 
-   <!--bootstrap cdn-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    
-   <!-- Custom scripts -->
-    <script th:src="@{/js/main.js}"></script>
+
 </body>
 
 </html>
