@@ -26,7 +26,7 @@ public class InfoService {
                     .course(gradeList.get(i).getCourse())
                     .unitNumber(gradeList.get(i).getUnitNumber())
                     .ranking(gradeList.get(i).getRanking())
-                    .rawScore(gradeList.get(i).getRawScore())
+                    .rawRanking(gradeList.get(i).getRawRanking())
                     .subjectMean(gradeList.get(i).getSubjectMean())
                     .average(gradeList.get(i).getAverage())
                     .achievement(gradeList.get(i).getAchievement())

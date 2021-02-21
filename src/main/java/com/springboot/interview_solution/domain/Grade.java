@@ -27,7 +27,7 @@ public class Grade {
     private String course;
     private Integer unitNumber;
     private Integer ranking;
-    private Integer rawScore;
+    private Integer rawRanking;
     private Integer subjectMean;
     private Integer average;
     private String achievement;
@@ -35,7 +35,7 @@ public class Grade {
 
     @Builder
     public Grade (Integer grade, Integer semester, User user, String subject, String course,
-                  Integer unitNumber, Integer ranking, Integer rawScore, Integer subjectMean,
+                  Integer unitNumber, Integer ranking, Integer rawRanking, Integer subjectMean,
                   Integer average, String achievement, Integer numberOfStudents) {
         this.grade = grade;
         this.semester = semester;
@@ -44,7 +44,7 @@ public class Grade {
         this.course = course;
         this.unitNumber = unitNumber;
         this.ranking = ranking;
-        this.rawScore = rawScore;
+        this.rawRanking = rawRanking;
         this.subjectMean = subjectMean;
         this.average = average;
         this.achievement = achievement;
