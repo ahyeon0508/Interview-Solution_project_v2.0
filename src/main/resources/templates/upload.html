@@ -125,7 +125,7 @@
 <body>
     <p class="header1">내 서류 정보</p>
     <div class="container1">
-        <form th:action="@{/infoStudent/GradeReport}" method="post">
+        <form th:action="@{/infoStudent/grade}" modelAttribute="gradeForm" method="post">
             <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;">그래프 보기</button></p>
             <div class="textbox">
                 <div class="input-group">
@@ -294,7 +294,7 @@
             if (document.getElementById("grade").value == '학년' || document.getElementById("semester").value == '학기') {
                 window.alert("학년과 학기를 입력해주시기 바랍니다.")
             } else {
-                location.href = '/infoStudent/GradeReport'
+                location.href = '/infoStudent/grade'
             }
         }
     </script>

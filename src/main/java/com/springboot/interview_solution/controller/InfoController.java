@@ -1,6 +1,7 @@
 package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.Grade;
+import com.springboot.interview_solution.domain.GradeList;
 import com.springboot.interview_solution.domain.Letter;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.LetterDto;
@@ -64,8 +65,9 @@ public class InfoController {
         return mv;
     }
 
-    @RequestMapping(value = "/infoStudent", params = "grade", method = RequestMethod.POST)
-    public String postInfo(ArrayList<Grade> gradeInfo){
+    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
+    public String postInfo(@ModelAttribute("gradeForm") ArrayList<Grade> gradeInfo){
+        System.out.println(gradeInfo);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         infoService.setStudentGrade(gradeInfo, user);
@@ -74,7 +76,6 @@ public class InfoController {
 
     @RequestMapping(value = "/infoStudent/letter", method = RequestMethod.POST)
     public String postInfo(LetterDto letter){
-        System.out.println("A");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         letterService.setStudentLetter(letter, user);

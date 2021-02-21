@@ -16,6 +16,7 @@ public class InfoService {
     private final InfoDao infoDao;
 
     public void setStudentGrade(ArrayList<Grade> gradeList, User user) {
+        System.out.println(gradeList);
         for (int i = 0; i < gradeList.size(); i++) {
             infoDao.save(Grade.builder()
                     .grade(gradeList.get(i).getGrade())
