@@ -59,7 +59,7 @@ public class InfoController {
         gradeInfo.setGrades(gradeList);
         mv.addObject("gradeInfo", gradeInfo);
         Letter letter = letterService.getStudentLetter(user);
-        if(letter.getQuestion3().equals(""))
+        if(letter.getQuestion3() != null && letter.getQuestion3().equals(""))
             letter.setQuestion3(null);
         mv.addObject("letter", letter);
         return mv;

@@ -37,7 +37,9 @@ public class InfoService {
 
     public ArrayList<Grade> getStudentGrade(User user){
         ArrayList<Grade> gradeList = new ArrayList<>();
-        gradeList.add(infoDao.findGradeByUser(user).orElseThrow(()-> new UsernameNotFoundException(user.getUsername())));
+        if(infoDao.findGradeByUser(user).isPresent()) {
+            gradeList.add(infoDao.findGradeByUser(user).orElseThrow());
+        }
         return gradeList;
     }
 }

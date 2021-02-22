@@ -29,7 +29,7 @@ public class GradeServiceTest {
         grade.setCourse("화법과 문법");
         grade.setUnitNumber(3);
         grade.setRanking(2);
-        grade.setRawScore(97);
+        grade.setRawRanking(97);
         grade.setSubjectMean(50);
         grade.setAverage(40);
         grade.setAchievement("A");
