@@ -2,10 +2,14 @@ package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.UserDto;
-import com.springboot.interview_solution.service.SchoolInfoService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
+import org.junit.runner.Request;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Controller
@@ -22,9 +26,26 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final SchoolInfoService schoolInfoService;
 
-    //student signup
+    // main
+    @GetMapping(value = "/")
+    public String main(){
+        return "index";
+    }
+
+    // student home
+    @GetMapping(value = "/student")
+    public String getStudentHome() {
+        return "stuhome";
+    }
+
+    // teacher home
+    @GetMapping(value = "/teacher")
+    public String getTeacherHome() {
+        return "teahome";
+    }
+
+    // signup
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String getStudentSignup(){
         return "signup";
@@ -36,27 +57,25 @@ public class UserController {
         return "redirect:/signin";
     }
     //school information
-    @RequestMapping(value = "/searchSchool",method = RequestMethod.GET)
+    /*@RequestMapping(value = "/searchSchool",method = RequestMethod.POST)
     @ResponseBody
-    public List<String> searchSchoolInfo(@RequestParam("term") String school){
-        System.out.println(school);
-        List<String> schoolInfo;
-        //학교 정보 받아와서 SchoolInfo로 넣기
-        schoolInfo = schoolInfoService.findAllByName(school);
-
-        return schoolInfo;
-    }
+    public String searchSchoolInfo(@RequestParam("school") String school, HttpServletRequest response){
+        String schoolInfo;
+        if(school != null){
+            //학교 정보 받아와서 SchoolInfo로 넣기
+        }
+    }*/
 
     //UserId validate duplicate
-    @ResponseBody
-    @RequestMapping(value = "/userIdCheck", method = RequestMethod.POST)
-    public HashMap<String,String> validUserId(@RequestBody String userID){
-        HashMap responseMsg = new HashMap<String,String>();
-        Boolean isNotValid = userService.validateDuplicateUserId(userID.replace("userID=",""));
+    @RequestMapping(value = "/userIdCheck", method = RequestMethod.GET)
+    public Map validUserId(@RequestParam("userID") String userID){
+        Map responseMsg = new HashMap<String,Object>();
+        Boolean isNotValid = userService.validateDuplicateUserId(userID);
+        responseMsg.put("result","success");
         if(isNotValid){     //UserId is not valid
-            responseMsg.put("data","exist");
-        }else{
             responseMsg.put("data","notExist");
+        }else{
+            responseMsg.put("data","exist");
         }
         return responseMsg;
     }
@@ -67,18 +86,14 @@ public class UserController {
         return "signin";
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public String postStudentSignin(UserDto student) {
-        if (userService.signin(student) == true) {
-            return "redirect:/main";
-        } else {
-            return "redirect:/signin";
-        }
-    }
-
-    @GetMapping(value = "/main")
-    public String main(){
-        return "main";
+    @RequestMapping(value = "/resultSignin", method = RequestMethod.GET)
+    public String resultStudentSignin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        System.out.println(user.getUserID());
+        if(userService.loadIsTeacherByUserID(user.getUserID()))
+            return "redirect:/teacher";
+        else return "redirect:/student";
     }
 
     @GetMapping(value = "/signout")
@@ -134,7 +149,7 @@ public class UserController {
 
     @RequestMapping(value = "resultpw/{userid}", method = RequestMethod.POST)
     public String postChangePW(@PathVariable String userid, @RequestParam("password") String password,
-                             @RequestParam("passwordChk") String passwordChk) throws Exception {
+                               @RequestParam("passwordChk") String passwordChk) throws Exception {
         if (password.equals(passwordChk)){
             userService.modifyPW(userid, password);
             return "redirect:/signin";
