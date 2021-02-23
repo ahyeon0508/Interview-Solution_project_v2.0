@@ -92,7 +92,7 @@
 
     <script>
         $(function() {
-            $("#example").each(function(index) {
+            $("#example tr").each(function(index) {
                 $(this).find("select[name=subject]").attr("name", "targets[" + index + "].subject");
                 $(this).find("input[name=course]").attr("name", "targets[" + index + "].course");
                 $(this).find("input[name=unitNumber]").attr("name", "targets[" + index + "].unitNumber");
@@ -232,16 +232,43 @@
     <div class="container1">
         <form th:action="@{/infoStudent/transcript}" method="post" enctype="multipart/form-data">
             <p class="header2">학교 생활 기록부</p>
-            <div class="upload">
+            <div class="textbox">
                 <div class="input-group">
-                    <div class="form-control" aria-label="Recipient's username with two button addons">
-                        <span>파일이 없습니다.</span>
-                    </div>
-                    <label class="btn btn-outline-secondary" for="image_uploads">찾기</label>
-                    <button type="submit" value="Submit2" name="transcript" class="btn btn-outline-secondary" id="save2" onClick="location.href='/infoStudent/transcript'">등록</button>
+                    <select class="form-select" id="script-grade" name="script-grade" aria-label="Example select with button addon">
+                    <option selected>학년</option>
+                    <option value="1">1학년</option>
+                    <option value="2">2학년</option>
+                    <option value="3">3학년</option>
+                    </select>
+                    <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Grade()">입력</button>
                 </div>
-                <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple="multiple">
             </div>
+            <span class="header2"><span id="input-script-grade" class="header3"></span><span class="header3">학년&nbsp;</span></span>
+            <div class="textbox">
+                <table>
+                    <th>동아리활동</th>
+                    <tr>
+                        <td><textarea class="form-control" id="content1" name="content1" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="textbox">
+                <table>
+                    <th>세부능력 및 특기사항</th>
+                    <tr>
+                        <td><textarea class="form-control" id="content2" name="content2" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="textbox">
+                <table>
+                    <th>행동특성 및 종합의견</th>
+                    <tr>
+                        <td><textarea class="form-control" id="content3" name="content3" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit" value="Submit1" name="transcript" class="btn btn-outline-secondary" id="save2" onclick="script_showalert()">등록</button>
         </form>
     </div>
     <div class="container1">
@@ -289,6 +316,14 @@
         }
     </script>
     <script>
+        function Input_Grade() {
+            var grade = document.getElementById("input-script-grade");
+            if (document.getElementById("script-grade").value != '학년') {
+                grade.innerText = document.getElementById("script-grade").value;
+            }
+        }
+    </script>
+    <script>
         function showalert() {
             if (document.getElementById("grade").value == '학년' || document.getElementById("semester").value == '학기') {
                 window.alert("학년과 학기를 입력해주시기 바랍니다.");
@@ -298,71 +333,12 @@
         }
     </script>
     <script>
-        const input = document.querySelector('input[type="file"]');
-        const preview = document.querySelector('.form-control');
-
-        input.addEventListener('change', updateImageDisplay);
-
-        function updateImageDisplay() {
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
-
-            const curFiles = input.files;
-            if (curFiles.length === 0) {
-                const para = document.createElement('span');
-                para.textContent = '파일이 없습니다.';
-                preview.appendChild(para);
+        function script_showalert() {
+            if (document.getElementById("script-grade").value == '학년') {
+                window.alert("학년을 입력해주시기 바랍니다.");
             } else {
-                const list = document.createElement('span');
-                preview.appendChild(list);
-
-                var count = 1;
-                for (const file of curFiles) {
-                    const listItem = document.createElement('span');
-                    const para = document.createElement('span');
-                    if (count == 1) {
-                        if (validFileType(file)) {
-                            para.textContent = `${file.name}`;
-
-                            listItem.appendChild(para);
-                        } else {
-                            para.textContent = `${file.name}는 이미지 파일이 아닙니다.`;
-                            listItem.appendChild(para);
-                        }
-                    } else {
-                        if (validFileType(file)) {
-                            para.textContent = `, ${file.name}`;
-
-                            listItem.appendChild(para);
-                        } else {
-                            para.textContent = `, ${file.name}는 이미지 파일이 아닙니다.`;
-                            listItem.appendChild(para);
-                        }
-                    }
-
-                    list.appendChild(listItem);
-                    count = count + 1;
-                }
+                location.href = '/infoStudent/transcript';
             }
-        }
-
-        // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
-        const fileTypes = [
-            'image/apng',
-            'image/bmp',
-            'image/gif',
-            'image/jpeg',
-            'image/pjpeg',
-            'image/png',
-            'image/svg+xml',
-            'image/tiff',
-            'image/webp',
-            `image/x-icon`
-        ];
-
-        function validFileType(file) {
-            return fileTypes.includes(file.type);
         }
     </script>
 
