@@ -1,9 +1,6 @@
 package com.springboot.interview_solution.controller;
 
-import com.springboot.interview_solution.domain.Grade;
-import com.springboot.interview_solution.domain.GradeList;
-import com.springboot.interview_solution.domain.Letter;
-import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.domain.*;
 import com.springboot.interview_solution.dto.LetterDto;
 import com.springboot.interview_solution.payload.FileUploadResponse;
 import com.springboot.interview_solution.service.FileUploadDownloadService;
@@ -26,8 +23,17 @@ import org.springframework.core.io.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -82,25 +88,25 @@ public class InfoController {
         return "redirect:/infoStudent";
     }
 
-    @RequestMapping(value="/uploadFile", params = "image_uploads", method=RequestMethod.POST)
-    public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile file){
-        String fileName = fileService.storeFile(file);
+//    @RequestMapping(value="/infoStudent/transcript", method=RequestMethod.POST)
+//    public FileUploadResponse uploadFile(@RequestParam("transcript") MultipartFile file){
+//        String fileName = fileService.storeFile(file);
+//
+//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/downloadFile/")
+//                .path(fileName)
+//                .toUriString();
+//
+//        return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+//    }
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-    }
-
-    @PostMapping(value = "/uploadMultipleFiles", params = "image_uploads")
-    public List<FileUploadResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-    }
+//    @PostMapping(value = "/uploadMultipleFiles/transcripts")
+//    public List<FileUploadResponse> uploadMultipleFiles(@RequestParam("transcripts") MultipartFile[] files) {
+//        return Arrays.asList(files)
+//                .stream()
+//                .map(file -> uploadFile(file))
+//                .collect(Collectors.toList());
+//    }
 
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
@@ -123,5 +129,44 @@ public class InfoController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @RequestMapping(value="/infoStudent/transcript", method=RequestMethod.POST)
+    public String OCR(@RequestParam("image_uploads") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String fileName = fileService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        HttpSession session = request.getSession();
+        session.setAttribute("ocr", fileDownloadUri);
+        System.out.println(session.getAttribute("ocr"));
+
+        String url = "http://127.0.0.1:5000/tospring";
+        String data = "";
+        try {
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+
+            String line = null;
+
+            while ((line = br.readLine()) != null) {
+                data = data + line + "\n";
+            }
+
+            br.close();
+
+            new OCR(data.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "redirect:/infoStudent";
     }
 }
