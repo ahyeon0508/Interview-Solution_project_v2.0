@@ -140,7 +140,7 @@
                 <option value="1">1학기</option>
                 <option value="2">2학기</option>
               </select>
-                    <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="InputInfo()">입력</button>
+                    <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Info()">입력</button>
                 </div>
             </div>
             <span class="header2"><span id="input-grade" class="header3"></span><span class="header3">학년&nbsp;</span><span id="input-semester" class="header3"></span><span class="header3">학기</span></span>
@@ -276,7 +276,7 @@
         </form>
     </div>
     <script>
-        function InputInfo() {
+        function Input_Info() {
             var grade = document.getElementById("input-grade");
             if (document.getElementById("grade").value != '학년') {
                 grade.innerText = document.getElementById("grade").value;
@@ -286,15 +286,14 @@
             if (document.getElementById("semester").value != '학기') {
                 semester.innerText = document.getElementById("semester").value;
             }
-
         }
     </script>
     <script>
         function showalert() {
             if (document.getElementById("grade").value == '학년' || document.getElementById("semester").value == '학기') {
-                window.alert("학년과 학기를 입력해주시기 바랍니다.")
+                window.alert("학년과 학기를 입력해주시기 바랍니다.");
             } else {
-                location.href = '/infoStudent/grade'
+                location.href = '/infoStudent/grade';
             }
         }
     </script>
