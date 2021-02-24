@@ -3,24 +3,23 @@ package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.domain.Letter;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.LetterDto;
-import com.springboot.interview_solution.repository.LetterDao;
+import com.springboot.interview_solution.repository.LetterRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class LetterService {
 
-    private final LetterDao letterDao;
+    private final LetterRepository letterRepository;
 
     public void setStudentLetter(LetterDto letterDto, User user) {
-        if(letterDao.findLetterByUser(user).isPresent()) {
-            letterDao.delete(letterDao.findLetterByUser(user).orElseThrow(() -> new UsernameNotFoundException(user.getUsername())));
+        if(letterRepository.findLetterByUser(user).isPresent()) {
+            letterRepository.delete(letterRepository.findLetterByUser(user).orElseThrow(() -> new UsernameNotFoundException(user.getUsername())));
         }
-        letterDao.save(Letter.builder()
+        letterRepository.save(Letter.builder()
                 .user(user)
                 .content1(letterDto.getContent1())
                 .content2(letterDto.getContent2())
@@ -30,6 +29,6 @@ public class LetterService {
     }
 
     public Letter getStudentLetter(User user){
-        return letterDao.findLetterByUser(user).orElse(new Letter(user, null, null, null, null));
+        return letterRepository.findLetterByUser(user).orElse(new Letter(user, null, null, null, null));
     }
 }

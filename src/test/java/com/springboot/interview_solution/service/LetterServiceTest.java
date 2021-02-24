@@ -1,7 +1,7 @@
 package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.dto.LetterDto;
-import com.springboot.interview_solution.repository.LetterDao;
+import com.springboot.interview_solution.repository.LetterRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ public class LetterServiceTest {
     @Autowired
     LetterService letterService;
     @Autowired
-    LetterDao letterDao;
+    LetterRepository letterRepository;
     @Autowired
     UserService userService;
 

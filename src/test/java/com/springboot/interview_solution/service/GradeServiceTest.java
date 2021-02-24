@@ -1,7 +1,7 @@
 package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.Grade;
-import com.springboot.interview_solution.repository.InfoDao;
+import com.springboot.interview_solution.repository.InfoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ public class GradeServiceTest {
     @Autowired
     InfoService infoService;
     @Autowired
-    InfoDao infoDao;
+    InfoRepository infoRepository;
     @Autowired
     UserService userService;
 
