@@ -92,16 +92,18 @@
 
     <script>
         $(function() {
-            $("#example tr").each(function(index) {
-                $(this).find("select[name=subject]").attr("name", "targets[" + index + "].subject");
-                $(this).find("input[name=course]").attr("name", "targets[" + index + "].course");
-                $(this).find("input[name=unitNumber]").attr("name", "targets[" + index + "].unitNumber");
-                $(this).find("input[name=ranking]").attr("name", "targets[" + index + "].ranking");
-                $(this).find("input[name=rawRanking]").attr("name", "targets[" + index + "].rawRanking");
-                $(this).find("input[name=subjectMean]").attr("name", "targets[" + index + "].subjectMean");
-                $(this).find("input[name=average]").attr("name", "targets[" + index + "].average");
-                $(this).find("select[name=achievement]").attr("name", "targets[" + index + "].achievement");
-                $(this).find("input[name=numberOfStudent]").attr("name", "targets[" + index + "].numberOfStudent");
+            $('#save1').click(function() {
+                $("#example tr").each(function(index) {
+                    $(this).find("select[name=subject]").attr("name", "targets[" + index + "].subject");
+                    $(this).find("input[name=course]").attr("name", "targets[" + index + "].course");
+                    $(this).find("input[name=unitNumber]").attr("name", "targets[" + index + "].unitNumber");
+                    $(this).find("input[name=ranking]").attr("name", "targets[" + index + "].ranking");
+                    $(this).find("input[name=rawRanking]").attr("name", "targets[" + index + "].rawRanking");
+                    $(this).find("input[name=subjectMean]").attr("name", "targets[" + index + "].subjectMean");
+                    $(this).find("input[name=average]").attr("name", "targets[" + index + "].average");
+                    $(this).find("select[name=achievement]").attr("name", "targets[" + index + "].achievement");
+                    $(this).find("input[name=numberOfStudent]").attr("name", "targets[" + index + "].numberOfStudent");
+                });
             });
         });
     </script>
@@ -226,6 +228,7 @@
                 </table>
                 <button type="button" class="btn btn-outline-secondary" id="addItemBtn">추가</button>
             </div>
+            <!--<button type="button" class="btn btn-outline-secondary" id="test">test</button>-->
             <button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">등록</button>
         </form>
     </div>
