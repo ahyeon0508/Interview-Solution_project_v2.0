@@ -92,7 +92,7 @@
 
     <script>
         $(function() {
-            $('#save1').click(function() {
+            $('#save0').click(function() {
                 $("#example tr").each(function(index) {
                     $(this).find("select[name=subject]").attr("name", "targets[" + index + "].subject");
                     $(this).find("input[name=course]").attr("name", "targets[" + index + "].course");
@@ -228,7 +228,7 @@
                 </table>
                 <button type="button" class="btn btn-outline-secondary" id="addItemBtn">추가</button>
             </div>
-            <!--<button type="button" class="btn btn-outline-secondary" id="test">test</button>-->
+            <button type="button" class="btn btn-outline-secondary" id="save0">저장</button>
             <button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">등록</button>
         </form>
     </div>
