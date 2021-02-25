@@ -15,7 +15,6 @@ public class InfoService {
     private final InfoRepository infoRepository;
 
     public void setStudentGrade(ArrayList<Grade> gradeList, User user) {
-        System.out.println(gradeList);
         for (int i = 0; i < gradeList.size(); i++) {
             infoRepository.save(Grade.builder()
                     .grade(gradeList.get(i).getGrade())

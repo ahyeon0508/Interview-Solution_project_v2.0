@@ -55,12 +55,11 @@ public class InfoController {
     }
 
     @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
-    public String postInfo(@ModelAttribute("gradeForm") ArrayList<Grade> gradeInfo, @RequestParam("subject") String subject){
-        System.out.println(gradeInfo);
-        System.out.println(subject);
+    public String postInfo(GradeList gradeInfo){
+        System.out.println(gradeInfo.getGrades());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        infoService.setStudentGrade(gradeInfo, user);
+        infoService.setStudentGrade(gradeInfo.getGrades(), user);
         return "redirect:/infoStudent";
     }
 
