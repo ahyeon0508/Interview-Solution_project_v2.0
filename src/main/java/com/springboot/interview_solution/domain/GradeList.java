@@ -1,5 +1,7 @@
 package com.springboot.interview_solution.domain;
 
+import com.springboot.interview_solution.dto.GradeDto;
+
 import java.util.ArrayList;
 
 public class GradeList {

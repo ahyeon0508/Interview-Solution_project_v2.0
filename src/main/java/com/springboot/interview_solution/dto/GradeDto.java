@@ -19,8 +19,8 @@ public class GradeDto {
     private Integer unitNumber;
     private Integer ranking;
     private Integer rawScore;
-    private Integer subjectMean;
-    private Integer average;
+    private Double subjectMean;
+    private Double average;
     private String achievement;
     private Integer numberOfStudents;
 

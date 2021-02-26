@@ -11,32 +11,33 @@ import java.util.List;
 @Setter
 @Entity
 @Data
-@IdClass(GradePK.class)
 public class Grade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GEN")
+    private Long id;
 
     private Integer grade;
     private Integer semester;
 
     @ManyToOne
-    @Id
     private User user;
 
     private String subject;
 
-    @Id
     private String course;
     private Integer unitNumber;
     private Integer ranking;
     private Integer rawRanking;
-    private Integer subjectMean;
-    private Integer average;
+    private Double subjectMean;
+    private Double average;
     private String achievement;
     private Integer numberOfStudents;
 
     @Builder
     public Grade (Integer grade, Integer semester, User user, String subject, String course,
-                  Integer unitNumber, Integer ranking, Integer rawRanking, Integer subjectMean,
-                  Integer average, String achievement, Integer numberOfStudents) {
+                  Integer unitNumber, Integer ranking, Integer rawRanking, Double subjectMean,
+                  Double average, String achievement, Integer numberOfStudents) {
         this.grade = grade;
         this.semester = semester;
         this.user = user;
@@ -54,10 +55,4 @@ public class Grade {
     public Grade(){
 
     }
-}
-
-class GradePK implements Serializable{
-    Integer grade;
-    Integer semester;
-    private User user;
 }

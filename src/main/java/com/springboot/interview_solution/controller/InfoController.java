@@ -1,6 +1,7 @@
 package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.*;
+import com.springboot.interview_solution.dto.GradeListDto;
 import com.springboot.interview_solution.dto.LetterDto;
 import com.springboot.interview_solution.dto.TranscriptDto;
 import com.springboot.interview_solution.service.InfoService;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @AllArgsConstructor
@@ -55,13 +57,31 @@ public class InfoController {
     }
 
     @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
-    public String postInfo(GradeList gradeInfo){
+    public String postInfo(@ModelAttribute("gradeReport") GradeListDto gradeInfo){
         System.out.println(gradeInfo.getGrades());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+//        infoService.setStudentGrade(gradeInfo.getGrades(), user);
         return "redirect:/infoStudent";
     }
+
+
+//    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
+//    public String postInfo(@ModelAttribute ArrayList<Grade> gradeInfo){
+//        System.out.println(gradeInfo);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) authentication.getPrincipal();
+////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+//        return "redirect:/infoStudent";
+//    }
+//    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
+//    public String postInfo(@ModelAttribute("gradeReport") ArrayList<Grade> gradeInfo){
+//        System.out.println(gradeInfo);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) authentication.getPrincipal();
+////        infoService.setStudentGrade(gradeInfo, user);
+//        return "redirect:/infoStudent";
+//    }
 
     @RequestMapping(value = "/infoStudent/letter", method = RequestMethod.POST)
     public String postInfo(LetterDto letter){

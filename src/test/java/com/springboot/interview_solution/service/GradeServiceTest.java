@@ -30,8 +30,8 @@ public class GradeServiceTest {
         grade.setUnitNumber(3);
         grade.setRanking(2);
         grade.setRawRanking(97);
-        grade.setSubjectMean(50);
-        grade.setAverage(40);
+        grade.setSubjectMean(0.5);
+        grade.setAverage(0.4);
         grade.setAchievement("A");
         grade.setNumberOfStudents(30);
 
