@@ -55,25 +55,25 @@ public class InfoController {
         mv.addObject("letter", letter);
         return mv;
     }
-
-    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
-    public String postInfo(@ModelAttribute("gradeReport") GradeListDto gradeInfo){
-        System.out.println(gradeInfo.getGrades());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-//        infoService.setStudentGrade(gradeInfo.getGrades(), user);
-        return "redirect:/infoStudent";
-    }
-
-
+//
 //    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
-//    public String postInfo(@ModelAttribute ArrayList<Grade> gradeInfo){
-//        System.out.println(gradeInfo);
+//    public String postInfo(GradeListDto gradeInfo){
+//        System.out.println(gradeInfo.getGrades());
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = (User) authentication.getPrincipal();
 ////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
 //        return "redirect:/infoStudent";
 //    }
+
+
+    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
+    public String postInfo(ArrayList<Grade> gradeInfo){
+        System.out.println(gradeInfo);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+//        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+        return "redirect:/infoStudent";
+    }
 //    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
 //    public String postInfo(@ModelAttribute("gradeReport") ArrayList<Grade> gradeInfo){
 //        System.out.println(gradeInfo);
