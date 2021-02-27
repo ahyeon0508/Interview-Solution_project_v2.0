@@ -1,73 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="stutemplate"
       lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내 질문</title>
-    <link th:href="@{/css/home.css}" rel="stylesheet" />
-    <link th:href="@{/css/intro.css}" rel="stylesheet" />
-    <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/home.js}"></script>
-    <script th:src="@{/js/util.js}"></script>
-    <!--bootstrap cdn-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-</head>
 
-<body>
-<!-- 상단 바 시작 -->
-    <nav id="Topbar" class="navbar navbar-expand-md navbar-light">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!--herf : 학생 홈으로-->
-            <a class="navbar-brand col-xl-1 col-lg-1" href="/student">
-                <img src="@{/img/logo.png}" width="auto" height="30" class="d-inline-block align-top" alt="">
-            </a>
-            <ul class="navbar-nav mr-auto">
-                <!-- herf에 내 영상으로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">내 영상</a></li>
-                <!-- herf에 내 질문으로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">내 질문</a></li>
-                <!-- herf에 질문 리스트로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">질문 리스트</a></li>
-            </ul>
-            <ul class="navbar-nav ml-auto" style="margin-right: 35px;">
-                <div class="nav-item">
-                  
-                   <!--로그인 되어있을 때-->
-                    <li sec:authorize="isAuthenticated()">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
-                                <!--유저 이미지 있으면 src에 유저 이미지-->
-                                <img class="img-profile rounded-circle" src="유저 이미지">
-                                <!--유저 이미지 없으면-->
-                                <img class="img-profile rounded-circle" width="30" height="30" src="@{/img/user.svg}">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                               <!--herf : 마이 페이지로-->
-                                <a class="dropdown-item" href="#">Mypage</a>
-                                <!--herf : 로그아웃 -->
-                                <a class="dropdown-item" href="/signout">Logout</a>
-                            </div>
-                        </li>
-                    </li>
-
-
-                    <li sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/signin" id="user" role="button">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
-                        </a>
-                    </li>
-                    
-                </div>
-            </ul>
-        </div>
-    </nav>
-    <!-- 상단 바 끝 -->
-    
     <!--질문 리스트 시작-->
-    <div class="container-fluid">
+    <section layout:fragment="f-content" class="container-fluid">
         <div class="card">
             <div class="card-header">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -116,7 +56,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
                            <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
-                            <input type="checkbox" name="#" id="#" value="#" onclick="#" checked>
+                            <input type="checkbox" name="#" id="" value="#" onclick="" checked>
                             <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "작성한 질문" 부분은 질문 종류 띄우도록 -->
                             <label for="#">질문 내용<small> - 작성한 질문</small></label>
                         </div>
@@ -127,7 +67,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
                             <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
-                            <input type="checkbox" name="#" id="#" value="#" onclick="#">
+                            <input type="checkbox" name="#" id="" value="#" onclick="">
                             <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "기본 질문" 부분은 질문 종류 띄우도록 -->
                             <label for="#">질문 내용<small> - 기본 질문</small></label>
                         </div>
@@ -136,24 +76,7 @@
             </div>
         </div>
 
-    </div>
+    </section>
     <!--질문 리스트 끝-->
-    
-    
-    <!-- 풋터 시작 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright__text">
-                        <p>Copyright SSU Software18 made by 말하는 감자들(수현,아현,혜원,예진)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- 풋터 끝 -->
 
-
-</body>
 </html>
