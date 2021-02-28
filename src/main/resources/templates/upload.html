@@ -100,19 +100,23 @@
                 $("#example tr").each(function(index) {
                     var cellItem = $(this).find(":input");
                     var gradeObj = new Object();
+                    if (index == 0) {
+                        return true;
+                    } else {
+                        gradeObj.subject = cellItem.eq(0).val();
+                        gradeObj.course = cellItem.eq(1).val();
+                        gradeObj.unitNumber = cellItem.eq(2).val();
+                        gradeObj.ranking = cellItem.eq(3).val();
+                        gradeObj.rawRanking = cellItem.eq(4).val();
+                        gradeObj.subjectMean = cellItem.eq(5).val();
+                        gradeObj.average = cellItem.eq(6).val();
+                        gradeObj.achievement = cellItem.eq(7).val();
+                        gradeObj.numberOfStudent = cellItem.eq(8).val();
 
-                    gradeObj.subject = cellItem.eq(0).val();
-                    gradeObj.course = cellItem.eq(1).val();
-                    gradeObj.unitNumber = cellItem.eq(2).val();
-                    gradeObj.ranking = cellItem.eq(3).val();
-                    gradeObj.rawRanking = cellItem.eq(4).val();
-                    gradeObj.subjectMean = cellItem.eq(5).val();
-                    gradeObj.average = cellItem.eq(6).val();
-                    gradeObj.achievement = cellItem.eq(7).val();
-                    gradeObj.numberOfStudent = cellItem.eq(8).val();
-
-                    gradeArray[index] = gradeObj;
-                    alert(sem + "\ngradeArray[" + index + "]\n" + JSON.stringify(gradeArray[index]));
+                        gradeArray[index - 1] = gradeObj;
+                        var ind = index - 1
+                        alert(sem + "\ngradeArray[" + ind + "]\n" + JSON.stringify(gradeArray[index - 1]));
+                    }
                 });
                 switch (sem) {
                     case "11":
