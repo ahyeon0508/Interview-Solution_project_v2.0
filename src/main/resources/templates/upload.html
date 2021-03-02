@@ -144,6 +144,22 @@
                         alert("semArray[6]]\n" + JSON.stringify(semArray[6]));
                         break;
                 }
+
+                $.ajax({
+                    method: 'POST',
+                    url: '/infoStudent/grade',
+                    traditional: true,
+                    data: {
+                        'main': semArray
+                    },
+                    success: function(data) {
+                        alert('data');
+                    },
+                    error: function(request, status, error) {
+                        alert('error');
+                    }
+
+                });
             });
         });
     </script>
