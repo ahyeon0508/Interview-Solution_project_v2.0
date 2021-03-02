@@ -99,11 +99,15 @@
                 var gradeArray = new Array();
                 $("#example tr").each(function(index) {
                     var cellItem = $(this).find(":input");
-                    var gradeObj = new Object();
+                    var gradeArr = new Array();
                     if (index == 0) {
                         return true;
                     } else {
-                        gradeObj.subject = cellItem.eq(0).val();
+
+                        for (var i = 0; i < 8; i++) {
+                            gradeArr[i] = cellItem.eq(i).val();
+                        }
+                        /*gradeObj.subject = cellItem.eq(0).val();
                         gradeObj.course = cellItem.eq(1).val();
                         gradeObj.unitNumber = cellItem.eq(2).val();
                         gradeObj.ranking = cellItem.eq(3).val();
@@ -111,9 +115,9 @@
                         gradeObj.subjectMean = cellItem.eq(5).val();
                         gradeObj.average = cellItem.eq(6).val();
                         gradeObj.achievement = cellItem.eq(7).val();
-                        gradeObj.numberOfStudent = cellItem.eq(8).val();
+                        gradeObj.numberOfStudent = cellItem.eq(8).val();*/
 
-                        gradeArray[index - 1] = gradeObj;
+                        gradeArray[index - 1] = gradeArr;
                         var ind = index - 1
                         alert(sem + "\ngradeArray[" + ind + "]\n" + JSON.stringify(gradeArray[index - 1]));
                     }
@@ -147,10 +151,10 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: 'infoStudent/grade',
+                    url: '/infoStudent/grade',
                     traditional: true,
                     data: {
-                        'gradeInfo': semArray
+                        'main': semArray
                     },
                     success: function(data) {
                         alert('data');
