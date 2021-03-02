@@ -147,12 +147,14 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: '/infoStudent/grade',
+                    url: 'infoStudent/grade',
                     traditional: true,
                     data: {
-                        'main': semArray
+                        'gradeInfo': semArray
                     },
                     success: function(data) {
+                        alert(semArray[0])
+                        alert(semArray[1]);
                         alert('data');
                     },
                     error: function(request, status, error) {

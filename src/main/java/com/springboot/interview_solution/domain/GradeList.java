@@ -5,7 +5,7 @@ import com.springboot.interview_solution.dto.GradeDto;
 import java.util.ArrayList;
 
 public class GradeList {
-    private ArrayList<Grade> grades;
+    private ArrayList<Grade> grades = null;
 
     public ArrayList<Grade> getGrades() {
         return grades;
