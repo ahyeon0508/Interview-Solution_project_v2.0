@@ -59,14 +59,14 @@ public class InfoController {
         return mv;
     }
 
-    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
-    public String postInfo(GradeListDto gradeInfo){
-        System.out.println(gradeInfo.getGrades());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-//        infoService.setStudentGrade(gradeInfo.getGrades(), user);
-        return "redirect:/infoStudent";
-    }
+//    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String postInfo(GradeListDto gradeInfo){
+//        System.out.println(gradeInfo.getGrades());
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) authentication.getPrincipal();
+////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+//        return "redirect:/infoStudent";
+//    }
 
 //    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
 //    public String postInfo(JSONObject gradeInfo) {
@@ -76,7 +76,7 @@ public class InfoController {
 ////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
 //        return "redirect:/infoStudent";
 //    }
-//
+
 //    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
 //    public String postInfo(List<GradeDto> gradeInfo){
 //        System.out.println(gradeInfo);
