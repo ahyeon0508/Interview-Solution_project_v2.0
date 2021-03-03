@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <div th:replace="template.html :: fragment-header(title='교사 홈')"></div>
+
+    <link th:href="@{/css/home.css}" rel="stylesheet"/>
+    <link th:href="@{/css/intro.css}" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootsrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+<div th:replace="template.html :: fragment-teanav"></div>
+
+<div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +') fixed no-repeat;'">
+    <div id="stuwrapper" class="row">
+        <div class="col-lg-6 p-0">
+            <div class="categories__item">
+                <div class="categories__text">
+                    <h1 id="introh1">새내기路(로)</h1>
+                    <p id="introp">학생의 면접영상을 쉽게 관리할 수 있는 모의 면접 서비스.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 내용 끝 -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>학생 면접 관리</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!--학생 card 반복 / herf에는 학생면접영상 페이지로 -->
+            <a href="#">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <!--src : 학생 이미지 있으면 그거, 아니면 기본 연회색 -->
+                                <img th:src="@{/img/연회색.png}" alt="" class="img-rounded img-responsive"/>
+                            </div>
+                            <div class="col-sm-6 col-md-8">
+                                <!--리포트 제목-->
+                                <p>리포트 제목</p>
+                                <!--학생이름-->
+                                <h4>학생이름</h4>
+                                <!--학생학교, 학년 반-->
+                                <small>학생학교, 학년 반</small>
+                                <!--학생전화번호-->
+                                <p>학생전화번호</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+<footer th:replace="template.html :: fragment-footer"></footer>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

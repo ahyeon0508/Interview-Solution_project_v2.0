@@ -28,7 +28,7 @@ class UserServiceTest {
         user.setSchool("분당대진고등학교");
         user.setGrade(1);
         user.setSClass(2);
-        user.setIsTeacher("Student");
+        user.setIsTeacher(false);
 
         userService.signup(user);
     }

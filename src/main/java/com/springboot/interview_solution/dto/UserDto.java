@@ -27,4 +27,8 @@ public class UserDto {
             this.isTeacher = false;
         } else this.isTeacher = true;
     }
+
+    public void setIsTeacher(Boolean isTeacher) {
+       this.isTeacher = isTeacher;
+    }
 }
