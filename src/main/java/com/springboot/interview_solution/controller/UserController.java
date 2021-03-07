@@ -151,7 +151,7 @@ public class UserController {
 
     @RequestMapping(value = "resultpw/{userid}", method = RequestMethod.POST)
     public String postChangePW(@PathVariable String userid, @RequestParam("password") String password,
-                             @RequestParam("passwordChk") String passwordChk) throws Exception {
+                               @RequestParam("passwordChk") String passwordChk) throws Exception {
         if (password.equals(passwordChk)){
             userService.modifyPW(userid, password);
             return "redirect:/signin";
@@ -175,7 +175,7 @@ public class UserController {
                              @RequestParam("grade") Integer grade, @RequestParam("sClass") Integer sClass) throws Exception {
         User user = (User) authentication.getPrincipal();
         String userID = user.getUserID();
-        User persistUser = (User) userService.loadUserByUsername(userID);
+        User persistUser = userService.loadUserByUsername(userID);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String PW  = new BCryptPasswordEncoder().encode(password);
         if(!encoder.matches(PW, persistUser.getPassword())) {
