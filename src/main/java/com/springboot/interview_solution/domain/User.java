@@ -1,6 +1,5 @@
 package com.springboot.interview_solution.domain;
 
-import com.springboot.interview_solution.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,10 +35,6 @@ public class User implements UserDetails {
     private Integer sClass;
     private String teacher;
     private Boolean isTeacher; //teacher = true, student = false
-
-    public String getUserID() {
-        return userID;
-    }
 
     public String getUsername() {
         return username;

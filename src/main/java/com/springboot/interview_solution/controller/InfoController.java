@@ -49,7 +49,7 @@ public class InfoController {
         User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("upload");
         GradeList gradeInfo = new GradeList();
-        gradeList = infoService.getStudentGrade(user);
+        gradeList = (ArrayList<Grade>) infoService.getStudentGrade(user);
         gradeInfo.setGrades(gradeList);
         mv.addObject("gradeInfo", gradeInfo);
         Transcript transcript = transcriptService.getStudentTranscript(user);
@@ -58,6 +58,16 @@ public class InfoController {
         if(letter.getQuestion3() != null && letter.getQuestion3().equals(""))
             letter.setQuestion3(null);
         mv.addObject("letter", letter);
+        return mv;
+    }
+
+    @RequestMapping(value = "/infoStudent/visualize", method = RequestMethod.GET)
+    public ModelAndView visualize() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ModelAndView mv = new ModelAndView("visualize");
+        List<Grade> gradeList = infoService.getStudentGrade(user);
+        mv.addObject("gradeList", gradeList);
         return mv;
     }
 //
