@@ -95,6 +95,8 @@ public class InfoController {
             System.out.println("E");
         } else if(gradeInfo.equals(null)){
             System.out.println("F");
+        }  else if(gradeInfo instanceof Object[]){
+            System.out.println("G");
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
