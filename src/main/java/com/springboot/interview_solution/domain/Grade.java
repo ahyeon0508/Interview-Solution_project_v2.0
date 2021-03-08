@@ -10,6 +10,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(
+        uniqueConstraints={
+                @UniqueConstraint(
+                        columnNames={"grade","semester", "user", "course"}
+                )
+        }
+)
 @Data
 public class Grade {
 
@@ -17,14 +24,19 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GEN")
     private Long id;
 
+    @Column(name = "grade")
     private Integer grade;
+
+    @Column(name = "semester")
     private Integer semester;
 
     @ManyToOne
+    @JoinColumn(name = "user")
     private User user;
 
     private String subject;
 
+    @Column(name = "course")
     private String course;
     private Integer unitNumber;
     private Integer ranking;
