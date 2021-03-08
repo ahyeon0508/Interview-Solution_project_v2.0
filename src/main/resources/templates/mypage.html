@@ -15,7 +15,7 @@
             <form th:action="@{/mypage}" class="mypage-form" method="post">
                 <div class="photoModify">
                     <!-- 해당 회원이 설정한 유저 이미지가 없다면 기본 이미지 -->
-                    <img src="@{/img/user.png}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+                    <img th:src="@{/img/user.png}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
                     <div class="file_input">
                         <input type="file" class="file_input_hidden" name="image" id="fileName"
                             onchange="javascript:document.getElementById('fileName').value = this.value.split('\\')[this.value.split('\\').length-1]">
