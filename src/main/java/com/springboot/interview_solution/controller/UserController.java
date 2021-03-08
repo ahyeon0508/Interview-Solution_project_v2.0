@@ -1,6 +1,7 @@
 package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.dto.MyUserDto;
 import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -156,5 +159,37 @@ public class UserController {
         } else {
             return "redirect:/resultpw/"+userid;
         }
+    }
+
+    // mypage
+    @RequestMapping(value = "mypage", method = RequestMethod.GET)
+    public String getMyPage(Authentication authentication, Model model) throws Exception {
+        User user = (User) authentication.getPrincipal();
+        String userID = user.getUserID();
+        model.addAttribute("userOne", userService.loadUser(userID));
+        return "mypage";
+    }
+
+    @RequestMapping(value = "mypage", method = RequestMethod.POST)
+    public String postMyPage(Authentication authentication, MyUserDto param) throws Exception {
+        User user = (User) authentication.getPrincipal();
+        String userID = user.getUserID();
+        param.setUserID(userID);
+        User persistUser = userService.loadUserByUsername(userID);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String PW  = new BCryptPasswordEncoder().encode(param.getPassword());
+        if(!encoder.matches(PW, persistUser.getPassword())) {
+            if (param.getNewPassword().equals(param.getPasswordChk()))
+                userService.modifyUser(param);
+        }
+        return "redirect:/mypage";
+    }
+
+    @RequestMapping(value = "secede", method = RequestMethod.DELETE)
+    public String deleteUser(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        String userID = user.getUserID();
+        userService.deleteUser(userID);
+        return "redirect:/";
     }
 }
