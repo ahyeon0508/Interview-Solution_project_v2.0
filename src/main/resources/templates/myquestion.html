@@ -56,13 +56,15 @@
 
             <div class="card-body">
                 <ul class="list-group list-group-flush">
+                    <tr th:each="myQuestion: ${myQuestionList}">
                     <!--for문으로 질문 단위 li태그 반복-->
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "작성한 질문" 부분은 질문 종류 띄우도록 -->
-                        <div>질문 내용<small> - 작성한 질문</small></div>
-                        <!--삭제 버튼 클릭해 팝업창 띄워졌을 때, 예 클릭시 질문 삭제 하도록-->
-                        <button type="button" id="" class="btn btn-secondary btn-sm" onclick="">삭제</button>
-                    </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "작성한 질문" 부분은 질문 종류 띄우도록 -->
+                            <div>질문 내용<small> - 작성한 질문</small></div>
+                            <!--삭제 버튼 클릭해 팝업창 띄워졌을 때, 예 클릭시 질문 삭제 하도록-->
+                            <button type="button" th:id="${myQuestion.getId()}" class="btn btn-secondary btn-sm" onclick="">삭제</button>
+                        </li>
+                    </tr>
                 </ul>
             </div>
         </div>
