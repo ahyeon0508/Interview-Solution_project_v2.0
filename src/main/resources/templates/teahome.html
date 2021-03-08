@@ -1,137 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="ko">
-
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교사 홈</title>
-    <link th:href="@{/css/home.css}" rel="stylesheet" />
-    <link th:href="@{/css/intro.css}" rel="stylesheet" />
-    
-    <!--bootstrap cdn-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <div th:replace="template.html :: fragment-header(title='교사 홈')"></div>
 
+    <link th:href="@{/css/home.css}" rel="stylesheet"/>
+    <link th:href="@{/css/intro.css}" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootsrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 
 <body>
-    <!-- 상단 바 시작 -->
-    <nav id="Topbar" class="navbar navbar-expand-md navbar-light">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-           <!--herf : 교사 홈으로-->
-            <a class="navbar-brand col-xl-1 col-lg-1" href="/teacher">
-                <img src="@{/img/logo.png}" width="auto" height="30" class="d-inline-block align-top" alt="">
-            </a>
-            <ul class="navbar-nav ml-auto" style="margin-right: 35px;">
-                <div class="nav-item">
-                  
-                   <!--로그인 되어있을 때-->
-                    <li sec:authorize="isAuthenticated()">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">유저이름</span>
-                                <!--유저 이미지 있으면 src에 유저이미지-->
-                                <img class="img-profile rounded-circle" src="유저 이미지">
-                                <!--유저 이미지 없으면-->
-                                <img class="img-profile rounded-circle" width="30" height="30" src="@{/img/user.svg}">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                               <!--herf : 마이 페이지로-->
-                                <a class="dropdown-item" href="#">Mypage</a>
-                                <!--herf : 로그아웃 -->
-                                <a class="dropdown-item" href="/signout">Logout</a>
-                                <!-- <div class="dropdown-divider"></div> -->
-                            </div>
-                        </li>
-                    </li>
-                    
-                    <!--로그인 안 되어 있을 때-->
-                    <!--herf : 로그인 페이지로-->
-                    <li sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/signin" id="user" role="button">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
-                        </a>
-                    </li>
-                    
-                </div>
-            </ul>
-        </div>
-    </nav>
-    <!-- 상단 바 끝 -->
+<div th:replace="template.html :: fragment-teanav"></div>
 
-    <!-- 내용 시작 -->
-    <div class="container-fluid set-bg" data-setbg="@{/img/teabackground.svg}">
-        <div id="stuwrapper" class="row">
-            <div class="col-lg-6 p-0">
-                <div class="categories__item">
-                    <div class="categories__text">
-                        <h1 id="introh1">새내기路(로)</h1>
-                        <p id="introp">학생의 면접영상을 쉽게 관리할 수 있는 모의 면접 서비스.</p>
-                    </div>
+<div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +') fixed no-repeat;'">
+    <div id="stuwrapper" class="row">
+        <div class="col-lg-6 p-0">
+            <div class="categories__item">
+                <div class="categories__text">
+                    <h1 id="introh1">새내기路(로)</h1>
+                    <p id="introp">학생의 면접영상을 쉽게 관리할 수 있는 모의 면접 서비스.</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- 내용 끝 -->
-    <section class="product spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-4">
-                    <div class="section-title">
-                        <h4>학생 면접 관리</h4>
-                    </div>
+</div>
+<!-- 내용 끝 -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>학생 면접 관리</h4>
                 </div>
             </div>
+        </div>
 
-            <div class="container">
-                <!--학생 card 반복 / herf에는 학생면접영상 페이지로 -->
-                <a href="#">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-4">
-                                    <!--src : 학생 이미지 있으면 그거, 아니면 기본 연회색 -->
-                                    <img src="@{/img/연회색.png}" alt="" class="img-rounded img-responsive" />
-                                </div>
-                                <div class="col-sm-6 col-md-8">
-                                    <!--리포트 제목-->
-                                    <p>리포트 제목</p>
-                                    <!--학생이름-->
-                                    <h4>학생이름</h4>
-                                    <!--학생학교, 학년 반-->
-                                    <small>학생학교, 학년 반</small>
-                                    <!--학생전화번호-->
-                                    <p>학생전화번호</p>
-                                </div>
+        <div class="container">
+            <!--학생 card 반복 / herf에는 학생면접영상 페이지로 -->
+            <a href="#">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <!--src : 학생 이미지 있으면 그거, 아니면 기본 연회색 -->
+                                <img th:src="@{/img/연회색.png}" alt="" class="img-rounded img-responsive"/>
+                            </div>
+                            <div class="col-sm-6 col-md-8">
+                                <!--리포트 제목-->
+                                <p>리포트 제목</p>
+                                <!--학생이름-->
+                                <h4>학생이름</h4>
+                                <!--학생학교, 학년 반-->
+                                <small>학생학교, 학년 반</small>
+                                <!--학생전화번호-->
+                                <p>학생전화번호</p>
                             </div>
                         </div>
                     </div>
-                </a>
-
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 풋터 시작 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright__text">
-                        <p>Copyright SSU Software18 made by 말하는 감자들(수현,아현,혜원,예진)</p>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </footer>
-    <!-- 풋터 끝 -->
+            </a>
 
-    <!--bootstrap cdn-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    
-    <!-- Custom scripts -->
-    <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/home.js}"></script>
+        </div>
+
+    </div>
+</section>
+
+<footer th:replace="template.html :: fragment-footer"></footer>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

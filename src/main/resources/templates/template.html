@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head th:fragment="fragment-header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Thymeleaf Fragment</title>
+</head>
+
+<nav th:fragment="fragment-stunav" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <!--herf : 학생 홈으로-->
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/logo.png}" alt="" height="25">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- herf에 내 영상으로 연결 -->
+                <li class="nav-item"><a class="nav-link" href="#">내 영상</a></li>
+                <!-- herf에 내 질문으로 연결 -->
+                <li class="nav-item"><a class="nav-link" href="#">내 질문</a></li>
+                <!-- herf에 질문 리스트로 연결 -->
+                <li class="nav-item"><a class="nav-link" href="#">질문 리스트</a></li>
+            </ul>
+
+            <!--로그인 되어있을 때-->
+            <div sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="true">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
+                    <!--유저 이미지 있으면 src에 유저 이미지-->
+                    <img class="img-profile rounded-circle" th:src="@{유저이미지}">
+                    <!--유저 이미지 없으면-->
+                    <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">마이 페이지</a></li>
+                    <li><a class="dropdown-item" href="/infoStudent">서류 입력</a></li>
+                    <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                </ul>
+            </div>
+
+
+            <div sec:authorize="!isAuthenticated()">
+                <a class="nav-link" href="/signin" id="user" role="button">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
+                    <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<nav th:fragment="fragment-teanav" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <!--herf : 학생 홈으로-->
+        <a class="navbar-brand" href="/teacher">
+            <img th:src="@{/img/logo.png}" alt="" height="25" class="d-inline-block align-top">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav navbar-right mb-2 mb-lg-0">
+            <!--로그인 되어있을 때-->
+            <div sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="true">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
+                    <!--유저 이미지 있으면 src에 유저 이미지-->
+                    <img class="img-profile rounded-circle" th:src="@{유저이미지}">
+                    <!--유저 이미지 없으면-->
+                    <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">mypage</a></li>
+                    <li><a class="dropdown-item" href="/signout">Logout</a></li>
+                </ul>
+            </div>
+
+
+            <div sec:authorize="!isAuthenticated()">
+                <a class="nav-link" href="/signin" id="user" role="button">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
+                    <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
+                </a>
+            </div>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<footer footer th:fragment="fragment-footer" class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer__copyright__text">
+                    <p>Copyright SSU Software18 made by 말하는 감자들(수현,아현,혜원,예진)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</html>

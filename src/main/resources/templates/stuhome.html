@@ -1,139 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
-      lang="ko">
-
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>학생 홈</title>
-    <link th:href="@{/css/home.css}" rel="stylesheet" />
-    <link th:href="@{/css/intro.css}" rel="stylesheet" />
-    
-    <!--bootstrap cdn-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
+    <div th:replace="template.html :: fragment-header(title='학생 홈')"></div>
+    <link th:href="@{/css/home.css}" rel="stylesheet"/>
+    <link th:href="@{/css/intro.css}" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
-
 <body>
-    <!-- 상단 바 시작 -->
-    <nav id="Topbar" class="navbar navbar-expand-md navbar-light">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!--herf : 학생 홈으로-->
-            <a class="navbar-brand col-xl-1 col-lg-1" href="/student">
-                <img src="@{/img/logo.png}" width="auto" height="30" class="d-inline-block align-top" alt="">
-            </a>
-            <ul class="navbar-nav mr-auto">
-                <!-- herf에 내 영상으로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">내 영상</a></li>
-                <!-- herf에 내 질문으로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">내 질문</a></li>
-                <!-- herf에 질문 리스트로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">질문 리스트</a></li>
-            </ul>
-            <ul class="navbar-nav ml-auto" style="margin-right: 35px;">
-                <div class="nav-item">
-                  
-                   <!--로그인 되어있을 때-->
-                    <li sec:authorize="isAuthenticated()">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
-                                <!--유저 이미지 있으면 src에 유저 이미지-->
-                                <img class="img-profile rounded-circle" src="유저 이미지">
-                                <!--유저 이미지 없으면-->
-                                <img class="img-profile rounded-circle" width="30" height="30" src="@{/img/user.svg}">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                               <!--herf : 마이 페이지로-->
-                                <a class="dropdown-item" href="#">Mypage</a>
-                                <!--herf : 로그아웃 -->
-                                <a class="dropdown-item" href="/signout">Logout</a>
+<div th:replace="template.html :: fragment-stunav"></div>
+
+<section class="categories">
+    <div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +') fixed no-repeat; background-size:cover;'">
+
+        <div id="stuwrapper" class="row">
+            <div class="col-lg-6 p-0">
+                <div class="categories__item categories__large__item">
+                    <div class="categories__text">
+                        <h1 id="introh1">새내기路(로)</h1>
+                        <!--Herf : 면접 시작-->
+                        <a href="#" class="btn btn-outline-primary"><Strong> 면접 시작 </Strong></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
+                        <!--Herf : 내 영상-->
+                        <a class="categories__item" th:style="'background:url('+ @{/img/stumyvideo.svg} +') no-repeat;'" href="#">
+                            <div class="categories__text">
+                                <h4>내 영상</h4>
+                                <p>모의 면접 영상들을 질문별/제목별/날짜별로 관리하는 기능</p>
                             </div>
-                        </li>
-                    </li>
-
-
-                    <li sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/signin" id="user" role="button">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
                         </a>
-                    </li>
-                    
-                </div>
-            </ul>
-        </div>
-    </nav>
-    <!-- 상단 바 끝 -->
-    <!-- 내용 시작 -->
-    <section class="categories">
-        <div class="container-fluid set-bg" data-setbg="@{/img/introbackground.svg}">
-
-            <div id="stuwrapper" class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="categories__item categories__large__item">
-                        <div class="categories__text">
-                            <h1>새내기路(로)</h1>
-                            <!--Herf : 면접 시작-->
-                            <a href="#" class="btn btn-outline-primary"><Strong> 면접 시작 </Strong></a>
-                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <!--Herf : 내 영상-->
-                            <a class="categories__item set-bg" data-setbg="@{/img/stumyvideo.svg}" href="/infoStudent">
-                                    <div class="categories__text">
-                                        <h4>내 영상</h4>
-                                        <p>모의 면접 영상들을 질문별/제목별/날짜별로 관리하는 기능</p>
-                                    </div>
-                                </a>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <!--Herf : 내 질문-->
-                            <a class="categories__item set-bg" data-setbg="@{/img/stumyquest.svg}" href="#">
-                                    <div class="categories__text">
-                                        <h4>내 질문</h4>
-                                        <p>별표 질문과 사용자 작성 질문, 교사에게 공유 받은 질문 및 AI 생성질문을 확인하는 기능</p>
-                                    </div>
-                                </a>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 p-0">
-                           <!--Herf : 질문 리스트-->
-                            <a class="categories__item set-bg" data-setbg="@{/img/stuquestlist.svg}" href="#">
-                                <div class="categories__text">
-                                    <h4>질문 리스트</h4>
-                                    <p>40여개의 공통질문과 학과별 질문을 제공하는 기능</p>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
+                        <!--Herf : 내 질문-->
+                        <a class="categories__item" th:style="'background:url('+ @{/img/stumyquest.svg} +') no-repeat;'" href="#">
+                            <div class="categories__text">
+                                <h4>내 질문</h4>
+                                <p>별표 질문과 사용자 작성 질문, 교사에게 공유 받은 질문 및 AI 생성질문을 확인하는 기능</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                        <!--Herf : 질문 리스트-->
+                        <a class="categories__item" th:style="'background:url('+ @{/img/stuquestlist.svg} +') no-repeat;'"
+                           href="#">
+                            <div class="categories__text">
+                                <h4>질문 리스트</h4>
+                                <p>40여개의 공통질문과 학과별 질문을 제공하는 기능</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- 내용 끝 -->
+    </div>
+</section>
 
-    <!-- 풋터 시작 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright__text">
-                        <p>Copyright SSU Software18 made by 말하는 감자들(수현,아현,혜원,예진)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- 풋터 끝 -->
-    
-    <!--bootstrap cdn-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    
-    <!-- Custom scripts -->
-    <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/home.js}"></script>
+<footer th:replace="template.html :: fragment-footer"></footer>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

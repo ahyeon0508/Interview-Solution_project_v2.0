@@ -1,5 +1,6 @@
 package com.springboot.interview_solution.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springboot.interview_solution.domain.*;
 import com.springboot.interview_solution.dto.GradeDto;
 import com.springboot.interview_solution.dto.GradeListDto;
@@ -70,23 +71,36 @@ public class InfoController {
 //    }
 
 
-    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
-    public String postInfo(GradeListDto gradeInfo){
-        System.out.println(gradeInfo.getGrades());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-//        infoService.setStudentGrade(gradeInfo.getGrades(), user);
-        return "redirect:/infoStudent";
-    }
-
 //    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
-//    public String postInfo(String[][] gradeInfo){
-//        System.out.println(gradeInfo);
+//    public String postInfo(GradeListDto gradeInfo){
+//        System.out.println(gradeInfo.getGrades());
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = (User) authentication.getPrincipal();
 ////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
 //        return "redirect:/infoStudent";
 //    }
+
+    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+    public String postInfo(Object gradeInfo){
+        System.out.println(gradeInfo.getClass());
+        if(gradeInfo instanceof GradeDto) {
+            System.out.println("A");
+        } else if(gradeInfo instanceof GradeListDto) {
+            System.out.println("B");
+        } else if(gradeInfo instanceof JSONObject) {
+            System.out.println("C");
+        } else if(gradeInfo instanceof JSONArray) {
+            System.out.println("D");
+        } else if(gradeInfo instanceof String) {
+            System.out.println("E");
+        } else if(gradeInfo.equals(null)){
+            System.out.println("F");
+        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+//        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+        return "redirect:/infoStudent";
+    }
 //
 //    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
 //    public String postInfo(String gradeInfo){
