@@ -1,6 +1,7 @@
 package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.dto.MyUserDto;
 import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -94,11 +95,24 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    // 회원 정보 수정
-    public void modifyUser(String userID, String password, String phone, String school, Integer grade, Integer s_class) throws Exception {
+    //회원 정보 수정
+    public void modifyUser(MyUserDto myUserDto) throws Exception {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String newPW = encoder.encode(password);
-        jdbcTemplate.update("update user set password=?, phone=?, school=?, grade=?, s_class=? where userID=?", newPW, phone, school, grade, s_class, userID);
+        String newPW = encoder.encode(myUserDto.getNewPassword());
+        User user = loadUserByUsername(myUserDto.getUserID());
+        if(myUserDto.getPhone().equals("")) {
+            myUserDto.setPhone(user.getPhone());
+        }
+        if(myUserDto.getSchool().equals("")) {
+            myUserDto.setSchool(user.getSchool());
+        }
+        if(myUserDto.getGrade() == null) {
+            myUserDto.setGrade(user.getGrade());
+        }
+        if(myUserDto.getSClass() == null) {
+            myUserDto.setSClass(user.getsClass());
+        }
+        jdbcTemplate.update("update user set password=?, phone=?, school=?, grade=?, s_class=? where userID=?", newPW, myUserDto.getPhone(), myUserDto.getSchool(), myUserDto.getGrade(), myUserDto.getSClass(), myUserDto.getUserID());
     }
 
     // 회원 탈퇴

@@ -1,6 +1,7 @@
 package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.dto.MyUserDto;
 import com.springboot.interview_solution.dto.UserDto;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
@@ -170,17 +171,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "mypage", method = RequestMethod.POST)
-    public String postMyPage(Authentication authentication, @RequestParam("password") String password,
-                             @RequestParam("newPassword") String newPassword, @RequestParam("passwordChk") String passwordChk, @RequestParam("phone") String phone, @RequestParam("school") String school,
-                             @RequestParam("grade") Integer grade, @RequestParam("sClass") Integer sClass) throws Exception {
+    public String postMyPage(Authentication authentication, MyUserDto param) throws Exception {
         User user = (User) authentication.getPrincipal();
         String userID = user.getUserID();
+        param.setUserID(userID);
         User persistUser = userService.loadUserByUsername(userID);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String PW  = new BCryptPasswordEncoder().encode(password);
+        String PW  = new BCryptPasswordEncoder().encode(param.getPassword());
         if(!encoder.matches(PW, persistUser.getPassword())) {
-            if (newPassword.equals(passwordChk))
-                userService.modifyUser(userID, newPassword, phone, school, grade, sClass);
+            if (param.getNewPassword().equals(param.getPasswordChk()))
+                userService.modifyUser(param);
         }
         return "redirect:/mypage";
     }

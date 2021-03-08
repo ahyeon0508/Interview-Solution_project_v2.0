@@ -7,6 +7,9 @@ spring:
     password: 2018
     url: jdbc:mysql://localhost:3306/interview?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
     username: potato
+#    password: 1234
+#    url: jdbc:mysql://localhost:3306/interview?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+#    username: root
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
