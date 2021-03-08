@@ -98,28 +98,28 @@
                 $("#example tr").each(function(index) {
                     var cellItem = $(this).find(":input");
                     /* 1) 1차원 배열 - 배열 안에 오브젝트 */
-                    var gradeObj = new Object();
-                    if (index == 0) {
-                        return true;
-                    } else {
-
-                        gradeObj.grade = $('select[name=grade]').val();
-                        gradeObj.semester = $('select[name=semester]').val();
-                        gradeObj.index = index;
-                        gradeObj.subject = cellItem.eq(0).val();
-                        gradeObj.course = cellItem.eq(1).val();
-                        gradeObj.unitNumber = cellItem.eq(2).val();
-                        gradeObj.ranking = cellItem.eq(3).val();
-                        gradeObj.rawRanking = cellItem.eq(4).val();
-                        gradeObj.subjectMean = cellItem.eq(5).val();
-                        gradeObj.average = cellItem.eq(6).val();
-                        gradeObj.achievement = cellItem.eq(7).val();
-                        gradeObj.numberOfStudent = cellItem.eq(8).val();
-
-                        gradeArray[index - 1] = gradeObj;
+                    // var gradeObj = new Object();
+                    // if (index == 0) {
+                    //     return true;
+                    // } else {
+                    //
+                    //     gradeObj.grade = $('select[name=grade]').val();
+                    //     gradeObj.semester = $('select[name=semester]').val();
+                    //     gradeObj.index = index;
+                    //     gradeObj.subject = cellItem.eq(0).val();
+                    //     gradeObj.course = cellItem.eq(1).val();
+                    //     gradeObj.unitNumber = cellItem.eq(2).val();
+                    //     gradeObj.ranking = cellItem.eq(3).val();
+                    //     gradeObj.rawRanking = cellItem.eq(4).val();
+                    //     gradeObj.subjectMean = cellItem.eq(5).val();
+                    //     gradeObj.average = cellItem.eq(6).val();
+                    //     gradeObj.achievement = cellItem.eq(7).val();
+                    //     gradeObj.numberOfStudent = cellItem.eq(8).val();
+                    //
+                    //     gradeArray[index - 1] = gradeObj;
 
                         /* 2) 2차원 배열 - 배열 안에 배열 */
-                        /*var gradeArr = new Array();
+                        var gradeArr = new Array();
                         if (index == 0) {
                             return true;
                         } else {
@@ -130,7 +130,7 @@
                                 gradeArr[i] = cellItem.eq(i - 3).val();
                             }
 
-                            gradeArray[index - 1] = gradeArr;*/
+                            gradeArray[index - 1] = gradeArr;
 
                         /* 주석 여기까지 */
                         var ind = index - 1
@@ -145,7 +145,7 @@
                     url: '/infoStudent/grade',
                     traditional: true,
                     data: {
-                        'main': semArray
+                        'gradeInfo': gradeArray
                     },
                     success: function(data) {
                         alert('data');

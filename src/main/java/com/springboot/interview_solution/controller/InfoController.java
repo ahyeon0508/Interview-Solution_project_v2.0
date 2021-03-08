@@ -11,6 +11,7 @@ import com.springboot.interview_solution.service.TranscriptService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,7 +59,7 @@ public class InfoController {
         mv.addObject("letter", letter);
         return mv;
     }
-
+//
 //    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
 //    public String postInfo(GradeListDto gradeInfo){
 //        System.out.println(gradeInfo.getGrades());
@@ -68,8 +69,36 @@ public class InfoController {
 //        return "redirect:/infoStudent";
 //    }
 
-//    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
-//    public String postInfo(JSONObject gradeInfo) {
+
+    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+    public String postInfo(GradeListDto gradeInfo){
+        System.out.println(gradeInfo.getGrades());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+//        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+        return "redirect:/infoStudent";
+    }
+
+//    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String postInfo(String[][] gradeInfo){
+//        System.out.println(gradeInfo);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) authentication.getPrincipal();
+////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+//        return "redirect:/infoStudent";
+//    }
+//
+//    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String postInfo(String gradeInfo){
+//        System.out.println(gradeInfo);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) authentication.getPrincipal();
+////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+//        return "redirect:/infoStudent";
+//    }
+//
+//    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String postInfo(JSONArray gradeInfo) {
 //        System.out.println(gradeInfo);
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = (User) authentication.getPrincipal();
@@ -77,8 +106,17 @@ public class InfoController {
 //        return "redirect:/infoStudent";
 //    }
 
-//    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
-//    public String postInfo(List<GradeDto> gradeInfo){
+//    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String postInfo(JSONObject gradeInfo) {
+//        System.out.println(gradeInfo);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) authentication.getPrincipal();
+////        infoService.setStudentGrade(gradeInfo.getGrades(), user);
+//        return "redirect:/infoStudent";
+//    }
+//
+//    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String postInfo(ArrayList<GradeDto> gradeInfo){
 //        System.out.println(gradeInfo);
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = (User) authentication.getPrincipal();
