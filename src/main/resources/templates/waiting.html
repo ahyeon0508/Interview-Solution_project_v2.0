@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>면접 대기</title>
+    <div th:replace="template.html :: fragment-header(title='면접 대기')"></div>
     <link th:href="@{/css/waiting.css}" rel="stylesheet" />
     <script th:src="@{/js/check.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -42,6 +42,8 @@
 </head>
 
 <body>
+    <div th:replace="template.html :: fragment-stunav"></div>
+
     <div class="ui card">
         <div class="ui toggle checkbox">
             <!-- report에 report id 넣기 -->
@@ -99,6 +101,7 @@
         </div>
     </div>
 
+    <footer th:replace="template.html :: fragment-footer"></footer>
 </body>
 
 </html>
