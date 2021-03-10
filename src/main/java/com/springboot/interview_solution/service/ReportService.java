@@ -5,7 +5,10 @@ import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import com.google.gson.Gson;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,15 +16,12 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
 
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 @AllArgsConstructor
 @Service

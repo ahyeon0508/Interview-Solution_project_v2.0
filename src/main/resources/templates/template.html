@@ -29,11 +29,11 @@
                    data-bs-toggle="dropdown" aria-expanded="true">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
                     <!--유저 이미지 있으면 src에 유저 이미지-->
-                    <img class="img-profile rounded-circle" th:src="@{유저이미지}">
+                    <img class="img-profile rounded-circle" width="30" height="30" th:src="@{유저이미지}">
                     <!--유저 이미지 없으면-->
                     <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                     <li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
                     <li><a class="dropdown-item" href="#">서류 입력</a></li>
                     <li><a class="dropdown-item" href="/signout">로그아웃</a></li>
@@ -57,9 +57,9 @@
         <a class="navbar-brand" href="/teacher">
             <img th:src="@{/img/logo.png}" alt="" height="25" class="d-inline-block align-top">
         </a>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav navbar-right mb-2 mb-lg-0">
+            <ul class="navbar-nav navbar-right mb-2 mb-lg-0"></ul>
             <!--로그인 되어있을 때-->
+        <ul>
             <div sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-bs-toggle="dropdown" aria-expanded="true">
@@ -69,12 +69,12 @@
                     <!--유저 이미지 없으면-->
                     <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">mypage</a></li>
-                    <li><a class="dropdown-item" href="/signout">Logout</a></li>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">마이 페이지</a></li>
+                    <li><a class="dropdown-item" href="/signout">로그아웃</a></li>
                 </ul>
             </div>
-
+        </ul>
 
             <div sec:authorize="!isAuthenticated()">
                 <a class="nav-link" href="/signin" id="user" role="button">
@@ -82,8 +82,6 @@
                     <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
                 </a>
             </div>
-            </ul>
-        </div>
     </div>
 </nav>
 
