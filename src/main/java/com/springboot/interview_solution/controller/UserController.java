@@ -3,6 +3,7 @@ package com.springboot.interview_solution.controller;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.MyUserDto;
 import com.springboot.interview_solution.dto.UserDto;
+import com.springboot.interview_solution.service.SchoolInfoService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
 import org.junit.runner.Request;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -29,6 +31,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final SchoolInfoService schoolInfoService;
 
     // main
     @GetMapping(value = "/")
@@ -60,14 +63,15 @@ public class UserController {
         return "redirect:/signin";
     }
     //school information
-    /*@RequestMapping(value = "/searchSchool",method = RequestMethod.POST)
+    @RequestMapping(value = "/searchSchool",method = RequestMethod.GET)
     @ResponseBody
-    public String searchSchoolInfo(@RequestParam("school") String school, HttpServletRequest response){
-        String schoolInfo;
-        if(school != null){
-            //학교 정보 받아와서 SchoolInfo로 넣기
-        }
-    }*/
+    public List<String> searchSchoolInfo(@RequestParam("term") String school){
+        List<String> schoolInfo;
+        //학교 정보 받아와서 SchoolInfo로 넣기
+        schoolInfo = schoolInfoService.findAllByName(school);
+
+        return schoolInfo;
+    }
 
     //UserId validate duplicate
     @RequestMapping(value = "/userIdCheck", method = RequestMethod.GET)
