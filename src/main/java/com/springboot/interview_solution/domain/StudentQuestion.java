@@ -4,10 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,12 +14,18 @@ public class StudentQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String student;
-    private Integer question;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name="student_id")
+    private User student;
+
+    @ManyToOne(targetEntity = Question.class)
+    @JoinColumn(name="question_id")
+    private Question question;
+
     private Integer part;
 
     @Builder
-    public StudentQuestion(String student, Integer question, Integer part){
+    public StudentQuestion(User student, Question question, Integer part){
         this.student = student;
         this.question = question;
         this.part = part;
