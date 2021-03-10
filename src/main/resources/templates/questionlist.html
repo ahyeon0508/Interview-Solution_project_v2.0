@@ -5,8 +5,11 @@
     <div th:replace="template.html :: fragment-header(title='질문 리스트')"></div>
     <link th:href="@{/css/home.css}" rel="stylesheet"/>
     <link th:href="@{/css/intro.css}" rel="stylesheet"/>
+    <script th:src="@{/js/util.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -63,7 +66,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
-                                <input type="checkbox" name="question_check" th:id="${myQuestion.getId()}" th:value="${myQuestion.getQuestion()}" th:onclick="'javascript:questionstar('+${myQuestion.getId()}+')'" checked>
+                                <input type="checkbox" name="question_check" th:id="${myQuestion.getId()}" th:value="${myQuestion.getQuestion()}" th:onclick="questionstar(${myQuestion.getId()})" checked>
                                 <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "기본 질문" 부분은 질문 종류 띄우도록 -->
                                 <label th:inline="text" th:if="${myQuestion.getDepartment().equals(0)}">
                                     [[${question.getQuestion()}]] <small> - 기본 질문</small></label>

@@ -75,8 +75,8 @@ public class QuestionController {
         return mv;
     }
     //ajax - nonstar->star
-    @RequestMapping(value = "/questionList/check/")
-    public String checkQuestion(int questionID){
+    @RequestMapping(value = "/questionList/check/{questionID}")
+    public String checkQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication.getPrincipal().equals("anonymousUser")){
             return "fail";
@@ -88,8 +88,8 @@ public class QuestionController {
     }
 
     //ajax: star->nonstar
-    @RequestMapping(value = "/questionList/uncheck/")
-    public String uncheckQuestion(int questionID){
+    @RequestMapping(value = "/questionList/uncheck/{questionID}")
+    public String uncheckQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication.getPrincipal().equals("anonymousUser")){
             return "fail";
