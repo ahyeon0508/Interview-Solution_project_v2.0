@@ -92,12 +92,13 @@ public class QuestionController {
     public String uncheckQuestion(int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication.getPrincipal().equals("anonymousUser")){
+            return "fail";
         }else{
             User user = (User) authentication.getPrincipal();
             //delete the question in studentRepository
-
+            questionService.deleteMyQuestion(user,questionID);
+            return "check";
         }
-        return "/questionList";
     }
 
     //search
