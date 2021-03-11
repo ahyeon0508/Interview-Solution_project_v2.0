@@ -17,6 +17,9 @@ import java.util.List;
                 )
         }
 )
+
+// 오류나도 unique 잘 되니까 상관없음
+
 @Data
 public class Grade {
 
