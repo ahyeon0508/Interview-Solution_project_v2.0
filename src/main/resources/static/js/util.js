@@ -61,7 +61,7 @@ function questionDeleteConfirm(n) {
 
 function questionnonstar(n) {
     if (confirm("이 질문을 내 질문으로 등록하시겠습니까?")) {
-        window.location.href = "/website/questionList/nonstar/" + n;
+        window.location.href = "/questionList/check/" + n;
     } else {
         return false;
     }
@@ -69,15 +69,7 @@ function questionnonstar(n) {
 
 function questionstar(n) {
     if (confirm("이 질문을 내 질문에서 취소하시겠습니까?")) {
-        window.location.href = "/website/questionList/star/" + n;
-    } else {
-        return false;
-    }
-}
-
-function internonstar(n) {
-    if (confirm("이 질문을 내 질문으로 등록하시겠습니까?")) {
-        window.location.href = "/website/student/interview/nonstar/" + n;
+        window.location.href = "/questionList/uncheck/" + n;
     } else {
         return false;
     }

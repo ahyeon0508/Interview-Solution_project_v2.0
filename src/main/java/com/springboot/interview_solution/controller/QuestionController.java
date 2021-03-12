@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.script.ScriptContext;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,6 +37,12 @@ public class QuestionController {
             List<Question> myQuestions = questionService.getAllMyQuestion(user);
             questions = questionService.subtractQuestion(myQuestions,questions);
             mv.addObject("myQuestionList",myQuestions);
+            mv.addObject("User",user);
+        }else{
+            List<Question> myQuestions = null;
+            User user = null;
+            mv.addObject("myQuestionList",myQuestions);
+            mv.addObject("User",user);
         }
 
         mv.addObject("questionList",questions);
@@ -68,6 +77,7 @@ public class QuestionController {
             }
             questions = questionService.subtractQuestion(myQuestions,questions);
             mv.addObject("myQuestionList",myQuestions);
+            mv.addObject("User",user);
         }
 
         mv.addObject("questionList",questions);
@@ -76,29 +86,23 @@ public class QuestionController {
     }
     //ajax - nonstar->star
     @RequestMapping(value = "/questionList/check/{questionID}")
-    public String checkQuestion(@PathVariable int questionID){
+    public String checkQuestion(@PathVariable int questionID, HttpServletResponse response) throws Exception{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication.getPrincipal().equals("anonymousUser")){
-            return "fail";
-        }else{
-            User user = (User) authentication.getPrincipal();
-            questionService.enrollMyQuestion(questionID,user);
-            return "check";
-        }
+        User user = (User) authentication.getPrincipal();
+
+        questionService.enrollMyQuestion(questionID,user);
+        return "redirect:/questionList";
     }
 
     //ajax: star->nonstar
     @RequestMapping(value = "/questionList/uncheck/{questionID}")
-    public String uncheckQuestion(@PathVariable int questionID){
+    public String uncheckQuestion(@PathVariable int questionID, HttpServletResponse response) throws Exception{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication.getPrincipal().equals("anonymousUser")){
-            return "fail";
-        }else{
-            User user = (User) authentication.getPrincipal();
-            //delete the question in studentRepository
-            questionService.deleteMyQuestion(user,questionID);
-            return "check";
-        }
+        User user = (User) authentication.getPrincipal();
+
+        //delete the question in studentRepository
+        questionService.deleteMyQuestion(user,questionID);
+        return "redirect:/questionList";
     }
 
     //search

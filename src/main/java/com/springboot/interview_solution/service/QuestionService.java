@@ -57,12 +57,13 @@ public class QuestionService {
     //get myQuestions By department
     public List<Question> getMyQuestionByDept(Integer department, User user){
         List<Question> questions = studentQuestionRepository.findAllQuestionByUser(user);
+        List<Question> result = new ArrayList<Question>();
         for(Question q: questions){
-            if(q.getDepartment().equals(department)==false){
-                questions.remove(q);
+            if(q.getDepartment()==department){
+                result.add(q);
             }
         }
-        return questions;
+        return result;
     }
     public Question getQuestionByID(Integer questionID){
         Long id = new Long(questionID);
@@ -106,13 +107,9 @@ public class QuestionService {
 
     // subtract myQuestions from Questions
     public List<Question> subtractQuestion(List<Question> myQuestionList, List<Question> questionList){
-        List<Question> questions = myQuestionList;
-        for(Question myQ: questions){
-            for(Question q: questionList){
-                if(q.getId().equals(myQ.getId())){
-                    questions.remove(q);
-                }
-            }
+        List<Question> questions = questionList;
+        for(Question myQ: myQuestionList){
+            questions.remove(myQ);
         }
         return questions;
     }
@@ -141,8 +138,9 @@ public class QuestionService {
     public void deleteMyQuestion(User user,Integer questionID){
         long id = new Long(questionID);
         Question question = questionRepository.findById(id).orElseThrow();
-        Question findQuestion = studentQuestionRepository.findQuestionByUserAAndQuestion(user,question);
-        long myQuestion = studentQuestionRepository.findQuestionByUserAAndQuestion(user,question).getId();
+        System.out.println("questionID:"+questionID);
+        StudentQuestion findQuestion = studentQuestionRepository.findByUserAndQuestion(user,question);
+        long myQuestion = findQuestion.getId();
         studentQuestionRepository.deleteById(myQuestion);
     }
 

@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public interface StudentQuestionRepository extends JpaRepository<StudentQuestion,Long> {
-    @Query(value = "select question from StudentQuestion where student = ?1")
+    @Query(value = "select question from StudentQuestion where user_id = ?1")
     List<Question> findAllQuestionByUser(User user);
-    @Query(value = "select question from StudentQuestion where student = ?1 and question = ?2")
-    Question findQuestionByUserAAndQuestion(User user,Question question);
+    StudentQuestion findByUserAndQuestion(User user,Question question);
+    void deleteById(Long id);
 }
