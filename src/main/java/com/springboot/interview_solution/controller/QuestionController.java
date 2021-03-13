@@ -86,7 +86,7 @@ public class QuestionController {
     }
     //ajax - nonstar->star
     @RequestMapping(value = "/questionList/check/{questionID}")
-    public String checkQuestion(@PathVariable int questionID, HttpServletResponse response) throws Exception{
+    public String checkQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
@@ -96,12 +96,12 @@ public class QuestionController {
 
     //ajax: star->nonstar
     @RequestMapping(value = "/questionList/uncheck/{questionID}")
-    public String uncheckQuestion(@PathVariable int questionID, HttpServletResponse response) throws Exception{
+    public String uncheckQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
         //delete the question in studentRepository
-        questionService.deleteMyQuestion(user,questionID);
+        questionService.deleteMyQuestionByQuestionID(user,questionID);
         return "redirect:/questionList";
     }
 
@@ -114,7 +114,7 @@ public class QuestionController {
 
         if(!authentication.getPrincipal().equals("anonymousUser")){
             User user = (User) authentication.getPrincipal();
-            List<Question> myQuestions = questionService.searchMyQuestion(word,user);
+            List<Question> myQuestions = questionService.getQuestionListInStudentQuestion(questionService.searchMyQuestion(word,user));
             questions = questionService.subtractQuestion(myQuestions,questions);
             mv.addObject("myQuestionList",myQuestions);
         }
@@ -128,15 +128,43 @@ public class QuestionController {
     @RequestMapping(value = "/myQuestionList")
     public ModelAndView myQuestionList(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user;
+        if(!authentication.getPrincipal().equals("anonymousUser")){
+            user = (User) authentication.getPrincipal();
+            System.out.println(user);
+        }else{
+            user = null;
+        }
+
+        List<StudentQuestion> myQuestions = questionService.getAllStudentQuestion(user);
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("myQuestionList", myQuestions);
+        mv.addObject("User", user);
+        mv.setViewName("myquestion");
+        return mv;
+    }
+
+    @RequestMapping(value = "/myQuestionList/{part}")
+    public ModelAndView myQuestionListByPart(@PathVariable int part){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
-        List<Question> myQuestions = questionService.getAllMyQuestion(user);
+        List<StudentQuestion> myQuestions = questionService.getAllStudentQuestionByPart(user,part);
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("myQuestionList",myQuestions);
         mv.setViewName("myquestion");
 
         return mv;
+    }
+
+    // star->nonstar in My QuestionList
+    @RequestMapping(value = "/myQuestionList/uncheck/{questionID}")
+    public String uncheckMyQuestion(@PathVariable int questionID) {
+        //delete the question in studentRepository
+        questionService.deleteMyQuestion(questionID);
+        return "redirect:/myQuestionList";
     }
 
     //search
@@ -146,7 +174,7 @@ public class QuestionController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
-        List<Question> myQuestions = questionService.searchMyQuestion(word,user);
+        List<StudentQuestion> myQuestions = questionService.searchMyQuestion(word,user);
         mv.addObject("myQuestionList",myQuestions);
         mv.setViewName("myquestion");
 

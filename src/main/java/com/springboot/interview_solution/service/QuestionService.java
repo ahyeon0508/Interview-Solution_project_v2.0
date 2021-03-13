@@ -65,17 +65,6 @@ public class QuestionService {
         }
         return result;
     }
-    public Question getQuestionByID(Integer questionID){
-        Long id = new Long(questionID);
-        Question question = questionRepository.findById(id).orElseThrow();
-        return question;
-    }
-    public Question getMyQuestionByID(Integer questionID, User user){
-        Long id = new Long(questionID);
-        StudentQuestion myQuestion = studentQuestionRepository.findById(id).orElseThrow();
-        Question question = myQuestion.getQuestion();
-        return question;
-    }
 
     //search Question
     public List<Question> searchQuestion(String word){
@@ -92,15 +81,24 @@ public class QuestionService {
     }
 
     //search MyQuestion
-    public List<Question> searchMyQuestion(String word,User user){
-        List<Question> allQuestions = studentQuestionRepository.findAllQuestionByUser(user);
-        List<Question> questions = new ArrayList<Question>();
+    public List<StudentQuestion> searchMyQuestion(String word,User user){
+        List<StudentQuestion> allQuestions = studentQuestionRepository.findAllByUser(user);
+        List<StudentQuestion> questions = new ArrayList<StudentQuestion>();
 
-        for(Iterator<Question> itr = allQuestions.iterator(); itr.hasNext();){
-            Question n = itr.next();
-            if(n.getQuestion().contains(word)){
+        for(Iterator<StudentQuestion> itr = allQuestions.iterator(); itr.hasNext();){
+            StudentQuestion n = itr.next();
+            if(n.getQuestion().getQuestion().contains(word)){
                 questions.add(n);
             }
+        }
+        return questions;
+    }
+
+    //pick up the Question List In StudentQuestion List
+    public List<Question> getQuestionListInStudentQuestion(List<StudentQuestion> studentQuestions){
+        List<Question> questions = new ArrayList<Question>();
+        for(StudentQuestion q: studentQuestions){
+            questions.add(q.getQuestion());
         }
         return questions;
     }
@@ -135,7 +133,26 @@ public class QuestionService {
         studentQuestionRepository.save(StudentQuestion.builder().question(question).student(student).part(2).build());
     }
 
-    public void deleteMyQuestion(User user,Integer questionID){
+    //get All StudentQuestion by User
+    public List<StudentQuestion> getAllStudentQuestion(User user){
+        List<StudentQuestion> studentQuestions = studentQuestionRepository.findAllByUser(user);
+        return studentQuestions;
+    }
+
+    //get All StudentQuestion by User and Part
+    public List<StudentQuestion> getAllStudentQuestionByPart(User user,Integer part){
+        List<StudentQuestion> studentQuestions = studentQuestionRepository.findAllByUserAndPart(user,part);
+        return studentQuestions;
+    }
+
+    //delete StudentQuestion By ID
+    public void deleteMyQuestion(Integer id){
+        long studentQuestionID = new Long(id);
+        studentQuestionRepository.deleteById(studentQuestionID);
+    }
+
+    //delete StudentQuestion By QuestionID And User
+    public void deleteMyQuestionByQuestionID(User user,Integer questionID){
         long id = new Long(questionID);
         Question question = questionRepository.findById(id).orElseThrow();
         System.out.println("questionID:"+questionID);
@@ -143,6 +160,7 @@ public class QuestionService {
         long myQuestion = findQuestion.getId();
         studentQuestionRepository.deleteById(myQuestion);
     }
+
 
 
 

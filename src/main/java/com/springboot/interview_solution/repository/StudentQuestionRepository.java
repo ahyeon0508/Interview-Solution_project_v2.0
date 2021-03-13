@@ -15,4 +15,6 @@ public interface StudentQuestionRepository extends JpaRepository<StudentQuestion
     List<Question> findAllQuestionByUser(User user);
     StudentQuestion findByUserAndQuestion(User user,Question question);
     void deleteById(Long id);
+    List<StudentQuestion> findAllByUser(User user);
+    List<StudentQuestion> findAllByUserAndPart(User user,Integer part);
 }

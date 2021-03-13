@@ -7,17 +7,28 @@
     <link th:href="@{/css/intro.css}" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            var user = $('#start_myQuestion').attr("value");
+            console.log("value:"+user);
+            if(user==null){
+                confirmUser();
+            }
+        });
+    </script>
 </head>
 
 <body>
 <div th:replace="template.html :: fragment-stunav"></div>
 
     <!--내 질문 시작-->
-    <section class="container-fluid">
+    <section class="container-fluid" id="start_myQuestion" th:value="${User}">
         <div class="card">
             <div class="card-header">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">질문 장바구니</a>
+                    <a class="navbar-brand" href="/myQuestionList">질문 장바구니</a>
                     <!--모바일 환경에서 화면비에 따라 토글 띄워지는 부분-->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -27,7 +38,7 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
                                 <!--클릭시 본인에게 할당된 모든 질문 띄워지도록-->
-                                <a class="nav-link" href="#">모든 질문</a>
+                                <a class="nav-link" href="/myQuestionList">모든 질문</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,11 +46,11 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <!--클릭시 본인의 질문들 중, 담은 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="#">담은 질문</a>
+                                    <a class="dropdown-item" href="/myQuestionList/0">담은 질문</a>
                                     <!--클릭시 본인의 질문들 중, 작성한 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="#">작성한 질문</a>
+                                    <a class="dropdown-item" href="/myQuestionList/1">작성한 질문</a>
                                     <!--클릭시 본인의 질문들 중, 받은 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="#">받은 질문</a>
+                                    <a class="dropdown-item" href="/myQuestionList/2">받은 질문</a>
                                     <div class="dropdown-divider"></div>
                                     <!--클릭시 본인의 질문들 중, AI가 생성한 질문 띄워지도록-->
                                     <a class="dropdown-item disabled" href="#">AI 질문</a>
@@ -66,9 +77,11 @@
                     <!--for문으로 질문 단위 li태그 반복-->
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "작성한 질문" 부분은 질문 종류 띄우도록 -->
-                            <div>질문 내용<small> - 작성한 질문</small></div>
+                            <div th:if="${myQuestion.getPart().equals(0)}">[[${myQuestion.getQuestion().getQuestion()}]]<small> - 담은 질문</small></div>
+                            <div th:if="${myQuestion.getPart().equals(1)}">[[${myQuestion.getQuestion().question}]]<small> - 작성한 질문</small></div>
+                            <div th:if="${myQuestion.getPart().equals(2)}">[[${myQuestion.getQuestion().question}]]<small> - 받은 질문</small></div>
                             <!--삭제 버튼 클릭해 팝업창 띄워졌을 때, 예 클릭시 질문 삭제 하도록-->
-                            <button type="button" th:id="${myQuestion.getId()}" class="btn btn-secondary btn-sm" onclick="">삭제</button>
+                            <button type="button" th:id="|question_uncheck_${myQuestion.getId()}|" class="btn btn-secondary btn-sm" th:onclick="interstar([[${myQuestion.getId()}]]);">삭제</button>
                         </li>
                     </tr>
                 </ul>
@@ -81,6 +94,7 @@
 
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/home.js}"></script>
+<script th:src="@{/js/util.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
