@@ -205,13 +205,13 @@ public class ReportService {
                         if(IC.containsKey(morp.getString("lemma"))) {
                             IC.replace(morp.getString("lemma"), IC.get(morp.getString("lemma")) + 1);
                         } else {
-                            IC.put(morp.getString("lemma"), 0);
+                            IC.put(morp.getString("lemma"), 1);
                         }
                     } else if (type.equals("SL") || type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
                         if(NOUN.containsKey(morp.getString("lemma"))) {
                             NOUN.replace(morp.getString("lemma"), NOUN.get(morp.getString("lemma")) + 1);
                         } else {
-                            NOUN.put(morp.getString("lemma"), 0);
+                            NOUN.put(morp.getString("lemma"), 1);
                         }
                     }
                 }
