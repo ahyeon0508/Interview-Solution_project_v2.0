@@ -181,4 +181,14 @@ public class QuestionController {
         return mv;
     }
 
+    //add new Question in MyQuestionList
+    @RequestMapping(value = "/myQuestionList/newQuestion")
+    public String addNewQuestionBySelf(String question_str){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        questionService.sendQuestionByMe(question_str,user);
+
+        return "redirect:/myQuestionList";
+    }
+
 }
