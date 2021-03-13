@@ -100,13 +100,6 @@ public class ReportService {
         return answer;
     }
 
-    public Double get_time(String audioFilePath) {
-        Path path = Paths.get(audioFilePath);
-
-        Double time = 0.4;
-        return time;
-    }
-
     public void makeReport(String audioFilePath) {
         String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
         String openApiURL2 = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken";
@@ -178,9 +171,8 @@ public class ReportService {
         request.put("access_key", accessKey);
         request.put("argument", argument);
 
-        List<String> IC = new ArrayList<>();
-        List<String> SL = new ArrayList<>();
-        List<String> NOUN = new ArrayList<>();
+        Map<String, Integer> IC = new HashMap<>();
+        Map<String, Integer> NOUN = new HashMap<>();
 
         try {
             url = new URL(openApiURL2);
@@ -210,14 +202,17 @@ public class ReportService {
                     String type = morp.getString("type");
 
                     if(type.equals("IC")) {
-                        IC.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
-                    } else if (type.equals("SL")) {
-                        SL.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
-                    } else if (type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
-                        NOUN.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
+                        if(IC.containsKey(morp.getString("lemma"))) {
+                            IC.replace(morp.getString("lemma"), IC.get(morp.getString("lemma")) + 1);
+                        } else {
+                            IC.put(morp.getString("lemma"), 0);
+                        }
+                    } else if (type.equals("SL") || type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
+                        if(NOUN.containsKey(morp.getString("lemma"))) {
+                            NOUN.replace(morp.getString("lemma"), NOUN.get(morp.getString("lemma")) + 1);
+                        } else {
+                            NOUN.put(morp.getString("lemma"), 0);
+                        }
                     }
                 }
             }
@@ -226,5 +221,35 @@ public class ReportService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        StringBuilder IC_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
+        while(iteratorIC.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
+            IC_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+        }
+        IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
+        System.out.println(IC_sentence);
+
+        StringBuilder NOUN_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorNOUN = IC.entrySet().iterator();
+        while(iteratorNOUN.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
+            NOUN_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+        }
+        NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
+        System.out.println(NOUN_sentence);
+
+//        Report report = reportRepository.findReportById(1L).orElseThrow();
+//        report.setAdverb1(
+//                "{" +
+//                    IC_sentence
+//                + "}"
+//        );
+//        report.setRepetition1(
+//                "{" +
+//                        NOUN_sentence
+//                        + "}"
+//        );
     }
 }

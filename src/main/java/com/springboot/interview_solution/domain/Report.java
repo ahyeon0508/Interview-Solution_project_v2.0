@@ -1,18 +1,26 @@
 package com.springboot.interview_solution.domain;
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Entity
 @Setter
 @NoArgsConstructor
 @SequenceGenerator(name = "SEQ_GEN", sequenceName = "SEQ", initialValue = 1, allocationSize = 1)
+@TypeDef(
+        name = "json",
+        typeClass = JsonStringType.class
+)
 public class Report {
 
     @Id
@@ -33,9 +41,17 @@ public class Report {
     private String script2;
     private String script3;
 //    private JsonData adverb1; : 문자열을 JSON으로 읽을 수 있는지 확인
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String adverb1;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String adverb2;
+//    private String adverb2;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String adverb3;
+//    private String adverb3;
     private String repetition1;
     private String repetition2;
     private String repetition3;
