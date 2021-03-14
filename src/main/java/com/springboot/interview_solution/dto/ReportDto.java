@@ -3,9 +3,7 @@ package com.springboot.interview_solution.dto;
 import com.springboot.interview_solution.domain.User;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,7 +21,6 @@ public class ReportDto {
     private String script1;
     private String script2;
     private String script3;
-    //    private JsonData adverb1; : 문자열을 JSON으로 읽을 수 있는지 확인
     private String adverb1;
     private String adverb2;
     private String adverb3;

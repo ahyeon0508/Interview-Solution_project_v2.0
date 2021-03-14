@@ -3,6 +3,7 @@ package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.ReportDto;
+import com.springboot.interview_solution.dto.ReportSTTDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
@@ -100,14 +101,30 @@ public class ReportService {
         return answer;
     }
 
-    public Double get_time(String audioFilePath) {
-        Path path = Paths.get(audioFilePath);
-
-        Double time = 0.4;
-        return time;
+    public Report makeReport(Long id) {
+        Report report = reportRepository.findReportById(id).orElseThrow();
+        if(!report.getAudio1().isEmpty()) {
+            ReportSTTDto reportStt1 = reportStt(report.getAudio1());
+//            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
+            report.setAdverb1(reportStt1.getAdverb());
+            report.setRepetition1(reportStt1.getRepetition());
+        }
+        if(!report.getAudio2().isEmpty()) {
+            ReportSTTDto reportStt2 = reportStt(report.getAudio2());
+//            ReportSTTDto reportStt2 = reportStt(report.getAudio2(), report.getSpeed2());
+            report.setAdverb2(reportStt2.getAdverb());
+            report.setRepetition2(reportStt2.getRepetition());
+        }
+        if(!report.getAudio3().isEmpty()) {
+            ReportSTTDto reportStt3 = reportStt(report.getAudio3());
+//            ReportSTTDto reportStt3 = reportStt(report.getAudio3(), report.getSpeed3());
+            report.setAdverb3(reportStt3.getAdverb());
+            report.setRepetition3(reportStt3.getRepetition());
+        }
+        return report;
     }
 
-    public void makeReport(String audioFilePath) {
+    public ReportSTTDto reportStt(String audioFilePath) {
         String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
         String openApiURL2 = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken";
         String accessKey = "1a2937a3-caef-42ee-9b2d-4eadaf9c78c9";    // 발급받은 API Key
@@ -178,9 +195,8 @@ public class ReportService {
         request.put("access_key", accessKey);
         request.put("argument", argument);
 
-        List<String> IC = new ArrayList<>();
-        List<String> SL = new ArrayList<>();
-        List<String> NOUN = new ArrayList<>();
+        Map<String, Integer> IC = new HashMap<>();
+        Map<String, Integer> NOUN = new HashMap<>();
 
         try {
             url = new URL(openApiURL2);
@@ -210,14 +226,17 @@ public class ReportService {
                     String type = morp.getString("type");
 
                     if(type.equals("IC")) {
-                        IC.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
-                    } else if (type.equals("SL")) {
-                        SL.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
-                    } else if (type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
-                        NOUN.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
+                        if(IC.containsKey(morp.getString("lemma"))) {
+                            IC.replace(morp.getString("lemma"), IC.get(morp.getString("lemma")) + 1);
+                        } else {
+                            IC.put(morp.getString("lemma"), 1);
+                        }
+                    } else if (type.equals("SL") || type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
+                        if(NOUN.containsKey(morp.getString("lemma"))) {
+                            NOUN.replace(morp.getString("lemma"), NOUN.get(morp.getString("lemma")) + 1);
+                        } else {
+                            NOUN.put(morp.getString("lemma"), 1);
+                        }
                     }
                 }
             }
@@ -226,5 +245,37 @@ public class ReportService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        StringBuilder IC_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
+        while(iteratorIC.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
+            IC_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+        }
+        IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
+        System.out.println(IC_sentence);
+
+        StringBuilder NOUN_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorNOUN = IC.entrySet().iterator();
+        while(iteratorNOUN.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
+            NOUN_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+        }
+        NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
+        System.out.println(NOUN_sentence);
+
+        ReportSTTDto sttDto = new ReportSTTDto();
+        sttDto.setAdverb(
+                "{" +
+                        IC_sentence
+                        + "}"
+        );
+        sttDto.setRepetition(
+                "{" +
+                        NOUN_sentence
+                        + "}"
+        );
+
+        return sttDto;
     }
 }
