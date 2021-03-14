@@ -14,7 +14,7 @@
     <h1 id="title">예상질문 전송</h1>
     <div class="question-send-page">
         <div class="questionInput">
-            <form method="post" action="">
+            <form method="post" th:action="@{/questionSend/${studentID}}">
                 <span class="write_in">
                     <div class="ui fluid input focus">
                         <input type="text" placeholder="예상질문을 입력해주세요." name="quesiton">
@@ -36,7 +36,7 @@
                 <div class="delete">
                     <!-- Q_DeleteConfirm 함수의 인자에 전송한 질문 id 넣어주면 될듯? : 고영희 찾기와 유사-->
                     <!-- js로 이동해서 삭제할 예정 : 삭제 관련 url을 아현이한테 알려주거나 check.js에 url 입력하면 됨!-->
-                    <button type="button" class="ui grey basic button" onclick="Q_DeleteConfirm()">삭제</button>
+                    <button type="button" class="ui grey basic button" th:onclick="Q_DeleteConfirm(${studentQuestion})">삭제</button>
                 </div>
             </div>
             <!-- 이전에 보냈던 질문 목록이 없으면 -->

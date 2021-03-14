@@ -1,13 +1,17 @@
 package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.domain.Report;
+import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.FeedbackDto;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import com.springboot.interview_solution.service.ReportService;
+import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +23,7 @@ import java.time.LocalDateTime;
 public class ReportController {
     @Autowired
     private ReportService reportService;
+    private UserService userService;
 
     @RequestMapping(value = "/wait", method = RequestMethod.GET)
     public ModelAndView getWait() {
@@ -81,14 +86,37 @@ public class ReportController {
         return "redirect:/classVideo/" + id;
     }
 
-    @GetMapping(value = "questionSend/{id}")
-    public ModelAndView getQuestionSend(@PathVariable Long id) {
+//    studentId : report.student.userID
+    @GetMapping(value = "questionSend/{studentID}")
+    public ModelAndView getQuestionSend(@PathVariable String studentID) {
         ModelAndView mv = new ModelAndView("questionSend");
+        mv.addObject("studentID", studentID);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User teacher = (User) authentication.getPrincipal();
+//        학생 질문 : studentQ = StudentQuestion.objects.filter(student=studentID, teacher=request.session['user'])
+//        StudentQuestion studentQuestion = questionService.loadStudentQuestionByStudentTeacher(studentID, teacher.userID)
+//        mv.addObject("studentQuestion", studentQuestion);
+        mv.addObject("studentQuestion");
         return mv;
     }
 
-    @PostMapping(value = "questionSend/{id}")
-    public String PostQuestionSend(@PathVariable Long id) {
-        return "redirect:/classVideo/" + id;
+    @PostMapping(value = "questionSend/{studentID}")
+    public String PostQuestionSend(@PathVariable String studentID, @RequestParam String questionParam) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User teacher = (User) authentication.getPrincipal();
+//        Question question = questionService.save(questionParam, department=-1)
+//        questionService.studentQuestionSave(question, userService.loadUserByUsername(studentID), teacher, part=2)
+        return "redirect:/questionSend/" + studentID;
+    }
+
+    @DeleteMapping(value = "questionSend/delete/{questionID}")
+    public String DeleteQuestionSend(@PathVariable Long questionID) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User teacher = (User) authentication.getPrincipal();
+//        Question question = questionService.loadQuestionById(questionID);
+//        questionService.delete(questionID);
+//        return "redirect:/questionSend/" + question.userID;
+        return "";
     }
 }
