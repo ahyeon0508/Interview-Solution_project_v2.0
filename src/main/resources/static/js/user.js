@@ -38,8 +38,15 @@ function fn_pw_check() {
     }
 
     return true;
-<<<<<<< HEAD
-=======
+}
+
+function secedeForm(){
+    if(confirm("정말로 탈퇴하시겠습니까?")){
+        // 탈퇴 주소 입력하기
+        window.location.href = "/secede";
+    } else {
+        return false;
+    }
 }
 function checkSignupForm(){
     var username = document.getElementById("username").value;
@@ -58,5 +65,4 @@ function checkSignupForm(){
         alert("비밀번호 입력해주세요.");
         return false;
     }
->>>>>>> 7035bc39ccf7b3bfb12348778704d65db0ed6994
 }

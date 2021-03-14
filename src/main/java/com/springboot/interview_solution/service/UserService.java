@@ -1,27 +1,32 @@
 package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.dto.MyUserDto;
 import com.springboot.interview_solution.dto.UserDto;
-import com.springboot.interview_solution.repository.UserDao;
+import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 @AllArgsConstructor
 @Service
 public class UserService implements UserDetailsService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
     private JdbcTemplate jdbcTemplate;
 
     //Spring security 필수 구현 method
     @Override
-    public UserDetails loadUserByUsername(String userID) throws UsernameNotFoundException{
-        return userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
+    public User loadUserByUsername(String userID) throws UsernameNotFoundException{
+        return userRepository.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
     }
 
     // signup
@@ -32,7 +37,7 @@ public class UserService implements UserDetailsService {
         if(userDto.getIsTeacher().equals("teacher")){
             isTeacher=true;
         }
-        userDao.save(User.builder()
+        userRepository.save(User.builder()
                 .userID(userDto.getUserID())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
@@ -45,21 +50,26 @@ public class UserService implements UserDetailsService {
 
     //validate duplication UserId
     public Boolean validateDuplicateUserId(String userID){
-        return userDao.findByUserID(userID).isPresent();
+        return userRepository.findByUserID(userID).isPresent();
     }
 
     // signin
     public Boolean signin(UserDto userDto) {
         String userID = userDto.getUserID();
-        UserDetails user = userDao.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
+        UserDetails user = userRepository.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
         if (user != null){
             return true;
         } else return false;
     }
 
-    // findID
+    public Boolean loadIsTeacherByUserID(String userID){
+        Boolean isTeacher = jdbcTemplate.queryForObject("select is_teacher from user where userID=?", Boolean.class, userID);
+        return isTeacher;
+    }
+
+    // findname
     public User loadUserByUserName(String username) throws UsernameNotFoundException{
-        return userDao.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
+        return userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
     }
 
     // changePW
@@ -67,5 +77,46 @@ public class UserService implements UserDetailsService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String newPW = encoder.encode(password);
         jdbcTemplate.update("update user set password=? where userID=?", new Object[]{newPW, userID});
+    }
+
+    // 회원 정보 select
+    public User loadUser(String userID) throws Exception {
+        User user = null;
+        try {
+            user = jdbcTemplate.queryForObject("select * from user where userID=?", new Object[]{userID},
+                    (resultSet, i) -> {
+                        User user1 = new User(resultSet.getString("userID"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getString("phone"), resultSet.getString("school"), resultSet.getInt("grade"), resultSet.getInt("s_class"));
+                        return user1;
+                    }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    //회원 정보 수정
+    public void modifyUser(MyUserDto myUserDto) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String newPW = encoder.encode(myUserDto.getNewPassword());
+        User user = loadUserByUsername(myUserDto.getUserID());
+        if(myUserDto.getPhone().equals("")) {
+            myUserDto.setPhone(user.getPhone());
+        }
+        if(myUserDto.getSchool().equals("")) {
+            myUserDto.setSchool(user.getSchool());
+        }
+        if(myUserDto.getGrade() == null) {
+            myUserDto.setGrade(user.getGrade());
+        }
+        if(myUserDto.getSClass() == null) {
+            myUserDto.setSClass(user.getsClass());
+        }
+        jdbcTemplate.update("update user set password=?, phone=?, school=?, grade=?, s_class=? where userID=?", newPW, myUserDto.getPhone(), myUserDto.getSchool(), myUserDto.getGrade(), myUserDto.getSClass(), myUserDto.getUserID());
+    }
+
+    // 회원 탈퇴
+    public void deleteUser(String userID) {
+        jdbcTemplate.update("delete from user where userID=?", userID);
     }
 }

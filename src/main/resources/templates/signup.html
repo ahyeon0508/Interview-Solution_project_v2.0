@@ -8,47 +8,44 @@
     
     <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
     <link th:href="@{/css/signup.css}" rel="stylesheet" />
-    <script th:src="@{/Semantic-UI-master/dist/semantic.min.js}"></script>
     <script th:src="@{/js/user.js}"></script>
-
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        // 학교명 자동검색
+        //학교명 자동검색
         $(document).ready(function () {
+            console.log("start");
             $("#schoolName").autocomplete({
-                // source 채우기
-                source: '',
+                source: '/searchSchool',
                 select: function (event, ui) {
                     var selectedObj = ui.item
                 }
             });
+
         });
 
 
         // 아이디 중복확인
         $(function () {
             $('#userIDChk').click(function () {
-                var userID = $('#userID').val()
+                var userID = $('#userID').val();
                 if (userID == '') {
-                    alert('아이디를 입력해주세요')
+                    alert('아이디를 입력해주세요');
                     return;
                 }
 
                 $.ajax({
                     // url 채우기
-                    url: "/userIdCheck",
-                    type: 'GET',
+                    url: '/userIdCheck',
+                    type: 'POST',
                     data: {'userID':userID},
                     dataType: 'json',
-                    contentType: "application/json; charset=UTF-8",
+                    contentType: "application/json",
+                    async: true,
                     success: function (response) {
-                        if (response.result != 'success') {
-                            console.error(response.data)
-                            return;
-                        }
                         if (response.data == 'exist') {
+                            console.log(response.data)
                             alert("존재하는 아이디입니다");
                             $('#userID').val('').focus();
                             return;
@@ -63,7 +60,7 @@
                         alert("서버와의 통신에서 문제가 발생했습니다");
                         console.error("error : " + error);
                     }
-                })
+                });
             });
 
             $('#signup-form').submit(function () {
@@ -75,6 +72,8 @@
             });
         });
     </script>
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 </head>
 
 <body>
@@ -113,7 +112,9 @@
                     <hr>
                     <p class="schoolMessage" style="text-align: left;">▶ 학교정보 입력(교사일 경우, 담당 학급 입력)</p>
                     <p class="message" style="text-align: left;">자동검색 기능을 이용하여 학교명을 검색해주세요</p>
-                    <input type="text" id="schoolName" name="school" placeholder="학교명을 검색하세요">
+                    <div class="ui search">
+                        <input class="prompt" id="schoolName" type="text" placeholder="학교명을 검색하세요">
+                    </div>
                     <select name="grade">
                         <option id="grade" selected="selected" value=null>학년</option>
                         <option value=1>1학년</option>
@@ -125,7 +126,7 @@
                     <hr>
                 </div>
                 <!-- 로그인으로 이동 -->
-                <input type="button" id="cancle" onClick="location.href=''" value="취소">
+                <input type="button" id="cancle" onClick="location.href='/signin'" value="취소">
                 <!-- 회원가입 시키기 -->
                 <input type="submit" id="complete" id_check_result="fail" name="save" value="완료">
             </form>
