@@ -1,5 +1,6 @@
 package com.springboot.interview_solution.controller;
 
+import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import com.springboot.interview_solution.service.ReportService;
@@ -20,6 +21,8 @@ public class ReportController {
     @RequestMapping(value = "/wait", method = RequestMethod.GET)
     public ModelAndView getWait() {
         ModelAndView mv = new ModelAndView("wait");
+//        Report report = reportService.makeReport(id); // 앞 단계에서 받아오기
+//        mv.addObject(report);
         return mv;
     }
 

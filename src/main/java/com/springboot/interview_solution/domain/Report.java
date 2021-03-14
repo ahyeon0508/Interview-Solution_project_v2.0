@@ -52,8 +52,14 @@ public class Report {
     @Column(columnDefinition = "json")
     private String adverb3;
 //    private String adverb3;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String repetition1;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String repetition2;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String repetition3;
     private Double speed1;
     private Double speed2;

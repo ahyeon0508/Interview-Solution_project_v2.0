@@ -3,6 +3,7 @@ package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.ReportDto;
+import com.springboot.interview_solution.dto.ReportSTTDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,30 @@ public class ReportService {
         return answer;
     }
 
-    public void makeReport(String audioFilePath) {
+    public Report makeReport(Long id) {
+        Report report = reportRepository.findReportById(id).orElseThrow();
+        if(!report.getAudio1().isEmpty()) {
+            ReportSTTDto reportStt1 = reportStt(report.getAudio1());
+//            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
+            report.setAdverb1(reportStt1.getAdverb());
+            report.setRepetition1(reportStt1.getRepetition());
+        }
+        if(!report.getAudio2().isEmpty()) {
+            ReportSTTDto reportStt2 = reportStt(report.getAudio2());
+//            ReportSTTDto reportStt2 = reportStt(report.getAudio2(), report.getSpeed2());
+            report.setAdverb2(reportStt2.getAdverb());
+            report.setRepetition2(reportStt2.getRepetition());
+        }
+        if(!report.getAudio3().isEmpty()) {
+            ReportSTTDto reportStt3 = reportStt(report.getAudio3());
+//            ReportSTTDto reportStt3 = reportStt(report.getAudio3(), report.getSpeed3());
+            report.setAdverb3(reportStt3.getAdverb());
+            report.setRepetition3(reportStt3.getRepetition());
+        }
+        return report;
+    }
+
+    public ReportSTTDto reportStt(String audioFilePath) {
         String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
         String openApiURL2 = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken";
         String accessKey = "1a2937a3-caef-42ee-9b2d-4eadaf9c78c9";    // 발급받은 API Key
@@ -240,16 +264,18 @@ public class ReportService {
         NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
         System.out.println(NOUN_sentence);
 
-//        Report report = reportRepository.findReportById(1L).orElseThrow();
-//        report.setAdverb1(
-//                "{" +
-//                    IC_sentence
-//                + "}"
-//        );
-//        report.setRepetition1(
-//                "{" +
-//                        NOUN_sentence
-//                        + "}"
-//        );
+        ReportSTTDto sttDto = new ReportSTTDto();
+        sttDto.setAdverb(
+                "{" +
+                        IC_sentence
+                        + "}"
+        );
+        sttDto.setRepetition(
+                "{" +
+                        NOUN_sentence
+                        + "}"
+        );
+
+        return sttDto;
     }
 }
