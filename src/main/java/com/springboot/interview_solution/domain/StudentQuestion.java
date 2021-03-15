@@ -15,8 +15,8 @@ public class StudentQuestion {
     private Long id;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name="student_id")
-    private User student;
+    @JoinColumn(name="user_id")
+    private User user;
 
     @ManyToOne(targetEntity = Question.class)
     @JoinColumn(name="question_id")
@@ -26,7 +26,7 @@ public class StudentQuestion {
 
     @Builder
     public StudentQuestion(User student, Question question, Integer part){
-        this.student = student;
+        this.user = student;
         this.question = question;
         this.part = part;
     }
