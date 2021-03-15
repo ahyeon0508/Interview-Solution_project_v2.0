@@ -83,6 +83,34 @@ public class User implements UserDetails {
         this.teacher = null;
     }
 
+    @Builder
+    public User(String userID, String username,String password, String phone, String school, Integer grade, Integer sClass){
+        this.userID = userID;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.school = school;
+        this.grade = grade;
+        this.sClass = sClass;
+        this.isTeacher = false;
+        //학생일 경우 선생님 연결하는 코드 작성 필요
+        this.teacher = null;
+    }
+
+    @Builder
+    public User(String userID, String username,String password, String phone, String school, Integer grade, Integer sClass, Boolean isTeacher, String teacher){
+        this.userID = userID;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.school = school;
+        this.grade = grade;
+        this.sClass = sClass;
+        this.isTeacher = isTeacher;
+        //학생일 경우 선생님 연결하는 코드 작성 필요
+        this.teacher = teacher;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
         Set<GrantedAuthority> roles = new HashSet<>();
