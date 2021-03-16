@@ -16,7 +16,7 @@
         $(document).ready(function () {
             var check = $("input[type='checkbox']");
             check.click(function () {
-                var reportID = $(this).attr('report')
+                var reportID = $(this).attr('text')
                 $.ajax({
                     // url 넣기
                     url: '',
@@ -47,8 +47,8 @@
 
     <div class="ui card">
         <div class="ui toggle checkbox">
-            <!-- report에 report id 넣기 -->
-            <input type="checkbox" id="checkBoxId" report="">
+            <!-- th:text에 report id 넣기 -->
+            <input type="checkbox" id="checkBoxId" th:text="">
             <label>공개 여부</label>
         </div>
         <h1>면접 대기</h1>
@@ -63,9 +63,9 @@
         </form>
         <div class="ui styled fluid accordion">
             <div class="title">
-                <i class="dropdown icon" th:text="${report.question1}"></i>
+                <i class="dropdown icon"></i>
                 <!-- aaa 지우고 Q1 띄우기 ex) 장고 기준 : {{report.question1}}-->
-                aaa
+                <p th:text="${report.question1}"></p>
             </div>
             <div class="content">
                 <p th:text="${report.adverb1}"></p>
@@ -98,8 +98,7 @@
         </div>
         <div id="button">
             <div class="move">
-                <!-- href에 홈 url 넣기 -->
-                <input type="button" class="ui blue basic button" id="home" onClick="location.href=''" value="홈으로">
+                <input type="button" class="ui blue basic button" id="home" onClick="location.href='/student'" value="홈으로">
             </div>
             <div class="move">
                 <!-- href에 내 면접 리포트 모음 url 넣기 -->
