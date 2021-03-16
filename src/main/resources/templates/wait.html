@@ -53,23 +53,30 @@
         </div>
         <h1>면접 대기</h1>
         <p id="notice">분석에 시간이 다소 소요됩니다. <br> 질문을 누르시면 해당 영상을 볼 수 있으며, 영상 공개 여부를 설정할 수 있습니다.</p>
-        <form class="title-form" method="post" action="">
+        <form class="title-form" method="post" th:action="@{/wait/{id}(id=${report.id})}">
             <p id="title_notice">▼ 아래 입력창에 모의 면접 영상 제목을 설정해보세요. 기본 값은 제목입니다.</p>
             <!-- placeholder에 report title 넣기 -->
             <div class="ui input focus">
-                <input type="text" id="title" placeholder="">
+                <input type="text" id="title" name="title" th:placeholder="${report.title}">
             </div>
             <input type="submit" id="complete" class="ui grey basic button" value="완료">
         </form>
         <div class="ui styled fluid accordion">
             <div class="title">
-                <i class="dropdown icon"></i>
+                <i class="dropdown icon" th:text="${report.question1}"></i>
                 <!-- aaa 지우고 Q1 띄우기 ex) 장고 기준 : {{report.question1}}-->
                 aaa
             </div>
             <div class="content">
+                <p th:text="${report.adverb1}"></p>
+                <p th:text="${report.repetition1}"></p>
                 <!-- ddd 지우고 Q1에 대한 답변 영상 띄우기 -->
-                <p class="transition hidden">ddd</p>
+                <p class="transition hidden">
+                    <video autoplay controls loop muted poster="aaa" preload="bbb">
+                        <source th:src="${report.video1}" type="video/mp4">
+                        zzz
+                    </video>
+                </p>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>

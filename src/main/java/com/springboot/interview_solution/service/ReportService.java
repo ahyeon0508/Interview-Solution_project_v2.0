@@ -6,6 +6,7 @@ import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.dto.ReportSTTDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.DataOutputStream;
@@ -29,6 +30,11 @@ import org.json.JSONObject;
 public class ReportService {
 
     private final ReportRepository reportRepository;
+    private JdbcTemplate jdbcTemplate;
+
+    public void modifyTitle(Report report, String title) {
+        jdbcTemplate.update("update report set title=? where id=?", title, report.getId());
+    }
 
     public void setReport(ReportDto report, User student, User teacher) {
         reportRepository.save(Report.builder()
@@ -101,27 +107,26 @@ public class ReportService {
         return answer;
     }
 
-    public Report makeReport(Long id) {
+    public void makeReport(Long id) {
         Report report = reportRepository.findReportById(id).orElseThrow();
-        if(!report.getAudio1().isEmpty()) {
+        if(report.getAudio1() != null) {
             ReportSTTDto reportStt1 = reportStt(report.getAudio1());
 //            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
             report.setAdverb1(reportStt1.getAdverb());
             report.setRepetition1(reportStt1.getRepetition());
         }
-        if(!report.getAudio2().isEmpty()) {
+        if(report.getAudio2() != null) {
             ReportSTTDto reportStt2 = reportStt(report.getAudio2());
 //            ReportSTTDto reportStt2 = reportStt(report.getAudio2(), report.getSpeed2());
             report.setAdverb2(reportStt2.getAdverb());
             report.setRepetition2(reportStt2.getRepetition());
         }
-        if(!report.getAudio3().isEmpty()) {
+        if(report.getAudio3() != null) {
             ReportSTTDto reportStt3 = reportStt(report.getAudio3());
 //            ReportSTTDto reportStt3 = reportStt(report.getAudio3(), report.getSpeed3());
             report.setAdverb3(reportStt3.getAdverb());
             report.setRepetition3(reportStt3.getRepetition());
         }
-        return report;
     }
 
     public ReportSTTDto reportStt(String audioFilePath) {
@@ -214,6 +219,7 @@ public class ReportService {
             int byteRead = is.read(buffer);
             responBody = new String(buffer);
 
+            System.out.println("responseBody : " + responBody);
             JSONObject jObject = new JSONObject(responBody);
             JSONObject return_object = jObject.getJSONObject("return_object");
             JSONArray sentence = return_object.getJSONArray("sentence");
@@ -256,7 +262,7 @@ public class ReportService {
         System.out.println(IC_sentence);
 
         StringBuilder NOUN_sentence = new StringBuilder();
-        Iterator<Map.Entry<String, Integer>> iteratorNOUN = IC.entrySet().iterator();
+        Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
         while(iteratorNOUN.hasNext()) {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
             NOUN_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
