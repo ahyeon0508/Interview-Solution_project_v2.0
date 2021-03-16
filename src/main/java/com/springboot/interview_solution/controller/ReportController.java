@@ -27,31 +27,31 @@ public class ReportController {
     private UserService userService;
     private ReportRepository reportRepository;
 
-    @RequestMapping(value = "wait/{id}", method = RequestMethod.GET)
-    public ModelAndView getWait(Authentication authentication, @PathVariable("id") Long id) throws Exception {
+    @RequestMapping(value = "wait", method=RequestMethod.GET)
+    public String wait(Authentication authentication, Model model) {
         User user = (User) authentication.getPrincipal();
-        ModelAndView mv = new ModelAndView("wait");
-        /*
         ReportDto reportDto = new ReportDto();
         reportDto.setTitle("제목");
         reportDto.setQuestion1("질문1");
-        reportDto.setQuestion2("질문2");
-        reportDto.setQuestion3("질문3");
         reportDto.setAudio1("/Users/yejin/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/부곡동-12.wav");
-//        System.out.println(userRepository.findByUserID("potatoe").orElseThrow(() -> new UsernameNotFoundException("안녕하세")));
         reportDto.setStudent(user);
-        reportDto.setTeacher(userService.loadUserByUserName("선생님"));
-        Report reportBefore = reportRepository.save(Report.builder()
+        reportDto.setTeacher(userService.loadUserByUsername("teacher")); // UserServiceTest가서 signup 한번 돌리고 실행해야함
+        Report report = reportRepository.save(Report.builder()
                 .title(reportDto.getTitle())
                 .question1(reportDto.getQuestion1())
                 .student(reportDto.getStudent())
                 .teacher(reportDto.getTeacher())
                 .audio1(reportDto.getAudio1())
                 .build());
-         */
+
+        return "redirect:/wait/" + report.getId();
+    }
+
+    @RequestMapping(value = "wait/{id}", method = RequestMethod.GET)
+    public ModelAndView getWait(Authentication authentication, @PathVariable("id") Long id) throws Exception {
+        ModelAndView mv = new ModelAndView("wait");
         reportService.makeReport(id);
         Report report = reportService.getReport(id);
-        System.out.println(report.getTitle());
         mv.addObject("report", report);
         return mv;
     }

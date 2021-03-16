@@ -21,8 +21,8 @@ class UserServiceTest {
     void signup() {
         System.out.println(1);
         UserDto user = new UserDto();
-        user.setUsername("김감자");
-        user.setUserID("potatoe");
+        user.setUsername("선생님");
+        user.setUserID("teacher");
         user.setPassword("impotatoe1234");
         user.setPhone("01012345678");
         user.setSchool("분당대진고등학교");
