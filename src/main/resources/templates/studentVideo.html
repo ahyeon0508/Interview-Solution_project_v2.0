@@ -58,7 +58,7 @@
                             <a th:text="${report.comment1}" />
                             <!-- f_DeleteConfirm 함수의 인자에 전송한 질문 id 넣어주면 될듯? : 고영희 찾기와 유사-->
                             <!-- js로 이동해서 삭제할 예정 : 삭제 관련 url을 아현이한테 알려주거나 check.js에 url 입력하면 됨!-->
-                            <button type="button" class="delete-btn" onclick="f_DeleteConfirm(${report.id})">삭제</button>
+                            <button type="button" class="delete-btn" th:onclick="f_DeleteConfirm([[${report.id}]])">삭제</button>
                         </div>
                     </div>
                     </th>
