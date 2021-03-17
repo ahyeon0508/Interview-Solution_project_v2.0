@@ -17,6 +17,8 @@
             var check = $("input[type='checkbox']");
             check.click(function () {
                 var reportID = $(this).attr('id')
+                console.log(reportID)
+                console.log("111111111111")
                 $.ajax({
                     // url 넣기
                     url: '/wait/share/' + reportID,
@@ -65,7 +67,7 @@
             <div class="title">
                 <i class="dropdown icon"></i>
                 <!-- aaa 지우고 Q1 띄우기 ex) 장고 기준 : {{report.question1}}-->
-                <p th:text="${report.question1}"></p>
+                <span th:text="${report.question1}"></span>
             </div>
             <div class="content">
                 <!-- ddd 지우고 Q1에 대한 답변 영상 띄우기 -->
