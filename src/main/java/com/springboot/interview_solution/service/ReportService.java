@@ -264,7 +264,8 @@ public class ReportService {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
             IC_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
         }
-        IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
+        if(IC_sentence.length() != 0)
+            IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
         System.out.println(IC_sentence);
 
         StringBuilder NOUN_sentence = new StringBuilder();
@@ -273,7 +274,8 @@ public class ReportService {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
             NOUN_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
         }
-        NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
+        if(NOUN_sentence.length() != 0)
+            NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
         System.out.println(NOUN_sentence);
 
         ReportSTTDto sttDto = new ReportSTTDto();
