@@ -82,7 +82,7 @@ public class ReportController {
         return "redirect:/classVideo/" + id;
     }
 
-    @PostMapping(value = "classVideo/{id}/delete1")
+    @GetMapping(value = "classVideo/{id}/delete1")
     public String deleteClassStudentFeedback1(@PathVariable("id") Long id) throws Exception {
         Report report = reportService.getReport(id);
         reportService.deleteFeedback(report, 1);
