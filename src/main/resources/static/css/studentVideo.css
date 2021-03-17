@@ -17,7 +17,7 @@
 #q_send{
     font-family: 'Nanum Gothic', sans-serif;
     float: right;
-    font-size: 19px;
+    font-size: 15px;
     margin-bottom: 50px;
 }
 
@@ -69,4 +69,9 @@ textarea{
     background-color: white;
     border: 1px solid gray;
     border-radius: 5px;
+}
+
+.reportCreatedAt{
+    font-size: 12px;
+    margin-top: -10px;
 }
