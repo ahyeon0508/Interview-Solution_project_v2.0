@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -81,6 +82,7 @@ public class Report {
     @ManyToOne
     private User teacher;
 
+    @ColumnDefault("false")
     private Boolean share;
 
     @Builder
