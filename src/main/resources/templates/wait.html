@@ -19,7 +19,7 @@
                 var reportID = $(this).attr('text')
                 $.ajax({
                     // url 넣기
-                    url: '',
+                    url: '/wait/share/' + reportID,
                     method: 'POST',
                     data: {
                         result: reportID
@@ -48,7 +48,7 @@
     <div class="ui card">
         <div class="ui toggle checkbox">
             <!-- th:text에 report id 넣기 -->
-            <input type="checkbox" id="checkBoxId" th:text="">
+            <input type="checkbox" id="checkBoxId" th:text="${report.id}">
             <label>공개 여부</label>
         </div>
         <h1>면접 대기</h1>
@@ -68,32 +68,37 @@
                 <p th:text="${report.question1}"></p>
             </div>
             <div class="content">
-                <p th:text="${report.adverb1}"></p>
-                <p th:text="${report.repetition1}"></p>
                 <!-- ddd 지우고 Q1에 대한 답변 영상 띄우기 -->
                 <p class="transition hidden">
                     <video autoplay controls loop muted poster="aaa" preload="bbb">
                         <source th:src="${report.video1}" type="video/mp4">
-                        zzz
                     </video>
                 </p>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>
                 <!-- aaa 지우고 Q2 띄우기 -->
-                aaa
+                <p th:text="${report.question2}"></p>
             </div>
             <div class="content">
                 <!-- ddd 지우고 Q2에 대한 답변 영상 띄우기 -->
-                <p class="transition hidden">ddd</p>
+                <p class="transition hidden">
+                    <video autoplay controls loop muted poster="aaa" preload="bbb">
+                        <source th:src="${report.video2}" type="video/mp4">
+                    </video>
+                </p>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>
                 <!-- aaa 지우고 Q3 띄우기 -->
-                aaa
+                <p th:text="${report.question3}"></p>
             </div>
             <div class="content">
-                <p class="transition hidden">ddd</p>
+                <p class="transition hidden">
+                    <video autoplay controls loop muted poster="aaa" preload="bbb">
+                        <source th:src="${report.video3}" type="video/mp4">
+                    </video>
+                </p>
             </div>
         </div>
         <div id="button">

@@ -36,6 +36,10 @@ public class ReportService {
         jdbcTemplate.update("update report set title=? where id=?", title, report.getId());
     }
 
+    public void modifyShare(Report report) {
+        jdbcTemplate.update("update report set share=? where id=?", !report.getShare(), report.getId());
+    }
+
     public void setReport(ReportDto report, User student, User teacher) {
         reportRepository.save(Report.builder()
                 .title(report.getTitle())
