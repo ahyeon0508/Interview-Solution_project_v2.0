@@ -63,8 +63,7 @@ public class ReportController {
 
     @RequestMapping(value = "wait/{id}", method = RequestMethod.POST)
     public String postWait(@RequestParam("title") String title, @PathVariable("id") Long id) throws Exception {
-        Report report = reportService.getReport(id);
-        reportService.modifyTitle(report, title);
+        reportService.modifyTitle(id, title);
         return "redirect:/wait/" + id;
     }
 
@@ -141,8 +140,7 @@ public class ReportController {
     public String sharePost(@PathVariable int reportID) throws Exception {
         System.out.println(reportID);
         Long id = Long.valueOf(reportID);
-        Report report = reportService.getReport(id);
-        reportService.modifyShare(report);
+        reportService.modifyShare(id);
         return "redirect:/wait/" + id;
     }
 }
