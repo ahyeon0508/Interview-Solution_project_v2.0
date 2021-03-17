@@ -15,7 +15,6 @@ import java.util.List;
 
 @Getter
 @Entity
-@Setter
 @NoArgsConstructor
 @SequenceGenerator(name = "SEQ_GEN", sequenceName = "SEQ", initialValue = 1, allocationSize = 1)
 @TypeDef(
@@ -90,7 +89,7 @@ public class Report {
                   String audio1, String audio2, String audio3, String script1, String script2, String script3, String adverb1, String adverb2, String adverb3,
                   String repetition1, String repetition2, String repetition3, Double speed1, Double speed2, Double speed3,
                   String sCorrect1, String sCorrect2, String sCorrect3, String comment1, String comment2, String comment3,
-                  User student, User teacher, Boolean share) {
+                  User student, User teacher, Boolean share, LocalDateTime createdAt, LocalDateTime comment1WritedAt, LocalDateTime comment2WritedAt, LocalDateTime comment3WritedAt) {
         this.title = title;
         this.question1 = question1;
         this.question2 = question2;
@@ -122,5 +121,9 @@ public class Report {
         this.student = student;
         this.teacher = teacher;
         this.share = share;
+        this.createdAt = createdAt;
+        this.comment1WritedAt = comment1WritedAt;
+        this.comment2WritedAt = comment2WritedAt;
+        this.comment3WritedAt = comment3WritedAt;
     }
 }

@@ -2,6 +2,7 @@ package com.springboot.interview_solution.service;
 
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
+import com.springboot.interview_solution.dto.FeedbackDto;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.dto.ReportSTTDto;
 import com.springboot.interview_solution.repository.ReportRepository;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -38,6 +40,25 @@ public class ReportService {
 
     public void modifyShare(Report report) {
         jdbcTemplate.update("update report set share=? where id=?", !report.getShare(), report.getId());
+    }
+
+    public void modifyFeedback(Long id, FeedbackDto feedbackDto) {
+        if(feedbackDto.getFeedback1() != null) {
+            jdbcTemplate.update("update report set comment1=?, comment1writed_at=? where id=?", feedbackDto.getFeedback1(), LocalDateTime.now(), id);
+        } else if(feedbackDto.getFeedback2() != null) {
+            jdbcTemplate.update("update report set comment2=?, comment2writed_at=? where id=?", feedbackDto.getFeedback2(), LocalDateTime.now(), id);
+        } else if(feedbackDto.getFeedback3() != null) {
+            jdbcTemplate.update("update report set comment3=?, comment3writed_at=? where id=?", feedbackDto.getFeedback3(), LocalDateTime.now(), id);
+        }
+    }
+
+    public void deleteFeedback(Report report, Integer number) {
+        if(number == 1)
+            jdbcTemplate.update("update report set comment1=NULL, comment1writed_at=? where id=?", LocalDateTime.now(), report.getId());
+        else if(number == 2)
+            jdbcTemplate.update("update report set comment2=NULL, comment2writed_at=? where id=?", LocalDateTime.now(), report.getId());
+        else
+            jdbcTemplate.update("update report set comment3=NULL, comment3writed_at=? where id=?", LocalDateTime.now(), report.getId());
     }
 
     public void setReport(ReportDto report, User student, User teacher) {
@@ -120,20 +141,17 @@ public class ReportService {
         if(report.getAudio1() != null) {
             ReportSTTDto reportStt1 = reportStt(report.getAudio1());
 //            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
-            report.setAdverb1(reportStt1.getAdverb());
-            report.setRepetition1(reportStt1.getRepetition());
+            jdbcTemplate.update("update report set adverb1=?, repetition1=? where id=?", reportStt1.getAdverb(), reportStt1.getRepetition(), report.getId());
         }
         if(report.getAudio2() != null) {
             ReportSTTDto reportStt2 = reportStt(report.getAudio2());
 //            ReportSTTDto reportStt2 = reportStt(report.getAudio2(), report.getSpeed2());
-            report.setAdverb2(reportStt2.getAdverb());
-            report.setRepetition2(reportStt2.getRepetition());
+            jdbcTemplate.update("update report set adverb2=?, repetition2=? where id=?", reportStt2.getAdverb(), reportStt2.getRepetition(), report.getId());
         }
         if(report.getAudio3() != null) {
             ReportSTTDto reportStt3 = reportStt(report.getAudio3());
 //            ReportSTTDto reportStt3 = reportStt(report.getAudio3(), report.getSpeed3());
-            report.setAdverb3(reportStt3.getAdverb());
-            report.setRepetition3(reportStt3.getRepetition());
+            jdbcTemplate.update("update report set adverb3=?, repetition3=? where id=?", reportStt3.getAdverb(), reportStt3.getRepetition(), report.getId());
         }
     }
 

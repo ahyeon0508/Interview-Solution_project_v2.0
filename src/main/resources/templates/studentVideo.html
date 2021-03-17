@@ -64,9 +64,9 @@
                     </th>
                 </div>
             </div>
-            <form class="ui reply form">
+            <form class="ui reply form" method="post" th:action="@{/classVideo/{id}(id=${report.id})}">
                 <div class="field">
-                    <textarea name="feedback1"></textarea>
+                    <textarea id="feedback1" name="feedback1"></textarea>
                 </div>
                 <button type="submit" class="ui button" id="register-btn">피드백 작성</button>
             </form>
