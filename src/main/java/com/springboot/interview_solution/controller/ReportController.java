@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @Controller
 public class ReportController {
@@ -43,6 +45,7 @@ public class ReportController {
                 .student(reportDto.getStudent())
                 .teacher(reportDto.getTeacher())
                 .audio1(reportDto.getAudio1())
+                .createdAt(LocalDateTime.now())
                 .build());
 
         return "redirect:/wait/" + report.getId();

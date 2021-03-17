@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -73,6 +74,7 @@ public class ReportService {
                 .student(student)
                 .teacher(teacher)
                 .share(report.getShare())
+                .createdAt(LocalDateTime.now())
                 .build()
         );
     }
