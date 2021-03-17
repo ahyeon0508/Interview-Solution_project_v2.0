@@ -20,14 +20,14 @@
             전송</button>
         <div class="info">
             <!-- 제목 지우고 제목 넣기 / 생성일자 지우고 생성일자 넣기 -->
-            <p th:text="${report.student.username} / ${report.createdAt}" />
+            <p th:text="${report.student.username}" /> / <p th:text="${report.createdAt}" />
         </div>
 
         <!-- 백 완성하면 아현이가 면접영상2, 면접영상3도 만들 예정 -->
         <div id="form1">
             <div class="content">
                 <!-- ~~~~에 면접질문 출력하기 -->
-                <p class="question" th:text="Q. ${report.question2}" />
+                <p class="question" th:text="${report.question1}" />
                 <!-- src=""에 비디오 주소 넣기 -->
                 <video th:src="${report.video1}" controls width='70%'>
                     현재 브라우저는 비디오를 지원하지 않습니다.
@@ -57,7 +57,7 @@
                             <a th:text="${report.comment1}" />
                             <!-- f_DeleteConfirm 함수의 인자에 전송한 질문 id 넣어주면 될듯? : 고영희 찾기와 유사-->
                             <!-- js로 이동해서 삭제할 예정 : 삭제 관련 url을 아현이한테 알려주거나 check.js에 url 입력하면 됨!-->
-                            <button type="button" class="delete-btn" th:onclick="f_DeleteConfirm(${report.id})">삭제</button>
+                            <button type="button" class="delete-btn" onclick="f_DeleteConfirm(${report.id})">삭제</button>
                         </div>
                     </div>
                     </th>

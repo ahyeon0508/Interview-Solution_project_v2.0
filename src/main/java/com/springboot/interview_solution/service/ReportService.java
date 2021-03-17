@@ -71,6 +71,10 @@ public class ReportService {
         return reportRepository.findReportById(id).orElseThrow(()-> new Exception());
     }
 
+    public List<Report> getStudentReport(User user) throws Exception {
+        return reportRepository.findReportsByTeacher(user).orElseGet(()-> null);
+    }
+
     public String readNumber(String num_string) {
 
         String[] han1 = {"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"};
