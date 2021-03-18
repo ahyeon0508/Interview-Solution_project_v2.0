@@ -34,11 +34,16 @@ public class ReportService {
     private JdbcTemplate jdbcTemplate;
 
     public void modifyTitle(Report report, String title) {
-        jdbcTemplate.update("update report set title=? where id=?", title, report.getId());
+        report.setTitle(title);
+        reportRepository.save(report);
     }
 
     public void modifyShare(Report report) {
-        jdbcTemplate.update("update report set share=? where id=?", !report.getShare(), report.getId());
+        if(report.getShare() == null)
+            report.setShare(true);
+        else
+            report.setShare(!report.getShare());
+        reportRepository.save(report);
     }
 
     public void setReport(ReportDto report, User student, User teacher) {

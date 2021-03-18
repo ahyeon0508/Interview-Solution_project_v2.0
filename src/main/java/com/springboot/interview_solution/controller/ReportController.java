@@ -67,10 +67,8 @@ public class ReportController {
         return "redirect:/wait/" + id;
     }
 
-    @RequestMapping(value = "/wait/share/{reportID}", method = RequestMethod.POST)
+    @RequestMapping(value = "/wait/share/{reportID}", method = RequestMethod.GET)
     public String sharePost(@PathVariable("reportID") Long id) throws Exception {
-        System.out.println(id);
-//        Long id = Long.valueOf(reportID);
         Report report = reportService.getReport(id);
         reportService.modifyShare(report);
         return "redirect:/wait/" + id;
