@@ -70,10 +70,9 @@ class QuestionServiceTest {
     }
 
     @Test
-    void enrollMyQuestion() {
-    }
-
-    @Test
-    void sendMyQuestion() {
+    void sendQuestionByTeacher(){
+        String question = "오늘 선생님의 질문";
+        String student = "김감자";
+        questionService.sendQuestionByTeacher(question,student);
     }
 }
