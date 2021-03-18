@@ -16,7 +16,7 @@
         <h1 id="info" th:text="${report.student.username}">의 면접 영상</h1>
         <!-- ./questionSend.html 지우고 예상질문 보내기 페이지 url 넣기! -->
         <button id="q_send" class="ui grey basic button"
-            onclick="window.open('./questionSend.html','예상질문 보내기','width=550,height=500,location=no,status=no,scrollbars=yes');">예상질문
+            th:onclick="window.open('/questionSend/{studentID}(studentID=${report.student.userID}','예상질문 보내기','width=550,height=500,location=no,status=no,scrollbars=yes');">예상질문
             전송</button>
         <div class="info">
             <!-- 제목 지우고 제목 넣기 / 생성일자 지우고 생성일자 넣기 -->

@@ -11,7 +11,7 @@ function f_DeleteConfirm(n) {
 function Q_DeleteConfirm(n) {
     if (confirm("전송한 질문을 삭제하시겠습니까?")) {
         // href 넣기
-        window.location.href = "";
+        window.location.href = "delete/" + n;
     }
     else {
         return false;

@@ -102,40 +102,6 @@ public class ReportController {
         return "redirect:/classVideo/" + id;
     }
 
-//    studentId : report.student.userID
-    @GetMapping(value = "questionSend/{studentID}")
-    public ModelAndView getQuestionSend(@PathVariable String studentID) {
-        ModelAndView mv = new ModelAndView("questionSend");
-        mv.addObject("studentID", studentID);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User teacher = (User) authentication.getPrincipal();
-//        학생 질문 : studentQ = StudentQuestion.objects.filter(student=studentID, teacher=request.session['user'])
-//        StudentQuestion studentQuestion = questionService.loadStudentQuestionByStudentTeacher(studentID, teacher.userID)
-//        mv.addObject("studentQuestion", studentQuestion);
-        mv.addObject("studentQuestion");
-        return mv;
-    }
-
-    @PostMapping(value = "questionSend/{studentID}")
-    public String PostQuestionSend(@PathVariable String studentID, @RequestParam String questionParam) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User teacher = (User) authentication.getPrincipal();
-//        Question question = questionService.save(questionParam, department=-1)
-//        questionService.studentQuestionSave(question, userService.loadUserByUsername(studentID), teacher, part=2)
-        return "redirect:/questionSend/" + studentID;
-    }
-
-    @DeleteMapping(value = "questionSend/delete/{questionID}")
-    public String DeleteQuestionSend(@PathVariable Long questionID) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User teacher = (User) authentication.getPrincipal();
-//        Question question = questionService.loadQuestionById(questionID);
-//        questionService.delete(questionID);
-//        return "redirect:/questionSend/" + question.userID;
-        return "";
-    }
-
     @RequestMapping(value = "/wait/share/{reportID}", method = RequestMethod.POST)
     public String sharePost(@PathVariable int reportID) throws Exception {
         System.out.println(reportID);

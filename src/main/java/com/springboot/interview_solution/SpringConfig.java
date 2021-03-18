@@ -39,12 +39,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("userID")
                 .passwordParameter("password")
                 .loginProcessingUrl("/signin")
-                .defaultSuccessUrl("/resultSignin")
+                .defaultSuccessUrl("/main")
                 .and().logout()
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin")
                 .permitAll()
-                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool");
+                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList");
     }
 
     @Override

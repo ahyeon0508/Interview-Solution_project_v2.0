@@ -11,8 +11,6 @@ import lombok.AllArgsConstructor;
 import org.junit.runner.Request;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @AllArgsConstructor
 @Controller
@@ -164,7 +161,7 @@ public class UserController {
 
     @RequestMapping(value = "resultpw/{userid}", method = RequestMethod.POST)
     public String postChangePW(@PathVariable String userid, @RequestParam("password") String password,
-                               @RequestParam("passwordChk") String passwordChk) throws Exception {
+                             @RequestParam("passwordChk") String passwordChk) throws Exception {
         if (password.equals(passwordChk)){
             userService.modifyPW(userid, password);
             return "redirect:/signin";
