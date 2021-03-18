@@ -12,7 +12,11 @@
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link th:href="@{/css/wait.css}" rel="stylesheet" />
 
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
         $(document).ready(function () {
             var check = $("input[type='checkbox']");
             check.click(function () {
@@ -25,6 +29,10 @@
                     method: 'POST',
                     data: {
                         result: reportID
+                    },
+                    beforeSend : function(xhr)
+                    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                        xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
                     },
                     success: function (response) {
                         alert("해당 모의 면접 공유여부 설정이 완료됐습니다.")
@@ -41,7 +49,6 @@
             $('.ui.accordion').accordion();
         });
     </script>
-
 </head>
 
 <body>
