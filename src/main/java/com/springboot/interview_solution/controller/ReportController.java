@@ -37,8 +37,8 @@ public class ReportController {
         ReportDto reportDto = new ReportDto();
         reportDto.setTitle("제목");
         reportDto.setQuestion1("질문1");
-         reportDto.setAudio1("/Users/yejin/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/부곡동-12.wav");
-//        reportDto.setAudio1("/Users/ahyeon/Desktop/3-2/캡스톤/구현/카카오 STT/audio.wav");
+        //  reportDto.setAudio1("/Users/yejin/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/부곡동-12.wav");
+        reportDto.setAudio1("/Users/ahyeon/Desktop/3-2/캡스톤/구현/카카오 STT/audio.wav");
         reportDto.setStudent(user);
         reportDto.setTeacher(userService.loadUserByUsername("teacher")); // UserServiceTest가서 signup 한번 돌리고 실행해야함
         Report report = reportRepository.save(Report.builder()

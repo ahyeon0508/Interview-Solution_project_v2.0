@@ -136,7 +136,7 @@ public class QuestionService {
     public void sendQuestionByTeacher(String question_str,String studentID, User teacher){
         //part=2
         Question question = questionRepository.findByQuestion(question_str);
-        User student = userRepository.findByUsername(studentID).orElseThrow();
+        User student = userRepository.findByUserID(studentID).orElseThrow();
         studentQuestionRepository.save(StudentQuestion.builder().question(question).student(student).teacher(teacher).part(2).build());
     }
 
@@ -153,7 +153,7 @@ public class QuestionService {
     }
 
     public List<StudentQuestion> getAllStudentQuestionByTeacher(String studentID,User teacher){
-        User student = userRepository.findByUsername(studentID).orElseThrow();
+        User student = userRepository.findByUserID(studentID).orElseThrow();
         List<StudentQuestion> studentQuestions = studentQuestionRepository.findAllByUserAndTeacher(student,teacher);
         return studentQuestions;
     }

@@ -201,12 +201,13 @@ public class QuestionController {
         User teacher = (User) authentication.getPrincipal();
 
         List<StudentQuestion> studentQuestions = questionService.getAllStudentQuestionByTeacher(studentID,teacher);
+        System.out.println(studentQuestions.get(0).getQuestion());
         mv.addObject("questions", studentQuestions);
         return mv;
     }
 
     @PostMapping(value = "questionSend/{studentID}")
-    public String PostQuestionSend(@PathVariable String studentID, @RequestParam String question_str) {
+    public String PostQuestionSend(@PathVariable String studentID, @RequestParam("question") String question_str) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User teacher = (User) authentication.getPrincipal();
 

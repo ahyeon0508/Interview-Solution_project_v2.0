@@ -7,6 +7,7 @@
     <title></title>
     <link th:href="@{/css/studentVideo.css}" rel="stylesheet" />
     <script th:src="@{/js/check.js}"></script>
+    <script th:src="@{/js/move.js}"></script>
     <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
 </head>
 
@@ -15,9 +16,7 @@
         <!-- ~에 해당 학생의 이름 출력하게 하기 ex) 이아현의 면접 영상-->
         <h1 id="info" th:text="${report.student.username}">의 면접 영상</h1>
         <!-- ./questionSend.html 지우고 예상질문 보내기 페이지 url 넣기! -->
-        <button id="q_send" class="ui grey basic button"
-            th:onclick="window.open('/questionSend/[[${report.student.userID}]]','예상질문 보내기','width=550,height=500,location=no,status=no,scrollbars=yes');">예상질문
-            전송</button>
+        <button id="q_send" class="ui grey basic button" th:onclick="questionSend([[${report.student.userID}]])">예상질문 전송</button>
         <div class="info">
             <!-- 제목 지우고 제목 넣기 / 생성일자 지우고 생성일자 넣기 -->
             <p th:text="${report.title}" />
