@@ -38,11 +38,20 @@
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-.content{
+.content p{
     float: left;
-    font-size: 19px
+    font-size: 18px;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .delete{
     float: right;
+}
+
+#transfer{
+    margin-left: 5px;
+}
+
+.list{
+    height: 40px;
 }
