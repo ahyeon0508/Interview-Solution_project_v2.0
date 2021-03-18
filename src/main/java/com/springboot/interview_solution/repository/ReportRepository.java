@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface ReportRepository extends CrudRepository<Report, String> {
     Report findReportById(Long id);
-    List<Report> findReportsByTeacher(User user);
+    List<Report> findReportsByTeacherAndShare(User user,Boolean share);
 }

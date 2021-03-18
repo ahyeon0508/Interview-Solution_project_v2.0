@@ -80,7 +80,7 @@ public class ReportService {
     }
 
     public List<Report> getStudentReport(User user) throws Exception {
-        return reportRepository.findReportsByTeacher(user);
+        return reportRepository.findReportsByTeacherAndShare(user, true);
     }
 
     public String readNumber(String num_string) {
