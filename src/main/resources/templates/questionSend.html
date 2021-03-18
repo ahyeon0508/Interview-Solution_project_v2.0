@@ -31,7 +31,7 @@
             <a th:each="question: ${questions}">
             <div class="list">
                 <div class="content">
-                    <p th:text="${question.question}"/>
+                    <p th:text="${question.question.question}"/>
                 </div>
                 <div class="delete">
                     <!-- Q_DeleteConfirm 함수의 인자에 전송한 질문 id 넣어주면 될듯? : 고영희 찾기와 유사-->

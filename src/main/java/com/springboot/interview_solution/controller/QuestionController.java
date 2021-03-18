@@ -201,7 +201,7 @@ public class QuestionController {
         User teacher = (User) authentication.getPrincipal();
 
         List<StudentQuestion> studentQuestions = questionService.getAllStudentQuestionByTeacher(studentID,teacher);
-        System.out.println(studentQuestions.get(0).getQuestion());
+//        System.out.println(studentQuestions.get(0).getQuestion());
         mv.addObject("questions", studentQuestions);
         return mv;
     }
