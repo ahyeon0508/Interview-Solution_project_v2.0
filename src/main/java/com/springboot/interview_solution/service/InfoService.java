@@ -16,6 +16,23 @@ public class InfoService {
 
     private final InfoRepository infoRepository;
 
+    public void setStudentGrade(GradeDto grade, User user) {
+        infoRepository.save(Grade.builder()
+                .grade(grade.getGrade())
+                .semester(grade.getSemester())
+                .user(user)
+                .subject(grade.getSubject())
+                .course(grade.getCourse())
+                .unitNumber(grade.getUnitNumber())
+                .ranking(grade.getRanking())
+                .rawRanking(grade.getRawRanking())
+                .subjectMean(grade.getSubjectMean())
+                .average(grade.getAverage())
+                .achievement(grade.getAchievement())
+                .numberOfStudents(grade.getNumberOfStudents()).build()
+        );
+    }
+
     public void setStudentGrade(ArrayList<GradeDto> gradeList, User user) {
         for (int i = 0; i < gradeList.size(); i++) {
             infoRepository.save(Grade.builder()
