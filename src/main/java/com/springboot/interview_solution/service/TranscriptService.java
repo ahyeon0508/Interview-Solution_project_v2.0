@@ -20,7 +20,7 @@ public class TranscriptService {
     private JdbcTemplate jdbcTemplate;
 
     public void setStudentTranscript(TranscriptDto transcriptDto, User user) {
-        if(transcriptRepository.findTranscriptByUser(user).isPresent()) {
+        if(transcriptRepository.findByGradeAndUser(transcriptDto.getGrade(),user).isPresent()) {
             Transcript transcript = transcriptRepository.findTranscriptByUser(user).orElseThrow();
             Long id = transcript.getId();
             jdbcTemplate.update("update transcript set club=club, dacs=dacs, overallOpinion=overallOpinion where id=id", new Object[]{transcriptDto.getClub(), transcriptDto.getDacs(), transcriptDto.getOverallOpinion(), id});

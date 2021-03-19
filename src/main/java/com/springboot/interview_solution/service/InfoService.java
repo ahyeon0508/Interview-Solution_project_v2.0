@@ -17,20 +17,37 @@ public class InfoService {
     private final InfoRepository infoRepository;
 
     public void setStudentGrade(GradeDto grade, User user) {
-        infoRepository.save(Grade.builder()
-                .grade(grade.getGrade())
-                .semester(grade.getSemester())
-                .user(user)
-                .subject(grade.getSubject())
-                .course(grade.getCourse())
-                .unitNumber(grade.getUnitNumber())
-                .ranking(grade.getRanking())
-                .rawRanking(grade.getRawRanking())
-                .subjectMean(grade.getSubjectMean())
-                .average(grade.getAverage())
-                .achievement(grade.getAchievement())
-                .numberOfStudents(grade.getNumberOfStudents()).build()
-        );
+        if(infoRepository.findByGradeAndSemesterAndUserAndCourse(grade.getGrade(), grade.getSemester(), user, grade.getCourse()).isPresent()){
+            Grade putGrade = infoRepository.findByGradeAndSemesterAndUserAndCourse(grade.getGrade(), grade.getSemester(), user, grade.getCourse()).orElseThrow();
+            putGrade.setGrade(grade.getGrade());
+            putGrade.setSemester(grade.getSemester());
+            putGrade.setUser(user);
+            putGrade.setSubject(grade.getSubject());
+            putGrade.setCourse(grade.getCourse());
+            putGrade.setUnitNumber(grade.getUnitNumber());
+            putGrade.setRanking(grade.getRanking());
+            putGrade.setRawRanking(grade.getRawRanking());
+            putGrade.setSubjectMean(grade.getSubjectMean());
+            putGrade.setAverage(grade.getAverage());
+            putGrade.setAchievement(grade.getAchievement());
+            putGrade.setNumberOfStudents(grade.getNumberOfStudents());
+            infoRepository.save(putGrade);
+        } else {
+            infoRepository.save(Grade.builder()
+                    .grade(grade.getGrade())
+                    .semester(grade.getSemester())
+                    .user(user)
+                    .subject(grade.getSubject())
+                    .course(grade.getCourse())
+                    .unitNumber(grade.getUnitNumber())
+                    .ranking(grade.getRanking())
+                    .rawRanking(grade.getRawRanking())
+                    .subjectMean(grade.getSubjectMean())
+                    .average(grade.getAverage())
+                    .achievement(grade.getAchievement())
+                    .numberOfStudents(grade.getNumberOfStudents()).build()
+            );
+        }
     }
 
     public void setStudentGrade(ArrayList<GradeDto> gradeList, User user) {

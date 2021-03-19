@@ -213,51 +213,117 @@
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </tr>
+                    <tr class="item1" th:each="info: ${gradeInfo}">
+                        <td><select id="Subject" name="subject" aria-label="Example select with button addon">
+                            <option selected></option>
+                            <option value="S01" th:selected="${info.subject == 'S01' || info.subject == '국어'}">국어</option>
+                            <option value="S02" th:selected="${info.subject == 'S02' || info.subject == '수학'}">수학</option>
+                            <option value="S03" th:selected="${info.subject == 'S03' || info.subject == '영어'}">영어</option>
+                            <option value="S04" th:selected="${info.subject == 'S04' || info.subject == '사회(역사/도덕포함)'}">사회(역사/도덕포함)</option>
+                            <option value="S05" th:selected="${info.subject == 'S05' || info.subject == '과학'}">과학</option>
+                            <option value="S06" th:selected="${info.subject == 'S06' || info.subject == '체육'}">체육</option>
+                            <option value="S07" th:selected="${info.subject == 'S07' || info.subject == '예술(음악/미술)'}">예술(음악/미술)</option>
+                            <option value="S08" th:selected="${info.subject == 'S08' || info.subject == '예술'}">예술</option>
+                            <option value="S09" th:selected="${info.subject == 'S09' || info.subject == '기술·가정/제2외국어/한문/교양'}">기술·가정/제2외국어/한문/교양</option>
+                            <option value="S10" th:selected="${info.subject == 'S10' || info.subject == '농생명 산업'}">농생명 산업</option>
+                            <option value="S11" th:selected="${info.subject == 'S11' || info.subject == '공업'}">공업</option>
+                            <option value="S12" th:selected="${info.subject == 'S12' || info.subject == '상업정보'}">상업정보</option>
+                            <option value="S13" th:selected="${info.subject == 'S13' || info.subject == '수산·해운'}">수산·해운</option>
+                            <option value="S14" th:selected="${info.subject == 'S14' || info.subject == '가사·실업'}">가사·실업</option>
+                            <option value="S15" th:selected="${info.subject == 'S15' || info.subject == '미술'}">미술</option>
+                            <option value="S16" th:selected="${info.subject == 'S16' || info.subject == '디자인·문화 콘텐츠'}">디자인·문화 콘텐츠</option>
+                            <option value="S17" th:selected="${info.subject == 'S17' || info.subject == '미용·관광·레저'}">미용·관광·레저</option>
+                            <option value="S18" th:selected="${info.subject == 'S18' || info.subject == '식품 가공'}">식품 가공</option>
+                            <option value="S19" th:selected="${info.subject == 'S19' || info.subject == '전기·전자'}">전기·전자</option>
+                            <option value="S20" th:selected="${info.subject == 'S20' || info.subject == '건설'}">건설</option>
+                            <option value="S21" th:selected="${info.subject == 'S21' || info.subject == '경영·금융'}">경영·금융</option>
+                            <option value="S22" th:selected="${info.subject == 'S22' || info.subject == '과학 계열'}">과학 계열</option>
+                            <option value="S23" th:selected="${info.subject == 'S23' || info.subject == '교양'}">교양</option>
+                            <option value="S24" th:selected="${info.subject == 'S24' || info.subject == '국제 계열'}">국제 계열</option>
+                            <option value="S25" th:selected="${info.subject == 'S25' || info.subject == '기계'}">기계</option>
+                            <option value="S26" th:selected="${info.subject == 'S26' || info.subject == '기술·가정'}">기술·가정</option>
+                            <option value="S27" th:selected="${info.subject == 'S27' || info.subject == '농림·수산해양'}">농림·수산해양</option>
+                            <option value="S28" th:selected="${info.subject == 'S28' || info.subject == '보건·복지'}">보건·복지</option>
+                            <option value="S29" th:selected="${info.subject == 'S29' || info.subject == '선박 운항'}">선박 운항</option>
+                            <option value="S30" th:selected="${info.subject == 'S30' || info.subject == '섬유·의류'}">섬유·의류</option>
+                            <option value="S31" th:selected="${info.subject == 'S31' || info.subject == '예술 계열'}">예술 계열</option>
+                            <option value="S32" th:selected="${info.subject == 'S32' || info.subject == '외국어 계열'}">외국어 계열</option>
+                            <option value="S33" th:selected="${info.subject == 'S33' || info.subject == '음식 조리'}">음식 조리</option>
+                            <option value="S34" th:selected="${info.subject == 'S34' || info.subject == '인쇄·출판·공예'}">인쇄·출판·공예</option>
+                            <option value="S35" th:selected="${info.subject == 'S35' || info.subject == '재료'}">재료</option>
+                            <option value="S36" th:selected="${info.subject == 'S36' || info.subject == '정보·통신'}">정보·통신</option>
+                            <option value="S37" th:selected="${info.subject == 'S37' || info.subject == '제2외국어'}">제2외국어</option>
+                            <option value="S38" th:selected="${info.subject == 'S38' || info.subject == '체육 계열'}">체육 계열</option>
+                            <option value="S39" th:selected="${info.subject == 'S39' || info.subject == '한국사'}">한국사</option>
+                            <option value="S40" th:selected="${info.subject == 'S40' || info.subject == '한문'}">한문</option>
+                            <option value="S41" th:selected="${info.subject == 'S41' || info.subject == '화학 공업'}">화학 공업</option>
+                            <option value="S42" th:selected="${info.subject == 'S42' || info.subject == '환경·안전'}">환경·안전</option></select>
+                            </select>
+                        </td>
+                        <td><input type="text" id="course" name="course" th:value="${info.course}" /></td>
+                        <td><input type="number" id="unitNumber" name="unitNumber" th:value="${info.unitNumber}" min="1" max="9"></td>
+                        <td><input type="number" id="ranking" name="ranking" th:value="${info.ranking}" min="1" max="9"></td>
+                        <td><input type="number" id="rawRanking" name="rawRanking" th:value="${info.rawRanking}" min="0" max="100"></td>
+                        <td><input type="number" id="subjectMean" name="subjectMean" th:value="${info.subjectMean}" step="0.1" min="0" max="100"></td>
+                        <td><input type="number" id="average" name="average" th:value="${info.average}" step="0.1" min="0" max="100"></td>
+                        <td><select id="Achievement" name="achievement" aria-label="Example select with button addon">
+                            <option selected></option>
+                            <option value="A" th:selected="${info.achievement == 'A'}">A</option>
+                            <option value="B" th:selected="${info.achievement == 'B'}">B</option>
+                            <option value="C" th:selected="${info.achievement == 'C'}">C</option>
+                            <option value="D" th:selected="${info.achievement == 'D'}">D</option>
+                            <option value="E" th:selected="${info.achievement == 'E'}">E</option>
+                            <option value="P" th:selected="${info.achievement == 'P'}">P</option>
+                        </select></td>
+                        <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudents}" min="1" max="1000"></td>
+                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn">삭제</button></td>
+                        <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">저장</button></td>
+                    </tr>
                     <tr class="item1">
                         <td><select id="Subject" name="subject" aria-label="Example select with button addon">
-                        <option selected></option>
-                        <option value="S01">국어</option>
-                        <option value="S02">수학</option>
-                        <option value="S03">영어</option>
-                        <option value="S04">사회(역사/도덕포함)</option>
-                        <option value="S05">과학</option>
-                        <option value="S06">체육</option>
-                        <option value="S07">예술(음악/미술)</option>
-                        <option value="S08">예술</option>
-                        <option value="S09">기술·가정/제2외국어/한문/교양</option>
-                        <option value="S10">농생명 산업</option>
-                        <option value="S11">공업</option>
-                        <option value="S12">상업정보</option>
-                        <option value="S13">수산·해운</option>
-                        <option value="S14">가사·실업</option>
-                        <option value="S15">미술</option>
-                        <option value="S16">디자인·문화 콘텐츠</option>
-                        <option value="S17">미용·관광·레저</option>
-                        <option value="S18">식품 가공</option>
-                        <option value="S19">전기·전자</option>
-                        <option value="S20">건설</option>
-                        <option value="S21">경영·금융</option>
-                        <option value="S22">과학 계열</option>
-                        <option value="S23">교양</option>
-                        <option value="S24">국제 계열</option>
-                        <option value="S25">기계</option>
-                        <option value="S26">기술·가정</option>
-                        <option value="S27">농림·수산해양</option>
-                        <option value="S28">보건·복지</option>
-                        <option value="S29">선박 운항</option>
-                        <option value="S30">섬유·의류</option>
-                        <option value="S31">예술 계열</option>
-                        <option value="S32">외국어 계열</option>
-                        <option value="S33">음식 조리</option>
-                        <option value="S34">인쇄·출판·공예</option>
-                        <option value="S35">재료</option>
-                        <option value="S36">정보·통신</option>
-                        <option value="S37">제2외국어</option>
-                        <option value="S38">체육 계열</option>
-                        <option value="S39">한국사</option>
-                        <option value="S40">한문</option>
-                        <option value="S41">화학 공업</option>
-                        <option value="S42">환경·안전</option></select>
+                            <option selected></option>
+                            <option value="국어">국어</option>
+                            <option value="수학">수학</option>
+                            <option value="영어">영어</option>
+                            <option value="사회">사회(역사/도덕포함)</option>
+                            <option value="S05">과학</option>
+                            <option value="S06">체육</option>
+                            <option value="S07">예술(음악/미술)</option>
+                            <option value="S08">예술</option>
+                            <option value="S09">기술·가정/제2외국어/한문/교양</option>
+                            <option value="S10">농생명 산업</option>
+                            <option value="S11">공업</option>
+                            <option value="S12">상업정보</option>
+                            <option value="S13">수산·해운</option>
+                            <option value="S14">가사·실업</option>
+                            <option value="S15">미술</option>
+                            <option value="S16">디자인·문화 콘텐츠</option>
+                            <option value="S17">미용·관광·레저</option>
+                            <option value="S18">식품 가공</option>
+                            <option value="S19">전기·전자</option>
+                            <option value="S20">건설</option>
+                            <option value="S21">경영·금융</option>
+                            <option value="S22">과학 계열</option>
+                            <option value="S23">교양</option>
+                            <option value="S24">국제 계열</option>
+                            <option value="S25">기계</option>
+                            <option value="S26">기술·가정</option>
+                            <option value="S27">농림·수산해양</option>
+                            <option value="S28">보건·복지</option>
+                            <option value="S29">선박 운항</option>
+                            <option value="S30">섬유·의류</option>
+                            <option value="S31">예술 계열</option>
+                            <option value="S32">외국어 계열</option>
+                            <option value="S33">음식 조리</option>
+                            <option value="S34">인쇄·출판·공예</option>
+                            <option value="S35">재료</option>
+                            <option value="S36">정보·통신</option>
+                            <option value="S37">제2외국어</option>
+                            <option value="S38">체육 계열</option>
+                            <option value="S39">한국사</option>
+                            <option value="S40">한문</option>
+                            <option value="S41">화학 공업</option>
+                            <option value="S42">환경·안전</option></select>
                             </select>
                         </td>
                         <td><input type="text" id="course" name="course" /></td>
@@ -267,14 +333,14 @@
                         <td><input type="number" id="subjectMean" name="subjectMean" step="0.1" min="0" max="100"></td>
                         <td><input type="number" id="average" name="average" step="0.1" min="0" max="100"></td>
                         <td><select id="Achievement" name="achievement" aria-label="Example select with button addon">
-                        <option selected></option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="P">P</option>
-                      </select></td>
+                            <option selected></option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="P">P</option>
+                        </select></td>
                         <td><input type="number" id="numberOfStudent" name="numberOfStudent" min="1" max="1000"></td>
                         <td><button type="button" class="btn btn-outline-secondary" id="delBtn">삭제</button></td>
                         <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">저장</button></td>

@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface TranscriptRepository extends JpaRepository<Transcript, String> {
     Optional<Transcript> findTranscriptByUser(User user);
+    Optional<Transcript> findByGradeAndUser(Integer grade,User user);
 }

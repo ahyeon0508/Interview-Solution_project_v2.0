@@ -40,7 +40,6 @@ public class InfoController {
     @Autowired
     private final LetterService letterService;
 
-    private static ArrayList<Grade> gradeList = new ArrayList<Grade>();
     private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 
     @RequestMapping(value = "/infoStudent", method = RequestMethod.GET)
@@ -48,9 +47,7 @@ public class InfoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("upload");
-        GradeList gradeInfo = new GradeList();
-        gradeList = (ArrayList<Grade>) infoService.getStudentGrade(user);
-        gradeInfo.setGrades(gradeList);
+        List<Grade> gradeInfo = infoService.getStudentGrade(user);
         mv.addObject("gradeInfo", gradeInfo);
         Transcript transcript = transcriptService.getStudentTranscript(user);
         mv.addObject("transcript", transcript);
@@ -71,15 +68,14 @@ public class InfoController {
         return mv;
     }
 
-    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
     public String postInfo(GradeDto gradeInfo){
-        System.out.println(gradeInfo.getGrade());
+        System.out.println(gradeInfo.getCourse());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         infoService.setStudentGrade(gradeInfo, user);
         return "redirect:/infoStudent";
     }
-
 
 //    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
 //    public String postInfo(GradeListDto gradeInfo){
