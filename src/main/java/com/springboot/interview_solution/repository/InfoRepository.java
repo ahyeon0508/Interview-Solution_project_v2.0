@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface InfoRepository extends JpaRepository<Grade, String> {
     List<Grade> findGradeByUser(User user);
     Optional<Grade> findByGradeAndSemesterAndUserAndCourse(Integer grade,Integer semester,User user,String course);
+    List<Grade> findByGradeAndSemesterAndUser(Integer grade,Integer semester,User user);
 }
