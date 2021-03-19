@@ -91,7 +91,7 @@
     </script>
 
 
-    <script>
+    <!--<script>
         $(function() {
             $('#save0').click(function() {
                 var gradeArray = new Array();
@@ -118,19 +118,19 @@
                     //
                     //     gradeArray.push(gradeObj);
 
-                        /* 2) 2차원 배열 - 배열 안에 배열 */
-                        var gradeArr = new Array();
-                        if (index == 0) {
-                            return true;
-                        } else {
-                            gradeArr[0] = $('select[name=grade]').val();
-                            gradeArr[1] = $('select[name=semester]').val();
-                            gradeArr[2] = index;
-                            for (var i = 3; i < 12; i++) {
-                                gradeArr[i] = cellItem.eq(i - 3).val();
-                            }
+                    /* 2) 2차원 배열 - 배열 안에 배열 */
+                    var gradeArr = new Array();
+                    if (index == 0) {
+                        return true;
+                    } else {
+                        gradeArr[0] = $('select[name=grade]').val();
+                        gradeArr[1] = $('select[name=semester]').val();
+                        gradeArr[2] = index;
+                        for (var i = 3; i < 12; i++) {
+                            gradeArr[i] = cellItem.eq(i - 3).val();
+                        }
 
-                            gradeArray[index - 1] = gradeArr;
+                        gradeArray[index - 1] = gradeArr;
 
 
                         /* 주석 여기까지 */
@@ -158,7 +158,7 @@
                 });
             });
         });
-    </script>
+    </script>-->
 
     <script th:inline="javascript">
         $(function() {
@@ -210,6 +210,7 @@
                         <th>표준편차</th>
                         <th>성취도</th>
                         <th>수강자수</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </tr>
                     <tr class="item1">
@@ -276,12 +277,11 @@
                       </select></td>
                         <td><input type="number" id="numberOfStudent" name="numberOfStudent" min="1" max="1000"></td>
                         <td><button type="button" class="btn btn-outline-secondary" id="delBtn">삭제</button></td>
+                        <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">저장</button></td>
                     </tr>
                 </table>
                 <button type="button" class="btn btn-outline-secondary" id="addItemBtn">추가</button>
             </div>
-            <button type="button" class="btn btn-outline-secondary" id="save0">저장</button>
-            <button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">등록</button>
         </form>
     </div>
     <div class="container1">
