@@ -2,10 +2,12 @@ package com.springboot.interview_solution.controller;
 
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.repository.ReportRepository;
+import com.springboot.interview_solution.service.InterviewService;
 import com.springboot.interview_solution.service.ReportService;
 import lombok.AllArgsConstructor;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,5 +29,7 @@ public class ReportController {
     public String postWait(ReportDto reportDto) {
         return "redirect:/wait";
     }
+
+
 
 }
