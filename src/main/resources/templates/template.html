@@ -30,25 +30,26 @@
                 <!-- herf에 내 영상으로 연결 -->
                 <li class="nav-item"><a class="nav-link" href="#">내 영상</a></li>
                 <!-- herf에 내 질문으로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">내 질문</a></li>
+                <li class="nav-item"><a class="nav-link" href="/myQuestionList">내 질문</a></li>
                 <!-- herf에 질문 리스트로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">질문 리스트</a></li>
+                <li class="nav-item"><a class="nav-link" href="/questionList">질문 리스트</a></li>
             </ul>
+        </div>
 
+        <ul>
             <!--로그인 되어있을 때-->
-            <div sec:authorize="isAuthenticated()">
+            <div class="dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-bs-toggle="dropdown" aria-expanded="true">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${#httpServletRequest.remoteUser}]]</span>
                     <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                     <li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
                     <li><a class="dropdown-item" href="#">서류 입력</a></li>
                     <li><a class="dropdown-item" href="/signout">로그아웃</a></li>
                 </ul>
             </div>
-
 
             <div sec:authorize="!isAuthenticated()">
                 <a class="nav-link" href="/signin" id="user" role="button">
@@ -56,7 +57,7 @@
                     <img class="img-profile rounded-circle" width="30" height="30" th:src="@{/img/user.png}">
                 </a>
             </div>
-        </div>
+        </ul>
     </div>
 </nav>
 
