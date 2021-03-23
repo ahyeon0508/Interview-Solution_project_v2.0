@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -60,14 +59,12 @@ public class UserController {
     //school information
     /*@RequestMapping(value = "/searchSchool",method = RequestMethod.POST)
     @ResponseBody
-    public List<String> searchSchoolInfo(@RequestParam("term") String school){
-        System.out.println(school);
-        List<String> schoolInfo;
-        //학교 정보 받아와서 SchoolInfo로 넣기
-        schoolInfo = schoolInfoService.findAllByName(school);
-
-        return schoolInfo;
-    }
+    public String searchSchoolInfo(@RequestParam("school") String school, HttpServletRequest response){
+        String schoolInfo;
+        if(school != null){
+            //학교 정보 받아와서 SchoolInfo로 넣기
+        }
+    }*/
 
     //UserId validate duplicate
     @RequestMapping(value = "/userIdCheck", method = RequestMethod.GET)
