@@ -120,15 +120,21 @@ public class QuestionService {
     }
     //enroll new Student Question by Me(Student)
     public void sendQuestionByMe(String question_str,User student){
-        //part=1
+        //dept=1000
+        enrollQuestion(question_str,1000);
         Question question = questionRepository.findByQuestion(question_str);
+
+        //part=1
         studentQuestionRepository.save(StudentQuestion.builder().question(question).student(student).part(1).build());
     }
 
     //enroll new Student Question by Teacher
     public void sendQuestionByTeacher(String question_str,String studentName){
-        //part=2
+        //dept=1000
+        enrollQuestion(question_str,1000);
         Question question = questionRepository.findByQuestion(question_str);
+
+        //part=2
         User student = userRepository.findByUsername(studentName).orElseThrow();
         studentQuestionRepository.save(StudentQuestion.builder().question(question).student(student).part(2).build());
     }
