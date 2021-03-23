@@ -191,4 +191,34 @@ public class QuestionController {
         return "redirect:/myQuestionList";
     }
 
+    //    studentId : report.student.userID
+    @GetMapping(value = "questionSend/{studentID}")
+    public ModelAndView getQuestionSend(@PathVariable String studentID) {
+        ModelAndView mv = new ModelAndView("questionSend");
+        mv.addObject("studentID", studentID);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User teacher = (User) authentication.getPrincipal();
+
+        List<StudentQuestion> studentQuestions = questionService.getAllStudentQuestionByTeacher(studentID,teacher);
+//        System.out.println(studentQuestions.get(0).getQuestion());
+        mv.addObject("questions", studentQuestions);
+        return mv;
+    }
+
+    @PostMapping(value = "questionSend/{studentID}")
+    public String PostQuestionSend(@PathVariable String studentID, @RequestParam("question") String question_str) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User teacher = (User) authentication.getPrincipal();
+
+        questionService.sendQuestionByTeacher(question_str, studentID, teacher);
+        return "redirect:/questionSend/" + studentID;
+    }
+
+    @GetMapping(value = "questionSend/delete/{questionID}")
+    public String DeleteQuestionSend(@PathVariable("questionID") Integer questionID) {
+        StudentQuestion question = questionService.searchMyQuestion(questionID);
+        questionService.deleteMyQuestion(questionID);
+        return "redirect:/questionSend/" + question.getUser().getUserID();
+    }
 }

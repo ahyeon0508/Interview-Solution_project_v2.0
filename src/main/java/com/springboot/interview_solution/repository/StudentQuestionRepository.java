@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StudentQuestionRepository extends JpaRepository<StudentQuestion,Long> {
@@ -17,4 +18,6 @@ public interface StudentQuestionRepository extends JpaRepository<StudentQuestion
     void deleteById(Long id);
     List<StudentQuestion> findAllByUser(User user);
     List<StudentQuestion> findAllByUserAndPart(User user,Integer part);
+    List<StudentQuestion> findAllByUserAndTeacher(User student,User teacher);
+    Optional<StudentQuestion> findById(Long id);
 }

@@ -22,7 +22,7 @@ a:hover{
 
 .ui.card{
     width: 800px;
-    margin: 0 auto;
+    margin: 50px auto;
     padding: 30px 50px 50px 50px;
 }
 
@@ -31,7 +31,7 @@ a:hover{
 }
 
 .ui.toggle.checkbox{
-    margin-left: 550px;
+    margin-left: 570px;
 }
 
 #notice, #title_notice{

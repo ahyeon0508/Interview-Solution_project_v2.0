@@ -31,27 +31,31 @@
 
         <div class="container">
             <!--학생 card 반복 / herf에는 학생면접영상 페이지로 -->
-            <a href="#">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                <!--src : 학생 이미지 있으면 그거, 아니면 기본 연회색 -->
-                                <img th:src="@{/img/연회색.png}" alt="" class="img-rounded img-responsive"/>
-                            </div>
-                            <div class="col-sm-6 col-md-8">
-                                <!--리포트 제목-->
-                                <p>리포트 제목</p>
-                                <!--학생이름-->
-                                <h4>학생이름</h4>
-                                <!--학생학교, 학년 반-->
-                                <small>학생학교, 학년 반</small>
-                                <!--학생전화번호-->
-                                <p>학생전화번호</p>
+            <a th:each="report : ${reports}">
+                <a th:href="@{/classVideo/{id}(id=${report.id})}">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                                    <!--src : 학생 이미지 있으면 그거, 아니면 기본 연회색 -->
+                                    <img th:src="@{/img/연회색.png}" alt="" class="img-rounded img-responsive"/>
+                                </div>
+                                <div class="col-sm-6 col-md-8">
+                                    <!--리포트 제목-->
+                                    <p th:text="${report.title}"/>
+                                    <!--학생이름-->
+                                    <h4 th:text="${report.student.username}"/>
+                                    <!--학생학교, 학년 반-->
+                                    <small th:text="${report.student.school}" />
+                                    <small th:text="${report.student.grade}" />
+                                    <small th:text="${report.student.sClass}" />
+                                    <!--학생전화번호-->
+                                    <p th:text="${report.student.phone}" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </a>
 
         </div>

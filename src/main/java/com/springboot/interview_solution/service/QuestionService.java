@@ -94,6 +94,13 @@ public class QuestionService {
         return questions;
     }
 
+    //search MyQuestionById
+    public StudentQuestion searchMyQuestion(Integer questionID){
+        Long id = new Long(questionID);
+        StudentQuestion question = studentQuestionRepository.findById(id).orElseThrow();
+        return question;
+    }
+
     //pick up the Question List In StudentQuestion List
     public List<Question> getQuestionListInStudentQuestion(List<StudentQuestion> studentQuestions){
         List<Question> questions = new ArrayList<Question>();
@@ -129,14 +136,15 @@ public class QuestionService {
     }
 
     //enroll new Student Question by Teacher
-    public void sendQuestionByTeacher(String question_str,String studentName){
+
+    public void sendQuestionByTeacher(String question_str,String studentID,User teacher){
         //dept=1000
         enrollQuestion(question_str,1000);
         Question question = questionRepository.findByQuestion(question_str);
 
         //part=2
-        User student = userRepository.findByUsername(studentName).orElseThrow();
-        studentQuestionRepository.save(StudentQuestion.builder().question(question).student(student).part(2).build());
+        User student = userRepository.findByUserID(studentID).orElseThrow();
+        studentQuestionRepository.save(StudentQuestion.builder().question(question).student(student).teacher(teacher).part(2).build());
     }
 
     //get All StudentQuestion by User
@@ -148,6 +156,12 @@ public class QuestionService {
     //get All StudentQuestion by User and Part
     public List<StudentQuestion> getAllStudentQuestionByPart(User user,Integer part){
         List<StudentQuestion> studentQuestions = studentQuestionRepository.findAllByUserAndPart(user,part);
+        return studentQuestions;
+    }
+
+    public List<StudentQuestion> getAllStudentQuestionByTeacher(String studentID,User teacher){
+        User student = userRepository.findByUserID(studentID).orElseThrow();
+        List<StudentQuestion> studentQuestions = studentQuestionRepository.findAllByUserAndTeacher(student,teacher);
         return studentQuestions;
     }
 

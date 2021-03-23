@@ -1,18 +1,27 @@
 package com.springboot.interview_solution.domain;
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
-@Entity
 @Setter
+@Entity
 @NoArgsConstructor
 @SequenceGenerator(name = "SEQ_GEN", sequenceName = "SEQ", initialValue = 1, allocationSize = 1)
+@TypeDef(
+        name = "json",
+        typeClass = JsonStringType.class
+)
 public class Report {
 
     @Id
@@ -33,11 +42,25 @@ public class Report {
     private String script2;
     private String script3;
 //    private JsonData adverb1; : 문자열을 JSON으로 읽을 수 있는지 확인
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String adverb1;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String adverb2;
+//    private String adverb2;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String adverb3;
+//    private String adverb3;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String repetition1;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String repetition2;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
     private String repetition3;
     private Double speed1;
     private Double speed2;
@@ -49,6 +72,9 @@ public class Report {
     private String comment2;
     private String comment3;
     private LocalDateTime createdAt;
+    private LocalDateTime comment1WritedAt;
+    private LocalDateTime comment2WritedAt;
+    private LocalDateTime comment3WritedAt;
 
     @ManyToOne
     private User student;
@@ -56,6 +82,7 @@ public class Report {
     @ManyToOne
     private User teacher;
 
+    @ColumnDefault("false")
     private Boolean share;
 
     @Builder
@@ -63,7 +90,7 @@ public class Report {
                   String audio1, String audio2, String audio3, String script1, String script2, String script3, String adverb1, String adverb2, String adverb3,
                   String repetition1, String repetition2, String repetition3, Double speed1, Double speed2, Double speed3,
                   String sCorrect1, String sCorrect2, String sCorrect3, String comment1, String comment2, String comment3,
-                  User student, User teacher, Boolean share) {
+                  User student, User teacher, Boolean share, LocalDateTime createdAt, LocalDateTime comment1WritedAt, LocalDateTime comment2WritedAt, LocalDateTime comment3WritedAt) {
         this.title = title;
         this.question1 = question1;
         this.question2 = question2;
@@ -95,5 +122,9 @@ public class Report {
         this.student = student;
         this.teacher = teacher;
         this.share = share;
+        this.createdAt = createdAt;
+        this.comment1WritedAt = comment1WritedAt;
+        this.comment2WritedAt = comment2WritedAt;
+        this.comment3WritedAt = comment3WritedAt;
     }
 }
