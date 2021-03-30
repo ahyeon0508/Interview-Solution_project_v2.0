@@ -14,8 +14,6 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             // 옵션추가 버튼 클릭시
@@ -89,7 +87,6 @@
             };
         });
     </script>
-
 
     <!--<script>
         $(function() {
@@ -434,6 +431,17 @@
             if (document.getElementById("semester").value != '학기') {
                 semester.innerText = document.getElementById("semester").value;
             }
+
+            var grade_send = $('#grade').val();
+            var semester_send = $('#semester').val();
+            if (grade_send == '학년'){
+                alert("학년을 입력해주세요");
+            }else if (semester_send == '학기') {
+                alert("학기를 입력해주세요");
+            }else{
+                console.log("input2");
+                window.location.href = "/infoStudent/grade/"+grade_send+semester_send;
+            }
         }
     </script>
     <script>
@@ -441,6 +449,16 @@
             var grade = document.getElementById("input-script-grade");
             if (document.getElementById("script-grade").value != '학년') {
                 grade.innerText = document.getElementById("script-grade").value;
+            }
+            console.log("1");
+
+            var send_grade = $('#script-grade').val();
+            console.log(send_grade);
+            if(send_grade=='학년'){
+                alert("학년을 입력해주세요");
+            }else{
+                console.log("2");
+                window.location.href = "/infoStudent/transcript/"+send_grade;
             }
         }
     </script>
