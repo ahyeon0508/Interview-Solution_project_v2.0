@@ -169,6 +169,28 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function(){
+            var url = document.location.href;
+            console.log(url);
+            if(url.indexOf("/grade/")!=-1 && url.length >40 ){
+                var grade_str = url.substr(41,41);
+                var semester_str = url.substr(42,42);
+                var grade = document.getElementById("input-grade");
+                var semester = document.getElementById("input-semester");
+                grade.innerText = grade_str;
+                semester.innerText = semester_str;
+
+            }
+            if(url.indexOf("/transcript/")!=-1 && url.length >45 ){
+                var grade_str = url.substr(45);
+                var grade = document.getElementById("input-script-grade");
+                grade.innerText = grade_str;
+            }
+        });
+
+
+    </script>
 
 
 </head>
