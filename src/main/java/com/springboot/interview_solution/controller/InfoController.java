@@ -77,6 +77,26 @@ public class InfoController {
         return "redirect:/infoStudent";
     }
 
+    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}")
+    public ModelAndView getInfoByGradeAndSemester(@PathVariable String gradeSemester){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ModelAndView mv = new ModelAndView("upload");
+
+        int grade = Character.getNumericValue(gradeSemester.charAt(0));
+        int semester = Integer.parseInt(gradeSemester.substring(1));
+        List<Grade> gradeInfo = infoService.getStudentGradeByGradeAndSemester(grade,semester,user);
+        mv.addObject("gradeInfo", gradeInfo);
+        Transcript transcript = transcriptService.getStudentTranscript(user);
+        mv.addObject("transcript", transcript);
+        Letter letter = letterService.getStudentLetter(user);
+        if(letter.getQuestion3() != null && letter.getQuestion3().equals(""))
+            letter.setQuestion3(null);
+        mv.addObject("letter", letter);
+        return mv;
+
+    }
+
 //    @RequestMapping(value = "/infoStudent/grade", method = {RequestMethod.GET, RequestMethod.POST})
 //    public String postInfo(GradeListDto gradeInfo){
 //        System.out.println(gradeInfo.getGrades());
@@ -100,5 +120,22 @@ public class InfoController {
         User user = (User) authentication.getPrincipal();
         transcriptService.setStudentTranscript(transcriptDto, user);
         return "redirect:/infoStudent";
+    }
+    @RequestMapping(value = "/infoStudent/transcript/{grade}")
+    public ModelAndView getInfoByGradeAndSemester(@PathVariable int grade){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ModelAndView mv = new ModelAndView("upload");
+
+        List<Grade> gradeInfo = infoService.getStudentGrade(user);
+        mv.addObject("gradeInfo", gradeInfo);
+        Transcript transcript = transcriptService.getStudentTranscriptByGrade(grade,user);
+        mv.addObject("transcript", transcript);
+        Letter letter = letterService.getStudentLetter(user);
+        if(letter.getQuestion3() != null && letter.getQuestion3().equals(""))
+            letter.setQuestion3(null);
+        mv.addObject("letter", letter);
+        return mv;
+
     }
 }
