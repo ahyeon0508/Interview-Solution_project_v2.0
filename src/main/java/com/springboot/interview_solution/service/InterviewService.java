@@ -16,7 +16,7 @@ public class InterviewService {
 
     //private Boolean stopButton;
 
-    public void recordingVideo(RecordData recordData){
+    public void recordingVideo(String path, RecordData recordData){
         //60 seconds
         final int RECORD_TIME = 60000;
 
@@ -25,7 +25,7 @@ public class InterviewService {
             public void run() {
                 try {
                     System.out.println("Start recording...");
-                    recordData.start();
+                    recordData.start(path);
                 } catch (LineUnavailableException ex) {
                     ex.printStackTrace();
                     System.exit(-1);
@@ -44,10 +44,10 @@ public class InterviewService {
 
     }
 
-    public void stopVideo(String path,RecordData recordData){
-        // Insert audio file path
-        File audioFile = new File(path);
 
+    public void stopVideo(String path,RecordData recordData){
+        // Insert audio file path (reportID+'_'+question_num)
+        File audioFile = new File(path+"audio.wav");
         try {
             recordData.stop();
             recordData.save(audioFile);
@@ -57,6 +57,40 @@ public class InterviewService {
         }
 
         System.out.println("DONE");
+
+    }
+    /*
+    public void makeFinalVideo(String reportID, String questionNum){
+
+//        String videoPath = "video" + reportID + "_" + questionNum + ".avi";
+//        String audioPath = "audio" + reportID + "_" + questionNum + ".wav";
+
+        String videoPath = "/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/video.avi";
+        String audioPath = "/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/audio.wav";
+
+        //ffmpeg -i video.avi -i audio.wav -c:v copy aac output.mp4
+        String[] exeCmd = new String[]{"ffmpeg","-i",videoPath,"-i",audioPath,"-acodec","copy","-vcodec","copy","output.mp4"};
+        ProcessBuilder pb = new ProcessBuilder(exeCmd);
+        pb.redirectErrorStream(true);
+        Process process = null;
+        try {
+            process = pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+            process.destroy();
+        }
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            process.destroy();
+        }
+
+    }
+    */
+
+    // select Question before interview
+    public void selectQuestion(){
 
     }
 }

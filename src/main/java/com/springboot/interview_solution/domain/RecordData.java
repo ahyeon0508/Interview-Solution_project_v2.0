@@ -2,6 +2,10 @@ package com.springboot.interview_solution.domain;
 
 
 import lombok.NoArgsConstructor;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.videoio.VideoCapture;
+import org.opencv.videoio.VideoWriter;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
@@ -11,10 +15,14 @@ import java.io.IOException;
 
 @NoArgsConstructor
 public class RecordData {
+    //Audio
     private static final int BUFFER_SIZE = 4096;
     private ByteArrayOutputStream recordBytes;
     private TargetDataLine audioLine;
     private AudioFormat format;
+
+    //Video
+    private VideoWriter video;
 
     private boolean isRunning;
 
@@ -38,9 +46,14 @@ public class RecordData {
      * @throws LineUnavailableException if the system does not support the specified
      * audio format nor open the audio data line.
      */
-    public void start() throws LineUnavailableException {
+    public void start(String path) throws LineUnavailableException {
         format = getAudioFormat();
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+
+        VideoCapture capture = new VideoCapture(0);
+        Mat img = new Mat();
+        capture.read(img);
+        video = new VideoWriter(path+"video.avi",VideoWriter.fourcc('D','I','V','X'),20.0,img.size(),true);
 
         // checks if system supports the data line
         if (!AudioSystem.isLineSupported(info)) {
@@ -49,6 +62,7 @@ public class RecordData {
         }
 
         audioLine = AudioSystem.getTargetDataLine(format);
+
 
         audioLine.open(format);
         audioLine.start();
@@ -62,6 +76,8 @@ public class RecordData {
         while (isRunning) {
             bytesRead = audioLine.read(buffer, 0, buffer.length);
             recordBytes.write(buffer, 0, bytesRead);
+            capture.read(img);
+            video.write(img);
         }
     }
 
@@ -75,6 +91,7 @@ public class RecordData {
         if (audioLine != null) {
             audioLine.drain();
             audioLine.close();
+            video.release();
         }
     }
 
