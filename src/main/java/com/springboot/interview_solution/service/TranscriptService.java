@@ -21,7 +21,7 @@ public class TranscriptService {
 
     // 생활기록부 저장
     public void setStudentTranscript(TranscriptDto transcriptDto, User user) {
-        if(transcriptRepository.findByGradeAndUser(transcriptDto.getGrade(),user).isPresent()) {
+        if(transcriptRepository.findTranscriptByGradeAndUser(transcriptDto.getGrade(),user).isPresent()) {
             Transcript transcript = transcriptRepository.findTranscriptByUser(user).orElseThrow();
             Long id = transcript.getId();
             jdbcTemplate.update("update transcript set club=club, dacs=dacs, overallOpinion=overallOpinion where id=id", new Object[]{transcriptDto.getClub(), transcriptDto.getDacs(), transcriptDto.getOverallOpinion(), id});
@@ -38,13 +38,13 @@ public class TranscriptService {
 
     // 생활기록부 가져오기
     public Transcript getStudentTranscript(User user) {
-        Transcript transcript = transcriptRepository.findTranscriptByUser(user).orElse(new Transcript(user, null, null, null, null));
+        Transcript transcript = transcriptRepository.findByUser(user);
         return transcript;
     }
 
     // 생활기록부 학년 별로 가져오기
     public Transcript getStudentTranscriptByGrade(Integer grade,User user){
-        Transcript transcript = transcriptRepository.findByGradeAndUser(grade, user).orElseGet(null);
+        Transcript transcript = transcriptRepository.findByGradeAndUser(grade, user);
         return transcript;
     }
 }
