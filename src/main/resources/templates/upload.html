@@ -174,8 +174,8 @@
             var url = document.location.href;
             console.log(url);
             if(url.indexOf("/grade/")!=-1 && url.length >40 ){
-                var grade_str = url.substr(41,41);
-                var semester_str = url.substr(42,42);
+                var grade_str = url.substr(url.length-2,1);
+                var semester_str = url.substr(url.length-1,1);
                 var grade = document.getElementById("input-grade");
                 var semester = document.getElementById("input-semester");
                 grade.innerText = grade_str;
@@ -183,7 +183,7 @@
 
             }
             if(url.indexOf("/transcript/")!=-1 && url.length >45 ){
-                var grade_str = url.substr(45);
+                var grade_str = url.substr(url.length-1,1);
                 var grade = document.getElementById("input-script-grade");
                 grade.innerText = grade_str;
             }
