@@ -27,4 +27,9 @@ class InterviewServiceTest {
         interviewService.recordingVideo(dir,recordData);
         interviewService.stopVideo(dir,recordData);
     }
+
+    @Test
+    void makeFinalVideo(){
+        interviewService.makeFinalVideo("0","1");
+    }
 }

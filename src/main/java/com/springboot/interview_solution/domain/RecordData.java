@@ -34,7 +34,6 @@ public class RecordData {
         float sampleRate = 44100;
         int sampleSizeInBits = 16;
         int channels = 1;
-        boolean signed = true;
         int frameSize = 2;
         float frameRate = 44100;
         boolean bigEndian = false;
@@ -62,7 +61,6 @@ public class RecordData {
         }
 
         audioLine = AudioSystem.getTargetDataLine(format);
-
 
         audioLine.open(format);
         audioLine.start();
@@ -110,9 +108,5 @@ public class RecordData {
 
         audioInputStream.close();
         recordBytes.close();
-    }
-
-    public void terminate(){
-        isRunning = false;
     }
 }
