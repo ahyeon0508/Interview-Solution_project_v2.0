@@ -19,5 +19,4 @@ public class UserDto {
     public String getIsTeacher() {
         return isTeacher;
     }
-
 }

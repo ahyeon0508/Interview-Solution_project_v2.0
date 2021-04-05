@@ -48,8 +48,6 @@ public class InfoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("upload");
-        List<Grade> gradeInfo = infoService.getStudentGrade(user);
-        mv.addObject("gradeInfo", gradeInfo);
         Transcript transcript = transcriptService.getStudentTranscript(user);
         mv.addObject("transcript", transcript);
         Letter letter = letterService.getStudentLetter(user);
@@ -67,6 +65,15 @@ public class InfoController {
         List<Grade> gradeList = infoService.getStudentGrade(user);
         mv.addObject("gradeList", gradeList);
         return mv;
+    }
+
+    @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
+    public String postInfo(GradeDto gradeInfo){
+        System.out.println(gradeInfo.getCourse());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        infoService.setStudentGrade(gradeInfo, user);
+        return "redirect:/infoStudent";
     }
 
     @RequestMapping(value = "/infoStudent/grade/{gradeSemester}", method = RequestMethod.POST)
