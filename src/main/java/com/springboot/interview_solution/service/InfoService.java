@@ -51,26 +51,6 @@ public class InfoService {
         }
     }
 
-    // 성적 입력 리스트 저
-//    public void setStudentGrade(ArrayList<GradeDto> gradeList, User user) {
-//        for (int i = 0; i < gradeList.size(); i++) {
-//            infoRepository.save(Grade.builder()
-//                    .grade(gradeList.get(i).getGrade())
-//                    .semester(gradeList.get(i).getSemester())
-//                    .user(user)
-//                    .subject(gradeList.get(i).getSubject())
-//                    .course(gradeList.get(i).getCourse())
-//                    .unitNumber(gradeList.get(i).getUnitNumber())
-//                    .ranking(gradeList.get(i).getRanking())
-//                    .rawRanking(gradeList.get(i).getRawRanking())
-//                    .subjectMean(gradeList.get(i).getSubjectMean())
-//                    .average(gradeList.get(i).getAverage())
-//                    .achievement(gradeList.get(i).getAchievement())
-//                    .numberOfStudents(gradeList.get(i).getNumberOfStudents()).build()
-//            );
-//        }
-//    }
-
     // 성적 가져오기
     public List<Grade> getStudentGrade(User user){
         List<Grade> gradeList = new ArrayList<>();
@@ -82,5 +62,10 @@ public class InfoService {
     public List<Grade> getStudentGradeByGradeAndSemester(Integer grade,Integer semester,User user) {
         List<Grade> gradeList = infoRepository.findByGradeAndSemesterAndUser(grade,semester,user);
         return gradeList;
+    }
+
+    // 성적 삭제
+    public void deleteStudentGrade(Long id) {
+        infoRepository.deleteById(id);
     }
 }
