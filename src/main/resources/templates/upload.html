@@ -170,26 +170,24 @@
     </script>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             var url = document.location.href;
             console.log(url);
-            if(url.indexOf("/grade/")!=-1 && url.length >40 ){
-                var grade_str = url.substr(url.length-2,1);
-                var semester_str = url.substr(url.length-1,1);
+            if (url.indexOf("/grade/") != -1 && url.length > 40) {
+                var grade_str = url.substr(url.length - 2, 1);
+                var semester_str = url.substr(url.length - 1, 1);
                 var grade = document.getElementById("input-grade");
                 var semester = document.getElementById("input-semester");
                 grade.innerText = grade_str;
                 semester.innerText = semester_str;
 
             }
-            if(url.indexOf("/transcript/")!=-1 && url.length >45 ){
-                var grade_str = url.substr(url.length-1,1);
+            if (url.indexOf("/transcript/") != -1 && url.length > 45) {
+                var grade_str = url.substr(url.length - 1, 1);
                 var grade = document.getElementById("input-script-grade");
                 grade.innerText = grade_str;
             }
         });
-
-
     </script>
 
 
@@ -198,40 +196,40 @@
 <body>
     <p class="header1">내 서류 정보</p>
     <div class="container1">
-        <form th:action="@{/infoStudent/grade}" method="post">
-            <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;">그래프 보기</button></p>
-            <div class="textbox">
-                <div class="input-group">
-                    <select class="form-select" id="grade" name="grade" aria-label="Example select with button addon">
+        <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;">그래프 보기</button></p>
+        <div class="textbox">
+            <div class="input-group">
+                <select class="form-select" id="grade" name="grade" aria-label="Example select with button addon">
               <option selected>학년</option>
               <option value="1">1학년</option>
               <option value="2">2학년</option>
               <option value="3">3학년</option>
             </select>
-                    <select class="form-select" id="semester" name="semester" aria-label="Example select with button addon">
+                <select class="form-select" id="semester" name="semester" aria-label="Example select with button addon">
                 <option selected>학기</option>
                 <option value="1">1학기</option>
                 <option value="2">2학기</option>
               </select>
-                    <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Info()">입력</button>
-                </div>
+                <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Info()">입력</button>
             </div>
-            <span class="header2"><span id="input-grade" class="header3"></span><span class="header3">학년&nbsp;</span><span id="input-semester" class="header3"></span><span class="header3">학기</span></span>
-            <div class="textbox">
-                <table id="example" style="border:1px">
-                    <tr>
-                        <th>교과</th>
-                        <th>과목</th>
-                        <th>단위수</th>
-                        <th>석차등급</th>
-                        <th>원점수</th>
-                        <th>과목평균</th>
-                        <th>표준편차</th>
-                        <th>성취도</th>
-                        <th>수강자수</th>
-                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    </tr>
+        </div>
+        <span class="header2"><span id="input-grade" class="header3"></span><span class="header3">학년&nbsp;</span><span id="input-semester" class="header3"></span><span class="header3">학기</span></span>
+        <div class="textbox">
+            <table id="example" style="border:1px">
+                <tr>
+                    <th>교과</th>
+                    <th>과목</th>
+                    <th>단위수</th>
+                    <th>석차등급</th>
+                    <th>원점수</th>
+                    <th>과목평균</th>
+                    <th>표준편차</th>
+                    <th>성취도</th>
+                    <th>수강자수</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                </tr>
+                <form method="post">
                     <tr class="item1" th:each="info: ${gradeInfo}">
                         <td><select id="Subject" name="subject" aria-label="Example select with button addon">
                             <option selected></option>
@@ -362,11 +360,12 @@
                         </select></td>
                         <td><input type="number" id="numberOfStudent" name="numberOfStudent" min="1" max="1000"></td>
                         <td><button type="button" class="btn btn-outline-secondary" id="delBtn">삭제</button></td>
-                        <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">저장</button></td>
+                        <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1">저장</button></td>
                     </tr>
-                </table>
-                <!--<button type="button" class="btn btn-outline-secondary" id="addItemBtn">추가</button>-->
-            </div>
+                </form>
+            </table>
+            <!--<button type="button" class="btn btn-outline-secondary" id="addItemBtn">추가</button>-->
+        </div>
         </form>
     </div>
     <div class="container1">
@@ -456,13 +455,13 @@
 
             var grade_send = $('#grade').val();
             var semester_send = $('#semester').val();
-            if (grade_send == '학년'){
+            if (grade_send == '학년') {
                 alert("학년을 입력해주세요");
-            }else if (semester_send == '학기') {
+            } else if (semester_send == '학기') {
                 alert("학기를 입력해주세요");
-            }else{
+            } else {
                 console.log("input2");
-                window.location.href = "/infoStudent/grade/"+grade_send+semester_send;
+                window.location.href = "/infoStudent/grade/" + grade_send + semester_send;
             }
         }
     </script>
@@ -476,20 +475,11 @@
 
             var send_grade = $('#script-grade').val();
             console.log(send_grade);
-            if(send_grade=='학년'){
+            if (send_grade == '학년') {
                 alert("학년을 입력해주세요");
-            }else{
-                console.log("2");
-                window.location.href = "/infoStudent/transcript/"+send_grade;
-            }
-        }
-    </script>
-    <script>
-        function showalert() {
-            if (document.getElementById("grade").value == '학년' || document.getElementById("semester").value == '학기') {
-                window.alert("학년과 학기를 입력해주시기 바랍니다.");
             } else {
-                location.href = '/infoStudent/grade';
+                console.log("2");
+                window.location.href = "/infoStudent/transcript/" + send_grade;
             }
         }
     </script>
