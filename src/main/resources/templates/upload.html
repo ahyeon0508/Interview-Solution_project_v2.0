@@ -292,7 +292,7 @@
                             <option value="E" th:selected="${info.achievement == 'E'}">E</option>
                             <option value="P" th:selected="${info.achievement == 'P'}">P</option>
                         </select></td>
-                        <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudents}" min="1" max="1000"></td>
+                        <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudent}" min="1" max="1000"></td>
                         <td><button type="button" class="btn btn-outline-secondary" id="delBtn" th:onclick="Delete([[${info.id}]])">삭제</button></td>
                         <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">저장</button></td>
                     </tr>

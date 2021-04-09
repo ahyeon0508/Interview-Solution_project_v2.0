@@ -25,10 +25,5 @@ public class GradeDto {
     private Double subjectMean;
     private Double average;
     private String achievement;
-    private Integer numberOfStudents;
-
-//    public GradeDto() {}
-//
-//    public GradeDto(Integer grade, Integer semester, String subject, String course, Integer unitNumber, Integer ranking, Integer rawScore, Double subjectMean,
-//                    Double average, String achievement, Integer numberOfStudents) {System.out.println("HELLO");}
+    private Long numberOfStudent;
 }

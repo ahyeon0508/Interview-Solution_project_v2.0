@@ -32,7 +32,7 @@ public class InfoService {
             putGrade.setSubjectMean(grade.getSubjectMean());
             putGrade.setAverage(grade.getAverage());
             putGrade.setAchievement(grade.getAchievement());
-            putGrade.setNumberOfStudents(grade.getNumberOfStudents());
+            putGrade.setNumberOfStudent(grade.getNumberOfStudent());
             infoRepository.save(putGrade);
         } else {
             infoRepository.save(Grade.builder()
@@ -47,7 +47,7 @@ public class InfoService {
                     .subjectMean(grade.getSubjectMean())
                     .average(grade.getAverage())
                     .achievement(grade.getAchievement())
-                    .numberOfStudents(grade.getNumberOfStudents()).build()
+                    .numberOfStudent(grade.getNumberOfStudent()).build()
             );
         }
     }
