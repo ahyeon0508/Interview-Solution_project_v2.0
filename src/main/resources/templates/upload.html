@@ -293,7 +293,7 @@
                             <option value="P" th:selected="${info.achievement == 'P'}">P</option>
                         </select></td>
                         <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudents}" min="1" max="1000"></td>
-                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn">삭제</button></td>
+                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn" onclick="Delete()">삭제</button></td>
                         <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">저장</button></td>
                     </tr>
                     <tr class="item1">
@@ -359,7 +359,7 @@
                             <option value="P">P</option>
                         </select></td>
                         <td><input type="number" id="numberOfStudent" name="numberOfStudent" min="1" max="1000"></td>
-                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn">삭제</button></td>
+                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn" onclick="Delete(this)">삭제</button></td>
                         <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1">저장</button></td>
                     </tr>
                 </form>
@@ -407,7 +407,7 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit" value="Submit1" name="transcript" class="btn btn-outline-secondary" id="save2" onclick="script_showalert()">등록</button>
+            <button type="submit" value="Submit1" name="transcript" class="btn btn-outline-secondary" id="save2">등록</button>
         </form>
     </div>
     <div class="container1">
@@ -484,12 +484,9 @@
         }
     </script>
     <script>
-        function script_showalert() {
-            if (document.getElementById("script-grade").value == '학년') {
-                window.alert("학년을 입력해주시기 바랍니다.");
-            } else {
-                location.href = '/infoStudent/transcript';
-            }
+        function Delete(obj) {
+            var n = obj.parentNode.parentNode.rowIndex;
+            window.location.href = "/infoStudent/delete/" + n;
         }
     </script>
 
