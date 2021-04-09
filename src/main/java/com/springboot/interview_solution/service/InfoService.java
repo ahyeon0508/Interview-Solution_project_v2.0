@@ -8,6 +8,7 @@ import com.springboot.interview_solution.repository.InfoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -65,6 +66,7 @@ public class InfoService {
     }
 
     // 성적 삭제
+    @Transactional
     public void deleteStudentGrade(Long id) {
         infoRepository.deleteById(id);
     }

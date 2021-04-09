@@ -109,7 +109,7 @@ public class InfoController {
         return mv;
     }
 
-    @RequestMapping(value = "/infoStudent/grade/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/infoStudent/grade/delete/{id}", method = RequestMethod.GET)
     public String deleteInfo(@PathVariable Long id) {
         infoService.deleteStudentGrade(id);
         return "redirect:/infoStudent";
