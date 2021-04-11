@@ -368,7 +368,6 @@
         </div>
     </div>
     <div class="container1">
-        <form th:action="@{/infoStudent/transcript}" method="post" enctype="multipart/form-data">
             <p class="header2">학교 생활 기록부</p>
             <div class="textbox">
                 <div class="input-group">
@@ -382,11 +381,12 @@
                 </div>
             </div>
             <span class="header2"><span id="input-script-grade" class="header3"></span><span class="header3">학년&nbsp;</span></span>
+        <form method="post" enctype="multipart/form-data">
             <div class="textbox">
                 <table>
                     <th>동아리활동</th>
                     <tr>
-                        <td><textarea class="form-control" id="club" name="club" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td><textarea th:text="${transcript.club}" class="form-control" id="club" name="club" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
                     </tr>
                 </table>
             </div>
@@ -394,7 +394,7 @@
                 <table>
                     <th>세부능력 및 특기사항</th>
                     <tr>
-                        <td><textarea class="form-control" id="dacs" name="dacs" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td><textarea th:text="${transcript.dacs}" class="form-control" id="dacs" name="dacs" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
                     </tr>
                 </table>
             </div>
@@ -402,7 +402,7 @@
                 <table>
                     <th>행동특성 및 종합의견</th>
                     <tr>
-                        <td><textarea class="form-control" id="overallOpinion" name="overallOpinion" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td><textarea th:text="${transcript.overallOpinion}" class="form-control" id="overallOpinion" name="overallOpinion" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
                     </tr>
                 </table>
             </div>

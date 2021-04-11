@@ -40,8 +40,6 @@ public class InfoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("upload");
-        Transcript transcript = transcriptService.getStudentTranscript(user);
-        mv.addObject("transcript", transcript);
         Letter letter = letterService.getStudentLetter(user);
         if(letter.getQuestion3() != null && letter.getQuestion3().equals(""))
             letter.setQuestion3(null);
@@ -115,10 +113,11 @@ public class InfoController {
         return "redirect:/infoStudent";
     }
 
-    @RequestMapping(value = "infoStudent/transcript", method = RequestMethod.POST)
-    public String postInfo(TranscriptDto transcriptDto) {
+    @RequestMapping(value = "infoStudent/transcript/{grade}", method = RequestMethod.POST)
+    public String postInfo(@PathVariable Integer grade, TranscriptDto transcriptDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
+        transcriptDto.setGrade(grade);
         transcriptService.setStudentTranscript(transcriptDto, user);
         return "redirect:/infoStudent";
     }
@@ -129,8 +128,6 @@ public class InfoController {
         User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("upload");
 
-        List<Grade> gradeInfo = infoService.getStudentGrade(user);
-        mv.addObject("gradeInfo", gradeInfo);
         Transcript transcript = transcriptService.getStudentTranscriptByGrade(grade,user);
         mv.addObject("transcript", transcript);
         Letter letter = letterService.getStudentLetter(user);
@@ -138,6 +135,5 @@ public class InfoController {
             letter.setQuestion3(null);
         mv.addObject("letter", letter);
         return mv;
-
     }
 }
