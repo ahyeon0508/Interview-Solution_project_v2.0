@@ -4,6 +4,7 @@ package com.springboot.interview_solution.domain;
 import lombok.NoArgsConstructor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.VideoWriter;
 
@@ -76,6 +77,9 @@ public class RecordData {
             recordBytes.write(buffer, 0, bytesRead);
             capture.read(img);
             video.write(img);
+
+            //eye tracking
+
         }
     }
 
