@@ -68,8 +68,9 @@
             <img th:src="@{/img/logo.png}" alt="" height="25" class="d-inline-block align-top">
         </a>
         <ul class="navbar-nav navbar-right mb-2 mb-lg-0"></ul>
-        <!--로그인 되어있을 때-->
+
         <ul>
+            <!--로그인 되어있을 때-->
             <div class="dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-bs-toggle="dropdown" aria-expanded="true">

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link th:href="@{/css/questionSend.css}" rel="stylesheet" />
+    <script th:src="@{/js/check.js}"></script>
+    <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <h1 id="title">예상질문 전송</h1>
+    <div class="question-send-page">
+        <div class="questionInput">
+            <form method="post" th:action="@{/questionSend/{id}(id=${studentID})}">
+                <span class="write_in">
+                    <div class="ui fluid input focus">
+                        <input type="text" placeholder="예상질문을 입력해주세요." name="question">
+                        <button type="submit" class="ui grey basic button" id="transfer">전송</button>
+                    </div>
+                </span>
+            </form>
+        </div>
+        <!-- 이전에 보냈던 질문 목록 -->
+        <p id="info">
+            <전송한 질문 목록>
+        </p>
+        <div class="questionInfo">
+            <div class="list" th:each="question: ${questions}">
+                <div class="content">
+                    <p th:text="${question.question.question}" />
+                </div>
+                <div class="delete">
+                    <!-- Q_DeleteConfirm 함수의 인자에 전송한 질문 id 넣어주면 될듯? : 고영희 찾기와 유사-->
+                    <!-- js로 이동해서 삭제할 예정 : 삭제 관련 url을 아현이한테 알려주거나 check.js에 url 입력하면 됨!-->
+                    <button type="button" class="ui grey basic button"
+                        th:onclick="Q_DeleteConfirm([[${question.id}]])">삭제</button>
+                </div>
+            </div>
+            <!-- 이전에 보냈던 질문 목록이 없으면 -->
+            <p th:unless="${questions}">보낸 질문이 없습니다.</p>
+        </div>
+    </div>
+</body>
