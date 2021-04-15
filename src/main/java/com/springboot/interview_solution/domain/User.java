@@ -34,7 +34,7 @@ public class User implements UserDetails {
 
     private Integer grade;
     private Integer sClass;
-    private String teacher;
+    private String teacher;     //userID
     private Boolean isTeacher; //teacher = true, student = false
 
     public String getUserID() {
