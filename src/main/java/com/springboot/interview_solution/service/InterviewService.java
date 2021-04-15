@@ -1,5 +1,7 @@
 package com.springboot.interview_solution.service;
+import com.springboot.interview_solution.domain.Question;
 import com.springboot.interview_solution.domain.RecordData;
+import com.springboot.interview_solution.domain.StudentQuestion;
 import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
 import org.bytedeco.javacpp.Loader;
@@ -19,6 +21,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static java.lang.System.exit;
 
@@ -149,7 +152,50 @@ public class InterviewService {
 
 
     // select Question before interview
-    public void selectQuestion(){
+    public List<Question> selectMyQuestion(List<StudentQuestion> questionList, int listSize){
+        Random r = new Random();
+        int[] overlapNum = new int[3];
+        boolean overlap = false;
+        ArrayList<Question> interviewQuestions = new ArrayList<Question>();
 
+        for (int i=0;i<listSize;i++){
+            overlapNum[i] = r.nextInt(questionList.size());
+            for(int j=0;j<i;j++){
+                if(overlapNum[i]==overlapNum[j]){
+                    overlap = true;
+                }
+            }
+            if(overlap){
+                i--;
+                overlap = false;
+            }else {
+                interviewQuestions.add(questionList.get(overlapNum[i]).getQuestion());
+            }
+        }
+
+        return interviewQuestions;
+    }
+    public List<Question> selectQuestion(List<Question> questionList, int listSize){
+        Random r = new Random();
+        int[] overlapNum = new int[3];
+        boolean overlap = false;
+        ArrayList<Question> interviewQuestions = new ArrayList<Question>();
+
+        for (int i=0;i<listSize;i++){
+            overlapNum[i] = r.nextInt(questionList.size());
+            for(int j=0;j<i;j++){
+                if(overlapNum[i]==overlapNum[j]){
+                    overlap = true;
+                }
+            }
+            if(overlap){
+                i--;
+                overlap = false;
+            }else {
+                interviewQuestions.add(questionList.get(overlapNum[i]));
+            }
+        }
+
+        return interviewQuestions;
     }
 }

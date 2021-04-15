@@ -1,9 +1,11 @@
 package com.springboot.interview_solution.service;
 
+import com.springboot.interview_solution.domain.Question;
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.repository.ReportRepository;
+import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,6 +30,7 @@ import java.util.*;
 public class ReportService {
 
     private final ReportRepository reportRepository;
+    private final UserRepository userRepository;
 
     public void setReport(ReportDto report, User student, User teacher) {
         reportRepository.save(Report.builder()
@@ -68,6 +71,26 @@ public class ReportService {
 
     public Report getReport(Long id) throws Exception {
         return reportRepository.findReportById(id).orElseThrow(()-> new Exception());
+    }
+
+    public void createReport(User student, List<Question> questions){
+
+        //get user teacher
+        User teacher;
+        if(student.getTeacher().isEmpty()){
+            teacher = null;
+        }else{
+            teacher = userRepository.findByUserID(student.getTeacher()).orElseThrow();
+        }
+
+        reportRepository.save(Report.builder()
+                .student(student)
+                .teacher(teacher)
+                .question1(questions.get(0).getQuestion())
+                .question2(questions.get(1).getQuestion())
+                .question3(questions.get(2).getQuestion())
+                .build()
+        );
     }
 
     public String readNumber(String num_string) {
