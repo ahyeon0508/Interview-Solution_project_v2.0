@@ -140,10 +140,6 @@ public class InterviewController {
         interviewQuestions = new ArrayList<Question>();
 
         //pick up three questions from Users' Questions Or Randomly
-        Random r = new Random();
-        int[] overlapNum = new int[3];
-        boolean overlap = false;
-
         if(!myQuestions.isEmpty()){
             //from Users' Questions
             int myquestionSize = myQuestions.size();
@@ -151,7 +147,6 @@ public class InterviewController {
                 for(int i=0;i<myquestionSize;i++){
                     interviewQuestions.add(myQuestions.get(i).getQuestion());
                 }
-
                 List<Question> questions = questionService.getAllQuestion();
                 List<Question> questionsInMyQ = questionService.getQuestionListInStudentQuestion(myQuestions);
                 questions = questionService.subtractQuestion(questionsInMyQ,questions);
