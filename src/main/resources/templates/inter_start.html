@@ -78,9 +78,9 @@
                                         <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
                                         <!--A라고 되어있는 id와 for 부분에 각 질문의 고유id ex) p.id 같은걸로 넣기!-->
                                         <!--장고 : <input type="checkbox" name="interview[]" id="star_{{questionList.id}}" value="{{questionList.question}}" onclick="interstar({{questionList.id}})" checked>-->
-                                        <input type="checkbox" name="question_check" th:id="|question_check_${myQuestion.getId()}|" th:value="${myQuestion.getId()}" checked>
+                                        <input type="checkbox" name="question_check" th:id="|question_check_${myQuestion.getQuestion().getId()}|" th:value="${myQuestion.getId()}" checked>
                                         <!--장고 : <label class="form-check-label" for="star_{{questionList.id}}">-->
-                                        <label class="form-check-label" th:for="|question_check_${myQuestion.getId()}|">
+                                        <label class="form-check-label" th:for="|question_check_${myQuestion.getQuestion().getId()}|">
                                             <!--질문 유형에 따라서 3개 중 하나 띄움-->
                                             <div th:if="${myQuestion.getPart().equals(0)}">[[${myQuestion.getQuestion().getQuestion()}]]<small> - 담은 질문</small></div>
                                             <div th:if="${myQuestion.getPart().equals(1)}">[[${myQuestion.getQuestion().question}]]<small> - 작성한 질문</small></div>
