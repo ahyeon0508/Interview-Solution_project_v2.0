@@ -196,7 +196,7 @@
 <body>
     <p class="header1">내 서류 정보</p>
     <div class="container1">
-        <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;">그래프 보기</button></p>
+        <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;" onClick="location.href='/infoStudent/visualize'">그래프 보기</button></p>
         <div class="textbox">
             <div class="input-group">
                 <select class="form-select" id="grade" name="grade" aria-label="Example select with button addon">
@@ -368,19 +368,19 @@
         </div>
     </div>
     <div class="container1">
-            <p class="header2">학교 생활 기록부</p>
-            <div class="textbox">
-                <div class="input-group">
-                    <select class="form-select" id="script-grade" name="grade" aria-label="Example select with button addon">
+        <p class="header2">학교 생활 기록부</p>
+        <div class="textbox">
+            <div class="input-group">
+                <select class="form-select" id="script-grade" name="grade" aria-label="Example select with button addon">
                     <option selected>학년</option>
                     <option value="1">1학년</option>
                     <option value="2">2학년</option>
                     <option value="3">3학년</option>
                     </select>
-                    <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Grade()">입력</button>
-                </div>
+                <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Grade()">입력</button>
             </div>
-            <span class="header2"><span id="input-script-grade" class="header3"></span><span class="header3">학년&nbsp;</span></span>
+        </div>
+        <span class="header2"><span id="input-script-grade" class="header3"></span><span class="header3">학년&nbsp;</span></span>
         <form method="post" enctype="multipart/form-data">
             <div class="textbox">
                 <table>
