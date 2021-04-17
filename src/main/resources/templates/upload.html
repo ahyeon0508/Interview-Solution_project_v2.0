@@ -386,7 +386,8 @@
                 <table>
                     <th>동아리활동</th>
                     <tr>
-                        <td><textarea th:text="${transcript.club}" class="form-control" id="club" name="club" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:if="${transcript}"><textarea th:text="${transcript.club}" class="form-control" id="club" name="club" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:unless="${transcript}"><textarea class="form-control" id="club" name="club" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
                     </tr>
                 </table>
             </div>
@@ -394,7 +395,8 @@
                 <table>
                     <th>세부능력 및 특기사항</th>
                     <tr>
-                        <td><textarea th:text="${transcript.dacs}" class="form-control" id="dacs" name="dacs" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:if="${transcript}"><textarea th:text="${transcript.dacs}" class="form-control" id="dacs" name="dacs" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:unless="${transcript}"><textarea class="form-control" id="dacs" name="dacs" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
                     </tr>
                 </table>
             </div>
@@ -402,7 +404,8 @@
                 <table>
                     <th>행동특성 및 종합의견</th>
                     <tr>
-                        <td><textarea th:text="${transcript.overallOpinion}" class="form-control" id="overallOpinion" name="overallOpinion" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:if="${transcript}"><textarea th:text="${transcript.overallOpinion}" class="form-control" id="overallOpinion" name="overallOpinion" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:unless="${transcript}"><textarea class="form-control" id="overallOpinion" name="overallOpinion" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
                     </tr>
                 </table>
             </div>

@@ -51,7 +51,7 @@ public class InfoController {
     public ModelAndView visualize() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        ModelAndView mv = new ModelAndView("visualize");
+        ModelAndView mv = new ModelAndView("chart");
         List<Grade> gradeList = infoService.getStudentGrade(user);
         mv.addObject("gradeList", gradeList);
         return mv;
