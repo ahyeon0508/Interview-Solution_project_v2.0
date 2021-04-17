@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그래프</title>
+    <link th:href="@{/css/upload.css}" rel="stylesheet" />
+    <!--<link href="../static/css/upload.css" rel="stylesheet" />-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart', 'line']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var chartDiv = document.getElementById('chart_div');
+
+            var grade11 = Number(document.getElementsByTagName('td')[0].childNodes[0].nodeValue);
+            var grade12 = Number(document.getElementsByTagName('td')[1].childNodes[0].nodeValue);
+            var grade21 = Number(document.getElementsByTagName('td')[2].childNodes[0].nodeValue);
+            var grade22 = Number(document.getElementsByTagName('td')[3].childNodes[0].nodeValue);
+            var grade31 = Number(document.getElementsByTagName('td')[4].childNodes[0].nodeValue);
+
+            var average11 = Number(document.getElementsByTagName('td')[5].childNodes[0].nodeValue);
+            var average12 = Number(document.getElementsByTagName('td')[6].childNodes[0].nodeValue);
+            var average21 = Number(document.getElementsByTagName('td')[7].childNodes[0].nodeValue);
+            var average22 = Number(document.getElementsByTagName('td')[8].childNodes[0].nodeValue);
+            var average31 = Number(document.getElementsByTagName('td')[9].childNodes[0].nodeValue);
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', '학기');
+            data.addColumn('number', '내 성적');
+            data.addColumn('number', '평균');
+
+            data.addRows([
+                ['1학년 1학기', grade11, average11],
+                ['1학년 2학기', grade12, average12],
+                ['2학년 1학기', grade21, average21],
+                ['2학년 2학기', grade22, average22],
+                ['3학년 1학기', grade31, average31]
+            ]);
+
+            var options = {
+                chart: {
+                    title: '성적 그래프'
+                },
+                height: 500
+            };
+
+            function drawChart() {
+                //var Chart = new google.charts.Line(chartDiv);
+                var Chart = new google.visualization.LineChart(chartDiv);
+                Chart.draw(data, options);
+            }
+
+            drawChart();
+
+        }
+    </script>
+</head>
+
+<body>
+    <p class="header1">내 성적 그래프</p>
+    <div class="container1">
+        <div class="textbox">
+            <div class="input-group">
+                <select class="form-select" id="Subject" name="subject" aria-label="Example select with button addon">
+                <option selected>과목</option>
+                <option value="S01">국어</option>
+                <option value="S02">수학</option>
+                <option value="S03">영어</option>
+                <option value="S04">사회(역사/도덕포함)</option>
+                <option value="S05">과학</option>
+                <option value="S06">체육</option>
+                <option value="S07">예술(음악/미술)</option>
+                <option value="S08">예술</option>
+                <option value="S09">기술·가정/제2외국어/한문/교양</option>
+                <option value="S10">농생명 산업</option>
+                <option value="S11">공업</option>
+                <option value="S12">상업정보</option>
+                <option value="S13">수산·해운</option>
+                <option value="S14">가사·실업</option>
+                <option value="S15">미술</option>
+                <option value="S16">디자인·문화 콘텐츠</option>
+                <option value="S17">미용·관광·레저</option>
+                <option value="S18">식품 가공</option>
+                <option value="S19">전기·전자</option>
+                <option value="S20">건설</option>
+                <option value="S21">경영·금융</option>
+                <option value="S22">과학 계열</option>
+                <option value="S23">교양</option>
+                <option value="S24">국제 계열</option>
+                <option value="S25">기계</option>
+                <option value="S26">기술·가정</option>
+                <option value="S27">농림·수산해양</option>
+                <option value="S28">보건·복지</option>
+                <option value="S29">선박 운항</option>
+                <option value="S30">섬유·의류</option>
+                <option value="S31">예술 계열</option>
+                <option value="S32">외국어 계열</option>
+                <option value="S33">음식 조리</option>
+                <option value="S34">인쇄·출판·공예</option>
+                <option value="S35">재료</option>
+                <option value="S36">정보·통신</option>
+                <option value="S37">제2외국어</option>
+                <option value="S38">체육 계열</option>
+                <option value="S39">한국사</option>
+                <option value="S40">한문</option>
+                <option value="S41">화학 공업</option>
+                <option value="S42">환경·안전</option>
+                </select>
+                <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Info()">입력</button>
+            </div>
+        </div>
+        <div class="textbox">
+            <table id="grade" style="border:1px">
+                <tr>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>1학년 1학기</th>
+                    <th>1학년 2학기</th>
+                    <th>2학년 1학기</th>
+                    <th>2학년 2학기</th>
+                    <th>3학년 1학기</th>
+                </tr>
+                <tr class="my_grade">
+                    <th>내 성적</th>
+                    <td>97</td>
+                    <td>95</td>
+                    <td>95</td>
+                    <td>92</td>
+                    <td>92</td>
+                </tr>
+                <tr class="grade_average">
+                    <th>평균</th>
+                    <td>73.8</td>
+                    <td>69.8</td>
+                    <td>73.2</td>
+                    <td>73.3</td>
+                    <td>64.8</td>
+                </tr>
+            </table>
+        </div>
+        <div class="textbox">
+            <div id="chart_div"></div>
+        </div>
+    </div>
+</body>
+
+</html>
