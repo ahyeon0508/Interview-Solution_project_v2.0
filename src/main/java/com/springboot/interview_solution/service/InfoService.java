@@ -56,7 +56,11 @@ public class InfoService {
     // 성적 가져오기
     public List<Grade> getStudentGrade(User user){
         List<Grade> gradeList = infoRepository.findByUserOrderByGradeAscSemesterAsc(user);
-        System.out.println(gradeList.get(0));
+        return gradeList;
+    }
+
+    public List<Grade> getStudentGradeBySubject(User user, String subject){
+        List<Grade> gradeList = infoRepository.findByUserAndAndSubjectOrderByGradeAscSemesterAsc(user, subject);
         return gradeList;
     }
 

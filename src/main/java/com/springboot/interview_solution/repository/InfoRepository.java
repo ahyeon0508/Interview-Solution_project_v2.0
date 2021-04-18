@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface InfoRepository extends JpaRepository<Grade, String> {
     List<Grade> findByUserOrderByGradeAscSemesterAsc(User user);
+    List<Grade> findByUserAndAndSubjectOrderByGradeAscSemesterAsc(User user, String subject);
     Optional<Grade> findByGradeAndSemesterAndUserAndCourse(Integer grade,Integer semester,User user,String course);
     List<Grade> findByGradeAndSemesterAndUser(Integer grade,Integer semester,User user);
     void deleteById(Long id);

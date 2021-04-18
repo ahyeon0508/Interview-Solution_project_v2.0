@@ -28,8 +28,6 @@ public class InfoController {
     private final TranscriptService transcriptService;
     private final LetterService letterService;
 
-    private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
-
     @RequestMapping(value = "/infoStudent", method = RequestMethod.GET)
     public ModelAndView getInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,9 +50,18 @@ public class InfoController {
         return mv;
     }
 
+    @RequestMapping(value = "/infoStudent/visualize/{subject}", method = RequestMethod.GET)
+    public ModelAndView visualize(@PathVariable String subject) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ModelAndView mv = new ModelAndView("chart");
+        List<Grade> gradeList = infoService.getStudentGradeBySubject(user, subject);
+        mv.addObject("gradeList", gradeList);
+        return mv;
+    }
+
     @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
     public String postInfo(GradeDto gradeInfo){
-        System.out.println(gradeInfo.getCourse());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         infoService.setStudentGrade(gradeInfo, user);
