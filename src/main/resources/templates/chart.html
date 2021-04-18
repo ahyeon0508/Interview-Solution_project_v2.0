@@ -14,6 +14,8 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
         google.charts.load('current', {
             'packages': ['corechart', 'line']
@@ -23,31 +25,27 @@
         function drawChart() {
 
             var chartDiv = document.getElementById('chart_div');
-
-            var grade11 = Number(document.getElementsByTagName('td')[0].childNodes[0].nodeValue);
-            var grade12 = Number(document.getElementsByTagName('td')[1].childNodes[0].nodeValue);
-            var grade21 = Number(document.getElementsByTagName('td')[2].childNodes[0].nodeValue);
-            var grade22 = Number(document.getElementsByTagName('td')[3].childNodes[0].nodeValue);
-            var grade31 = Number(document.getElementsByTagName('td')[4].childNodes[0].nodeValue);
-
-            var average11 = Number(document.getElementsByTagName('td')[5].childNodes[0].nodeValue);
-            var average12 = Number(document.getElementsByTagName('td')[6].childNodes[0].nodeValue);
-            var average21 = Number(document.getElementsByTagName('td')[7].childNodes[0].nodeValue);
-            var average22 = Number(document.getElementsByTagName('td')[8].childNodes[0].nodeValue);
-            var average31 = Number(document.getElementsByTagName('td')[9].childNodes[0].nodeValue);
+            var loop = ($('#grade td').length - 10) / 2;
+            for (var i = 0; i < loop; i++) {
+                var j = i + 1;
+                var k = loop + i;
+                eval("var semester" + i + "= document.getElementsByTagName('th')[" + j + "].childNodes[0].childNodes[0].nodeValue + '학년 ' + document.getElementsByTagName('th')[" + j + "].childNodes[2].childNodes[0].nodeValue + '학기';");
+                eval("var grade" + i + "= Number(document.getElementsByTagName('td')[" + i + "].childNodes[0].nodeValue);");
+                eval("var average" + i + "= Number(document.getElementsByTagName('td')[" + k + "].childNodes[0].nodeValue);");
+            }
 
             var data = new google.visualization.DataTable();
             data.addColumn('string', '학기');
             data.addColumn('number', '내 성적');
             data.addColumn('number', '평균');
 
-            data.addRows([
-                ['1학년 1학기', grade11, average11],
-                ['1학년 2학기', grade12, average12],
-                ['2학년 1학기', grade21, average21],
-                ['2학년 2학기', grade22, average22],
-                ['3학년 1학기', grade31, average31]
-            ]);
+            var arr = new Array();
+
+            for (var i = 0; i < loop; i++) {
+                arr[i] = eval("[semester" + i + ", grade" + i + ", average" + i + "]");
+            }
+
+            data.addRows(arr);
 
             var options = {
                 chart: {
@@ -72,7 +70,7 @@
 <body>
     <p class="header1">내 성적 그래프</p>
     <div class="container1">
-        <p class="header2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;" onClick="location.href='/infoStudent'">성적 입력하기</button></p>
+        <p class="header2"><span id="SubjectName" class="header3">내신</span>&nbsp;성적 그래프<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;" onClick="location.href='/infoStudent'">성적 입력하기</button></p>
         <div class="textbox">
             <div class="input-group">
                 <select class="form-select" id="Subject" name="subject" aria-label="Example select with button addon">
@@ -123,19 +121,47 @@
                 <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="selectSubject()">입력</button>
             </div>
         </div>
-        <div class="textbox">
+        <div class="textbox" id="showHide1">
             <table id="grade" style="border:1px">
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th th:each="gr: ${gradeList}" th:if="${gr.subject == 'S01'}"><span th:text="${gr.grade}"></span>학년 <span th:text="${gr.semester}"></span>학기</th>
+                    <th th:each="gr: ${gradeList}"><span th:text="${gr.grade}"></span>학년 <span th:text="${gr.semester}"></span>학기</th>
                 </tr>
                 <tr class="my_grade">
                     <th>내 성적</th>
-                    <td th:each="gr: ${gradeList}" th:if="${gr.subject == 'S01'}" th:text="${gr.rawRanking}"></td>
+                    <td th:each="gr: ${gradeList}" th:text="${gr.rawRanking}"></td>
                 </tr>
                 <tr class="average">
                     <th>평균</th>
-                    <td th:each="gr: ${gradeList}" th:if="${gr.subject == 'S01'}" th:text="${gr.subjectMean}"></td>
+                    <td th:each="gr: ${gradeList}" th:text="${gr.subjectMean}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="textbox" id="showHide2">
+            <table id="grade" style="border:1px">
+                <tr>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>1학년 1학기</th>
+                    <th>1학년 2학기</th>
+                    <th>2학년 1학기</th>
+                    <th>2학년 2학기</th>
+                    <th>3학년 1학기</th>
+                </tr>
+                <tr class="my_grade">
+                    <th>내 성적</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="grade_average">
+                    <th>평균</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         </div>
@@ -146,14 +172,92 @@
 
     <script>
         function selectSubject() {
+
             var s = document.getElementById("Subject");
             var Subject = s.options[s.selectedIndex].value;
+            var SubjectName = s.options[s.selectedIndex].innerText;
 
             if (Subject == '과목') {
                 alert("과목을 입력해주세요");
             } else {
                 window.location.href = "/infoStudent/visualize/" + Subject;
             }
+        }
+
+        $(document).ready(function() {
+            var url = document.location.href;
+            if (url.indexOf("/visualize/") != -1 && url.length > 44) {
+                var subNum = url.substr(url.length - 2, 2);
+                var subJ = document.getElementById("SubjectName");
+                if (subNum == "01") var subName = "국어";
+                else if (subNum == "02") var subName = "수학";
+                else if (subNum == "03") var subName = "영어";
+                else if (subNum == "04") var subName = "사회(역사/도덕포함)";
+                else if (subNum == "05") var subName = "과학";
+                else if (subNum == "06") var subName = "체육";
+                else if (subNum == "07") var subName = "예술(음악/미술)";
+                else if (subNum == "08") var subName = "예술";
+                else if (subNum == "09") var subName = "기술·가정/제2외국어/한문/교양";
+                else if (subNum == "10") var subName = "농생명 산업";
+                else if (subNum == "11") var subName = "공업";
+                else if (subNum == "12") var subName = "상업정보";
+                else if (subNum == "13") var subName = "수산·해운";
+                else if (subNum == "14") var subName = "가사·실업";
+                else if (subNum == "15") var subName = "미술";
+                else if (subNum == "16") var subName = "디자인·문화 콘텐츠";
+                else if (subNum == "17") var subName = "미용·관광·레저";
+                else if (subNum == "18") var subName = "식품 가공";
+                else if (subNum == "19") var subName = "전기·전자";
+                else if (subNum == "20") var subName = "건설";
+                else if (subNum == "21") var subName = "경영·금융";
+                else if (subNum == "22") var subName = "과학 계열";
+                else if (subNum == "23") var subName = "교양";
+                else if (subNum == "24") var subName = "국제 계열";
+                else if (subNum == "25") var subName = "기계";
+                else if (subNum == "26") var subName = "기술·가정";
+                else if (subNum == "27") var subName = "농림·수산해양";
+                else if (subNum == "28") var subName = "보건·복지";
+                else if (subNum == "29") var subName = "선박 운항";
+                else if (subNum == "30") var subName = "섬유·의류";
+                else if (subNum == "31") var subName = "예술 계열";
+                else if (subNum == "32") var subName = "외국어 계열";
+                else if (subNum == "33") var subName = "음식 조리";
+                else if (subNum == "34") var subName = "인쇄·출판·공예";
+                else if (subNum == "35") var subName = "재료";
+                else if (subNum == "36") var subName = "정보·통신";
+                else if (subNum == "37") var subName = "제2외국어";
+                else if (subNum == "38") var subName = "체육 계열";
+                else if (subNum == "39") var subName = "한국사";
+                else if (subNum == "40") var subName = "한문";
+                else if (subNum == "41") var subName = "화학 공업";
+                else if (subNum == "42") var subName = "환경·안전";
+                subJ.innerText = subName;
+            }
+        });
+    </script>
+
+    <script>
+        function show(str) {
+            document.getElementById(str).style.display = 'block';
+        }
+
+        function hide(str) {
+            document.getElementById(str).style.display = 'none';
+        }
+
+        if (window.location.href == 'http://localhost:8080/infoStudent/visualize') {
+            show("showHide2");
+            hide("showHide1");
+            hide("chart_div");
+        } else {
+            show("showHide1");
+            hide("showHide2");
+        }
+
+        if ($('#grade td').length == 10) {
+            show("showHide2");
+            hide("showHide1");
+            hide("chart_div");
         }
     </script>
 
