@@ -6,6 +6,7 @@ import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.GradeDto;
 import com.springboot.interview_solution.repository.InfoRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -54,8 +55,8 @@ public class InfoService {
 
     // 성적 가져오기
     public List<Grade> getStudentGrade(User user){
-        List<Grade> gradeList = new ArrayList<>();
-        gradeList = infoRepository.findGradeByUser(user);
+        List<Grade> gradeList = infoRepository.findByUserOrderByGradeAscSemesterAsc(user);
+        System.out.println(gradeList.get(0));
         return gradeList;
     }
 

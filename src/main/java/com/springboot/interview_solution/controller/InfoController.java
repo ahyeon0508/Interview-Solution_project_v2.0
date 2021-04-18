@@ -24,13 +24,8 @@ import java.util.List;
 @Controller
 public class InfoController {
 
-    @Autowired
     private final InfoService infoService;
-    @Autowired
-    private final UserService userService;
-    @Autowired
     private final TranscriptService transcriptService;
-    @Autowired
     private final LetterService letterService;
 
     private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
