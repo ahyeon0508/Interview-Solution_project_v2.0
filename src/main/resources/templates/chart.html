@@ -66,14 +66,6 @@
 
         }
     </script>
-    <script>
-        function selectSubject() {
-            var s = document.getElementById("Subject");
-            var Subject = s.options[s.selectedIndex].value;
-
-            alert(Subject);
-        }
-    </script>
 
 </head>
 
@@ -151,6 +143,20 @@
             <div id="chart_div"></div>
         </div>
     </div>
+
+    <script>
+        function selectSubject() {
+            var s = document.getElementById("Subject");
+            var Subject = s.options[s.selectedIndex].value;
+
+            if (Subject == '과목') {
+                alert("과목을 입력해주세요");
+            } else {
+                window.location.href = "/infoStudent/visualize/" + Subject;
+            }
+        }
+    </script>
+
 </body>
 
 </html>
