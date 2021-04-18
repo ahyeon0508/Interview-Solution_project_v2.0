@@ -161,3 +161,8 @@ td {
 #grade td {
     padding: 0.8em 1em;
 }
+
+#grade th span {
+    color: #fff;
+    float: none;
+}

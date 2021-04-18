@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
         google.charts.load('current', {
             'packages': ['corechart', 'line']
@@ -65,11 +66,21 @@
 
         }
     </script>
+    <script>
+        function selectSubject() {
+            var s = document.getElementById("Subject");
+            var Subject = s.options[s.selectedIndex].value;
+
+            alert(Subject);
+        }
+    </script>
+
 </head>
 
 <body>
     <p class="header1">내 성적 그래프</p>
     <div class="container1">
+        <p class="header2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;" onClick="location.href='/infoStudent'">성적 입력하기</button></p>
         <div class="textbox">
             <div class="input-group">
                 <select class="form-select" id="Subject" name="subject" aria-label="Example select with button addon">
@@ -117,34 +128,22 @@
                 <option value="S41">화학 공업</option>
                 <option value="S42">환경·안전</option>
                 </select>
-                <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Info()">입력</button>
+                <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="selectSubject()">입력</button>
             </div>
         </div>
         <div class="textbox">
             <table id="grade" style="border:1px">
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>1학년 1학기</th>
-                    <th>1학년 2학기</th>
-                    <th>2학년 1학기</th>
-                    <th>2학년 2학기</th>
-                    <th>3학년 1학기</th>
+                    <th th:each="gr: ${gradeList}" th:if="${gr.subject == 'S01'}"><span th:text="${gr.grade}"></span>학년 <span th:text="${gr.semester}"></span>학기</th>
                 </tr>
                 <tr class="my_grade">
                     <th>내 성적</th>
-                    <td>97</td>
-                    <td>95</td>
-                    <td>95</td>
-                    <td>92</td>
-                    <td>92</td>
+                    <td th:each="gr: ${gradeList}" th:if="${gr.subject == 'S01'}" th:text="${gr.rawRanking}"></td>
                 </tr>
-                <tr class="grade_average">
+                <tr class="average">
                     <th>평균</th>
-                    <td>73.8</td>
-                    <td>69.8</td>
-                    <td>73.2</td>
-                    <td>73.3</td>
-                    <td>64.8</td>
+                    <td th:each="gr: ${gradeList}" th:if="${gr.subject == 'S01'}" th:text="${gr.subjectMean}"></td>
                 </tr>
             </table>
         </div>
