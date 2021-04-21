@@ -42,11 +42,8 @@ public class InfoController {
 
     @RequestMapping(value = "/infoStudent/visualize", method = RequestMethod.GET)
     public ModelAndView visualize() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("chart");
-        List<Grade> gradeList = infoService.getStudentGrade(user);
-        mv.addObject("gradeList", gradeList);
+        mv.addObject("gradeList", null);
         return mv;
     }
 
