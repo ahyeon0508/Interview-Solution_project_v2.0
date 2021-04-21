@@ -70,7 +70,6 @@ public class InfoController {
 
     @RequestMapping(value = "/infoStudent/grade/{gradeSemester}", method = RequestMethod.POST)
     public String postInfo(@PathVariable String gradeSemester, GradeDto gradeInfo){
-        System.out.println(gradeInfo.getNumberOfStudent());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         int grade = Character.getNumericValue(gradeSemester.charAt(0));
@@ -78,7 +77,17 @@ public class InfoController {
         gradeInfo.setGrade(grade);
         gradeInfo.setSemester(semester);
         infoService.setStudentGrade(gradeInfo, user);
-        return "redirect:/infoStudent";
+        return "redirect:/infoStudent/grade/"+gradeSemester;
+    }
+
+    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.PUT)
+    public String updateInfo(@PathVariable("gradeSemester") String gradeSemester, @PathVariable("id") Long id, GradeDto gradeInfo){
+        int grade = Character.getNumericValue(gradeSemester.charAt(0));
+        int semester = Integer.parseInt(gradeSemester.substring(1));
+        gradeInfo.setGrade(grade);
+        gradeInfo.setSemester(semester);
+        infoService.updateStudentGrade(id, gradeInfo);
+        return "redirect:/infoStudent/grade/"+gradeSemester;
     }
 
     @RequestMapping(value = "/infoStudent/grade/{gradeSemester}")
@@ -101,10 +110,10 @@ public class InfoController {
         return mv;
     }
 
-    @RequestMapping(value = "/infoStudent/grade/delete/{id}", method = RequestMethod.GET)
-    public String deleteInfo(@PathVariable Long id) {
+    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.DELETE)
+    public String deleteInfo(@PathVariable("gradeSemester") String gradeSemester, @PathVariable("id") Long id) {
         infoService.deleteStudentGrade(id);
-        return "redirect:/infoStudent";
+        return "redirect:/infoStudent/grade/"+gradeSemester;
     }
 
     @RequestMapping(value = "/infoStudent/letter", method = RequestMethod.POST)
@@ -121,7 +130,7 @@ public class InfoController {
         User user = (User) authentication.getPrincipal();
         transcriptDto.setGrade(grade);
         transcriptService.setStudentTranscript(transcriptDto, user);
-        return "redirect:/infoStudent";
+        return "redirect:/infoStudent/transcript/"+grade;
     }
 
     @RequestMapping(value = "/infoStudent/transcript/{grade}")

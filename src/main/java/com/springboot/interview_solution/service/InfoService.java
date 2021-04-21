@@ -20,23 +20,7 @@ public class InfoService {
 
     // 성적 입력 저장
     public void setStudentGrade(GradeDto grade, User user) {
-        if(infoRepository.findByGradeAndSemesterAndUserAndCourse(grade.getGrade(), grade.getSemester(), user, grade.getCourse()).isPresent()){
-            Grade putGrade = infoRepository.findByGradeAndSemesterAndUserAndCourse(grade.getGrade(), grade.getSemester(), user, grade.getCourse()).orElseThrow();
-            putGrade.setGrade(grade.getGrade());
-            putGrade.setSemester(grade.getSemester());
-            putGrade.setUser(user);
-            putGrade.setSubject(grade.getSubject());
-            putGrade.setCourse(grade.getCourse());
-            putGrade.setUnitNumber(grade.getUnitNumber());
-            putGrade.setRanking(grade.getRanking());
-            putGrade.setRawRanking(grade.getRawRanking());
-            putGrade.setSubjectMean(grade.getSubjectMean());
-            putGrade.setAverage(grade.getAverage());
-            putGrade.setAchievement(grade.getAchievement());
-            putGrade.setNumberOfStudent(grade.getNumberOfStudent());
-            infoRepository.save(putGrade);
-        } else {
-            infoRepository.save(Grade.builder()
+        infoRepository.save(Grade.builder()
                     .grade(grade.getGrade())
                     .semester(grade.getSemester())
                     .user(user)
@@ -50,7 +34,25 @@ public class InfoService {
                     .achievement(grade.getAchievement())
                     .numberOfStudent(grade.getNumberOfStudent()).build()
             );
-        }
+    }
+
+    public void updateStudentGrade(Long id, GradeDto gradeDto) {
+        infoRepository.findById(id).ifPresent(
+                grade -> {
+                    grade.setGrade(gradeDto.getGrade());
+                    grade.setSemester(gradeDto.getSemester());
+                    grade.setSubject(gradeDto.getSubject());
+                    grade.setCourse(gradeDto.getCourse());
+                    grade.setUnitNumber(gradeDto.getUnitNumber());
+                    grade.setRanking(gradeDto.getRanking());
+                    grade.setRawRanking(gradeDto.getRawRanking());
+                    grade.setSubjectMean(gradeDto.getSubjectMean());
+                    grade.setAverage(gradeDto.getAverage());
+                    grade.setAchievement(gradeDto.getAchievement());
+                    grade.setNumberOfStudent(gradeDto.getNumberOfStudent());
+                    infoRepository.save(grade);
+                }
+        );
     }
 
     // 성적 가져오기
