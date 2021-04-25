@@ -25,13 +25,16 @@
         function drawChart() {
 
             var chartDiv = document.getElementById('chart_div');
-            var loop = ($('#grade td').length - 10) / 2;
+            var loop = ($('#showHide2 #grade td').length) / 2;
+            var semester = new Array();
+            var grade = new Array();
+            var average = new Array();
             for (var i = 0; i < loop; i++) {
                 var j = i + 1;
                 var k = loop + i;
-                eval("var semester" + i + "= document.getElementsByTagName('th')[" + j + "].childNodes[0].childNodes[0].nodeValue + '학년 ' + document.getElementsByTagName('th')[" + j + "].childNodes[2].childNodes[0].nodeValue + '학기';");
-                eval("var grade" + i + "= Number(document.getElementsByTagName('td')[" + i + "].childNodes[0].nodeValue);");
-                eval("var average" + i + "= Number(document.getElementsByTagName('td')[" + k + "].childNodes[0].nodeValue);");
+                semester[i] = $('#showHide2 #grade th')[j].childNodes[0].nodeValue;
+                grade[i] = Number($('#showHide2 #grade td')[i].childNodes[0].nodeValue);
+                average[i] = Number($('#showHide2 #grade td')[k].childNodes[0].nodeValue);
             }
 
             var data = new google.visualization.DataTable();
@@ -42,7 +45,7 @@
             var arr = new Array();
 
             for (var i = 0; i < loop; i++) {
-                arr[i] = eval("[semester" + i + ", grade" + i + ", average" + i + "]");
+                arr[i] = [semester[i], grade[i], average[i]];
             }
 
             data.addRows(arr);
@@ -139,7 +142,7 @@
         </div>
         <div class="textbox" id="showHide2">
             <table id="grade" style="border:1px">
-                <tr>
+                <tr id="input_semester">
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>1학년 1학기</th>
                     <th>1학년 2학기</th>
@@ -147,7 +150,7 @@
                     <th>2학년 2학기</th>
                     <th>3학년 1학기</th>
                 </tr>
-                <tr class="my_grade">
+                <tr class="my_grade" id="input_grade">
                     <th>내 성적</th>
                     <td></td>
                     <td></td>
@@ -155,7 +158,7 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr class="grade_average">
+                <tr class="grade_average" id="input_average">
                     <th>평균</th>
                     <td></td>
                     <td></td>
@@ -245,19 +248,59 @@
             document.getElementById(str).style.display = 'none';
         }
 
-        if (window.location.href == 'http://localhost:8080/infoStudent/visualize') {
-            show("showHide2");
-            hide("showHide1");
+        show("showHide2");
+        hide("showHide1");
+
+        if (window.location.href == 'http://localhost:8080/infoStudent/visualize' || $('#grade td').length == 10) {
             hide("chart_div");
         } else {
-            show("showHide1");
-            hide("showHide2");
-        }
-
-        if ($('#grade td').length == 10) {
-            show("showHide2");
-            hide("showHide1");
-            hide("chart_div");
+            var semester = document.getElementById("input_semester");
+            var grade = document.getElementById("input_grade");
+            var average = document.getElementById("input_average");
+            var loop = ($('#grade td').length - 10) / 2;
+            var loop = ($('#grade td').length - 10) / 2;
+            var semesterArr = new Array();
+            var gradeArr = new Array();
+            var averageArr = new Array();
+            var count = 1;
+            for (var i = 0; i < loop; i++) {
+                var j = i + 1;
+                var k = loop + i;
+                var this_semester = document.getElementsByTagName('th')[j].childNodes[0].childNodes[0].nodeValue + '학년 ' + document.getElementsByTagName('th')[j].childNodes[2].childNodes[0].nodeValue + '학기';
+                if (i > 0 && this_semester == semesterArr[semesterArr.length - 1]) {
+                    var grade_popped = gradeArr.pop();
+                    var average_popped = averageArr.pop();
+                    gradeArr.push(Number(grade_popped) + Number(document.getElementsByTagName('td')[i].childNodes[0].nodeValue));
+                    averageArr.push(Number(average_popped) + Number(document.getElementsByTagName('td')[k].childNodes[0].nodeValue));
+                    count += 1;
+                    if (i == loop - 1) {
+                        var grade_popped = gradeArr.pop();
+                        var average_popped = averageArr.pop();
+                        gradeArr.push((grade_popped) / count);
+                        averageArr.push(Math.round(Number(average_popped) / count * 10) / 10);
+                    }
+                } else {
+                    var grade_popped = gradeArr.pop();
+                    var average_popped = averageArr.pop();
+                    gradeArr.push(Number(grade_popped) / count);
+                    averageArr.push(Math.round(Number(average_popped) / count * 10) / 10);
+                    semesterArr.push(document.getElementsByTagName('th')[j].childNodes[0].childNodes[0].nodeValue + '학년 ' + document.getElementsByTagName('th')[j].childNodes[2].childNodes[0].nodeValue + '학기');
+                    gradeArr.push(Number(document.getElementsByTagName('td')[i].childNodes[0].nodeValue));
+                    averageArr.push(Number(document.getElementsByTagName('td')[k].childNodes[0].nodeValue));
+                    count = 1;
+                }
+            }
+            var innersemester = '<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>';
+            var innergrade = '<th>내 성적</th>';
+            var inneraverage = '<th>평균</th>';
+            for (var i = 1; i < gradeArr.length; i++) {
+                innersemester = innersemester + '<th>' + semesterArr[i - 1] + '</td>';
+                innergrade = innergrade + '<td>' + gradeArr[i] + '</td>';
+                inneraverage = inneraverage + '<td>' + averageArr[i] + '</td>';
+            }
+            semester.innerHTML = innersemester;
+            grade.innerHTML = innergrade;
+            average.innerHTML = inneraverage;
         }
     </script>
 

@@ -293,7 +293,7 @@
                         </select></td>
                     <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudent}" min="1" max="1000"></td>
                     <td><button type="button" class="btn btn-outline-secondary" id="delBtn" th:onclick="Delete([[${info.id}]])">삭제</button></td>
-                    <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" onclick="showalert()">저장</button></td>
+                    <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" th:onclick="Delete([[${info.id}]])">저장</button></td>
                 </tr>
                 <form method="post">
                     <tr class="item1">
@@ -487,7 +487,10 @@
     </script>
     <script>
         function Delete(n) {
-            window.location.href = "/infoStudent/grade/delete/" + n;
+            var url = document.location.href;
+            var grade_str = url.substr(url.length - 2, 1);
+            var semester_str = url.substr(url.length - 1, 1);
+            window.location.href = "/infoStudent/grade/" + grade_str + semester_str + "/" + n;
         }
     </script>
 
