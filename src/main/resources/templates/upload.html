@@ -229,8 +229,9 @@
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 </tr>
-                <tr class="item1" th:each="info: ${gradeInfo}">
-                    <td><select id="Subject" name="subject" aria-label="Example select with button addon">
+                <form method="post">
+                    <tr class="item1" th:each="info: ${gradeInfo}">
+                        <td><select id="Subject" name="subject" aria-label="Example select with button addon">
                             <option selected></option>
                             <option value="S01" th:selected="${info.subject == 'S01' || info.subject == '국어'}">국어</option>
                             <option value="S02" th:selected="${info.subject == 'S02' || info.subject == '수학'}">수학</option>
@@ -274,15 +275,15 @@
                             <option value="S40" th:selected="${info.subject == 'S40' || info.subject == '한문'}">한문</option>
                             <option value="S41" th:selected="${info.subject == 'S41' || info.subject == '화학 공업'}">화학 공업</option>
                             <option value="S42" th:selected="${info.subject == 'S42' || info.subject == '환경·안전'}">환경·안전</option></select>
-                        </select>
-                    </td>
-                    <td><input type="text" id="course" name="course" th:value="${info.course}" /></td>
-                    <td><input type="number" id="unitNumber" name="unitNumber" th:value="${info.unitNumber}" min="1" max="9"></td>
-                    <td><input type="number" id="ranking" name="ranking" th:value="${info.ranking}" min="1" max="9"></td>
-                    <td><input type="number" id="rawRanking" name="rawRanking" th:value="${info.rawRanking}" min="0" max="100"></td>
-                    <td><input type="number" id="subjectMean" name="subjectMean" th:value="${info.subjectMean}" step="0.1" min="0" max="100"></td>
-                    <td><input type="number" id="average" name="average" th:value="${info.average}" step="0.1" min="0" max="100"></td>
-                    <td><select id="Achievement" name="achievement" aria-label="Example select with button addon">
+                            </select>
+                        </td>
+                        <td><input type="text" id="course" name="course" th:value="${info.course}" /></td>
+                        <td><input type="number" id="unitNumber" name="unitNumber" th:value="${info.unitNumber}" min="1" max="9"></td>
+                        <td><input type="number" id="ranking" name="ranking" th:value="${info.ranking}" min="1" max="9"></td>
+                        <td><input type="number" id="rawRanking" name="rawRanking" th:value="${info.rawRanking}" min="0" max="100"></td>
+                        <td><input type="number" id="subjectMean" name="subjectMean" th:value="${info.subjectMean}" step="0.1" min="0" max="100"></td>
+                        <td><input type="number" id="average" name="average" th:value="${info.average}" step="0.1" min="0" max="100"></td>
+                        <td><select id="Achievement" name="achievement" aria-label="Example select with button addon">
                             <option selected></option>
                             <option value="A" th:selected="${info.achievement == 'A'}">A</option>
                             <option value="B" th:selected="${info.achievement == 'B'}">B</option>
@@ -291,10 +292,11 @@
                             <option value="E" th:selected="${info.achievement == 'E'}">E</option>
                             <option value="P" th:selected="${info.achievement == 'P'}">P</option>
                         </select></td>
-                    <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudent}" min="1" max="1000"></td>
-                    <td><button type="button" class="btn btn-outline-secondary" id="delBtn" th:onclick="Delete([[${info.id}]])">삭제</button></td>
-                    <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" th:onclick="Delete([[${info.id}]])">저장</button></td>
-                </tr>
+                        <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudent}" min="1" max="1000"></td>
+                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn" th:onclick="Delete([[${info.id}]])">삭제</button></td>
+                        <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" th:onclick="Delete([[${info.id}]])">저장</button></td>
+                    </tr>
+                </form>
                 <form method="post">
                     <tr class="item1">
                         <td><select id="Subject" name="subject" aria-label="Example select with button addon">
