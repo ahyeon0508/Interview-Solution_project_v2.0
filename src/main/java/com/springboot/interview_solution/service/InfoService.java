@@ -37,22 +37,19 @@ public class InfoService {
     }
 
     public void updateStudentGrade(Long id, GradeDto gradeDto) {
-        infoRepository.findById(id).ifPresent(
-                grade -> {
-                    grade.setGrade(gradeDto.getGrade());
-                    grade.setSemester(gradeDto.getSemester());
-                    grade.setSubject(gradeDto.getSubject());
-                    grade.setCourse(gradeDto.getCourse());
-                    grade.setUnitNumber(gradeDto.getUnitNumber());
-                    grade.setRanking(gradeDto.getRanking());
-                    grade.setRawRanking(gradeDto.getRawRanking());
-                    grade.setSubjectMean(gradeDto.getSubjectMean());
-                    grade.setAverage(gradeDto.getAverage());
-                    grade.setAchievement(gradeDto.getAchievement());
-                    grade.setNumberOfStudent(gradeDto.getNumberOfStudent());
-                    infoRepository.save(grade);
-                }
-        );
+        Grade grade = infoRepository.findById(id).orElseThrow();
+        grade.setGrade(gradeDto.getGrade());
+        grade.setSemester(gradeDto.getSemester());
+        grade.setSubject(gradeDto.getSubject());
+        grade.setCourse(gradeDto.getCourse());
+        grade.setUnitNumber(gradeDto.getUnitNumber());
+        grade.setRanking(gradeDto.getRanking());
+        grade.setRawRanking(gradeDto.getRawRanking());
+        grade.setSubjectMean(gradeDto.getSubjectMean());
+        grade.setAverage(gradeDto.getAverage());
+        grade.setAchievement(gradeDto.getAchievement());
+        grade.setNumberOfStudent(gradeDto.getNumberOfStudent());
+        infoRepository.save(grade);
     }
 
     // 성적 가져오기

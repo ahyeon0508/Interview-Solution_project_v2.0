@@ -77,10 +77,11 @@ public class InfoController {
         return "redirect:/infoStudent/grade/"+gradeSemester;
     }
 
-    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.POST)
     public String updateInfo(@PathVariable("gradeSemester") String gradeSemester, @PathVariable("id") Long id, GradeDto gradeInfo){
         int grade = Character.getNumericValue(gradeSemester.charAt(0));
         int semester = Integer.parseInt(gradeSemester.substring(1));
+        System.out.println("A");
         gradeInfo.setGrade(grade);
         gradeInfo.setSemester(semester);
         infoService.updateStudentGrade(id, gradeInfo);
@@ -107,7 +108,7 @@ public class InfoController {
         return mv;
     }
 
-    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.GET)
     public String deleteInfo(@PathVariable("gradeSemester") String gradeSemester, @PathVariable("id") Long id) {
         infoService.deleteStudentGrade(id);
         return "redirect:/infoStudent/grade/"+gradeSemester;

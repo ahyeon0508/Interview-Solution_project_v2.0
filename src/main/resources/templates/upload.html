@@ -230,7 +230,7 @@
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 </tr>
                     <tr class="item1" th:each="info: ${gradeInfo}">
-                        <form method="put">
+                        <form method="post">
                         <td><select id="Subject" name="subject" aria-label="Example select with button addon">
                             <option selected></option>
                             <option value="S01" th:selected="${info.subject == 'S01' || info.subject == '국어'}">국어</option>
@@ -294,7 +294,7 @@
                         </select></td>
                         <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudent}" min="1" max="1000"></td>
                             <td><button type="button" class="btn btn-outline-secondary" id="delBtn" th:onclick="Delete([[${info.id}]])">삭제</button></td>
-                            <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" th:onclick="Delete([[${info.id}]])">저장</button></td>
+                            <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1" th:onclick="Delete([[${info.id}]])">수정</button></td>
                         </form>
                     </tr>
                 <form method="post">
