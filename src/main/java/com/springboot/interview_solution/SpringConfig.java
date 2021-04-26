@@ -22,10 +22,10 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
     //OpenCV Library load
-    static{
-        nu.pattern.OpenCV.loadShared();
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }
+//    static{
+//        nu.pattern.OpenCV.loadShared();
+//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){

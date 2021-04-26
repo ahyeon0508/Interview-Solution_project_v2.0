@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:replace="template.html :: fragment-stunav"></div>
-
+<div class="wrapper">
 <div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +') fixed no-repeat; background-size:cover;'">
     <div id="stuwrapper" class="row">
         <div class="col-lg-6 p-0">
@@ -58,7 +58,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <footer th:replace="template.html :: fragment-footer"></footer>
 
 </body>
