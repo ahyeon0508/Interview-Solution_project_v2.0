@@ -102,6 +102,7 @@ public class InfoController {
         Transcript transcript = transcriptService.getStudentTranscript(user);
         mv.addObject("transcript", transcript);
         Letter letter = letterService.getStudentLetter(user);
+        mv.addObject("gradeSemester", gradeSemester);
         if(letter.getQuestion3() != null && letter.getQuestion3().equals(""))
             letter.setQuestion3(null);
         mv.addObject("letter", letter);
