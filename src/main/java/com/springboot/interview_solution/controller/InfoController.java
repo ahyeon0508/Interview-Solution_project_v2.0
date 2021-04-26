@@ -77,7 +77,7 @@ public class InfoController {
         return "redirect:/infoStudent/grade/"+gradeSemester;
     }
 
-    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.PUT)
     public String updateInfo(@PathVariable("gradeSemester") String gradeSemester, @PathVariable("id") Long id, GradeDto gradeInfo){
         int grade = Character.getNumericValue(gradeSemester.charAt(0));
         int semester = Integer.parseInt(gradeSemester.substring(1));
