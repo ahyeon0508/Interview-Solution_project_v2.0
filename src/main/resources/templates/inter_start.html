@@ -26,8 +26,8 @@
 </head>
 <body>
 <div class="wrapper">
-<div id="card" class="container">
-    <div class="card text-center">
+<div class="container">
+    <div class="card text-center yscroll">
         <div class="card-header">
             <h5>1. Question</h5>
         </div>
@@ -36,21 +36,19 @@
             <div class="card">
                 <div class="card-header">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <!--herf : 면접 질문 설정-->
                         <a class="navbar-brand" href="/student/interview">면접 질문 설정</a>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
+                            <ul class="navbar-nav">
                                 <li class="nav-item active">
                                     <!--클릭시 본인에게 할당된 모든 질문 띄워지도록-->
                                     <!--herf : 내 질문-->
                                     <a class="nav-link" href="/student/interview">내 질문</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="/student/interview/question" id="navbarDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         모든 질문
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <ul class="dropdown-menu" href="/student/interview/question" aria-labelledby="navbarDropdown">
                                         <!--클릭시 기본 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
                                         <a class="dropdown-item" href="/student/interview/question/999">기본 질문</a>
                                         <!--클릭시 컴퓨터 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
@@ -61,7 +59,7 @@
                                         <a class="dropdown-item" href="/student/interview/question/3">경영</a>
                                         <!--클릭시 생명공학 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
                                         <a class="dropdown-item" href="/student/interview/question/4">생명공학</a>
-                                    </div>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
@@ -69,18 +67,13 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-
                         <!--for문으로 질문 단위 li태그 반복-->
                         <tr th:if="${myQuestionList!=null}">
                             <tr th:each="myQuestion: ${myQuestionList}">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
-                                        <!--A라고 되어있는 id와 for 부분에 각 질문의 고유id ex) p.id 같은걸로 넣기!-->
-                                        <!--장고 : <input type="checkbox" name="interview[]" id="star_{{questionList.id}}" value="{{questionList.question}}" onclick="interstar({{questionList.id}})" checked>-->
-                                        <input type="checkbox" name="question_check" th:id="|question_check_${myQuestion.getQuestion().getId()}|" th:value="${myQuestion.getId()}" checked>
-                                        <!--장고 : <label class="form-check-label" for="star_{{questionList.id}}">-->
-                                        <label class="form-check-label" th:for="|question_check_${myQuestion.getQuestion().getId()}|">
+                                        <input type="checkbox" name="question_check" th:id="|question_check_${myQuestion.getQuestion().getId()}|" th:value="${myQuestion.getId()}" checked />
+                                        <label class="form-check-label" th:for="|question_check_${myQuestion.getQuestion().getId()}|" />
                                             <!--질문 유형에 따라서 3개 중 하나 띄움-->
                                             <div th:if="${myQuestion.getPart().equals(0)}">[[${myQuestion.getQuestion().getQuestion()}]]<small> - 담은 질문</small></div>
                                             <div th:if="${myQuestion.getPart().equals(1)}">[[${myQuestion.getQuestion().question}]]<small> - 작성한 질문</small></div>
@@ -96,7 +89,7 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
                                         <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
-                                        <input type="checkbox" name="interview[]" th:id="|question_uncheck_${question.getId()}|" th:value="${question.getId()}" onclick="#">
+                                        <input type="checkbox" name="interview[]" th:id="|question_uncheck_${question.getId()}|" th:value="${question.getId()}" onclick="#" />
                                         <label th:if="${question.getDepartment().equals(0)}" th:for="|question_uncheck_${question.getId()}|">
                                             [[${question.getQuestion()}]] <small> - 기본 질문</small></label>
                                         <label th:if="${question.getDepartment().equals(1)}" th:for="|question_uncheck_${question.getId()}|">

@@ -11573,7 +11573,7 @@ a:focus {
 }
 
 .card .card-header .dropdown {
-    line-height: 1
+    /*line-height: 1*/
 }
 
 .card .card-header .dropdown .dropdown-menu {

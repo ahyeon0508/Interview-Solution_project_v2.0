@@ -18,7 +18,7 @@
 
 <body>
 <div th:replace="template.html :: fragment-stunav"></div>
-
+<div class="wrapper">
     <!--내 질문 시작-->
     <section class="container-fluid" id="start_myQuestion" th:value="${User}">
         <div class="card">
@@ -85,7 +85,7 @@
         </div>
     </section>
     <!--내 질문 끝-->
-
+</div>
 <footer th:replace="template.html :: fragment-footer"></footer>
 
 </body>
