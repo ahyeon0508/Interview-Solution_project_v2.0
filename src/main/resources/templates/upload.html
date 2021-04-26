@@ -230,7 +230,7 @@
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 </tr>
                 <tr class="item1" th:each="info: ${gradeInfo}">
-                    <form th:action="@{/infoStudent/grade/${gradeSemester}/${info.id}}" th:method="put">
+                    <form th:action="@{/infoStudent/grade/__${gradeSemester}__/__${info.id}__}" th:method="put">
                         <td><select id="Subject" name="subject" aria-label="Example select with button addon">
                             <option selected></option>
                             <option value="S01" th:selected="${info.subject == 'S01' || info.subject == '국어'}">국어</option>
