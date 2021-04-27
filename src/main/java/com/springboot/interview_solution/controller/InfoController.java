@@ -99,8 +99,7 @@ public class InfoController {
         mv.addObject("gradeSemester", gradeSemester);
         List<Grade> gradeInfo = infoService.getStudentGradeByGradeAndSemester(grade,semester,user);
         mv.addObject("gradeInfo", gradeInfo);
-        Transcript transcript = transcriptService.getStudentTranscript(user);
-        mv.addObject("transcript", transcript);
+        mv.addObject("transcript", null);
         Letter letter = letterService.getStudentLetter(user);
         mv.addObject("gradeSemester", gradeSemester);
         if(letter.getQuestion3() != null && letter.getQuestion3().equals(""))
