@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
-
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
@@ -44,7 +42,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin")
                 .permitAll()
-                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList");
+                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList", "/infoStudent/**");
     }
 
     @Override

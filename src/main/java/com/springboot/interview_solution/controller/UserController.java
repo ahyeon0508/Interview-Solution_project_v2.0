@@ -8,7 +8,6 @@ import com.springboot.interview_solution.service.ReportService;
 import com.springboot.interview_solution.service.SchoolInfoService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
-import org.junit.runner.Request;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
