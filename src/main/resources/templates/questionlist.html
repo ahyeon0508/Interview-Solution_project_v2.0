@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <div th:replace="template.html :: fragment-header(title='질문 리스트')"></div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script th:src="@{/js/util.js}"></script>
+    <script>
+        $(document).ready(function(){
+            $('input[id*= "question_check"]').change(function(){
+                var questionID = $(this).val();
+                if(questionstar(questionID)==false){
+                    $(this).prop('checked','checked');
+                }
+            });
+            $('input[id*="question_uncheck"]').change(function(){
+                var questionID = $(this).val();
+                if(questionnonstar(questionID)==false){
+                    $(this).removeAttr('checked');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div th:replace="template.html :: fragment-stunav"></div>
+
+    <!--질문 리스트 시작-->
+    <section class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <!--Herf : 질문리스트-->
+                    <a class="navbar-brand" href="/questionList">질문 리스트</a>
+                    <!--모바일 환경에서 화면비에 따라 토글 띄워지는 부분-->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <!--일단 초기에 기본 질문이 띄워지도록, 클릭하면 기본 질문이 띄워지도록-->
+                                <a class="nav-link" href="/questionList/0">기본 질문</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/questionList/999" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    학과 질문
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <!--클릭시 컴퓨터 질문 띄워지도록-->
+                                    <a class="dropdown-item" href="/questionList/1">컴퓨터</a>
+                                    <!--클릭시 국문 질문 띄워지도록-->
+                                    <a class="dropdown-item" href="/questionList/2">경영</a>
+                                    <!--클릭시 경영 질문 띄워지도록-->
+                                    <a class="dropdown-item" href="/questionList/3">국문</a>
+                                    <!--클릭시 생명공학 질문 띄워지도록-->
+                                    <a class="dropdown-item" href="/questionList/4">생명공학</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <form method="POST" class="form-inline my-2 my-lg-0" action="/questionList">
+                            <!--입력 창-->
+                            <input id="questionsearchinput" name="question_search" class="form-control mr-sm-2" type="search" placeholder="질문을 검색하세요" aria-label="검색">
+                            <!--클릭시 입력창의 키워드가 들어간 질문 리스트의 질문들을 아래에 띄우도록-->
+                            <button id="questionsearchbutton" name="question_search_button" aria-activedescendant="" class="btn btn-outline-primary my-2 my-sm-0" type="submit">검색</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <!--1. 내 질문인 경우 위해-->
+                    <!--for문으로 질문 단위 li태그 반복-->
+                    <tr th:if="${myQuestionList!=null}">
+                        <tr th:each="myQuestion: ${myQuestionList}">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                   <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
+                                    <input type="checkbox" name="question_check" th:id="|question_check_${myQuestion.getId()}|" th:value="${myQuestion.getId()}" checked>
+                                    <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "기본 질문" 부분은 질문 종류 띄우도록-->
+                                    <label th:inline="text" th:if="${myQuestion.getDepartment().equals(0)}">
+                                        [[${myQuestion.getQuestion()}]] <small> - 기본 질문</small></label>
+                                    <label th:inline="text" th:if="${myQuestion.getDepartment().equals(1)}">
+                                        [[${myQuestion.getQuestion()}]] <small> - 컴퓨터학과 질문</small></label>
+                                    <label th:inline="text" th:if="${myQuestion.getDepartment().equals(2)}">
+                                        [[${myQuestion.getQuestion()}]] <small> - 경영학과 질문</small></label>
+                                    <label th:inline="text" th:if="${myQuestion.getDepartment().equals(3)}">
+                                        [[${myQuestion.getQuestion()}]] <small> - 국어국문학과 질문</small></label>
+                                    <label th:inline="text" th:if="${myQuestion.getDepartment().equals(4)}">
+                                        [[${myQuestion.getQuestion()}]] <small> - 생명공학과 질문</small></label>
+                                </div>
+                            </li>
+                        </tr>
+                    </tr>
+                    
+                    <!--2. 질문 리스트 위해-->
+                    <!--for문으로 질문 단위 li태그 반복-->
+                    <tr th:each="question: ${questionList}">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <!--내 질문인 경우, 지금 'checked'부분 앞뒤에 조건(if 내 질문인 경우 checked) 넣기-->
+                                <input th:if="${User!=null}" type="checkbox" name="question_uncheck" th:id="|question_uncheck_${question.getId()}|" th:value="${question.getId()}">
+                                <input th:unless="${User!=null}" type="checkbox" name="question_noncheck" id="question_noncheck" th:value="${question.getId()}" disabled>
+                                <!--"질문 내용" 이 부분에 질문 내용 띄우도록 / small 태그 안 "기본 질문" 부분은 질문 종류 띄우도록 -->
+                                <label th:inline="text" th:if="${question.getDepartment().equals(0)}">
+                                    [[${question.getQuestion()}]] <small> - 기본 질문</small></label>
+                                <label th:inline="text" th:if="${question.getDepartment().equals(1)}">
+                                    [[${question.getQuestion()}]] <small> - 컴퓨터학과 질문</small></label>
+                                <label th:inline="text" th:if="${question.getDepartment().equals(2)}">
+                                    [[${question.getQuestion()}]] <small> - 경영학과 질문</small></label>
+                                <label th:inline="text" th:if="${question.getDepartment().equals(3)}">
+                                    [[${question.getQuestion()}]] <small> - 국어국문학과 질문</small></label>
+                                <label th:inline="text" th:if="${question.getDepartment().equals(4)}">
+                                    [[${question.getQuestion()}]] <small> - 생명공학과 질문</small></label>
+                            </div>
+                        </li>
+                    </tr>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--질문 리스트 끝-->
+
+<footer th:replace="template.html :: fragment-footer"></footer>
+
+</body>
+
+</html>

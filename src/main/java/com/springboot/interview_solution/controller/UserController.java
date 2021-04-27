@@ -1,8 +1,10 @@
 package com.springboot.interview_solution.controller;
 
+import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.MyUserDto;
 import com.springboot.interview_solution.dto.UserDto;
+import com.springboot.interview_solution.service.ReportService;
 import com.springboot.interview_solution.service.SchoolInfoService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
@@ -13,10 +15,12 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,6 +30,7 @@ public class UserController {
 
     private final UserService userService;
     private final SchoolInfoService schoolInfoService;
+    private final ReportService reportService;
 
     // main
     @GetMapping(value = "/")
@@ -41,8 +46,13 @@ public class UserController {
 
     // teacher home
     @GetMapping(value = "/teacher")
-    public String getTeacherHome() {
-        return "teahome";
+    public ModelAndView getTeacherHome() throws Exception {
+        ModelAndView mv = new ModelAndView("teahome");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        List<Report> reports = reportService.getStudentReport(user);
+        mv.addObject("reports", reports);
+        return mv;
     }
 
     // signup
@@ -57,8 +67,15 @@ public class UserController {
         return "redirect:/signin";
     }
     //school information
-    @RequestMapping(value = "/searchSchool",method = RequestMethod.GET)
+    /*@RequestMapping(value = "/searchSchool",method = RequestMethod.POST)
     @ResponseBody
+    public String searchSchoolInfo(@RequestParam("school") String school, HttpServletRequest response){
+        String schoolInfo;
+        if(school != null){
+            //학교 정보 받아와서 SchoolInfo로 넣기
+        }
+    }*/
+
     public List<String> searchSchoolInfo(@RequestParam("term") String school){
         List<String> schoolInfo;
         //학교 정보 받아와서 SchoolInfo로 넣기
@@ -68,15 +85,15 @@ public class UserController {
     }
 
     //UserId validate duplicate
-    @ResponseBody
-    @RequestMapping(value = "/userIdCheck", method = RequestMethod.POST)
-    public HashMap<String,String> validUserId(@RequestBody String userID){
-        HashMap responseMsg = new HashMap<String,String>();
-        Boolean isNotValid = userService.validateDuplicateUserId(userID.replace("userID=",""));
+    @RequestMapping(value = "/userIdCheck", method = RequestMethod.GET)
+    public Map validUserId(@RequestParam("userID") String userID){
+        Map responseMsg = new HashMap<String,Object>();
+        Boolean isNotValid = userService.validateDuplicateUserId(userID);
+        responseMsg.put("result","success");
         if(isNotValid){     //UserId is not valid
-            responseMsg.put("data","exist");
-        }else{
             responseMsg.put("data","notExist");
+        }else{
+            responseMsg.put("data","exist");
         }
         return responseMsg;
     }
@@ -91,7 +108,6 @@ public class UserController {
     public String resultStudentSignin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        System.out.println(user.getUserID());
         if(userService.loadIsTeacherByUserID(user.getUserID()))
             return "redirect:/teacher";
         else return "redirect:/student";

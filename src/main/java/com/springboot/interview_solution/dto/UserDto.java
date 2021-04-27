@@ -10,7 +10,7 @@ public class UserDto {
     private String username;
     private String password;
     private String phone;
-    private String school;
+    private String schoolName;
     private Integer grade;
     private Integer sClass;
     private String isTeacher; //teacher = true, student = false

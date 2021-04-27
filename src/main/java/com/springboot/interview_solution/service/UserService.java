@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
                 .phone(userDto.getPhone())
-                .school(userDto.getSchool())
+                .school(userDto.getSchoolName())
                 .grade(userDto.getGrade())
                 .sClass(userDto.getSClass())
                 .isTeacher(isTeacher).build());
