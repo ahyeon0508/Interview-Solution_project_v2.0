@@ -1,5 +1,6 @@
 package com.springboot.interview_solution.service;
 
+import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import org.junit.Test;
@@ -15,13 +16,9 @@ public class ReportServiceTest {
     ReportRepository reportRepository;
 
     @Test
-    void setReport() {
-        ReportDto reportDto = new ReportDto();
-        reportDto.setTitle("제목");
-        reportDto.setQuestion1("질문1");
-        reportDto.setQuestion2("질문2");
-        reportDto.setQuestion3("질문3");
-        reportDto.setVideo1("video URL1");
-        reportDto.setVideo2("video URL2");
+    public void setReport() {
+        Report report = new Report("제목", "질문1", "/Users/yejin/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/부곡동.wav");
+//        reportRepository.save(report);
+//        reportService.makeReport(report.getId());
     }
 }
