@@ -30,6 +30,13 @@ public class ReportController {
         return mv;
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ModelAndView getTest() {
+        ModelAndView mv = new ModelAndView("wait");
+        reportService.reportStt();
+        return mv;
+    }
+
     @RequestMapping(value = "/wait", method = RequestMethod.POST)
     public String postWait(ReportDto reportDto) {
         return "redirect:/wait";
