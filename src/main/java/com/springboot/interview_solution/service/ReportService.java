@@ -9,6 +9,7 @@ import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
@@ -25,29 +26,30 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 
-
-
-@AllArgsConstructor
 @Service
 public class ReportService {
 
     private final ReportRepository reportRepository;
-    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    ReportService(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
+    }
 
     public void modifyTitle(Long id, String title) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         report.setTitle(title);
         reportRepository.save(report);
     }
 
     public void modifyShare(Long id) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         report.setShare(!report.getShare());
         reportRepository.save(report);
     }
 
     public void modifyFeedback(Long id, FeedbackDto feedbackDto) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         if(feedbackDto.getFeedback1() != null) {
             report.setComment1(feedbackDto.getFeedback1());
             report.setComment1WritedAt(LocalDateTime.now());
@@ -75,8 +77,12 @@ public class ReportService {
         reportRepository.save(report);
     }
 
+    public List<Report> getReports(User user) throws Exception {
+        return reportRepository.findByStudent(user);
+    }
+
     public Report getReport(Long id) throws Exception {
-        return reportRepository.findReportById(id);
+        return reportRepository.findById(id);
     }
 
     public List<Report> getStudentReport(User user) throws Exception {
@@ -114,7 +120,7 @@ public class ReportService {
     }
 
     public void makeReport(Long id) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         if(report.getAudio1() != null) {
             ReportSTTDto reportStt1 = reportStt(report.getAudio1());
 //            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
