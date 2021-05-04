@@ -6,21 +6,18 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(function () {
-            $('#startbutton').click(function () {
-                var userID = $(this).attr('name')
+        $(function(){
+            $('#startbutton').click(function(){
                 var reportID = $(this).attr('report')
                 $.ajax({
-                    url: 'record/',
-                    method: 'POST',
-                    data: {
-                        name: 'start',
-                        click: true,
+                    url:'/student/interview/question/record/',
+                    method:'POST',
+                    data:{
+                        name:'start',
                         question: 3,
-                        userID: userID,
                         reportID: reportID
                     },
-                    success: function (data) {
+                    success:function(data){
                         if (response.result != 'success') {
                             console.error(response.data)
                             return;
@@ -29,19 +26,18 @@
                 });
             });
         });
-        $(function () {
-            $('#finishbutton').click(function () {
-                var userID = $(this).attr('name')
+        $(function(){
+            $('#finishbutton').click(function(){
+                var reportID = $(this).attr('report')
                 $.ajax({
-                    url: 'record_stop/',
-                    method: 'POST',
-                    data: {
-                        name: 'finish',
-                        click: true,
-                        question: 3,
-                        userID: userID
+                    url:'/student/interview/question/record_stop/',
+                    method:'POST',
+                    data:{
+                        name:'finish',
+                        question:3,
+                        reportID: reportID
                     },
-                    success: function (data) {
+                    success:function(data){
                         if (response.result != 'success') {
                             console.error(response.data)
                             return;
