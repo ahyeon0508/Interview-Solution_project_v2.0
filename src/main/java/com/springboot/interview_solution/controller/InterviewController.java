@@ -1,11 +1,14 @@
 package com.springboot.interview_solution.controller;
 
+import com.google.gson.Gson;
 import com.springboot.interview_solution.domain.Question;
+import com.springboot.interview_solution.domain.RecordData;
 import com.springboot.interview_solution.domain.StudentQuestion;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.service.InterviewService;
 import com.springboot.interview_solution.service.QuestionService;
 import com.springboot.interview_solution.service.ReportService;
+import com.sun.prism.impl.Disposer;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,11 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 @RequestMapping("/student/interview")
@@ -32,6 +36,7 @@ public class InterviewController {
     private InterviewService interviewService;
 
     ArrayList<Question> interviewQuestions;
+    RecordData recordData;
 
     /*Show Questions and select it*/
     //show my Questions
@@ -164,17 +169,68 @@ public class InterviewController {
         }
 
         //create report
-        reportService.createReport(user,interviewQuestions);
+        Long reportID = reportService.setReport(user,interviewQuestions);
 
         ModelAndView mv = new ModelAndView();
+        mv.addObject("reportID",reportID);
         mv.setViewName("inter_setting");
         return mv;
     }
 
     /*Interview Page*/
+    @RequestMapping(value = "/question1/{reportID}")
+    public ModelAndView interviewQ1(@PathVariable Long reportID){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("question",interviewQuestions.get(0).getQuestion());
+        mv.addObject("reportID",reportID);
+        mv.setViewName("inter_q1");
+        return mv;
+    }
+    @RequestMapping(value = "/question2/{reportID}")
+    public ModelAndView interviewQ2(@PathVariable Long reportID){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("question",interviewQuestions.get(1).getQuestion());
+        mv.addObject("reportID",reportID);
+        mv.setViewName("inter_q2");
+        return mv;
+    }
+    @RequestMapping(value = "/question3/{reportID}")
+    public ModelAndView interviewQ3(@PathVariable Long reportID){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("question",interviewQuestions.get(2).getQuestion());
+        mv.addObject("reportID",reportID);
+        mv.setViewName("inter_q3");
+        return mv;
+    }
 
     /*Start Interview*/
+    @RequestMapping(value = "/question/record")
+    @ResponseBody
+    public void startVideo(HttpServletResponse response, @RequestParam String name, @RequestParam int question,@RequestParam int reportID) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        Gson gson = new Gson();
+        Map<String,Object> data = new HashMap<String, Object>();
+        data.put("result","success");
+        response.getWriter().print(gson.toJson(data));
+
+        recordData = new RecordData();
+        interviewService.recordingVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
+        //interviewService.recordingVideo("");
+    }
 
     /*Stop Interview*/
+    @RequestMapping(value = "/question/record_stop")
+    public void stopVideo(HttpServletResponse response, @RequestParam String name, @RequestParam int question,@RequestParam int reportID) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
 
+        Gson gson = new Gson();
+        Map<String,Object> data = new HashMap<String, Object>();
+        data.put("result","success");
+        response.getWriter().print(gson.toJson(data));
+        interviewService.stopVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
+        interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question));
+    }
 }

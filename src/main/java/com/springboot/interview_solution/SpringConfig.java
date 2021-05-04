@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 
 @RequiredArgsConstructor
@@ -22,10 +22,10 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
     //OpenCV Library load
-//    static{
-//        nu.pattern.OpenCV.loadShared();
-//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//    }
+    static{
+        nu.pattern.OpenCV.loadShared();
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){

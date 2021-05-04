@@ -6,6 +6,9 @@ import org.opencv.core.Core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
+
+import javax.swing.filechooser.FileSystemView;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,22 +17,17 @@ class InterviewServiceTest {
 
     @Autowired
     InterviewService interviewService;
-    @Value("${file.upload.dir}")
-    String uploadDir;
 
 
     @Test
     void recordVideo() {
-        String dir = "/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/";
-        //String dir = uploadDir+"audio.wav";
-        System.out.println(dir);
         RecordData recordData = new RecordData();
-        interviewService.recordingVideo(dir,recordData);
-        interviewService.stopVideo(dir,recordData);
+        interviewService.recordingVideo("potato","1","1",recordData);
+        interviewService.stopVideo("potato","1","1",recordData);
     }
 
     @Test
     void makeFinalVideo(){
-        interviewService.makeFinalVideo("0","1");
+        interviewService.makeFinalVideo("potato","1","1");
     }
 }

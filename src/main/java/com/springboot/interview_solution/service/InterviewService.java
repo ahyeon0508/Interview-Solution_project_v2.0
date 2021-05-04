@@ -33,16 +33,16 @@ public class InterviewService {
 
     //private Boolean stopButton;
 
-    public void recordingVideo(String path, RecordData recordData){
+    public void recordingVideo(String userID,String reportID,String questionNum, RecordData recordData){
         //60 seconds
         final int RECORD_TIME = 60000;
-
+        String uploadPath = System.getProperty("user.dir")+"/src/main/resources/video/"+userID+"_"+reportID+"_"+questionNum;
         Thread recordThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     System.out.println("Start recording...");
-                    recordData.start(path);
+                    recordData.start(uploadPath);
                 } catch (LineUnavailableException ex) {
                     ex.printStackTrace();
                     exit(-1);
@@ -62,9 +62,10 @@ public class InterviewService {
     }
 
 
-    public void stopVideo(String path,RecordData recordData){
+    public void stopVideo(String userID,String reportID,String questionNum,RecordData recordData){
         // Insert audio file path (reportID+'_'+question_num)
-        File audioFile = new File(path+"audio.wav");
+        String uploadPath = System.getProperty("user.dir")+"/src/main/resources/video/"+userID+"_"+reportID+"_"+questionNum;
+        File audioFile = new File(uploadPath+"_audio.wav");
         try {
             recordData.stop();
             recordData.save(audioFile);
@@ -77,14 +78,11 @@ public class InterviewService {
 
     }
 
-    public void makeFinalVideo(String reportID, String questionNum) {
-
-//        String videoPath = "video" + reportID + "_" + questionNum + ".avi";
-//        String audioPath = "audio" + reportID + "_" + questionNum + ".wav";
-//        String outputPath = "output" + reportID + "_" + questionNum + ".mp4";
-        String videoPath = "/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/video.avi";
-        String audioPath = "/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/audio.wav";
-        String outputPath = "/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/output.mp4";
+    public void makeFinalVideo(String userID, String reportID, String questionNum) {
+        String resourcePath = System.getProperty("user.dir")+"/src/main/resources/video/";
+        String videoPath = resourcePath + userID + "_" + reportID + "_" + questionNum + "_video"  + ".avi";
+        String audioPath = resourcePath + userID + "_" + reportID + "_" + questionNum + "_audio" + ".wav";
+        String outputPath = resourcePath + userID + "_" + reportID + "_" + questionNum + "_output" + ".mp4";
 
         String ffmpeg = Loader.load(org.bytedeco.ffmpeg.ffmpeg.class);
         try {
