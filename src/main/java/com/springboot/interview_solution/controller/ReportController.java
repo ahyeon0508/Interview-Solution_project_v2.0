@@ -30,23 +30,30 @@ public class ReportController {
         return mv;
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ModelAndView getTest() {
+        ModelAndView mv = new ModelAndView("wait");
+        reportService.reportStt();
+        return mv;
+    }
+
     @RequestMapping(value = "/wait", method = RequestMethod.POST)
     public String postWait(ReportDto reportDto) {
         return "redirect:/wait";
     }
 
-    @RequestMapping(value = "/myReport", method = RequestMethod.GET)
+    @RequestMapping(value = "/myVideo", method = RequestMethod.GET)
     public ModelAndView getMyReport() throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
-        ModelAndView mv = new ModelAndView("report");
-        List<Report> reportList = reportService.getReports(user);
-        mv.addObject("reports", reportList);
+        ModelAndView mv = new ModelAndView("myVideo");
+        List<Report> reports = reportService.getReports(user);
+        mv.addObject("reports", reports);
         return mv;
     }
 
-    @RequestMapping(value = "/myReport/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/myVideo/{id}", method = RequestMethod.GET)
     public ModelAndView getMyReport(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("report");
         Report report = reportService.getReport(id);
