@@ -59,41 +59,13 @@ public class Report {
     private Boolean share;
 
     @Builder
-    public Report(String title, String question1, String question2, String question3, String video1, String video2, String video3,
-                  String audio1, String audio2, String audio3, String script1, String script2, String script3, String adverb1, String adverb2, String adverb3,
-                  String repetition1, String repetition2, String repetition3, Double speed1, Double speed2, Double speed3,
-                  String sCorrect1, String sCorrect2, String sCorrect3, String comment1, String comment2, String comment3,
-                  User student, User teacher, Boolean share) {
+    public Report(String title, String question1, String question2, String question3, User student, User teacher) {
         this.title = title;
         this.question1 = question1;
         this.question2 = question2;
         this.question3 = question3;
-        this.video1 = video1;
-        this.video2 = video2;
-        this.video3 = video3;
-        this.audio1 = audio1;
-        this.audio2 = audio2;
-        this.audio3 = audio3;
-        this.script1 = script1;
-        this.script2 = script2;
-        this.script3 = script3;
-        this.adverb1 = adverb1;
-        this.adverb2 = adverb2;
-        this.adverb3 = adverb3;
-        this.repetition1 = repetition1;
-        this.repetition2 = repetition2;
-        this.repetition3 = repetition3;
-        this.speed1 = speed1;
-        this.speed2 = speed2;
-        this.speed3 = speed3;
-        this.sCorrect1 = sCorrect1;
-        this.sCorrect2 = sCorrect2;
-        this.sCorrect3 = sCorrect3;
-        this.comment1 = comment1;
-        this.comment2 = comment2;
-        this.comment3 = comment3;
         this.student = student;
         this.teacher = teacher;
-        this.share = share;
+        this.share = false;
     }
 }
