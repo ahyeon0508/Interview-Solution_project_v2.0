@@ -2,7 +2,10 @@
 var info_rep_1 = document.getElementById('info_rep1').innerHTML;
 var info_ad_1 = document.getElementById('info_adverb1').innerHTML;
 
+rep = info_rep_1.substring(1, info_rep_1.length - 1);
 rep = JSON.parse(rep)
+
+ad = info_ad_1.substring(1, info_ad_1.length - 1);
 ad = JSON.parse(ad)
 
 var rep_count = [];
@@ -117,7 +120,10 @@ var myChart = new Chart(ctx, {
 var info_rep_2 = document.getElementById('info_rep2').innerHTML;
 var info_ad_2 = document.getElementById('info_adverb2').innerHTML;
 
+rep = info_rep_2.substring(1, info_rep_2.length - 1);
 rep = JSON.parse(rep)
+
+ad = info_ad_2.substring(1, info_ad_2.length - 1);
 ad = JSON.parse(ad)
 
 var rep_count = [];
@@ -230,7 +236,10 @@ var myChart = new Chart(ctx, {
 var info_rep_3 = document.getElementById('info_rep3').innerHTML;
 var info_ad_3 = document.getElementById('info_adverb3').innerHTML;
 
+rep = info_rep_3.substring(1, info_rep_3.length - 1);
 rep = JSON.parse(rep)
+
+ad = info_ad_3.substring(1, info_ad_3.length - 1);
 ad = JSON.parse(ad)
 
 var rep_count = [];
