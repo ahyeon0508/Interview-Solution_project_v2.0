@@ -10,9 +10,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.System.exit;
 
 @SpringBootTest
 public class ReportServiceTest {
@@ -39,9 +43,28 @@ public class ReportServiceTest {
         Long report = reportService.setReport(student, questionList);
 
         //record Audio
-        File audio= new File(System.getProperty("user.dir")+"/src/main/resources/video/potato_"+report.toString()+"_1");
+        File audio= new File(System.getProperty("user.dir")+"/src/main/resources/video/potato_"+"1"+"_1.wav");
         RecordData recordData = new RecordData();
-        recordData.start();
+        Thread recordThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.out.println("Start recording...");
+                    recordData.start();
+                } catch (LineUnavailableException ex) {
+                    ex.printStackTrace();
+                    exit(-1);
+                }
+            }
+        });
+        recordThread.start();
+        try{
+            Thread.sleep(30000);
+        } catch (InterruptedException ex) {
+            System.out.println("MY STOPPED");
+            ex.printStackTrace();
+        }
+
         recordData.stop();
         recordData.save(audio);
 
