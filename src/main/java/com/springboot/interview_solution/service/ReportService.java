@@ -149,6 +149,7 @@ public class ReportService {
     public void makeReport(Long id) {
         Report report = reportRepository.findById(id);
         if(report.getAudio1() != null) {
+            System.out.println("A");
             ReportSTTDto reportStt1 = reportStt(report.getAudio1());
 //            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
             report.setAdverb1(reportStt1.getAdverb());
@@ -167,6 +168,7 @@ public class ReportService {
             report.setRepetition1(reportStt3.getRepetition());
         }
         reportRepository.save(report);
+        System.out.println("B");
     }
 
     public ReportSTTDto reportStt(String audioFilePath) {
@@ -296,7 +298,7 @@ public class ReportService {
         Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
         while(iteratorIC.hasNext()) {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
-            IC_sentence.append("\""+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+            IC_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
         }
         IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
         System.out.println(IC_sentence);
@@ -305,7 +307,7 @@ public class ReportService {
         Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
         while(iteratorNOUN.hasNext()) {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
-            NOUN_sentence.append("\""+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+            NOUN_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
         }
         NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
         System.out.println(NOUN_sentence);
