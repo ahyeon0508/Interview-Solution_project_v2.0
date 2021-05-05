@@ -5,8 +5,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ReportSTTDto {
-    String adverb;
-    String repetition;
-    String script;
+public class ReportSpeedDto {
+    String sCorrect;
 }
