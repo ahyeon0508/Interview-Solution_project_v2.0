@@ -11,6 +11,7 @@ import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
@@ -28,15 +29,16 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
-
-
-@AllArgsConstructor
 @Service
 public class ReportService {
 
     private final ReportRepository reportRepository;
     private final UserRepository userRepository;
-    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    ReportService(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
+    }
 
     public Long setReport(User student, List<Question> questions) {
         //get user teacher
@@ -64,19 +66,19 @@ public class ReportService {
         return report.getId();
     }
     public void modifyTitle(Long id, String title) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         report.setTitle(title);
         reportRepository.save(report);
     }
 
     public void modifyShare(Long id) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         report.setShare(!report.getShare());
         reportRepository.save(report);
     }
 
     public void modifyFeedback(Long id, FeedbackDto feedbackDto) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         if(feedbackDto.getFeedback1() != null) {
             report.setComment1(feedbackDto.getFeedback1());
             report.setComment1WritedAt(LocalDateTime.now());
@@ -104,8 +106,12 @@ public class ReportService {
         reportRepository.save(report);
     }
 
+    public List<Report> getReports(User user) throws Exception {
+        return reportRepository.findByStudent(user);
+    }
+
     public Report getReport(Long id) throws Exception {
-        return reportRepository.findReportById(id);
+        return reportRepository.findById(id);
     }
 
     public List<Report> getStudentReport(User user) throws Exception {
@@ -143,7 +149,7 @@ public class ReportService {
     }
 
     public void makeReport(Long id) {
-        Report report = reportRepository.findReportById(id);
+        Report report = reportRepository.findById(id);
         if(report.getAudio1() != null) {
             ReportSTTDto reportStt1 = reportStt(report.getAudio1());
 //            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
@@ -292,7 +298,7 @@ public class ReportService {
         Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
         while(iteratorIC.hasNext()) {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
-            IC_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+            IC_sentence.append("\""+entry.getKey()).append("\":").append(entry.getValue()).append(",");
         }
         IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
         System.out.println(IC_sentence);
@@ -301,7 +307,7 @@ public class ReportService {
         Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
         while(iteratorNOUN.hasNext()) {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
-            NOUN_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+            NOUN_sentence.append("\""+entry.getKey()).append("\":").append(entry.getValue()).append(",");
         }
         NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
         System.out.println(NOUN_sentence);
@@ -319,5 +325,162 @@ public class ReportService {
         );
 
         return sttDto;
+    }
+
+    public void reportStt() {
+        String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
+        String openApiURL2 = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken";
+        String accessKey = "1a2937a3-caef-42ee-9b2d-4eadaf9c78c9";    // 발급받은 API Key
+        String accessKey2 = "1a2937a3-caef-42ee-9b2d-4eadaf9c78c9";    // 발급받은 API Key
+        String languageCode = "korean";     // 언어 코드
+        String analysisCode = "morp";   // 언어 분석 코드
+        String audioFilePath = "/Users/yejin/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/부곡도-18.wav";  // 녹음된 음성 파일 경로
+        String audioContents = null;
+
+        Gson gson = new Gson();
+
+        Map<String, Object> request = new HashMap<>();
+        Map<String, String> argument = new HashMap<>();
+
+        String text = null;
+
+        try {
+            Path path = Paths.get(audioFilePath);
+            byte[] audioBytes = Files.readAllBytes(path);
+            audioContents = Base64.getEncoder().encodeToString(audioBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        argument.put("language_code", languageCode);
+        argument.put("audio", audioContents);
+
+        request.put("access_key", accessKey);
+        request.put("argument", argument);
+
+        URL url;
+        Integer responseCode = null;
+        String responBody = null;
+        try {
+            url = new URL(openApiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.write(gson.toJson(request).getBytes("UTF-8"));
+            wr.flush();
+            wr.close();
+
+            responseCode = con.getResponseCode();
+            InputStream is = con.getInputStream();
+            byte[] buffer = new byte[is.available()];
+            int byteRead = is.read(buffer);
+            responBody = new String(buffer);
+            JSONObject jObject = new JSONObject(responBody);
+            JSONObject return_object = jObject.getJSONObject("return_object");
+            text = return_object.getString("recognized");
+
+            System.out.println(text);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        request = new HashMap<>();
+        argument = new HashMap<>();
+
+        argument.put("analysis_code", analysisCode);
+        argument.put("text", text);
+
+        request.put("access_key", accessKey);
+        request.put("argument", argument);
+
+        Map<String, Integer> IC = new HashMap<>();
+        Map<String, Integer> NOUN = new HashMap<>();
+
+        try {
+            url = new URL(openApiURL2);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.write(gson.toJson(request).getBytes("UTF-8"));
+            wr.flush();
+            wr.close();
+
+            InputStream is = con.getInputStream();
+            byte[] buffer = new byte[is.available()];
+            int byteRead = is.read(buffer);
+            responBody = new String(buffer);
+
+            System.out.println("responseBody : " + responBody);
+            JSONObject jObject = new JSONObject(responBody);
+            JSONObject return_object = jObject.getJSONObject("return_object");
+            JSONArray sentence = return_object.getJSONArray("sentence");
+            for (int i = 0 ; i < sentence.length() ; i++ ){
+                JSONObject obj = sentence.getJSONObject(i);
+                JSONArray array = obj.getJSONArray("morp");
+
+                for(int j = 0 ; j < array.length() ; j++) {
+                    JSONObject morp = array.getJSONObject(j);
+                    String type = morp.getString("type");
+
+                    if(type.equals("IC")) {
+                        if(IC.containsKey(morp.getString("lemma"))) {
+                            IC.replace(morp.getString("lemma"), IC.get(morp.getString("lemma")) + 1);
+                        } else {
+                            IC.put(morp.getString("lemma"), 1);
+                        }
+                    } else if (type.equals("SL") || type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
+                        if(NOUN.containsKey(morp.getString("lemma"))) {
+                            NOUN.replace(morp.getString("lemma"), NOUN.get(morp.getString("lemma")) + 1);
+                        } else {
+                            NOUN.put(morp.getString("lemma"), 1);
+                        }
+                    }
+                }
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder IC_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
+        while(iteratorIC.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
+            IC_sentence.append("\""+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+        }
+        IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
+        System.out.println(IC_sentence);
+
+        StringBuilder NOUN_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
+        while(iteratorNOUN.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
+            NOUN_sentence.append("\""+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+        }
+        NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
+        System.out.println(NOUN_sentence);
+
+        ReportSTTDto sttDto = new ReportSTTDto();
+        sttDto.setAdverb(
+                "{" +
+                        IC_sentence
+                        + "}"
+        );
+        sttDto.setRepetition(
+                "{" +
+                        NOUN_sentence
+                        + "}"
+        );
+
+        System.out.println("adverb" + sttDto.getAdverb());
+        System.out.println("noun" + sttDto.getRepetition());
     }
 }

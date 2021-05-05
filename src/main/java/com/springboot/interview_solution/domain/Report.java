@@ -127,4 +127,12 @@ public class Report {
         this.comment2WritedAt = comment2WritedAt;
         this.comment3WritedAt = comment3WritedAt;
     }
+
+    @Builder
+    public Report(String title, String question1,
+                  String audio1) {
+        this.title = title;
+        this.question1 = question1;
+        this.audio1 = audio1;
+    }
 }
