@@ -4,15 +4,12 @@ import com.springboot.interview_solution.domain.Question;
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.FeedbackDto;
-import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.dto.ReportSTTDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import com.springboot.interview_solution.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 
@@ -36,8 +33,9 @@ public class ReportService {
     private final UserRepository userRepository;
 
     @Autowired
-    ReportService(ReportRepository reportRepository) {
+    ReportService(ReportRepository reportRepository, UserRepository userRepository) {
         this.reportRepository = reportRepository;
+        this.userRepository = userRepository;
     }
 
     public Long setReport(User student, List<Question> questions) {
