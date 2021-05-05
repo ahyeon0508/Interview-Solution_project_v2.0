@@ -305,7 +305,7 @@ public class ReportService {
         String accessKey2 = "1a2937a3-caef-42ee-9b2d-4eadaf9c78c9";    // 발급받은 API Key
         String languageCode = "korean";     // 언어 코드
         String analysisCode = "morp";   // 언어 분석 코드
-        String audioFilePath = "/Users/yejin/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/부곡동.wav";  // 녹음된 음성 파일 경로
+        String audioFilePath = "/Users/yejin/Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/부곡도-18.wav";  // 녹음된 음성 파일 경로
         String audioContents = null;
 
         Gson gson = new Gson();
