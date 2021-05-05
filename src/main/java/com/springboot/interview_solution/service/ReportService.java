@@ -1,11 +1,13 @@
 package com.springboot.interview_solution.service;
 
+import com.springboot.interview_solution.domain.Question;
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.FeedbackDto;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.dto.ReportSTTDto;
 import com.springboot.interview_solution.repository.ReportRepository;
+import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +24,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -32,8 +35,34 @@ import java.util.*;
 public class ReportService {
 
     private final ReportRepository reportRepository;
+    private final UserRepository userRepository;
     private JdbcTemplate jdbcTemplate;
 
+    public Long setReport(User student, List<Question> questions) {
+        //get user teacher
+        User teacher;
+        if(student.getTeacher().isEmpty()){
+            teacher = null;
+        }else{
+            teacher = userRepository.findByUserID(student.getTeacher()).orElseThrow();
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd hh::mm");
+        Date date = new Date();
+
+        String title = simpleDateFormat.format(date)+student.getUsername()+"의 면접영상";
+        Report report = reportRepository.save(Report.builder()
+                .title(title)
+                .student(student)
+                .teacher(teacher)
+                .question1(questions.get(0).getQuestion())
+                .question2(questions.get(1).getQuestion())
+                .question3(questions.get(2).getQuestion())
+                .build()
+        );
+
+        return report.getId();
+    }
     public void modifyTitle(Long id, String title) {
         Report report = reportRepository.findReportById(id);
         report.setTitle(title);
