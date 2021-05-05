@@ -6,7 +6,7 @@ import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import com.springboot.interview_solution.repository.UserRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,7 +19,7 @@ import java.util.List;
 import static java.lang.System.exit;
 
 @SpringBootTest
-public class ReportServiceTest {
+class ReportServiceTest {
 
     @Autowired
     ReportService reportService;
@@ -30,10 +30,9 @@ public class ReportServiceTest {
     @Autowired
     QuestionService questionService;
 
-
     @Test
-    public void setReport() throws Exception {
-        User student = userRepository.findUserByUserID("potato");
+    void setReport() throws Exception {
+        User student = userRepository.findUserByUserID("potatoe");
 
         List<Question> questionList = new ArrayList<Question>();
         List<Question> allQuestionList = questionService.getAllQuestion();
@@ -67,7 +66,6 @@ public class ReportServiceTest {
 
         recordData.stop();
         recordData.save(audio);
-
 
         reportService.getReport(report).setAudio1(audio.getParent());
     }
