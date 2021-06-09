@@ -130,7 +130,7 @@ public class InterviewController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         //delete the question in studentRepository
-        questionService.deleteMyQuestionByQuestionID(user,questionID);
+        questionService.deleteMyQuestion(questionID);
         return "redirect:/student/interview";
     }
 
