@@ -69,7 +69,7 @@
 
             <!-- 질문 끝 -->
             <!--장고 : <input type="button" id="finishbutton" name="{{user.id}}" onClick="location.href='{% url 'website:interviewQ2' reportID=reportID %}'" value="다음으로">-->
-            <input type="button" id="finishbutton" th:name="${reportID}" th:onClick="'location.href=\''+ @{/student/interview/question2/${reportID}} +'\';'" value="다음으로">
+            <input type="button" id="finishbutton" th:name="${reportID}" th:onClick="'location.href=\''+ @{/student/interview/question2/{id}(id=${reportID})} +'\';'" value="다음으로">
         </div>
     </div>
 </div>
