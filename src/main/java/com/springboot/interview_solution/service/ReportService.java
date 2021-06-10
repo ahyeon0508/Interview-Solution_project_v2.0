@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -36,7 +37,8 @@ public class ReportService {
     public Long setReport(User student, List<Question> questions) {
         //get user teacher
         User teacher;
-        if(student.getTeacher().isEmpty()){
+        System.out.println("Teacher:"+student.getTeacher());
+        if(StringUtils.isEmpty(student.getTeacher())){
             teacher = null;
         }else{
             teacher = userRepository.findByUserID(student.getTeacher()).orElseThrow();
