@@ -5,18 +5,23 @@
     <link th:href="@{/css/inter_setting.css}" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
         $(function(){
             $('#startbutton').click(function(){
-                var reportID = $(this).attr('report')
+                var reportID = $(this).attr('name')
                 $.ajax({
-                    url:'/student/interview/question/record/',
+                    url:'/student/interview/question/record',
                     method:'POST',
                     data:{
                         name:'start',
                         question: 1,
                         reportID: reportID
                     },
+                    dataType: 'text',
+                    async: true,
                     success:function(data){
                         if (response.result != 'success') {
                             console.error(response.data)
@@ -42,6 +47,10 @@
                             console.error(response.data)
                             return;
                         }
+                    },
+                    error: function (xhr, error) {
+                        alert("서버와의 통신에서 문제가 발생했습니다");
+                        console.error("error : " + error);
                     }
                 });
             });

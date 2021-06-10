@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -204,20 +201,26 @@ public class InterviewController {
     }
 
     /*Start Interview*/
-    @RequestMapping(value = "/question/record")
     @ResponseBody
-    public void startVideo(HttpServletResponse response, @RequestParam String name, @RequestParam int question,@RequestParam int reportID) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-
+    @RequestMapping(value = "/question/record", method = RequestMethod.POST)
+    public Gson startVideo(HttpServletResponse response,@RequestParam String name, @RequestParam int question ,@RequestParam int reportID) throws IOException {
         Gson gson = new Gson();
         Map<String,Object> data = new HashMap<String, Object>();
-        data.put("result","success");
-        response.getWriter().print(gson.toJson(data));
 
-        recordData = new RecordData();
-        interviewService.recordingVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
-        //interviewService.recordingVideo("");
+        if(name.equals("start")){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User) authentication.getPrincipal();
+
+            data.put("result","success");
+
+            recordData = new RecordData();
+            interviewService.recordingVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
+            //interviewService.recordingVideo("");
+        }else{
+            data.put("result","error");
+        }
+        response.getWriter().print(gson.toJson(data));
+        return gson;
     }
 
     /*Stop Interview*/

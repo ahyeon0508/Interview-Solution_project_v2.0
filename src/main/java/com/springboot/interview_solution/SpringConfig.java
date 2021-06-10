@@ -21,11 +21,12 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 public class SpringConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
+    /*
     //OpenCV Library load
     static{
         nu.pattern.OpenCV.loadShared();
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -51,7 +52,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin")
                 .permitAll()
-                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList");
+                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList","/student/interview/question/record","/student/interview/question/stop");
     }
 
     @Override
