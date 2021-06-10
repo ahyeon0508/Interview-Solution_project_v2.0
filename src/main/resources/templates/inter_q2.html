@@ -32,9 +32,9 @@
         });
         $(function(){
             $('#finishbutton').click(function(){
-                var reportID = $(this).attr('report')
+                var reportID = $(this).attr('name')
                 $.ajax({
-                    url:'/student/interview/question/record_stop/',
+                    url:'/student/interview/question/record_stop',
                     method:'POST',
                     data:{
                         name:'finish',

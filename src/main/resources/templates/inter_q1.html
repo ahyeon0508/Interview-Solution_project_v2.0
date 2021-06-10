@@ -33,9 +33,9 @@
         });
         $(function(){
             $('#finishbutton').click(function(){
-                var reportID = $(this).attr('report')
+                var reportID = $(this).attr('name')
                 $.ajax({
-                    url:'/student/interview/question/record_stop/',
+                    url:'/student/interview/question/record_stop',
                     method:'POST',
                     data:{
                         name:'finish',
@@ -47,10 +47,6 @@
                             console.error(response.data)
                             return;
                         }
-                    },
-                    error: function (xhr, error) {
-                        alert("서버와의 통신에서 문제가 발생했습니다");
-                        console.error("error : " + error);
                     }
                 });
             });

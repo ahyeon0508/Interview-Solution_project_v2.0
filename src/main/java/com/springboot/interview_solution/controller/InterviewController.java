@@ -224,16 +224,26 @@ public class InterviewController {
     }
 
     /*Stop Interview*/
+    @ResponseBody
     @RequestMapping(value = "/question/record_stop")
-    public void stopVideo(HttpServletResponse response, @RequestParam String name, @RequestParam int question,@RequestParam int reportID) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-
+    public Gson stopVideo(HttpServletResponse response, @RequestParam String name, @RequestParam int question,@RequestParam int reportID) throws IOException {
         Gson gson = new Gson();
         Map<String,Object> data = new HashMap<String, Object>();
-        data.put("result","success");
+
+        if(name.equals("finish")){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User) authentication.getPrincipal();
+
+            data.put("result","success");
+
+            interviewService.stopVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
+            interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question));
+        }else{
+            data.put("result","error");
+        }
+
         response.getWriter().print(gson.toJson(data));
-        interviewService.stopVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
-        interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question));
+        return gson;
+
     }
 }
