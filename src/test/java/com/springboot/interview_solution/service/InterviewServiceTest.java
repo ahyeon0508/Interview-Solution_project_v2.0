@@ -28,6 +28,7 @@ class InterviewServiceTest {
 
     @Test
     void makeFinalVideo(){
-        interviewService.makeFinalVideo("potato","1","1");
+        Long a = Long.getLong("30");
+        interviewService.makeFinalVideo("potato","1","1",a);
     }
 }

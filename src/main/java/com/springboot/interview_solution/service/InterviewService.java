@@ -1,6 +1,7 @@
 package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.domain.Question;
 import com.springboot.interview_solution.domain.RecordData;
+import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.StudentQuestion;
 import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
@@ -18,10 +19,7 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static java.lang.System.exit;
 
@@ -78,7 +76,7 @@ public class InterviewService {
 
     }
 
-    public void makeFinalVideo(String userID, String reportID, String questionNum) {
+    public void makeFinalVideo(String userID, String reportID, String questionNum,Long executionTime) {
         String resourcePath = System.getProperty("user.dir")+"/src/main/resources/video/";
         String videoPath = resourcePath + userID + "_" + reportID + "_" + questionNum + "_video"  + ".avi";
         String audioPath = resourcePath + userID + "_" + reportID + "_" + questionNum + "_audio" + ".wav";
@@ -104,6 +102,24 @@ public class InterviewService {
         }catch (IOException | InterruptedException e){
             e.printStackTrace();
         }
+
+        //set Report
+        Report report = reportRepository.findReportById(Long.parseLong(reportID)).get();
+        if(questionNum.equals("1")){
+            report.setAudio1(audioPath);
+            report.setVideo1(outputPath);
+            report.setSpeed1(executionTime.doubleValue());
+        }else if(questionNum.equals("2")){
+            report.setAudio2(audioPath);
+            report.setVideo2(outputPath);
+            report.setSpeed2(executionTime.doubleValue());
+        }else if(questionNum.equals("3")){
+            report.setAudio3(audioPath);
+            report.setVideo3(outputPath);
+            report.setSpeed3(executionTime.doubleValue());
+        }
+        reportRepository.save(report);
+
     }
 
     /*
