@@ -21,7 +21,7 @@
                     },
                     dataType: 'text',
                     async: true,
-                    success:function(data){
+                    success:function(response){
                         if (response.result != 'success') {
                             console.error(response.data)
                             return;
@@ -34,17 +34,19 @@
             $('#finishbutton').click(function(){
                 var reportID = $(this).attr('name')
                 $.ajax({
-                    url:'/student/interview/question/record_stop',
+                    url:'/student/interview/question/stop',
                     method:'POST',
                     data:{
                         name:'finish',
                         question:2,
                         reportID: reportID
                     },
-                    success:function(data){
+                    success:function(response){
                         if (response.result != 'success') {
                             console.error(response.data)
                             return;
+                        }else{
+                            window.location.href = "/student/interview/question3/" + reportID;
                         }
                     }
                 });
@@ -73,7 +75,7 @@
 
             <!-- 질문 끝 -->
             <!--장고 : <input type="button" id="finishbutton" name="{{user.id}}" onClick="location.href='{% url 'website:interviewQ3' reportID=reportID %}'" value="다음으로">-->
-            <input type="button" id="finishbutton" th:name="${reportID}" th:onClick="'location.href=\''+ @{/student/interview/question3/{id}(id=${reportID})} +'\''" value="다음으로">
+            <input type="button" id="finishbutton" th:name="${reportID}" value="다음으로">
         </div>
     </div>
 </div>
