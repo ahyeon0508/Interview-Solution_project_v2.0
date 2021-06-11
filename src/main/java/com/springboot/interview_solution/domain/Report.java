@@ -59,13 +59,14 @@ public class Report {
     private Boolean share;
 
     @Builder
-    public Report(String title, String question1, String question2, String question3, User student, User teacher) {
+    public Report(String title, String question1, String question2, String question3, User student, User teacher, LocalDateTime createdAt) {
         this.title = title;
         this.question1 = question1;
         this.question2 = question2;
         this.question3 = question3;
         this.student = student;
         this.teacher = teacher;
+        this.createdAt = createdAt;
         this.share = false;
     }
 }

@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -37,7 +38,6 @@ public class ReportService {
     public Long setReport(User student, List<Question> questions) {
         //get user teacher
         User teacher;
-        System.out.println("Teacher:"+student.getTeacher());
         if(StringUtils.isEmpty(student.getTeacher())){
             teacher = null;
         }else{
@@ -46,8 +46,9 @@ public class ReportService {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd hh::mm");
         Date date = new Date();
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
-        String title = simpleDateFormat.format(date)+student.getUsername()+"의 면접영상";
+        String title = simpleDateFormat.format(date)+" "+student.getUsername()+"의 면접영상";
         Report report = reportRepository.save(Report.builder()
                 .title(title)
                 .student(student)
@@ -55,6 +56,7 @@ public class ReportService {
                 .question1(questions.get(0).getQuestion())
                 .question2(questions.get(1).getQuestion())
                 .question3(questions.get(2).getQuestion())
+                .createdAt(currentDateTime)
                 .build()
         );
 
