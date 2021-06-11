@@ -34,6 +34,7 @@ public class InterviewController {
 
     ArrayList<Question> interviewQuestions;
     RecordData recordData;
+    Long executionTime;
 
     /*Show Questions and select it*/
     //show my Questions
@@ -203,8 +204,7 @@ public class InterviewController {
     /*Start Interview*/
     @ResponseBody
     @RequestMapping(value = "/question/record", method = RequestMethod.POST)
-    public Gson startVideo(HttpServletResponse response,@RequestParam String name, @RequestParam int question ,@RequestParam int reportID) throws IOException {
-        Gson gson = new Gson();
+    public Map<String,Object> startVideo(HttpServletResponse response,@RequestParam String name, @RequestParam int question ,@RequestParam int reportID) throws IOException {
         Map<String,Object> data = new HashMap<String, Object>();
 
         if(name.equals("start")){
@@ -214,20 +214,19 @@ public class InterviewController {
             data.put("result","success");
 
             recordData = new RecordData();
+            executionTime = System.currentTimeMillis();
             interviewService.recordingVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
-            //interviewService.recordingVideo("");
         }else{
             data.put("result","error");
         }
-        response.getWriter().print(gson.toJson(data));
-        return gson;
+
+        return data;
     }
 
     /*Stop Interview*/
     @ResponseBody
-    @RequestMapping(value = "/question/record_stop")
-    public Gson stopVideo(HttpServletResponse response, @RequestParam String name, @RequestParam int question,@RequestParam int reportID) throws IOException {
-        Gson gson = new Gson();
+    @RequestMapping(value = "/question/stop")
+    public Map<String,Object> stopVideo(@RequestParam String name, @RequestParam int question,@RequestParam int reportID){
         Map<String,Object> data = new HashMap<String, Object>();
 
         if(name.equals("finish")){
@@ -236,14 +235,13 @@ public class InterviewController {
 
             data.put("result","success");
 
+            Long stopTime = System.currentTimeMillis();
             interviewService.stopVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
-            interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question));
+            executionTime = (stopTime - executionTime)/1000;
+            interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),executionTime);
         }else{
             data.put("result","error");
         }
-
-        response.getWriter().print(gson.toJson(data));
-        return gson;
-
+        return data;
     }
 }
