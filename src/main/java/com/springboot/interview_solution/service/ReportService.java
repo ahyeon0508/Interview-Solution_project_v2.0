@@ -308,3 +308,19 @@ public class ReportService {
         }
         NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
         System.out.println(NOUN_sentence);
+
+        ReportSTTDto sttDto = new ReportSTTDto();
+        sttDto.setAdverb(
+                "{" +
+                        IC_sentence
+                        + "}"
+        );
+        sttDto.setRepetition(
+                "{" +
+                        NOUN_sentence
+                        + "}"
+        );
+
+        return sttDto;
+    }
+}
