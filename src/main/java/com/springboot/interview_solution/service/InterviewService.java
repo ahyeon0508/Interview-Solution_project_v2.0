@@ -104,7 +104,7 @@ public class InterviewService {
         }
 
         //set Report
-        Report report = reportRepository.findReportById(Long.parseLong(reportID)).get();
+        Report report = reportRepository.findReportById(Long.parseLong(reportID));
         if(questionNum.equals("1")){
             report.setAudio1(audioPath);
             report.setVideo1(outputPath);

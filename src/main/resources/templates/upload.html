@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업로드</title>
+    <link th:href="@{/css/upload.css}" rel="stylesheet" />
+    <!--<script th:src="@{/js/.js}"></script>-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 옵션추가 버튼 클릭시
+            $("#addItemBtn").click(function() {
+                // item 의 최대번호 구하기
+                var lastItemNo = $("#example tr:last").attr("class").replace("item", "");
+
+                var newitem = $("#example tr:eq(1)").clone();
+                fncRowReset(newitem);
+                newitem.removeClass();
+                newitem.find("td:eq(0)").attr("rowspan", "1");
+                newitem.addClass("item" + (parseInt(lastItemNo) + 1));
+
+                $("#example").append(newitem);
+            });
+
+
+            // 삭제버튼 클릭시
+            $("#delBtn").live("click", function() {
+                var clickedRow = $(this).parent().parent();
+                var cls = clickedRow.attr("class");
+
+                // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
+                if (clickedRow.find("td:eq(0)").attr("rowspan")) {
+                    if (clickedRow.next().hasClass(cls)) {
+                        clickedRow.next().prepend(clickedRow.find("td:eq(0)"));
+                    }
+                }
+
+                if ($("#example tr").length <= 2) {
+                    fncRowReset(clickedRow);
+                } else {
+                    clickedRow.remove();
+                }
+            });
+
+            //행 초기화
+            fncRowReset = function(obj) {
+
+                $(obj).find(':input').each(function() {
+
+                    this.value = '';
+
+                    this.checked = '';
+
+                });
+
+            };
+        });
+    </script>
+
+    <script>
+        $(function() {
+            $("#InputInfo").click(function() {
+                while ($("#example tr").length > 2) {
+                    $("#example tr:eq(1)").remove();
+                }
+                fncRowReset("#example tr");
+            });
+
+            fncRowReset = function(obj) {
+
+                $(obj).find(':input').each(function() {
+
+                    this.value = '';
+
+                    this.checked = '';
+
+                });
+
+            };
+        });
+    </script>
+
+    <!--<script>
+        $(function() {
+            $('#save0').click(function() {
+                var gradeArray = new Array();
+                $("#example tr").each(function(index) {
+                    var cellItem = $(this).find(":input");
+                    /* 1) 1차원 배열 - 배열 안에 오브젝트 */
+                    // var gradeObj = new Object();
+                    // if (index == 0) {
+                    //     return true;
+                    // } else {
+                    //
+                    //     gradeObj.grade = $('select[name=grade]').val();
+                    //     gradeObj.semester = $('select[name=semester]').val();
+                    //     gradeObj.index = index;
+                    //     gradeObj.subject = cellItem.eq(0).val();
+                    //     gradeObj.course = cellItem.eq(1).val();
+                    //     gradeObj.unitNumber = cellItem.eq(2).val();
+                    //     gradeObj.ranking = cellItem.eq(3).val();
+                    //     gradeObj.rawRanking = cellItem.eq(4).val();
+                    //     gradeObj.subjectMean = cellItem.eq(5).val();
+                    //     gradeObj.average = cellItem.eq(6).val();
+                    //     gradeObj.achievement = cellItem.eq(7).val();
+                    //     gradeObj.numberOfStudent = cellItem.eq(8).val();
+                    //
+                    //     gradeArray.push(gradeObj);
+
+                    /* 2) 2차원 배열 - 배열 안에 배열 */
+                    var gradeArr = new Array();
+                    if (index == 0) {
+                        return true;
+                    } else {
+                        gradeArr[0] = $('select[name=grade]').val();
+                        gradeArr[1] = $('select[name=semester]').val();
+                        gradeArr[2] = index;
+                        for (var i = 3; i < 12; i++) {
+                            gradeArr[i] = cellItem.eq(i - 3).val();
+                        }
+
+                        gradeArray[index - 1] = gradeArr;
+
+
+                        /* 주석 여기까지 */
+                        var ind = index - 1
+                        alert("gradeArray[" + ind + "]\n" + JSON.stringify(gradeArray[index - 1]));
+                    }
+                });
+
+                alert(JSON.stringify(gradeArray));
+
+                $.ajax({
+                    method: 'POST',
+                    url: '/infoStudent/grade',
+                    traditional: true,
+                    data: {
+                        'gradeInfo': gradeArray
+                    },
+                    success: function(data) {
+                        alert('data');
+                    },
+                    error: function(request, status, error) {
+                        alert('error');
+                    }
+
+                });
+            });
+        });
+    </script>-->
+
+    <script th:inline="javascript">
+        $(function() {
+            /*<![CDATA[*/
+
+            var question3 = /*[[ ${letter.question3} ]]*/ ;
+
+            /*]]*/
+
+            $('#free1').attr("placeholder", question3);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var url = document.location.href;
+            console.log(url);
+            if (url.indexOf("/grade/") != -1 && url.length > 40) {
+                var grade_str = url.substr(url.length - 2, 1);
+                var semester_str = url.substr(url.length - 1, 1);
+                var grade = document.getElementById("input-grade");
+                var semester = document.getElementById("input-semester");
+                grade.innerText = grade_str;
+                semester.innerText = semester_str;
+
+            }
+            if (url.indexOf("/transcript/") != -1 && url.length > 45) {
+                var grade_str = url.substr(url.length - 1, 1);
+                var grade = document.getElementById("input-script-grade");
+                grade.innerText = grade_str;
+            }
+        });
+    </script>
+
+
+</head>
+
+<body>
+    <p class="header1">내 서류 정보</p>
+    <div class="container1">
+        <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;" onClick="location.href='/infoStudent/visualize'">그래프 보기</button></p>
+        <div class="textbox">
+            <div class="input-group">
+                <select class="form-select" id="grade" name="grade" aria-label="Example select with button addon">
+              <option selected>학년</option>
+              <option value="1">1학년</option>
+              <option value="2">2학년</option>
+              <option value="3">3학년</option>
+            </select>
+                <select class="form-select" id="semester" name="semester" aria-label="Example select with button addon">
+                <option selected>학기</option>
+                <option value="1">1학기</option>
+                <option value="2">2학기</option>
+              </select>
+                <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Info()">입력</button>
+            </div>
+        </div>
+        <span class="header2"><span id="input-grade" class="header3"></span><span class="header3">학년&nbsp;</span><span id="input-semester" class="header3"></span><span class="header3">학기</span></span>
+        <div class="textbox">
+            <table id="example" style="border:1px">
+                <tr>
+                    <th>교과</th>
+                    <th>과목</th>
+                    <th>단위수</th>
+                    <th>석차등급</th>
+                    <th>원점수</th>
+                    <th>과목평균</th>
+                    <th>표준편차</th>
+                    <th>성취도</th>
+                    <th>수강자수</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                </tr>
+                <tr class="item1" th:each="info: ${gradeInfo}">
+                    <form th:action="@{/infoStudent/grade/__${gradeSemester}__/__${info.id}__}" th:method="put">
+                        <td><select id="Subject" name="subject" aria-label="Example select with button addon">
+                            <option selected></option>
+                            <option value="S01" th:selected="${info.subject == 'S01' || info.subject == '국어'}">국어</option>
+                            <option value="S02" th:selected="${info.subject == 'S02' || info.subject == '수학'}">수학</option>
+                            <option value="S03" th:selected="${info.subject == 'S03' || info.subject == '영어'}">영어</option>
+                            <option value="S04" th:selected="${info.subject == 'S04' || info.subject == '사회(역사/도덕포함)'}">사회(역사/도덕포함)</option>
+                            <option value="S05" th:selected="${info.subject == 'S05' || info.subject == '과학'}">과학</option>
+                            <option value="S06" th:selected="${info.subject == 'S06' || info.subject == '체육'}">체육</option>
+                            <option value="S07" th:selected="${info.subject == 'S07' || info.subject == '예술(음악/미술)'}">예술(음악/미술)</option>
+                            <option value="S08" th:selected="${info.subject == 'S08' || info.subject == '예술'}">예술</option>
+                            <option value="S09" th:selected="${info.subject == 'S09' || info.subject == '기술·가정/제2외국어/한문/교양'}">기술·가정/제2외국어/한문/교양</option>
+                            <option value="S10" th:selected="${info.subject == 'S10' || info.subject == '농생명 산업'}">농생명 산업</option>
+                            <option value="S11" th:selected="${info.subject == 'S11' || info.subject == '공업'}">공업</option>
+                            <option value="S12" th:selected="${info.subject == 'S12' || info.subject == '상업정보'}">상업정보</option>
+                            <option value="S13" th:selected="${info.subject == 'S13' || info.subject == '수산·해운'}">수산·해운</option>
+                            <option value="S14" th:selected="${info.subject == 'S14' || info.subject == '가사·실업'}">가사·실업</option>
+                            <option value="S15" th:selected="${info.subject == 'S15' || info.subject == '미술'}">미술</option>
+                            <option value="S16" th:selected="${info.subject == 'S16' || info.subject == '디자인·문화 콘텐츠'}">디자인·문화 콘텐츠</option>
+                            <option value="S17" th:selected="${info.subject == 'S17' || info.subject == '미용·관광·레저'}">미용·관광·레저</option>
+                            <option value="S18" th:selected="${info.subject == 'S18' || info.subject == '식품 가공'}">식품 가공</option>
+                            <option value="S19" th:selected="${info.subject == 'S19' || info.subject == '전기·전자'}">전기·전자</option>
+                            <option value="S20" th:selected="${info.subject == 'S20' || info.subject == '건설'}">건설</option>
+                            <option value="S21" th:selected="${info.subject == 'S21' || info.subject == '경영·금융'}">경영·금융</option>
+                            <option value="S22" th:selected="${info.subject == 'S22' || info.subject == '과학 계열'}">과학 계열</option>
+                            <option value="S23" th:selected="${info.subject == 'S23' || info.subject == '교양'}">교양</option>
+                            <option value="S24" th:selected="${info.subject == 'S24' || info.subject == '국제 계열'}">국제 계열</option>
+                            <option value="S25" th:selected="${info.subject == 'S25' || info.subject == '기계'}">기계</option>
+                            <option value="S26" th:selected="${info.subject == 'S26' || info.subject == '기술·가정'}">기술·가정</option>
+                            <option value="S27" th:selected="${info.subject == 'S27' || info.subject == '농림·수산해양'}">농림·수산해양</option>
+                            <option value="S28" th:selected="${info.subject == 'S28' || info.subject == '보건·복지'}">보건·복지</option>
+                            <option value="S29" th:selected="${info.subject == 'S29' || info.subject == '선박 운항'}">선박 운항</option>
+                            <option value="S30" th:selected="${info.subject == 'S30' || info.subject == '섬유·의류'}">섬유·의류</option>
+                            <option value="S31" th:selected="${info.subject == 'S31' || info.subject == '예술 계열'}">예술 계열</option>
+                            <option value="S32" th:selected="${info.subject == 'S32' || info.subject == '외국어 계열'}">외국어 계열</option>
+                            <option value="S33" th:selected="${info.subject == 'S33' || info.subject == '음식 조리'}">음식 조리</option>
+                            <option value="S34" th:selected="${info.subject == 'S34' || info.subject == '인쇄·출판·공예'}">인쇄·출판·공예</option>
+                            <option value="S35" th:selected="${info.subject == 'S35' || info.subject == '재료'}">재료</option>
+                            <option value="S36" th:selected="${info.subject == 'S36' || info.subject == '정보·통신'}">정보·통신</option>
+                            <option value="S37" th:selected="${info.subject == 'S37' || info.subject == '제2외국어'}">제2외국어</option>
+                            <option value="S38" th:selected="${info.subject == 'S38' || info.subject == '체육 계열'}">체육 계열</option>
+                            <option value="S39" th:selected="${info.subject == 'S39' || info.subject == '한국사'}">한국사</option>
+                            <option value="S40" th:selected="${info.subject == 'S40' || info.subject == '한문'}">한문</option>
+                            <option value="S41" th:selected="${info.subject == 'S41' || info.subject == '화학 공업'}">화학 공업</option>
+                            <option value="S42" th:selected="${info.subject == 'S42' || info.subject == '환경·안전'}">환경·안전</option></select>
+                            </select>
+                        </td>
+                        <td><input type="text" id="course" name="course" th:value="${info.course}" /></td>
+                        <td><input type="number" id="unitNumber" name="unitNumber" th:value="${info.unitNumber}" min="1" max="9"></td>
+                        <td><input type="number" id="ranking" name="ranking" th:value="${info.ranking}" min="1" max="9"></td>
+                        <td><input type="number" id="rawRanking" name="rawRanking" th:value="${info.rawRanking}" min="0" max="100"></td>
+                        <td><input type="number" id="subjectMean" name="subjectMean" th:value="${info.subjectMean}" step="0.1" min="0" max="100"></td>
+                        <td><input type="number" id="average" name="average" th:value="${info.average}" step="0.1" min="0" max="100"></td>
+                        <td><select id="Achievement" name="achievement" aria-label="Example select with button addon">
+                            <option selected></option>
+                            <option value="A" th:selected="${info.achievement == 'A'}">A</option>
+                            <option value="B" th:selected="${info.achievement == 'B'}">B</option>
+                            <option value="C" th:selected="${info.achievement == 'C'}">C</option>
+                            <option value="D" th:selected="${info.achievement == 'D'}">D</option>
+                            <option value="E" th:selected="${info.achievement == 'E'}">E</option>
+                            <option value="P" th:selected="${info.achievement == 'P'}">P</option>
+                        </select></td>
+                        <td><input type="number" id="numberOfStudent" name="numberOfStudent" th:value="${info.numberOfStudent}" min="1" max="1000"></td>
+                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn" th:onclick="Delete([[${info.id}]])">삭제</button></td>
+                        <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1">수정</button></td>
+                    </form>
+                </tr>
+                <form method="post">
+                    <tr class="item1">
+                        <td><select id="Subject" name="subject" aria-label="Example select with button addon">
+                            <option selected></option>
+                            <option value="S01">국어</option>
+                            <option value="S02">수학</option>
+                            <option value="S03">영어</option>
+                            <option value="S04">사회(역사/도덕포함)</option>
+                            <option value="S05">과학</option>
+                            <option value="S06">체육</option>
+                            <option value="S07">예술(음악/미술)</option>
+                            <option value="S08">예술</option>
+                            <option value="S09">기술·가정/제2외국어/한문/교양</option>
+                            <option value="S10">농생명 산업</option>
+                            <option value="S11">공업</option>
+                            <option value="S12">상업정보</option>
+                            <option value="S13">수산·해운</option>
+                            <option value="S14">가사·실업</option>
+                            <option value="S15">미술</option>
+                            <option value="S16">디자인·문화 콘텐츠</option>
+                            <option value="S17">미용·관광·레저</option>
+                            <option value="S18">식품 가공</option>
+                            <option value="S19">전기·전자</option>
+                            <option value="S20">건설</option>
+                            <option value="S21">경영·금융</option>
+                            <option value="S22">과학 계열</option>
+                            <option value="S23">교양</option>
+                            <option value="S24">국제 계열</option>
+                            <option value="S25">기계</option>
+                            <option value="S26">기술·가정</option>
+                            <option value="S27">농림·수산해양</option>
+                            <option value="S28">보건·복지</option>
+                            <option value="S29">선박 운항</option>
+                            <option value="S30">섬유·의류</option>
+                            <option value="S31">예술 계열</option>
+                            <option value="S32">외국어 계열</option>
+                            <option value="S33">음식 조리</option>
+                            <option value="S34">인쇄·출판·공예</option>
+                            <option value="S35">재료</option>
+                            <option value="S36">정보·통신</option>
+                            <option value="S37">제2외국어</option>
+                            <option value="S38">체육 계열</option>
+                            <option value="S39">한국사</option>
+                            <option value="S40">한문</option>
+                            <option value="S41">화학 공업</option>
+                            <option value="S42">환경·안전</option></select>
+                            </select>
+                        </td>
+                        <td><input type="text" id="course" name="course" /></td>
+                        <td><input type="number" id="unitNumber" name="unitNumber" min="1" max="9"></td>
+                        <td><input type="number" id="ranking" name="ranking" min="1" max="9"></td>
+                        <td><input type="number" id="rawRanking" name="rawRanking" min="0" max="100"></td>
+                        <td><input type="number" id="subjectMean" name="subjectMean" step="0.1" min="0" max="100"></td>
+                        <td><input type="number" id="average" name="average" step="0.1" min="0" max="100"></td>
+                        <td><select id="Achievement" name="achievement" aria-label="Example select with button addon">
+                            <option selected></option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="P">P</option>
+                        </select></td>
+                        <td><input type="number" id="numberOfStudent" name="numberOfStudent" min="1" max="1000"></td>
+                        <td><button type="button" class="btn btn-outline-secondary" id="delBtn">삭제</button></td>
+                        <td><button type="submit" value="Submit1" name="GradeReport" class="btn btn-outline-secondary" id="save1">저장</button></td>
+                    </tr>
+                </form>
+            </table>
+            <!--<button type="button" class="btn btn-outline-secondary" id="addItemBtn">추가</button>-->
+        </div>
+    </div>
+    <div class="container1">
+        <p class="header2">학교 생활 기록부</p>
+        <div class="textbox">
+            <div class="input-group">
+                <select class="form-select" id="script-grade" name="grade" aria-label="Example select with button addon">
+                    <option selected>학년</option>
+                    <option value="1">1학년</option>
+                    <option value="2">2학년</option>
+                    <option value="3">3학년</option>
+                    </select>
+                <button id="InputInfo" class="btn btn-outline-secondary" type="button" onclick="Input_Grade()">입력</button>
+            </div>
+        </div>
+        <span class="header2"><span id="input-script-grade" class="header3"></span><span class="header3">학년&nbsp;</span></span>
+        <form method="post" enctype="multipart/form-data">
+            <div class="textbox">
+                <table>
+                    <th>동아리활동</th>
+                    <tr>
+                        <td th:if="${transcript}"><textarea th:text="${transcript.club}" class="form-control" id="club" name="club" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:unless="${transcript}"><textarea class="form-control" id="club" name="club" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="textbox">
+                <table>
+                    <th>세부능력 및 특기사항</th>
+                    <tr>
+                        <td th:if="${transcript}"><textarea th:text="${transcript.dacs}" class="form-control" id="dacs" name="dacs" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:unless="${transcript}"><textarea class="form-control" id="dacs" name="dacs" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="textbox">
+                <table>
+                    <th>행동특성 및 종합의견</th>
+                    <tr>
+                        <td th:if="${transcript}"><textarea th:text="${transcript.overallOpinion}" class="form-control" id="overallOpinion" name="overallOpinion" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                        <td th:unless="${transcript}"><textarea class="form-control" id="overallOpinion" name="overallOpinion" rows="8" style="width:100%; border: 0; resize: none;"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit" value="Submit1" name="transcript" class="btn btn-outline-secondary" id="save2">등록</button>
+        </form>
+    </div>
+    <div class="container1">
+        <form th:action="@{/infoStudent/letter}" method="post">
+            <p class="header2">자기소개서</p>
+            <div class="textbox">
+                <table>
+                    <th>1. 고등학교 재학 기간* 중 자신의 진로와 관련해 어떤 노력을 해왔는지 본인에게 의미 있는 학습 경험과 교내 활동을 중심으로 기술해 주시기 바랍니다.<br><small>* 검정고시 출신자는 중학교 졸업 후 고등학교 재학 기간에 준하는 기간의 경험 기술</small></th>
+                    <tr>
+                        <td><textarea th:text="${letter.content1}" class="form-control" id="content1" name="content1" rows="8" style="width:100%; border: 0; resize: none;" maxlength="1500"></textarea><span id="counter1">###</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="textbox">
+                <table>
+                    <th>2. 고등학교 재학 기간* 중 타인과 공동체를 위해 노력한 경험과 이를 통해 배운 점을 기술해 주시기 바랍니다.<br><small>* 검정고시 출신자는 중학교 졸업 후 고등학교 재학 기간에 준하는 기간의 경험 기술</small></th>
+                    <tr>
+                        <td><textarea th:text="${letter.content2}" class="form-control" id="content2" name="content2" rows="8" style="width:100%; border: 0; resize: none;" maxlength="800"></textarea><span id="counter2">###</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="textbox">
+                <table>
+                    <th th:if="${letter.question3}">3. <input type="text" id="free1" name="question3" placeholder="대학별 자율 문항을 입력해 주시기 바랍니다."></th>
+                    <th th:unless="${letter.question3}">3. <input type="text" id="free" name="question3" placeholder="대학별 자율 문항을 입력해 주시기 바랍니다."></th>
+                    <tr>
+                        <td><textarea th:text="${letter.content3}" class="form-control" id="content3" name="content3" rows="8" style="width:100%; border: 0; resize: none;" maxlength="800"></textarea><span id="counter3">###</span></td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit" value="Submit3" name="letter" class="btn btn-outline-secondary" id="save3" onClick="location.href='/infoStudent/letter'">등록</button>
+        </form>
+    </div>
+    <script>
+        function Input_Info() {
+            var grade = document.getElementById("input-grade");
+            if (document.getElementById("grade").value != '학년') {
+                grade.innerText = document.getElementById("grade").value;
+            }
+
+            var semester = document.getElementById("input-semester");
+            if (document.getElementById("semester").value != '학기') {
+                semester.innerText = document.getElementById("semester").value;
+            }
+
+            var grade_send = $('#grade').val();
+            var semester_send = $('#semester').val();
+            if (grade_send == '학년') {
+                alert("학년을 입력해주세요");
+            } else if (semester_send == '학기') {
+                alert("학기를 입력해주세요");
+            } else {
+                console.log("input2");
+                window.location.href = "/infoStudent/grade/" + grade_send + semester_send;
+            }
+        }
+    </script>
+    <script>
+        function Input_Grade() {
+            var grade = document.getElementById("input-script-grade");
+            if (document.getElementById("script-grade").value != '학년') {
+                grade.innerText = document.getElementById("script-grade").value;
+            }
+            console.log("1");
+
+            var send_grade = $('#script-grade').val();
+            console.log(send_grade);
+            if (send_grade == '학년') {
+                alert("학년을 입력해주세요");
+            } else {
+                console.log("2");
+                window.location.href = "/infoStudent/transcript/" + send_grade;
+            }
+        }
+    </script>
+    <script>
+        function Delete(n) {
+            var url = document.location.href;
+            var grade_str = url.substr(url.length - 2, 1);
+            var semester_str = url.substr(url.length - 1, 1);
+            window.location.href = "/infoStudent/grade/" + grade_str + semester_str + "/" + n;
+        }
+    </script>
+
+    <script>
+        $(function() {
+            $('#content1').keyup(function(e) {
+                var content = $(this).val();
+                $('#counter1').html(content.length + '/1500');
+            });
+            $('#content1').keyup();
+        });
+    </script>
+    <script>
+        $(function() {
+            $('#content2').keyup(function(e) {
+                var content = $(this).val();
+                $('#counter2').html(content.length + '/800');
+            });
+            $('#content2').keyup();
+        });
+    </script>
+    <script>
+        $(function() {
+            $('#content3').keyup(function(e) {
+                var content = $(this).val();
+                $('#counter3').html(content.length + '/800');
+            });
+            $('#content3').keyup();
+        });
+    </script>
+</body>
+
+</html>

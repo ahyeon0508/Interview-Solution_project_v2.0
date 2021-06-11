@@ -36,20 +36,16 @@
                                 <!--클릭시 본인에게 할당된 모든 질문 띄워지도록-->
                                 <a class="nav-link" href="/myQuestionList">모든 질문</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    질문 종류
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <!--클릭시 본인의 질문들 중, 담은 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="/myQuestionList/0">담은 질문</a>
-                                    <!--클릭시 본인의 질문들 중, 작성한 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="/myQuestionList/1">작성한 질문</a>
-                                    <!--클릭시 본인의 질문들 중, 받은 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="/myQuestionList/2">받은 질문</a>
-                                    <div class="dropdown-divider"></div>
-                                    <!--클릭시 본인의 질문들 중, AI가 생성한 질문 띄워지도록-->
-                                    <a class="dropdown-item disabled" href="#">AI 질문</a>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                        질문 종류
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <li><a class="dropdown-item" href="/myQuestionList/0">담은 질문</a></li>
+                                        <li><a class="dropdown-item" href="/myQuestionList/1">작성한 질문</a></li>
+                                        <li><a class="dropdown-item" href="/myQuestionList/2">받은 질문</a></li>
+                                    </ul>
                                 </div>
                             </li>
                             <li class="nav-item">

@@ -31,9 +31,7 @@
         <div class="card">
             <div class="card-header">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <!--Herf : 질문리스트-->
                     <a class="navbar-brand" href="/questionList">질문 리스트</a>
-                    <!--모바일 환경에서 화면비에 따라 토글 띄워지는 부분-->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -41,22 +39,19 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <!--일단 초기에 기본 질문이 띄워지도록, 클릭하면 기본 질문이 띄워지도록-->
                                 <a class="nav-link" href="/questionList/0">기본 질문</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="/questionList/999" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    학과 질문
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <!--클릭시 컴퓨터 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="/questionList/1">컴퓨터</a>
-                                    <!--클릭시 국문 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="/questionList/2">경영</a>
-                                    <!--클릭시 경영 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="/questionList/3">국문</a>
-                                    <!--클릭시 생명공학 질문 띄워지도록-->
-                                    <a class="dropdown-item" href="/questionList/4">생명공학</a>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        학과 질문
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdown">
+                                        <li><a class="dropdown-item" href="/questionList/1">컴퓨터</a></li>
+                                        <li><a class="dropdown-item" href="/questionList/2">경영</a></li>
+                                        <li><a class="dropdown-item" href="/questionList/3">국문</a></li>
+                                        <li><a class="dropdown-item" href="/questionList/4">생명공학</a></li>
+                                    </ul>
                                 </div>
                             </li>
                         </ul>

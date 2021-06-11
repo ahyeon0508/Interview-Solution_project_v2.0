@@ -3,12 +3,14 @@ package com.springboot.interview_solution.service;
 import com.springboot.interview_solution.domain.Question;
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
-import com.springboot.interview_solution.dto.ReportDto;
+import com.springboot.interview_solution.dto.FeedbackDto;
+import com.springboot.interview_solution.dto.ReportSTTDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import org.thymeleaf.util.StringUtils;
@@ -34,6 +36,7 @@ public class ReportService {
 
     private final ReportRepository reportRepository;
     private final UserRepository userRepository;
+    private JdbcTemplate jdbcTemplate;
 
     public Long setReport(User student, List<Question> questions) {
         //get user teacher
@@ -63,8 +66,53 @@ public class ReportService {
         return report.getId();
     }
 
+    public void modifyTitle(Long id, String title) {
+        Report report = reportRepository.findReportById(id);
+        report.setTitle(title);
+        reportRepository.save(report);
+    }
+
+    public void modifyShare(Long id) {
+        Report report = reportRepository.findReportById(id);
+        report.setShare(!report.getShare());
+        reportRepository.save(report);
+    }
+
+    public void modifyFeedback(Long id, FeedbackDto feedbackDto) {
+        Report report = reportRepository.findReportById(id);
+        if(feedbackDto.getFeedback1() != null) {
+            report.setComment1(feedbackDto.getFeedback1());
+            report.setComment1WritedAt(LocalDateTime.now());
+        } else if(feedbackDto.getFeedback2() != null) {
+            report.setComment2(feedbackDto.getFeedback2());
+            report.setComment2WritedAt(LocalDateTime.now());
+        } else if(feedbackDto.getFeedback3() != null) {
+            report.setComment3(feedbackDto.getFeedback3());
+            report.setComment3WritedAt(LocalDateTime.now());
+        }
+        reportRepository.save(report);
+    }
+
+    public void deleteFeedback(Report report, Integer number) {
+        if(number == 1) {
+            report.setComment1(null);
+            report.setComment1WritedAt(LocalDateTime.now());
+        } else if(number == 2) {
+            report.setComment2(null);
+            report.setComment2WritedAt(LocalDateTime.now());
+        } else if(number == 3) {
+            report.setComment3(null);
+            report.setComment3WritedAt(LocalDateTime.now());
+        }
+        reportRepository.save(report);
+    }
+
     public Report getReport(Long id) throws Exception {
-        return reportRepository.findReportById(id).orElseThrow(()-> new Exception());
+        return reportRepository.findReportById(id);
+    }
+
+    public List<Report> getStudentReport(User user) throws Exception {
+        return reportRepository.findReportsByTeacherAndShare(user, true);
     }
 
     public String readNumber(String num_string) {
@@ -97,14 +145,30 @@ public class ReportService {
         return answer;
     }
 
-    public Double get_time(String audioFilePath) {
-        Path path = Paths.get(audioFilePath);
-
-        Double time = 0.4;
-        return time;
+    public void makeReport(Long id) {
+        Report report = reportRepository.findReportById(id);
+        if(report.getAudio1() != null) {
+            ReportSTTDto reportStt1 = reportStt(report.getAudio1());
+//            ReportSTTDto reportStt1 = reportStt(report.getAudio1(), report.getSpeed1()); 스피드 이미 저장되어 있는 거 가져와서 측정하기
+            report.setAdverb1(reportStt1.getAdverb());
+            report.setRepetition1(reportStt1.getRepetition());
+        }
+        if(report.getAudio2() != null) {
+            ReportSTTDto reportStt2 = reportStt(report.getAudio2());
+//            ReportSTTDto reportStt2 = reportStt(report.getAudio2(), report.getSpeed2());
+            report.setAdverb1(reportStt2.getAdverb());
+            report.setRepetition1(reportStt2.getRepetition());
+        }
+        if(report.getAudio3() != null) {
+            ReportSTTDto reportStt3 = reportStt(report.getAudio3());
+//            ReportSTTDto reportStt3 = reportStt(report.getAudio3(), report.getSpeed3());
+            report.setAdverb1(reportStt3.getAdverb());
+            report.setRepetition1(reportStt3.getRepetition());
+        }
+        reportRepository.save(report);
     }
 
-    public void makeReport(String audioFilePath) {
+    public ReportSTTDto reportStt(String audioFilePath) {
         String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
         String openApiURL2 = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken";
         String accessKey = "1a2937a3-caef-42ee-9b2d-4eadaf9c78c9";    // 발급받은 API Key
@@ -175,9 +239,8 @@ public class ReportService {
         request.put("access_key", accessKey);
         request.put("argument", argument);
 
-        List<String> IC = new ArrayList<>();
-        List<String> SL = new ArrayList<>();
-        List<String> NOUN = new ArrayList<>();
+        Map<String, Integer> IC = new HashMap<>();
+        Map<String, Integer> NOUN = new HashMap<>();
 
         try {
             url = new URL(openApiURL2);
@@ -195,6 +258,7 @@ public class ReportService {
             int byteRead = is.read(buffer);
             responBody = new String(buffer);
 
+            System.out.println("responseBody : " + responBody);
             JSONObject jObject = new JSONObject(responBody);
             JSONObject return_object = jObject.getJSONObject("return_object");
             JSONArray sentence = return_object.getJSONArray("sentence");
@@ -207,14 +271,17 @@ public class ReportService {
                     String type = morp.getString("type");
 
                     if(type.equals("IC")) {
-                        IC.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
-                    } else if (type.equals("SL")) {
-                        SL.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
-                    } else if (type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
-                        NOUN.add(morp.getString("lemma"));
-                        System.out.println(morp.getString("lemma"));
+                        if(IC.containsKey(morp.getString("lemma"))) {
+                            IC.replace(morp.getString("lemma"), IC.get(morp.getString("lemma")) + 1);
+                        } else {
+                            IC.put(morp.getString("lemma"), 1);
+                        }
+                    } else if (type.equals("SL") || type.equals("NNG") || type.equals("NNP") || type.equals("NP") || type.equals("NR")) {
+                        if(NOUN.containsKey(morp.getString("lemma"))) {
+                            NOUN.replace(morp.getString("lemma"), NOUN.get(morp.getString("lemma")) + 1);
+                        } else {
+                            NOUN.put(morp.getString("lemma"), 1);
+                        }
                     }
                 }
             }
@@ -223,5 +290,21 @@ public class ReportService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-}
+
+        StringBuilder IC_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
+        while(iteratorIC.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
+            IC_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+        }
+        IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
+        System.out.println(IC_sentence);
+
+        StringBuilder NOUN_sentence = new StringBuilder();
+        Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
+        while(iteratorNOUN.hasNext()) {
+            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
+            NOUN_sentence.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+        }
+        NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
+        System.out.println(NOUN_sentence);

@@ -2,7 +2,6 @@ package com.springboot.interview_solution;
 
 import com.springboot.interview_solution.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.opencv.core.Core;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+
 
 
 @RequiredArgsConstructor
@@ -20,13 +19,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 @Configuration
 public class SpringConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
-
-    /*
-    //OpenCV Library load
-    static{
-        nu.pattern.OpenCV.loadShared();
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -52,7 +44,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin")
                 .permitAll()
-                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList","/student/interview/question/record","/student/interview/question/stop");
+                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList","/infoStudent/**","/student/interview/question/record","/student/interview/question/stop");
     }
 
     @Override
