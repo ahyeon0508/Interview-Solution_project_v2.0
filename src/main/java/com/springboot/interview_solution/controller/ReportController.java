@@ -34,7 +34,7 @@ public class ReportController {
         return "redirect:/wait";
     }
 
-    @RequestMapping(value = "/myVideo", method = RequestMethod.GET)
+    @RequestMapping(value = "/myVideo/{id}", method = RequestMethod.GET)
     public ModelAndView getMyReport() throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
