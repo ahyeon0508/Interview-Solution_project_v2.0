@@ -21,13 +21,15 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    @RequestMapping(value = "/wait", method = RequestMethod.GET)
-    public ModelAndView getWait() {
+    @RequestMapping(value = "/wait/{id}", method = RequestMethod.GET)
+    public ModelAndView getWait(Long id) throws Exception {
         ModelAndView mv = new ModelAndView("wait");
+        Report report = reportService.getReport(id);
+        mv.addObject("report", report);
         return mv;
     }
 
-    @RequestMapping(value = "/wait", method = RequestMethod.POST)
+    @RequestMapping(value = "/wait/{id}", method = RequestMethod.POST)
     public String postWait(ReportDto reportDto) {
         return "redirect:/wait";
     }
