@@ -9,6 +9,7 @@ import com.springboot.interview_solution.repository.ReportRepository;
 import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -224,9 +225,7 @@ public class ReportService {
 
             System.out.println(text);
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
 
@@ -285,9 +284,7 @@ public class ReportService {
                     }
                 }
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
