@@ -51,7 +51,7 @@
                         <a th:href="@{/myVideo/{id}(id=${report.id})}">
                             <span th:text="${report.title}"></span>
                             <span> / 생성일자 : </span>
-                            <span th:text="${report.pub_date}"></span>
+                            <span th:text="${report.createdAt}"></span>
                         </a>
                         <div class="ui toggle checkbox">
                             <input type="checkbox" id="checkBoxId" th:text="${report.id}">
