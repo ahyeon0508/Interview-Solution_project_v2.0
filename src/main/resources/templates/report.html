@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="template.html :: fragment-header(title='면접 리포트')"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="@{/css/report.css}" rel="stylesheet" />
+    <script type="text/javascript" src="@{/js/check.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+
+<body>
+    <div th:replace="template.html :: fragment-stunav"></div>
+
+    <div class="report-page">
+        <button type="button" id="delete" class="btn btn-outline-secondary" th:onclick="DeleteConfirm([[${report.id}]])">삭제</button>
+        <h1>내 면접 리포트</h1>
+        <div id="report_info">
+            <p id="title" th:text="${report.title}"></p>
+            <p id="date" th:text="${report.pub_date}"></p>
+        </div>
+        <!-- 첫 번째 질문 -->
+        <div class="form1">
+            <div class="content">
+                <p class="question" th:text="${report.question1}"></p>
+                <video id="videoElement1" controls width='70%'>
+                    <source th:src="${report.video1.path}" type="video/mp4" />
+                    현재 브라우저는 비디오를 지원하지 않습니다.
+                </video>
+                <!-- 대본 -->
+                <div class="stt">
+                    <p><답변 내용> <br></p>
+                    <p id="script1" th:text="${report.script1}"></p>
+                </div>
+                <!-- 말하기 속도 -->
+                <div class="talk_speed">
+                    <p class="speed">* 분당 말하기 속도가 계산되어 제공됩니다. <br>
+                        270 ~ 330자를 말하면 적당한 속도입니다 *</p>
+                    <span>현재 분당 말하기 속도 : </span>
+                    <p th:text="${report.speed1}"></p>
+                    <p class="speed_result" th:text="${report.sCorrect1}"></p>
+                </div>
+                <div class="info_stt">
+                    <p id="info_rep1" th:text="${report.repetition1}"></p>
+                    <p id="info_adverb1" th:text="${report.adverb1}"></p>
+                </div>
+                <!-- 차트 -->
+                <div class="chart" style="display: table; margin: 0 auto 10px auto;">
+                    <p class="analysis">
+                        <답변 내용 분석>
+                    </p>
+                    <div class="repetition" style="float:left; padding-right: 50px; ">
+                        <canvas id="repetition1" width="250" height="250" float:left;></canvas>
+                    </div>
+                    <div class="adverb" style="float:left;">
+                        <canvas id="adverb1" width="250" height="250"></canvas>
+                    </div>
+                </div>
+                <th:block th:if="${report.comment1}">
+                    <p class="comment" th:text="${report.comment1}"></p>
+                </th:block>
+                <th:block th:unless="${report.comment1}">
+                    <p class="comment">피드백이 존재하지 않습니다.</p>
+                </th:block>
+            </div>
+        </div>
+        <script th:src="@{/js/report.js}"></script>
+    
+        <!-- 두 번째 질문 -->
+        <div class="form2">
+            <div class="content">
+                <p class="question" th:text="${report.question2}"></p>
+                <video id="videoElement2" controls width='70%'>
+                    <source th:src="${report.video2.path}" type="video/mp4" />
+                    현재 브라우저는 비디오를 지원하지 않습니다.
+                </video>
+                <!-- 대본 -->
+                <div class="stt">
+                    <p><답변 내용> <br></p>
+                    <p id="script2" th:text="${report.script2}"></p>
+                </div>
+                <!-- 말하기 속도 -->
+                <div class="talk_speed">
+                    <p class="speed">* 분당 말하기 속도가 계산되어 제공됩니다. <br>
+                        270 ~ 330자를 말하면 적당한 속도입니다 *</p>
+                    <span>현재 분당 말하기 속도 : </span>
+                    <p th:text="${report.speed2}"></p>
+                    <p class="speed_result" th:text="${report.sCorrect2}"></p>
+                </div>
+                <div class="info_stt">
+                    <p id="info_rep2" th:text="${report.repetition2}"></p>
+                    <p id="info_adverb2" th:text="${report.adverb2}"></p>
+                </div>
+                <!-- 차트 -->
+                <div class="chart" style="display: table; margin: 0 auto 10px auto;">
+                    <p class="analysis">
+                        <답변 내용 분석>
+                    </p>
+                    <div class="repetition" style="float:left; padding-right: 50px; ">
+                        <canvas id="repetition2" width="250" height="250" float:left;></canvas>
+                    </div>
+                    <div class="adverb" style="float:left;">
+                        <canvas id="adverb2" width="250" height="250"></canvas>
+                    </div>
+                </div>
+                <th:block th:if="${report.comment2}">
+                    <p class="comment" th:text="${report.comment2}"></p>
+                </th:block>
+                <th:block th:unless="${report.comment2}">
+                    <p class="comment">피드백이 존재하지 않습니다.</p>
+                </th:block>
+            </div>
+        </div>
+        <script th:src="@{/js/report.js}"></script>
+
+        <!-- 세 번째 질문 -->
+        <div class="form3">
+            <div class="content">
+                <p class="question" th:text="${report.question3}"></p>
+                <video id="videoElement3" controls width='70%'>
+                    <source th:src="${report.video3.path}" type="video/mp4" />
+                    현재 브라우저는 비디오를 지원하지 않습니다.
+                </video>
+                <!-- 대본 -->
+                <div class="stt">
+                    <p><답변 내용> <br></p>
+                    <p id="script3" th:text="${report.script3}"></p>
+                </div>
+                <!-- 말하기 속도 -->
+                <div class="talk_speed">
+                    <p class="speed">* 분당 말하기 속도가 계산되어 제공됩니다. <br>
+                        270 ~ 330자를 말하면 적당한 속도입니다 *</p>
+                    <span>현재 분당 말하기 속도 : </span>
+                    <p th:text="${report.speed3}"></p>
+                    <p class="speed_result" th:text="${report.sCorrect3}"></p>
+                </div>
+                <div class="info_stt">
+                    <p id="info_rep3" th:text="${report.repetition3}"></p>
+                    <p id="info_adverb3" th:text="${report.adverb3}"></p>
+                </div>
+                <!-- 차트 -->
+                <div class="chart" style="display: table; margin: 0 auto 10px auto;">
+                    <p class="analysis">
+                        <답변 내용 분석>
+                    </p>
+                    <div class="repetition" style="float:left; padding-right: 50px; ">
+                        <canvas id="repetition3" width="250" height="250" float:left;></canvas>
+                    </div>
+                    <div class="adverb" style="float:left;">
+                        <canvas id="adverb3" width="250" height="250"></canvas>
+                    </div>
+                </div>
+                <th:block th:if="${report.comment3}">
+                    <p class="comment" th:text="${report.comment3}"></p>
+                </th:block>
+                <th:block th:unless="${report.comment3}">
+                    <p class="comment">피드백이 존재하지 않습니다.</p>
+                </th:block>
+            </div>
+        </div>
+        <script th:src="@{/js/report.js}"></script>
+
+    <footer th:replace="template.html :: fragment-footer"></footer>
+</body>
+
+</html>

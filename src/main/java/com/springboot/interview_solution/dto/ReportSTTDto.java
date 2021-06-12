@@ -8,5 +8,5 @@ import lombok.Setter;
 public class ReportSTTDto {
     String adverb;
     String repetition;
-//    String sCorrect;
+    String script;
 }
