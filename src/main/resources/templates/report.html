@@ -11,6 +11,35 @@
     <link href="@{/css/report.css}" rel="stylesheet" />
     <script type="text/javascript" src="@{/js/check.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            var check = $("input[type='checkbox']");
+            check.click(function () {
+                var reportID = $(this).attr('text')
+                $.ajax({
+                    // url 넣기
+                    url: '/wait/share/' + reportID,
+                    method: 'POST',
+                    data: {
+                        result: reportID
+                    },
+                    success: function (response) {
+                        alert("해당 모의 면접 공유여부 설정이 완료됐습니다.")
+                        return;
+                    },
+                    error: function () {
+                        alert('서버와의 통신에서 문제가 발생했습니다');
+                    },
+                })
+            });
+        });
+
+        $(document).ready(function () {
+            $('.ui.accordion').accordion();
+        });
+    </script>
 </head>
 
 <body>

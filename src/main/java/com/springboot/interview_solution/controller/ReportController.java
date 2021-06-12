@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,9 +30,16 @@ public class ReportController {
         return mv;
     }
 
-    @RequestMapping(value = "/wait/{id}", method = RequestMethod.POST)
-    public String postWait(ReportDto reportDto) {
-        return "redirect:/wait";
+    @RequestMapping(value = "wait/{id}", method = RequestMethod.POST)
+    public String postWait(@RequestParam("title") String title, @PathVariable("id") Long id) throws Exception {
+        reportService.modifyTitle(id, title);
+        return "redirect:/wait/" + id;
+    }
+
+    @RequestMapping(value = "/wait/share/{reportID}", method = RequestMethod.GET)
+    public String sharePost(@PathVariable("reportID") Long id) throws Exception {
+        reportService.modifyShare(id);
+        return "redirect:/wait/" + id;
     }
 
     @RequestMapping(value = "/myVideo/{id}", method = RequestMethod.GET)
