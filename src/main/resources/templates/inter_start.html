@@ -6,7 +6,6 @@
     <script th:src="@{/js/util.js}"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script th:src="@{/js/util.js}"></script>
     <script>
         $(document).ready(function(){
             $('input[id*= "question_check"]').change(function(){
@@ -45,20 +44,15 @@
                                     <a class="nav-link" href="/student/interview">내 질문</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="/student/interview/question" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         모든 질문
                                     </a>
-                                    <ul class="dropdown-menu" href="/student/interview/question" aria-labelledby="navbarDropdown">
-                                        <!--클릭시 기본 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
-                                        <a class="dropdown-item" href="/student/interview/question/999">기본 질문</a>
-                                        <!--클릭시 컴퓨터 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
-                                        <a class="dropdown-item" href="/student/interview/question/1">컴퓨터</a>
-                                        <!--클릭시 국문 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
-                                        <a class="dropdown-item" href="/student/interview/question/2">국문</a>
-                                        <!--클릭시 경영 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
-                                        <a class="dropdown-item" href="/student/interview/question/3">경영</a>
-                                        <!--클릭시 생명공학 질문 모두 띄워지도록(내 질문은 제외하는게 나을 듯!)-->
-                                        <a class="dropdown-item" href="/student/interview/question/4">생명공학</a>
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="/student/interview/question/999">전체 질문</a></li>
+                                        <li><a class="dropdown-item" href="/student/interview/question/1">컴퓨터</a></li>
+                                        <li><a class="dropdown-item" href="/student/interview/question/2">국문</a></li>
+                                        <li><a class="dropdown-item" href="/student/interview/question/3">경영</a></li>
+                                        <li><a class="dropdown-item" href="/student/interview/question/4">생명공학</a></li>
                                     </ul>
                                 </li>
                             </ul>
