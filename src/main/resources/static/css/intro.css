@@ -916,7 +916,7 @@ ol {
     position:relative;
     bottom:0;
     margin: 0 auto;
-    padding-top: 55px;
+    /*padding-top: 55px;*/
 }
 
 .footer__about {
