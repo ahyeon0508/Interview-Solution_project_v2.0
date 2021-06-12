@@ -115,7 +115,7 @@ public class ReportService {
     }
 
     public Report getReport(Long id) throws Exception {
-        return reportRepository.findById(id);
+        return reportRepository.findReportById(id);
     }
 
     public List<Report> getStudentReport(User user) throws Exception {
