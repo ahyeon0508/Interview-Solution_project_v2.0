@@ -1,12 +1,12 @@
 package com.springboot.interview_solution.domain;
 
-
 import lombok.NoArgsConstructor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.VideoWriter;
+import lombok.NoArgsConstructor;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
@@ -46,6 +46,7 @@ public class RecordData {
      * @throws LineUnavailableException if the system does not support the specified
      * audio format nor open the audio data line.
      */
+    // 확인부탁
     public void start(String path) throws LineUnavailableException {
         format = getAudioFormat();
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
@@ -53,7 +54,7 @@ public class RecordData {
         VideoCapture capture = new VideoCapture(0);
         Mat img = new Mat();
         capture.read(img);
-        video = new VideoWriter(path+"_video.avi",VideoWriter.fourcc('D','I','V','X'),20.0,img.size(),true);
+        video = new VideoWriter(path + "_video.avi", VideoWriter.fourcc('D', 'I', 'V', 'X'), 20.0, img.size(), true);
 
         // checks if system supports the data line
         if (!AudioSystem.isLineSupported(info)) {
@@ -79,7 +80,6 @@ public class RecordData {
             video.write(img);
 
             //eye tracking
-
         }
     }
 
