@@ -35,7 +35,8 @@
             });
         });
     </script>
-
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 </head>
 
 <body>
@@ -44,22 +45,18 @@
     <div class="myVideo-page">
         <h1>내 영상</h1>
         <div class="form">
-            <div class="info">
+            <!-- 반복문 -->
+            <th:block th:each="report : ${reports}">
                 <div class="content">
-                    <!-- 반복문 -->
-                    <th:block th:each="report : ${reports}">
-                        <a th:href="@{/myVideo/{id}(id=${report.id})}">
-                            <span th:text="${report.title}"></span>
-                            <span> / 생성일자 : </span>
-                            <span th:text="${report.createdAt}"></span>
-                        </a>
-                        <div class="ui toggle checkbox">
-                            <input type="checkbox" id="checkBoxId" th:text="${report.id}">
-                            <label>공개 여부</label>
-                        </div>
-                    </th:block>
+                    <a th:href="@{/myVideo/{id}(id=${report.id})}">
+                        <span class="title" th:text="${report.title}"></span>
+                    </a>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" id="checkBoxId" th:value="${report.id}">
+                        <label>공개 여부</label>
+                    </div>
                 </div>
-            </div>
+            </th:block>
         </div>
     </div>
 

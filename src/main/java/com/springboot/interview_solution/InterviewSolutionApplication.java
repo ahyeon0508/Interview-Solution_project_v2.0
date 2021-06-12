@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class InterviewSolutionApplication {
-//    static{
-//        nu.pattern.OpenCV.loadShared();
-//        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//    }
+    static{
+        nu.pattern.OpenCV.loadShared();
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
     public static void main(String[] args) {
         //OpenCV Library load
         SpringApplication.run(InterviewSolutionApplication.class, args);

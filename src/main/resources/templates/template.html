@@ -9,7 +9,6 @@
     <link th:href="@{/css/home.css}" rel="stylesheet"/>
     <link th:href="@{/css/intro.css}" rel="stylesheet"/>
     <!--필요한 js-->
-    <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/home.js}"></script>
     <!--bootstrap 5.0-->
     <link href="https://cdn.jsdelivr.net/npm/bootsrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,13 +21,13 @@
 <nav th:fragment="fragment-stunav" class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <!--herf : 학생 홈으로-->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/student">
             <img th:src="@{/img/logo.png}" alt="" height="25">
         </a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!-- herf에 내 영상으로 연결 -->
-                <li class="nav-item"><a class="nav-link" href="#">내 영상</a></li>
+                <li class="nav-item"><a class="nav-link" href="/myVideo">내 영상</a></li>
                 <!-- herf에 내 질문으로 연결 -->
                 <li class="nav-item"><a class="nav-link" href="/myQuestionList">내 질문</a></li>
                 <!-- herf에 질문 리스트로 연결 -->

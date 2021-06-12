@@ -3,24 +3,32 @@
 h1{
     color: #9CC1D9;
     font-family: 'Nanum Gothic', sans-serif;
-    padding: 50px 0 20px 0;
-    font-size: 30px;
+    padding: 50px 0 40px 0;
+    font-size: 40px;
     text-align: center;
+}
+
+.myVideo-page{
+    margin-bottom: 100px;
 }
 
 .content{
-    display: table;
-    margin: 0 auto;
-}
-
-.content > p{
+    width: 800px;
     font-family: 'Nanum Gothic', sans-serif;
     text-align: center;
-    border: 1px solid;
+    border: 1px solid gray;
     border-radius: 25px;
-    border-color: #C0C0C0;
-    padding: 30px 130px 30px 30px;
-    margin: 0 -40px 0 0px;
+    padding: 40px 0px 40px 0px;
+    margin: 0 auto 20px auto;
     font-size: 20px;
-    float: left;
+}
+
+a, a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.ui.toggle.checkbox{
+    float: right;
+    margin-right: 50px;
 }
