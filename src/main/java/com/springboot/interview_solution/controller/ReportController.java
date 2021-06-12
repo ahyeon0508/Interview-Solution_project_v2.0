@@ -22,7 +22,7 @@ public class ReportController {
     private final ReportService reportService;
 
     @RequestMapping(value = "/wait/{id}", method = RequestMethod.GET)
-    public ModelAndView getWait(Long id) throws Exception {
+    public ModelAndView getWait(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("wait");
         Report report = reportService.getReport(id);
         mv.addObject("report", report);
