@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import org.thymeleaf.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -116,6 +117,11 @@ public class ReportService {
 
     public Report getReport(Long id) throws Exception {
         return reportRepository.findReportById(id);
+    }
+
+    @Transactional
+    public void deleteReport(Long id) throws Exception{
+        reportRepository.deleteById(id);
     }
 
     public List<Report> getStudentReport(User user) throws Exception {

@@ -21,7 +21,7 @@ function Q_DeleteConfirm(n) {
 function DeleteConfirm(n) {
     if (confirm("해당 리포트를 삭제하시겠습니까?")) {
         // href 넣기
-        window.location.href = "/website/myVideo/delete/" + n;
+        window.location.href = "delete/" + n;
     }
     else {
         return false;

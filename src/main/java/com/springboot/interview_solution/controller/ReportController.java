@@ -95,6 +95,12 @@ public class ReportController {
         return mv;
     }
 
+    @RequestMapping(value = "myVideo/delete/{id}", method = RequestMethod.GET)
+    public String deleteMyReport(@PathVariable Long id) throws Exception {
+        reportService.deleteReport(id);
+        return "redirect:/myVideo";
+    }
+
     @RequestMapping(value = "myVideo/share/{reportID}", method = RequestMethod.GET)
     public String myReportSharePost(@PathVariable("reportID") Long id) throws Exception {
         System.out.println("A");
