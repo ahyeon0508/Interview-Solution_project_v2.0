@@ -12,10 +12,9 @@
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link th:href="@{/css/myVideo.css}" rel="stylesheet" />
 
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
-        <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
-        <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
-
         $(document).ready(function () {
             console.log(123456);
             var check = $("input[type='checkbox']");
@@ -56,7 +55,7 @@
                         <span class="title" th:text="${report.title}"></span>
                     </a>
                     <div class="ui toggle checkbox">
-                        <input type="checkbox" id="checkBoxId" th:value="${report.id}">
+                        <input type="checkbox" th:id="${report.id}">
                         <label>공개 여부</label>
                     </div>
                 </div>
