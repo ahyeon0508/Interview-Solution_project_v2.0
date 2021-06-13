@@ -34,8 +34,8 @@ h1{
 }
 
 .form3{
-    margin: 0 auto 0 0;
-    border: 1px solid gray; 
+    margin: 0 auto 100px 0;
+    border: 1px solid gray;
     border-radius: 25px;
     padding : 20px 15px 30px 15px;
 }

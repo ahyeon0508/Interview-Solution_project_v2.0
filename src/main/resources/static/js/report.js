@@ -2,8 +2,10 @@
 var info_rep_1 = document.getElementById('info_rep1').innerHTML;
 var info_ad_1 = document.getElementById('info_adverb1').innerHTML;
 
-rep = info_rep_1.substring(1, info_rep_1.length - 1);
-ad = info_ad_1.substring(1, info_ad_1.length - 1);
+
+rep = JSON.parse(info_rep_1)
+ad = JSON.parse(info_ad_1)
+
 
 var rep_count = [];
 for (key in rep) {
@@ -14,6 +16,7 @@ var ad_count = [];
 for (key in ad) {
 	ad_count.push(ad[key]);
 }
+
 
 var ctx = document.getElementById('repetition1').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -117,8 +120,8 @@ var myChart = new Chart(ctx, {
 var info_rep_2 = document.getElementById('info_rep2').innerHTML;
 var info_ad_2 = document.getElementById('info_adverb2').innerHTML;
 
-rep = info_rep_2.substring(1, info_rep_2.length - 1);
-ad = info_ad_2.substring(1, info_ad_2.length - 1);
+rep = JSON.parse(info_rep_2)
+ad = JSON.parse(info_ad_2)
 
 var rep_count = [];
 for (key in rep) {
@@ -230,8 +233,8 @@ var myChart = new Chart(ctx, {
 var info_rep_3 = document.getElementById('info_rep3').innerHTML;
 var info_ad_3 = document.getElementById('info_adverb3').innerHTML;
 
-rep = info_rep_3.substring(1, info_rep_3.length - 1);
-ad = info_ad_3.substring(1, info_ad_3.length - 1);
+rep = JSON.parse(info_rep_3)
+ad = JSON.parse(info_ad_3)
 
 var rep_count = [];
 for (key in rep) {

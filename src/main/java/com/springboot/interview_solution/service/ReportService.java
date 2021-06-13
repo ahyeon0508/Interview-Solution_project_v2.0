@@ -344,7 +344,7 @@ public class ReportService {
             Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
             while(iteratorIC.hasNext()) {
                 Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
-                IC_sentence.append('"'+entry.getKey()).append("\":").append('"').append(entry.getValue()).append('"').append(",");
+                IC_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
             }
             IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
 
@@ -353,6 +353,11 @@ public class ReportService {
                     "{" +
                             IC_sentence
                             + "}"
+            );
+        }
+        else {
+            sttDto.setAdverb(
+                    "{}"
             );
         }
 
@@ -372,6 +377,11 @@ public class ReportService {
             );
         }
 
+        else {
+            sttDto.setRepetition(
+                    "{}"
+            );
+        }
         return sttDto;
     }
 }
