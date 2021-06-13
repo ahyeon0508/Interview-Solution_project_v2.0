@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>그래프</title>
+    <div th:replace="template.html :: fragment-header(title='그래프')"></div>
     <link th:href="@{/css/upload.css}" rel="stylesheet" />
-    <!--<link href="../static/css/upload.css" rel="stylesheet" />-->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
@@ -71,6 +70,8 @@
 </head>
 
 <body>
+    <div th:replace="template.html :: fragment-stunav"></div>
+
     <p class="header1">내 성적 그래프</p>
     <div class="container1">
         <p class="header2"><span id="SubjectName" class="header3">내신</span>&nbsp;성적 그래프<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;" onClick="location.href='/infoStudent'">성적 입력하기</button></p>
@@ -303,6 +304,8 @@
             average.innerHTML = inneraverage;
         }
     </script>
+
+    <footer th:replace="template.html :: fragment-footer"></footer>
 
 </body>
 

@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드</title>
+    <div th:replace="template.html :: fragment-header(title='업로드')"></div>
     <link th:href="@{/css/upload.css}" rel="stylesheet" />
-    <!--<script th:src="@{/js/.js}"></script>-->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
@@ -88,75 +87,6 @@
         });
     </script>
 
-    <!--<script>
-        $(function() {
-            $('#save0').click(function() {
-                var gradeArray = new Array();
-                $("#example tr").each(function(index) {
-                    var cellItem = $(this).find(":input");
-                    /* 1) 1차원 배열 - 배열 안에 오브젝트 */
-                    // var gradeObj = new Object();
-                    // if (index == 0) {
-                    //     return true;
-                    // } else {
-                    //
-                    //     gradeObj.grade = $('select[name=grade]').val();
-                    //     gradeObj.semester = $('select[name=semester]').val();
-                    //     gradeObj.index = index;
-                    //     gradeObj.subject = cellItem.eq(0).val();
-                    //     gradeObj.course = cellItem.eq(1).val();
-                    //     gradeObj.unitNumber = cellItem.eq(2).val();
-                    //     gradeObj.ranking = cellItem.eq(3).val();
-                    //     gradeObj.rawRanking = cellItem.eq(4).val();
-                    //     gradeObj.subjectMean = cellItem.eq(5).val();
-                    //     gradeObj.average = cellItem.eq(6).val();
-                    //     gradeObj.achievement = cellItem.eq(7).val();
-                    //     gradeObj.numberOfStudent = cellItem.eq(8).val();
-                    //
-                    //     gradeArray.push(gradeObj);
-
-                    /* 2) 2차원 배열 - 배열 안에 배열 */
-                    var gradeArr = new Array();
-                    if (index == 0) {
-                        return true;
-                    } else {
-                        gradeArr[0] = $('select[name=grade]').val();
-                        gradeArr[1] = $('select[name=semester]').val();
-                        gradeArr[2] = index;
-                        for (var i = 3; i < 12; i++) {
-                            gradeArr[i] = cellItem.eq(i - 3).val();
-                        }
-
-                        gradeArray[index - 1] = gradeArr;
-
-
-                        /* 주석 여기까지 */
-                        var ind = index - 1
-                        alert("gradeArray[" + ind + "]\n" + JSON.stringify(gradeArray[index - 1]));
-                    }
-                });
-
-                alert(JSON.stringify(gradeArray));
-
-                $.ajax({
-                    method: 'POST',
-                    url: '/infoStudent/grade',
-                    traditional: true,
-                    data: {
-                        'gradeInfo': gradeArray
-                    },
-                    success: function(data) {
-                        alert('data');
-                    },
-                    error: function(request, status, error) {
-                        alert('error');
-                    }
-
-                });
-            });
-        });
-    </script>-->
-
     <script th:inline="javascript">
         $(function() {
             /*<![CDATA[*/
@@ -194,6 +124,8 @@
 </head>
 
 <body>
+    <div th:replace="template.html :: fragment-stunav"></div>
+
     <p class="header1">내 서류 정보</p>
     <div class="container1">
         <p class="header2">내신 성적<button id="Graph" class="btn btn-outline-secondary" type="button" style="float: right; margin-right: 1em;" onClick="location.href='/infoStudent/visualize'">그래프 보기</button></p>
@@ -523,6 +455,9 @@
             $('#content3').keyup();
         });
     </script>
+
+    <footer th:replace="template.html :: fragment-footer"></footer>
+
 </body>
 
 </html>

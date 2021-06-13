@@ -18,7 +18,7 @@ input[type="number"],
     text-align: center;
     background-color: #e7e7e7;
     padding: 3em;
-    margin: 5em auto;
+    margin: 5em auto 100px auto;
     border-radius: 5em;
     max-width: 70%;
 }
