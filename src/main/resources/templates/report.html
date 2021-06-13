@@ -28,8 +28,8 @@
         <div class="form1">
             <div class="content">
                 <p class="question" th:text="${report.question1}"></p>
-                <video id="videoElement1" controls width='70%'>
-                    <source th:src="${report.video1}" type="video/mp4" />
+                <video id="videoElement1" controls width='70%' >
+                    <source th:src="@{/video/srt1234_61_1_output.mp4}" type="video/mp4"  />
                     현재 브라우저는 비디오를 지원하지 않습니다.
                 </video>
                 <!-- 대본 -->
