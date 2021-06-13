@@ -338,32 +338,38 @@ public class ReportService {
             e.printStackTrace();
         }
 
-        StringBuilder IC_sentence = new StringBuilder();
-        Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
-        while(iteratorIC.hasNext()) {
-            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
-            IC_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
-        }
-        IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
+        if(!IC.isEmpty()){
+            StringBuilder IC_sentence = new StringBuilder();
+            Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
+            while(iteratorIC.hasNext()) {
+                Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
+                IC_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+            }
+            IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
 
-        StringBuilder NOUN_sentence = new StringBuilder();
-        Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
-        while(iteratorNOUN.hasNext()) {
-            Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
-            NOUN_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
-        }
-        NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
 
-        sttDto.setAdverb(
-                "{" +
-                        IC_sentence
-                        + "}"
-        );
-        sttDto.setRepetition(
-                "{" +
-                        NOUN_sentence
-                        + "}"
-        );
+            sttDto.setAdverb(
+                    "{" +
+                            IC_sentence
+                            + "}"
+            );
+        }
+
+        if(!NOUN.isEmpty()){
+            StringBuilder NOUN_sentence = new StringBuilder();
+            Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
+            while(iteratorNOUN.hasNext()) {
+                Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
+                NOUN_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+            }
+            NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
+
+            sttDto.setRepetition(
+                    "{" +
+                            NOUN_sentence
+                            + "}"
+            );
+        }
 
         return sttDto;
     }
