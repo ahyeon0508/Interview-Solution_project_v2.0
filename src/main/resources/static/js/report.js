@@ -3,7 +3,9 @@ var info_rep_1 = document.getElementById('info_rep1').innerHTML;
 var info_ad_1 = document.getElementById('info_adverb1').innerHTML;
 
 rep = info_rep_1.substring(1, info_rep_1.length - 1);
+console.log(info_rep_1)
 rep = JSON.parse(rep)
+console.log(rep)
 
 ad = info_ad_1.substring(1, info_ad_1.length - 1);
 ad = JSON.parse(ad)
