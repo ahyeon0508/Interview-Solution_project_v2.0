@@ -20,7 +20,7 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    @RequestMapping(value = "/wait/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "wait/{id}", method = RequestMethod.GET)
     public ModelAndView getWait(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("wait");
         reportService.makeReport(id);
@@ -32,6 +32,12 @@ public class ReportController {
     @RequestMapping(value = "wait/{id}", method = RequestMethod.POST)
     public String postWait(@RequestParam("title") String title, @PathVariable("id") Long id) throws Exception {
         reportService.modifyTitle(id, title);
+        return "redirect:/wait/" + id;
+    }
+
+    @RequestMapping(value = "wait/share/{reportID}", method = RequestMethod.GET)
+    public String waitSharePost(@PathVariable("reportID") Long id) throws Exception {
+        reportService.modifyShare(id);
         return "redirect:/wait/" + id;
     }
 
@@ -68,12 +74,6 @@ public class ReportController {
         Report report = reportService.getReport(id);
         reportService.deleteFeedback(report, 3);
         return "redirect:/classVideo/" + id;
-    }
-
-    @RequestMapping(value = "/wait/share/{reportID}", method = RequestMethod.GET)
-    public String waitSharePost(@PathVariable("reportID") Long id) throws Exception {
-        reportService.modifyShare(id);
-        return "redirect:/wait/" + id;
     }
 
     @RequestMapping(value = "/myVideo", method = RequestMethod.GET)

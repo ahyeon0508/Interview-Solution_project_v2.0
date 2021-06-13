@@ -93,5 +93,6 @@ public class Report {
         this.student = student;
         this.teacher = teacher;
         this.createdAt = createdAt;
+        this.share = false;
     }
 }
