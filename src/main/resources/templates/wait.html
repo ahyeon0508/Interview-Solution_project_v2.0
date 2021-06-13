@@ -80,7 +80,7 @@
             <div class="content">
                 <p class="transition hidden">
                     <video autoplay controls loop muted poster="" preload="">
-                        <source th:src="${report.video1}" type="video/mp4">
+                        <source th:src="@{/video/} + ${report.video1}" type="video/mp4">
                     </video>
                 </p>
             </div>
@@ -91,7 +91,7 @@
             <div class="content">
                 <p class="transition hidden">
                     <video autoplay controls loop muted poster="" preload="">
-                        <source th:src="${report.video2}" type="video/mp4">
+                        <source th:src="@{/video/} + ${report.video2}" type="video/mp4">
                     </video>
                 </p>
             </div>
@@ -102,7 +102,7 @@
             <div class="content">
                 <p class="transition hidden">
                     <video autoplay controls loop muted poster="" preload="">
-                        <source th:src="${report.video3}" type="video/mp4">
+                        <source th:src="@{/video/} + ${report.video3}" type="video/mp4">
                     </video>
                 </p>
             </div>

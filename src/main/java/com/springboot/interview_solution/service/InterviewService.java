@@ -107,15 +107,15 @@ public class InterviewService {
         Report report = reportRepository.findById(Long.parseLong(reportID));
         if(questionNum.equals("1")){
             report.setAudio1(audioPath);
-            report.setVideo1(outputPath);
+            report.setVideo1(userID + "_" + reportID + "_" + questionNum + "_output" + ".mp4");
             report.setSpeed1(executionTime.doubleValue());
         }else if(questionNum.equals("2")){
             report.setAudio2(audioPath);
-            report.setVideo2(outputPath);
+            report.setVideo2(userID + "_" + reportID + "_" + questionNum + "_output" + ".mp4");
             report.setSpeed2(executionTime.doubleValue());
         }else if(questionNum.equals("3")){
             report.setAudio3(audioPath);
-            report.setVideo3(outputPath);
+            report.setVideo3(userID + "_" + reportID + "_" + questionNum + "_output" + ".mp4");
             report.setSpeed3(executionTime.doubleValue());
         }
         reportRepository.save(report);
