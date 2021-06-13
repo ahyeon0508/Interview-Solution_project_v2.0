@@ -9,19 +9,18 @@
     <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
     <script th:src="@{/Semantic-UI-master/dist/semantic.min.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link th:href="@{/css/myVideo.css}" rel="stylesheet" />
 
     <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
         $(document).ready(function () {
-            console.log(123456);
             var check = $("input[type='checkbox']");
             check.click(function () {
                 var reportID = $(this).attr('id')
                 console.log(reportID)
-                
+
                 $.ajax({
                     url: '/myVideo/share/' + reportID,
                     method: 'GET',
@@ -43,27 +42,37 @@
 </head>
 
 <body>
-    <div th:replace="template.html :: fragment-stunav"></div>
+<div th:replace="template.html :: fragment-stunav"></div>
 
-    <div class="myVideo-page">
-        <h1>내 영상</h1>
-        <div class="form">
-            <!-- 반복문 -->
-            <th:block th:each="report : ${reports}">
-                <div class="content">
+<div class="myVideo-page">
+    <h1>내 영상</h1>
+    <div class="form">
+        <!-- 반복문 -->
+        <th:block th:each="report : ${reports}">
+            <div class="content">
+                <p id="info">
                     <a th:href="@{/myVideo/{id}(id=${report.id})}">
                         <span class="title" th:text="${report.title}"></span>
                     </a>
-                    <div class="ui toggle checkbox">
+                </p>
+                <th:block th:if="${report.share == True}">
+                    <label class="switch">
                         <input type="checkbox" th:id="${report.id}">
-                        <label>공개 여부</label>
-                    </div>
-                </div>
-            </th:block>
-        </div>
+                        <span class="slider round"></span>
+                    </label>
+                </th:block>
+                <th:block th:if="${report.share == False}">
+                    <label class="switch">
+                        <input type="checkbox" th:id="${report.id}">
+                        <span class="sliderF round"></span>
+                    </label>
+                </th:block>
+            </div>
+        </th:block>
     </div>
+</div>
 
-    <footer th:replace="template.html :: fragment-footer"></footer>
+<footer th:replace="template.html :: fragment-footer"></footer>
 </body>
 
 </html>
