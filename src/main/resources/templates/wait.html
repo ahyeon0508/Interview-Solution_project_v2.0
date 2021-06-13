@@ -80,29 +80,29 @@
             <div class="content">
                 <p class="transition hidden">
                     <video autoplay controls loop muted poster="" preload="">
-                        <source th:src="${report.video1}" type="video/mp4">
+                        <source th:src="@{/video/} + ${report.video1}" type="video/mp4">
                     </video>
                 </p>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>
-                <p th:text="${report.question2}"></p>
+                <span th:text="${report.question2}"></span>
             </div>
             <div class="content">
                 <p class="transition hidden">
                     <video autoplay controls loop muted poster="" preload="">
-                        <source th:src="${report.video2}" type="video/mp4">
+                        <source th:src="@{/video/} + ${report.video2}" type="video/mp4">
                     </video>
                 </p>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>
-                <p th:text="${report.question3}"></p>
+                <span th:text="${report.question3}"></span>
             </div>
             <div class="content">
                 <p class="transition hidden">
                     <video autoplay controls loop muted poster="" preload="">
-                        <source th:src="${report.video3}" type="video/mp4">
+                        <source th:src="@{/video/} + ${report.video3}" type="video/mp4">
                     </video>
                 </p>
             </div>

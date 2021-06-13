@@ -11,7 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.util.List;
 
 @AllArgsConstructor
@@ -106,5 +109,22 @@ public class ReportController {
         System.out.println("A");
         reportService.modifyShare(id);
         return "redirect:/myVideo";
+    }
+
+    @GetMapping("/video/{fileName}")
+    public StreamingResponseBody stream(HttpServletRequest req, @PathVariable("fileName") String fileName) throws Exception {
+        File file = new File(System.getProperty("user.dir")+"/src/main/resources/video/" + fileName);
+        final InputStream is = new FileInputStream(file);
+        return os -> {
+            readAndWrite(is, os);
+        };
+    }
+    public void readAndWrite(final InputStream is, OutputStream os) throws IOException {
+        byte[] data = new byte[2048];
+        int read = 0;
+        while ((read = is.read(data)) > 0) {
+            os.write(data, 0, read);
+        }
+        os.flush();
     }
 }

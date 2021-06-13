@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
@@ -343,7 +344,7 @@ public class ReportService {
             Iterator<Map.Entry<String, Integer>> iteratorIC = IC.entrySet().iterator();
             while(iteratorIC.hasNext()) {
                 Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorIC.next();
-                IC_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+                IC_sentence.append('"'+entry.getKey()).append("\":").append('"').append(entry.getValue()).append('"').append(",");
             }
             IC_sentence.deleteCharAt(IC_sentence.lastIndexOf(","));
 
@@ -360,7 +361,7 @@ public class ReportService {
             Iterator<Map.Entry<String, Integer>> iteratorNOUN = NOUN.entrySet().iterator();
             while(iteratorNOUN.hasNext()) {
                 Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iteratorNOUN.next();
-                NOUN_sentence.append('"'+entry.getKey()).append("\":").append(entry.getValue()).append(",");
+                NOUN_sentence.append('"'+entry.getKey()).append("\":").append('"').append(entry.getValue()).append('"').append(",");
             }
             NOUN_sentence.deleteCharAt(NOUN_sentence.lastIndexOf(","));
 
