@@ -13,12 +13,17 @@
     <link th:href="@{/css/myVideo.css}" rel="stylesheet" />
 
     <script>
+        <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+        <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
         $(document).ready(function () {
+            console.log(123456);
             var check = $("input[type='checkbox']");
             check.click(function () {
-                var reportID = $(this).attr('report')
+                var reportID = $(this).attr('id')
+                console.log(reportID)
+                
                 $.ajax({
-                    // url 넣기
                     url: '/myVideo/' + reportID + '/share',
                     method: 'POST',
                     data: {
@@ -35,8 +40,7 @@
             });
         });
     </script>
-    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
-    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
 </head>
 
 <body>
