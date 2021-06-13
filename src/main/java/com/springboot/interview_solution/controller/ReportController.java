@@ -97,7 +97,8 @@ public class ReportController {
 
     @RequestMapping(value = "/myVideo/share/{reportID}", method = RequestMethod.GET)
     public String myReportSharePost(@PathVariable("reportID") Long id) throws Exception {
+        System.out.println("A");
         reportService.modifyShare(id);
-        return "redirect:/myVideo/" + id;
+        return "redirect:/myVideo";
     }
 }

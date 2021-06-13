@@ -24,8 +24,8 @@
                 console.log(reportID)
                 
                 $.ajax({
-                    url: '/myVideo/' + reportID + '/share',
-                    method: 'POST',
+                    url: '/myVideo/share/' + reportID,
+                    method: 'GET',
                     data: {
                         result: reportID
                     },
