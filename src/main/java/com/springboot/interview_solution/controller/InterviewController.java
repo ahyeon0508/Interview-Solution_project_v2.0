@@ -228,6 +228,7 @@ public class InterviewController {
     @RequestMapping(value = "/question/stop")
     public Map<String,Object> stopVideo(@RequestParam String name, @RequestParam int question,@RequestParam int reportID){
         Map<String,Object> data = new HashMap<String, Object>();
+        System.out.println("name: "+ name+"\tquestion:"+question);
 
         if(name.equals("finish")){
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
