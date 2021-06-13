@@ -23,6 +23,7 @@ public class ReportController {
     @RequestMapping(value = "/wait/{id}", method = RequestMethod.GET)
     public ModelAndView getWait(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("wait");
+        reportService.makeReport(id);
         Report report = reportService.getReport(id);
         mv.addObject("report", report);
         return mv;
@@ -70,7 +71,7 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/wait/share/{reportID}", method = RequestMethod.GET)
-    public String sharePost(@PathVariable("reportID") Long id) throws Exception {
+    public String waitSharePost(@PathVariable("reportID") Long id) throws Exception {
         reportService.modifyShare(id);
         return "redirect:/wait/" + id;
     }
@@ -92,5 +93,11 @@ public class ReportController {
         Report report = reportService.getReport(id);
         mv.addObject("report", report);
         return mv;
+    }
+
+    @RequestMapping(value = "/myVideo/share/{reportID}", method = RequestMethod.GET)
+    public String myReportSharePost(@PathVariable("reportID") Long id) throws Exception {
+        reportService.modifyShare(id);
+        return "redirect:/myVideo/" + id;
     }
 }

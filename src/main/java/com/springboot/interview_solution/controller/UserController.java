@@ -1,8 +1,10 @@
 package com.springboot.interview_solution.controller;
 
+import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.MyUserDto;
 import com.springboot.interview_solution.dto.UserDto;
+import com.springboot.interview_solution.service.ReportService;
 import com.springboot.interview_solution.service.SchoolInfoService;
 import com.springboot.interview_solution.service.UserService;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +29,7 @@ public class UserController {
 
     private final UserService userService;
     private final SchoolInfoService schoolInfoService;
+    private final ReportService reportService;
 
     // main
     @GetMapping(value = "/")
@@ -39,10 +43,16 @@ public class UserController {
         return "stuhome";
     }
 
+
     // teacher home
     @GetMapping(value = "/teacher")
-    public String getTeacherHome() {
-        return "teahome";
+    public ModelAndView getTeacherHome() throws Exception {
+        ModelAndView mv = new ModelAndView("teahome");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        List<Report> reports = reportService.getStudentReport(user);
+        mv.addObject("reports", reports);
+        return mv;
     }
 
     // signup
