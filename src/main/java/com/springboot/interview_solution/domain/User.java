@@ -106,6 +106,10 @@ public class User implements UserDetails {
         this.teacher = teacher;
     }
 
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
         Set<GrantedAuthority> roles = new HashSet<>();
