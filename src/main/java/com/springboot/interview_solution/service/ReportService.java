@@ -47,7 +47,15 @@ public class ReportService {
         //get user teacher
         User teacher;
         if(StringUtils.isEmpty(student.getTeacher())){
-            teacher = null;
+            String teacherID = userRepository.findMyTeacher(student.getSchool(), student.getGrade(), student.getsClass());
+            if(teacherID.isEmpty()){
+                teacher = null;
+            }else{
+                student.setTeacher(teacherID);
+                userRepository.save(student);
+                teacher = userRepository.findByUserID(teacherID).orElseThrow();
+            }
+
         }else{
             teacher = userRepository.findByUserID(student.getTeacher()).orElseThrow();
         }
