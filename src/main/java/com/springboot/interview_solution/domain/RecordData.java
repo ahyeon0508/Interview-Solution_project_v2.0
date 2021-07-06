@@ -32,11 +32,11 @@ public class RecordData {
      */
     AudioFormat getAudioFormat() {
         AudioFormat.Encoding defaultEncoding = AudioFormat.Encoding.PCM_SIGNED;
-        float sampleRate = 44100;
+        float sampleRate = 16000;
         int sampleSizeInBits = 16;
         int channels = 1;
         int frameSize = 2;
-        float frameRate = 44100;
+        float frameRate = 16000;
         boolean bigEndian = false;
         return new AudioFormat(defaultEncoding,sampleRate,sampleSizeInBits,channels,frameSize,frameRate,bigEndian);
     }
