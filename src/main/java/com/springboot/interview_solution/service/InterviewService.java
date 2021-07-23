@@ -6,6 +6,7 @@ import com.springboot.interview_solution.domain.StudentQuestion;
 import com.springboot.interview_solution.repository.ReportRepository;
 import lombok.AllArgsConstructor;
 import org.bytedeco.javacpp.Loader;
+import org.bytedeco.javacv.FrameGrabber;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
@@ -41,7 +42,7 @@ public class InterviewService {
                 try {
                     System.out.println("Start recording...");
                     recordData.start(uploadPath);
-                } catch (LineUnavailableException ex) {
+                } catch (LineUnavailableException | FrameGrabber.Exception ex) {
                     ex.printStackTrace();
                     exit(-1);
                 }

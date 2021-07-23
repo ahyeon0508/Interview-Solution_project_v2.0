@@ -1,12 +1,18 @@
 package com.springboot.interview_solution.domain;
 
 import lombok.NoArgsConstructor;
-import org.opencv.core.Core;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.OpenCVFrameConverter;
+import org.bytedeco.javacv.OpenCVFrameGrabber;
+import org.bytedeco.opencv.opencv_core.IplImage;
+import org.bytedeco.opencv.opencv_videoio.CvCapture;
+
+import lombok.NoArgsConstructor;
 import org.opencv.core.Mat;
-import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.video.Video;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.VideoWriter;
-import lombok.NoArgsConstructor;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
@@ -22,8 +28,13 @@ public class RecordData {
     private TargetDataLine audioLine;
     private AudioFormat format;
 
-    //Video
+
+    //OpenCV video
     private VideoWriter video;
+    //JavaCV video
+    //private VideoWriter video;
+
+
 
     private boolean isRunning;
 
@@ -47,14 +58,27 @@ public class RecordData {
      * audio format nor open the audio data line.
      */
     // 확인부탁
-    public void start(String path) throws LineUnavailableException {
+    public void start(String path) throws LineUnavailableException, FrameGrabber.Exception {
         format = getAudioFormat();
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
+        // OpenCV video 녹화 영역
         VideoCapture capture = new VideoCapture(0);
         Mat img = new Mat();
         capture.read(img);
         video = new VideoWriter(path + "_video.avi", VideoWriter.fourcc('D', 'I', 'V', 'X'), 20.0, img.size(), true);
+
+
+        /*
+        //JavaCV
+        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
+        grabber.start();
+        OpenCVFrameConverter.ToMat converter = new OpenCVFrameConverter.ToMat();
+        Mat img = converter.convert(grabber.grab());
+        int codec = VideoWriter.fourcc('D', 'I', 'V', 'X');
+        video = new VideoWriter(path+"_video.avi",,20.0, img.size(),true);
+
+         */
 
         // checks if system supports the data line
         if (!AudioSystem.isLineSupported(info)) {
@@ -76,10 +100,11 @@ public class RecordData {
         while (isRunning) {
             bytesRead = audioLine.read(buffer, 0, buffer.length);
             recordBytes.write(buffer, 0, bytesRead);
+
+            //img = converter.convert(grabber.grab());
+
             capture.read(img);
             video.write(img);
-
-            //eye tracking
         }
     }
 
@@ -93,7 +118,7 @@ public class RecordData {
         if (audioLine != null) {
             audioLine.drain();
             audioLine.close();
-            video.release();
+            //video.release();
         }
     }
 
