@@ -61,6 +61,15 @@ public class Report {
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String repetition3;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
+    private String eyeTrack1;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
+    private String eyeTrack2;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
+    private String eyeTrack3;
     private Double speed1;
     private Double speed2;
     private Double speed3;
