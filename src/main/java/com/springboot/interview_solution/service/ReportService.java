@@ -79,6 +79,20 @@ public class ReportService {
         return report.getId();
     }
 
+    public void setEyeTracking(Long id, String eyeTrack, int question){
+        Report report = reportRepository.findById(id);
+        if(!eyeTrack.isEmpty()){
+            if(question == 1){
+                report.setEyeTrack1(eyeTrack);
+            }else if(question ==2){
+                report.setEyeTrack2(eyeTrack);
+            }else{
+                report.setEyeTrack3(eyeTrack);
+            }
+        }
+        reportRepository.save(report);
+    }
+
     public void modifyTitle(Long id, String title) {
         Report report = reportRepository.findById(id);
         report.setTitle(title);
