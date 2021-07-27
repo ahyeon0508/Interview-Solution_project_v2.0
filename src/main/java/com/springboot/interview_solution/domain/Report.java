@@ -70,6 +70,12 @@ public class Report {
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String eyeTrack3;
+    @Column(columnDefinition = "json")
+    private String emotion1;
+    @Column(columnDefinition = "json")
+    private String emotion2;
+    @Column(columnDefinition = "json")
+    private String emotion3;
     private Double speed1;
     private Double speed2;
     private Double speed3;

@@ -23,6 +23,13 @@ public class ReportController {
 
     private final ReportService reportService;
 
+    @RequestMapping(value = "emotion", method = RequestMethod.GET)
+    public ModelAndView getEmotion() throws Exception {
+        ModelAndView mv = new ModelAndView("test");
+        reportService.emotion();
+        return mv;
+    }
+
     @RequestMapping(value = "wait/{id}", method = RequestMethod.GET)
     public ModelAndView getWait(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("wait");
@@ -119,6 +126,7 @@ public class ReportController {
             readAndWrite(is, os);
         };
     }
+
     public void readAndWrite(final InputStream is, OutputStream os) throws IOException {
         byte[] data = new byte[2048];
         int read = 0;
