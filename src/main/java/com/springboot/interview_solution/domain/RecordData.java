@@ -118,7 +118,7 @@ public class RecordData {
         if (audioLine != null) {
             audioLine.drain();
             audioLine.close();
-            //video.release();
+            video.release();
         }
     }
 

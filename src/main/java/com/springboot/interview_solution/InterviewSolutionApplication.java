@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class InterviewSolutionApplication {
     static{
-        nu.pattern.OpenCV.loadShared();
+        nu.pattern.OpenCV.loadLocally();
         //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        //nu.pattern.OpenCV.loadLibrary();
     }
     public static void main(String[] args) {
         //OpenCV Library load
