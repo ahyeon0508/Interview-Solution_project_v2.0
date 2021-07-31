@@ -30,6 +30,9 @@ public class ReportDto {
     private String repetition1;
     private String repetition2;
     private String repetition3;
+    private String eyeTrack1;
+    private String eyeTrack2;
+    private String eyeTrack3;
     private Double speed1;
     private Double speed2;
     private Double speed3;

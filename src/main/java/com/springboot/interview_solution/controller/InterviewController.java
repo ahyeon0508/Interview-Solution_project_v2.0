@@ -1,6 +1,5 @@
 package com.springboot.interview_solution.controller;
 
-import com.google.gson.Gson;
 import com.springboot.interview_solution.domain.Question;
 import com.springboot.interview_solution.domain.RecordData;
 import com.springboot.interview_solution.domain.StudentQuestion;
@@ -8,8 +7,8 @@ import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.service.InterviewService;
 import com.springboot.interview_solution.service.QuestionService;
 import com.springboot.interview_solution.service.ReportService;
-import com.sun.prism.impl.Disposer;
-import org.dom4j.rule.Mode;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -226,23 +225,45 @@ public class InterviewController {
     /*Stop Interview*/
     @ResponseBody
     @RequestMapping(value = "/question/stop")
-    public Map<String,Object> stopVideo(@RequestParam String name, @RequestParam int question,@RequestParam int reportID){
+    public Map<String,Object> stopVideo(@RequestParam  HashMap<Object,Object> param){
         Map<String,Object> data = new HashMap<String, Object>();
-        System.out.println("name: "+ name+"\tquestion:"+question);
+        try{
+            String name = param.get("name").toString();
+            int question = Integer.parseInt(param.get("question").toString());
+            int reportID = Integer.parseInt(param.get("reportID").toString());
+            JSONArray positionJson = new JSONArray(param.get("position").toString());
 
-        if(name.equals("finish")){
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            User user = (User) authentication.getPrincipal();
+            /*
+            for(int i=0;i<positionJson.length();i++){
+                JSONObject obj = positionJson.getJSONObject(i);
+                ArrayList<Point> arr = new ArrayList<>();
+                arr.add(new Point(obj.getInt("x"),obj.getInt("y")));
+                //System.out.println("x: "+obj.getInt("x")+"\ty: "+obj.getInt("y"));
+            }
 
-            data.put("result","success");
+             */
 
-            Long stopTime = System.currentTimeMillis();
-            interviewService.stopVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
-            executionTime = (stopTime - executionTime)/1000;
-            interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),executionTime);
-        }else{
+            if(name.equals("finish")){
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                User user = (User) authentication.getPrincipal();
+
+                data.put("result","success");
+
+                Long stopTime = System.currentTimeMillis();
+                interviewService.stopVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
+                executionTime = (stopTime - executionTime)/1000;
+                interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),executionTime);
+                reportService.setEyeTracking(new Long(reportID),positionJson.toString(),question);
+            }else{
+                data.put("result","error");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
             data.put("result","error");
         }
+
         return data;
     }
+
 }
