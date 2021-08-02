@@ -13,6 +13,7 @@ import org.opencv.core.Mat;
 import org.opencv.video.Video;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.VideoWriter;
+import org.opencv.videoio.Videoio;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
@@ -64,10 +65,19 @@ public class RecordData {
 
         // OpenCV video 녹화 영역
         VideoCapture capture = new VideoCapture(0);
+
+        if(!capture.isOpened()){
+            System.out.println("Not Open the video Capture");
+        }
+        capture.get(Videoio.CAP_PROP_FRAME_HEIGHT);
+        capture.get(Videoio.CAP_PROP_FRAME_WIDTH);
+        //capture.set(Videoio.CAP_PROP_FOURCC, 0x32595559);
+        //capture.set(Videoio.CAP_PROP_FPS, 25);
+
         Mat img = new Mat();
         capture.read(img);
+        
         video = new VideoWriter(path + "_video.avi", VideoWriter.fourcc('D', 'I', 'V', 'X'), 20.0, img.size(), true);
-
 
         /*
         //JavaCV
