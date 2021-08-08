@@ -25,7 +25,7 @@
         <div id="form1">
             <div class="content">
                 <p class="question" th:text="${report.question1}" />
-                <video th:src="${report.video1}" controls width='70%'>
+                <video th:src="@{/video/} + ${report.video1}" controls width='70%'>
                     현재 브라우저는 비디오를 지원하지 않습니다.
                 </video>
             </div>
@@ -62,7 +62,7 @@
         <div id="form2">
             <div class="content">
                 <p class="question" th:text="${report.question2}" />
-                <video th:src="${report.video2}" controls width='70%'>
+                <video th:src="@{/video/} + ${report.video2}" controls width='70%'>
                     현재 브라우저는 비디오를 지원하지 않습니다.
                 </video>
             </div>
@@ -99,7 +99,7 @@
         <div id="form3">
             <div class="content">
                 <p class="question" th:text="${report.question3}" />
-                <video th:src="${report.video3}" controls width='70%'>
+                <video th:src="@{/video/} + ${report.video3}" controls width='70%'>
                     현재 브라우저는 비디오를 지원하지 않습니다.
                 </video>
             </div>

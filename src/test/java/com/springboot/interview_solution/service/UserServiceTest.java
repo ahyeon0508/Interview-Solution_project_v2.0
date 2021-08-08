@@ -25,7 +25,7 @@ class UserServiceTest {
         user.setUserID("potatoe1234");
         user.setPassword("impotatoe1234");
         user.setPhone("01012345678");
-        user.setSchoolName("분당대진고등학교");
+        user.setSchool("분당대진고등학교");
         user.setGrade(1);
         user.setSClass(2);
         user.setIsTeacher("student");
@@ -40,7 +40,7 @@ class UserServiceTest {
         user1.setUserID("sweetpt");
         user1.setPassword("impotatoe1234");
         user1.setPhone("01012345678");
-        user1.setSchoolName("송림고등학교");
+        user1.setSchool("송림고등학교");
         user1.setGrade(1);
         user1.setSClass(2);
         String member2UserId = "sweetpt";

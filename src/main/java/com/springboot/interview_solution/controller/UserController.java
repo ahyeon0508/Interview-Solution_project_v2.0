@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
 
 @AllArgsConstructor
@@ -43,6 +42,7 @@ public class UserController {
     public String getStudentHome() {
         return "stuhome";
     }
+
 
     // teacher home
     @GetMapping(value = "/teacher")
@@ -67,15 +67,8 @@ public class UserController {
         return "redirect:/signin";
     }
     //school information
-    /*@RequestMapping(value = "/searchSchool",method = RequestMethod.POST)
+    @RequestMapping(value = "/searchSchool",method = RequestMethod.GET)
     @ResponseBody
-    public String searchSchoolInfo(@RequestParam("school") String school, HttpServletRequest response){
-        String schoolInfo;
-        if(school != null){
-            //학교 정보 받아와서 SchoolInfo로 넣기
-        }
-    }*/
-
     public List<String> searchSchoolInfo(@RequestParam("term") String school){
         List<String> schoolInfo;
         //학교 정보 받아와서 SchoolInfo로 넣기
@@ -85,15 +78,15 @@ public class UserController {
     }
 
     //UserId validate duplicate
-    @RequestMapping(value = "/userIdCheck", method = RequestMethod.GET)
-    public Map validUserId(@RequestParam("userID") String userID){
-        Map responseMsg = new HashMap<String,Object>();
-        Boolean isNotValid = userService.validateDuplicateUserId(userID);
-        responseMsg.put("result","success");
+    @ResponseBody
+    @RequestMapping(value = "/userIdCheck", method = RequestMethod.POST)
+    public HashMap<String,String> validUserId(@RequestBody String userID){
+        HashMap responseMsg = new HashMap<String,String>();
+        Boolean isNotValid = userService.validateDuplicateUserId(userID.replace("userID=",""));
         if(isNotValid){     //UserId is not valid
-            responseMsg.put("data","notExist");
-        }else{
             responseMsg.put("data","exist");
+        }else{
+            responseMsg.put("data","notExist");
         }
         return responseMsg;
     }

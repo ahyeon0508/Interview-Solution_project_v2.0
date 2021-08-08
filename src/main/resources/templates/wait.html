@@ -12,15 +12,18 @@
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link th:href="@{/css/wait.css}" rel="stylesheet" />
 
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
         $(document).ready(function () {
             var check = $("input[type='checkbox']");
             check.click(function () {
-                var reportID = $(this).attr('text')
+                var reportID = $(this).attr('id')
+                console.log(reportID)
                 $.ajax({
                     // url 넣기
                     url: '/wait/share/' + reportID,
-                    method: 'POST',
+                    method: 'GET',
                     data: {
                         result: reportID
                     },
@@ -39,23 +42,31 @@
             $('.ui.accordion').accordion();
         });
     </script>
-
 </head>
 
 <body>
     <div th:replace="template.html :: fragment-stunav"></div>
 
     <div class="ui card">
-        <div class="ui toggle checkbox">
-            <!-- th:text에 report id 넣기 -->
-            <input type="checkbox" id="checkBoxId" th:text="${report.id}">
-            <label>공개 여부</label>
+        <div class="check">
+            <th:block th:if="${report.share == True}">
+                <label class="switch">
+                    <input type="checkbox" th:id="${report.id}">
+                    <span class="slider round"></span>
+                </label>
+            </th:block>
+            <th:block th:if="${report.share == False}">
+                <label class="switch">
+                    <input type="checkbox" th:id="${report.id}">
+                    <span class="sliderF round"></span>
+                </label>
+            </th:block>
         </div>
+
         <h1>면접 대기</h1>
         <p id="notice">분석에 시간이 다소 소요됩니다. <br> 질문을 누르시면 해당 영상을 볼 수 있으며, 영상 공개 여부를 설정할 수 있습니다.</p>
         <form class="title-form" method="post" th:action="@{/wait/{id}(id=${report.id})}">
-            <p id="title_notice">▼ 아래 입력창에 모의 면접 영상 제목을 설정해보세요. 기본 값은 제목입니다.</p>
-            <!-- placeholder에 report title 넣기 -->
+            <p id="title_notice">▼ 아래 입력창에 모의 면접 영상 제목을 설정해보세요.</p>
             <div class="ui input focus">
                 <input type="text" id="title" name="title" th:placeholder="${report.title}">
             </div>
@@ -64,40 +75,41 @@
         <div class="ui styled fluid accordion">
             <div class="title">
                 <i class="dropdown icon"></i>
-                <!-- aaa 지우고 Q1 띄우기 ex) 장고 기준 : {{report.question1}}-->
-                <p th:text="${report.question1}"></p>
+                <span th:text="${report.question1}"></span>
             </div>
             <div class="content">
-                <!-- ddd 지우고 Q1에 대한 답변 영상 띄우기 -->
                 <p class="transition hidden">
-                    <video autoplay controls loop muted poster="aaa" preload="bbb">
-                        <source th:src="${report.video1}" type="video/mp4">
-                    </video>
+                    <div style="text-align: center">
+                        <video autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                            <source th:src="@{/video/} + ${report.video1}" type="video/mp4">
+                        </video>
+                    </div>
                 </p>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>
-                <!-- aaa 지우고 Q2 띄우기 -->
-                <p th:text="${report.question2}"></p>
+                <span th:text="${report.question2}"></span>
             </div>
             <div class="content">
-                <!-- ddd 지우고 Q2에 대한 답변 영상 띄우기 -->
                 <p class="transition hidden">
-                    <video autoplay controls loop muted poster="aaa" preload="bbb">
-                        <source th:src="${report.video2}" type="video/mp4">
-                    </video>
+                    <div style="text-align: center">
+                        <video autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                            <source th:src="@{/video/} + ${report.video2}" type="video/mp4">
+                        </video>
+                    </div>
                 </p>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>
-                <!-- aaa 지우고 Q3 띄우기 -->
-                <p th:text="${report.question3}"></p>
+                <span th:text="${report.question3}"></span>
             </div>
             <div class="content">
                 <p class="transition hidden">
-                    <video autoplay controls loop muted poster="aaa" preload="bbb">
-                        <source th:src="${report.video3}" type="video/mp4">
-                    </video>
+                    <div style="text-align: center">
+                        <video autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                            <source th:src="@{/video/} + ${report.video3}" type="video/mp4">
+                        </video>
+                    </div>
                 </p>
             </div>
         </div>
@@ -106,8 +118,7 @@
                 <input type="button" class="ui blue basic button" id="home" onClick="location.href='/student'" value="홈으로">
             </div>
             <div class="move">
-                <!-- href에 내 면접 리포트 모음 url 넣기 -->
-                <input type="button" id="myReport" class="ui blue basic button" onClick="location.href=''"
+                <input type="button" id="myReport" class="ui blue basic button" onClick="location.href='/myVideo'"
                     value="리포트 확인">
             </div>
         </div>

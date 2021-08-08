@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:replace="template.html :: fragment-teanav"></div>
-
+<div class="wrapper">
 <div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +') fixed no-repeat;'">
     <div id="stuwrapper" class="row">
         <div class="col-lg-6 p-0">
@@ -62,7 +62,7 @@
 
     </div>
 </section>
-
+</div>
 <footer th:replace="template.html :: fragment-footer"></footer>
 
 </body>

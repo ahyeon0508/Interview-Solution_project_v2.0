@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <div th:replace="template.html :: fragment-header(title='면접 세팅')"></div>
+    <link th:href="@{/css/inter_setting.css}" rel="stylesheet"/>
+    <script th:src="@{/js/util.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="wrapper">
+<div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            <h5>2. Setting</h5>
+        </div>
+        <div class="card-body">
+            <div id="container">
+                <video autoplay="true" id="videoElement"></video>
+            </div>
+            체크한 질문 중 3개가 랜덤으로 나옵니다. 준비 되셨다면 시작 버튼을 누르세요.
+        </div>
+        <div class="card-footer text-muted">
+            <!--herf : 본격적 면접, 질문 첫 번째로-->
+            <a th:href="@{/student/interview/question1/{id}(id=${reportID})}" class="btn btn-outline-primary"><Strong> 시작 > </Strong></a>
+        </div>
+    </div>
+</div>
+</div>
+<footer th:replace="template.html :: fragment-footer"></footer>
+
+<script>
+    var video = document.querySelector("#videoElement");
+    console.log(video);
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+                console.log(err0r.name + ": " + err0r.message);
+            });
+    }
+</script>
+</body>
+</html>

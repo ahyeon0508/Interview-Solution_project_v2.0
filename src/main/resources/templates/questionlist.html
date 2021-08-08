@@ -25,7 +25,7 @@
 
 <body>
 <div th:replace="template.html :: fragment-stunav"></div>
-
+<div class="wrapper">
     <!--질문 리스트 시작-->
     <section class="container-fluid">
         <div class="card">
@@ -82,9 +82,11 @@
                                     <label th:inline="text" th:if="${myQuestion.getDepartment().equals(2)}">
                                         [[${myQuestion.getQuestion()}]] <small> - 경영학과 질문</small></label>
                                     <label th:inline="text" th:if="${myQuestion.getDepartment().equals(3)}">
-                                        [[${myQuestion.getQuestion()}]] <small> - 국어국문학과 질문</small></label>
+                                        [[${myQuestion.getQuestion}]] <small> - 국어국문학과 질문</small></label>
                                     <label th:inline="text" th:if="${myQuestion.getDepartment().equals(4)}">
                                         [[${myQuestion.getQuestion()}]] <small> - 생명공학과 질문</small></label>
+                                    <label th:inline="text" th:if="${myQuestion.getDepartment().equals(1000)}">
+                                        [[${myQuestion.getQuestion()}]] <small> - 선생님 질문</small></label>
                                 </div>
                             </li>
                         </tr>
@@ -117,7 +119,7 @@
         </div>
     </section>
     <!--질문 리스트 끝-->
-
+</div>
 <footer th:replace="template.html :: fragment-footer"></footer>
 
 </body>

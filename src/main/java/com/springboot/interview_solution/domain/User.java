@@ -33,7 +33,7 @@ public class User implements UserDetails {
 
     private Integer grade;
     private Integer sClass;
-    private String teacher;
+    private String teacher;     //userID
     private Boolean isTeacher; //teacher = true, student = false
 
     public String getUsername() {
@@ -103,6 +103,10 @@ public class User implements UserDetails {
         this.sClass = sClass;
         this.isTeacher = isTeacher;
         //학생일 경우 선생님 연결하는 코드 작성 필요
+        this.teacher = teacher;
+    }
+
+    public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
 

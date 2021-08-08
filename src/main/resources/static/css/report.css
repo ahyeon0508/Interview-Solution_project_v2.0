@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+h1{
+    color: #9CC1D9;
+    font-family: 'Nanum Gothic', sans-serif;
+    padding: 40px 0 40px 0;
+    font-size: 40px;
+    text-align: center;
+}
+
+.report-page{
+    width: 70%;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    margin: auto;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+#title, #date{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+}
+
+#report_info{
+    margin-bottom: 30px;
+}
+
+.form1, .form2{
+    margin: 0 auto 100px 0;
+    border: 1px solid gray; 
+    border-radius: 25px;
+    padding : 20px 15px 30px 15px;
+}
+
+.form3{
+    margin: 0 auto 100px 0;
+    border: 1px solid gray;
+    border-radius: 25px;
+    padding : 20px 15px 30px 15px;
+}
+
+.content{
+    padding-top: 15px;
+    text-align: center;
+}
+
+#script1, #script2, #script3{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 16px;
+    border: 1px solid gray;
+    text-align: center;
+    padding: 30px 15px 30px 15px;
+    margin: 30px 20px 30px 20px;
+    float: center;
+}
+
+.talk_speed{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 14px;
+    border: 1px solid gray;
+    text-align: center;
+    padding: 30px 15px 15px 15px;
+    margin: 15px 20px 0 20px;
+    float: center;
+}
+
+.info_stt{
+    visibility: hidden;
+}
+
+.comment{
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 30px 0 30px 0;
+    font-size: 18px;
+}
+
+.question{
+    font-family: 'Nanum Gothic', sans-serif;
+    margin-bottom: 25px;
+    font-size: 18px;
+    padding: 0 25px 0 25px;
+}
+
+.analysis{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 18px;
+    margin: 10px 0 20px 0;
+}
+
+.speed_result{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+#delete{
+    float: right;
+}

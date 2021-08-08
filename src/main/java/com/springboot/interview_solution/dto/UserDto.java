@@ -10,12 +10,9 @@ public class UserDto {
     private String username;
     private String password;
     private String phone;
-    private String schoolName;
+    private String school;
     private Integer grade;
     private Integer sClass;
     private String isTeacher; //teacher = true, student = false
 
-    public String getIsTeacher() {
-        return isTeacher;
-    }
 }

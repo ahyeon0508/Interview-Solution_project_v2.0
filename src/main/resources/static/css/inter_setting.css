@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+/*참고 : https://mrb18.tistory.com/entry/CSS-%EC%B2%B4%ED%81%AC%EB%B0%95%EC%8A%A4-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0*/
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox] + label {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 22px;
+    padding-left: 30px;
+    background: url('https://www.flaticon.com/svg/static/icons/svg/2107/2107992.svg') left/22px no-repeat;
+}
+
+input[type=checkbox]:checked + label {
+    background-image: url('https://www.flaticon.com/svg/static/icons/svg/2107/2107957.svg');
+}
+
+#container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+}
+
+#videoElement {
+    width: 500px;
+    height: 375px;
+}
+
+#card{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%)
+}
+
+#notice{
+    font-family: 'Nanum Gothic', sans-serif;
+    margin-bottom: -15px
+}

@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReportRepository extends CrudRepository<Report, String> {
-    Report findReportById(Long id);
+public interface ReportRepository extends JpaRepository<Report, String> {
+    Report findById(Long id);
+    List<Report> findByStudent(User student);
     List<Report> findReportsByTeacherAndShare(User user,Boolean share);
+    Report findReportById(Long id);
+    void deleteById(Long id);
 }

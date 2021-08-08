@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="template.html :: fragment-header(title='내 영상')"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
+    <script th:src="@{/Semantic-UI-master/dist/semantic.min.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link th:href="@{/css/myVideo.css}" rel="stylesheet" />
+
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+    <script>
+        $(document).ready(function () {
+            var check = $("input[type='checkbox']");
+            check.click(function () {
+                var reportID = $(this).attr('id')
+                console.log(reportID)
+
+                $.ajax({
+                    url: '/myVideo/share/' + reportID,
+                    method: 'GET',
+                    data: {
+                        result: reportID
+                    },
+                    success: function (response) {
+                        alert("담임선생님께 해당 모의 면접이 공유되었습니다.")
+                        return;
+                    },
+                    error: function () {
+                        alert('서버와의 통신에서 문제가 발생했습니다');
+                    },
+                })
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+<div th:replace="template.html :: fragment-stunav"></div>
+
+<div class="myVideo-page">
+    <h1>내 영상</h1>
+    <div class="form">
+        <!-- 반복문 -->
+        <th:block th:each="report : ${reports}">
+            <div class="content">
+                <p id="info">
+                    <a th:href="@{/myVideo/{id}(id=${report.id})}">
+                        <span class="title" th:text="${report.title}"></span>
+                    </a>
+                </p>
+                <th:block th:if="${report.share == True}">
+                    <label class="switch">
+                        <input type="checkbox" th:id="${report.id}">
+                        <span class="slider round"></span>
+                    </label>
+                </th:block>
+                <th:block th:if="${report.share == False}">
+                    <label class="switch">
+                        <input type="checkbox" th:id="${report.id}">
+                        <span class="sliderF round"></span>
+                    </label>
+                </th:block>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+<footer th:replace="template.html :: fragment-footer"></footer>
+</body>
+
+</html>
