@@ -265,5 +265,11 @@ public class InterviewController {
 
         return data;
     }
+    @RequestMapping(value = "/video_test")
+    public ModelAndView test_record(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("test_record_video");
+        return mv;
+    }
 
 }
