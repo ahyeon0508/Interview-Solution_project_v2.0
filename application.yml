@@ -1,13 +1,13 @@
 server:
   address: localhost
-  port: 8080
+  port: 8888
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/interview?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
-    password: 2018
+#    password: 2018
     username: potato
-#    password: 1234
+    password: 1234
 #    username: root
   jpa:
     database: mysql

@@ -5,39 +5,24 @@ h1{
     font-family: 'Nanum Gothic', sans-serif;
     padding: 40px 0 40px 0;
     font-size: 40px;
+    font-weight: bolder;
     text-align: center;
 }
 
 .report-page{
     width: 70%;
     padding-top: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     margin: auto;
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-#title, #date{
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 20px;
-    padding-left: 15px;
-}
-
-#report_info{
-    margin-bottom: 30px;
-}
-
-.form1, .form2{
+.form1, .form2, .form3{
     margin: 0 auto 100px 0;
-    border: 1px solid gray; 
+    border: 1px solid rgb(211, 211, 211);
     border-radius: 25px;
     padding : 20px 15px 30px 15px;
-}
-
-.form3{
-    margin: 0 auto 100px 0;
-    border: 1px solid gray;
-    border-radius: 25px;
-    padding : 20px 15px 30px 15px;
+    box-shadow: 1px 1px 1px 1px rgb(224, 224, 224);
 }
 
 .content{
@@ -45,24 +30,20 @@ h1{
     text-align: center;
 }
 
-#script1, #script2, #script3{
+.stt, .talk_speed{
     font-family: 'Nanum Gothic', sans-serif;
-    font-size: 16px;
-    border: 1px solid gray;
+    font-size: 14px;
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 25px;
     text-align: center;
-    padding: 30px 15px 30px 15px;
+    padding: 30px 15px 15px 15px;
     margin: 30px 20px 30px 20px;
     float: center;
 }
 
-.talk_speed{
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 14px;
-    border: 1px solid gray;
-    text-align: center;
-    padding: 30px 15px 15px 15px;
-    margin: 15px 20px 0 20px;
-    float: center;
+.repetition, .adverb{
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 25px;
 }
 
 .info_stt{
@@ -82,12 +63,6 @@ h1{
     padding: 0 25px 0 25px;
 }
 
-.analysis{
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 18px;
-    margin: 10px 0 20px 0;
-}
-
 .speed_result{
     font-family: 'Nanum Gothic', sans-serif;
     font-weight: bold;
@@ -96,4 +71,8 @@ h1{
 
 #delete{
     float: right;
+}
+
+.chart{
+    padding-bottom: 200px;
 }

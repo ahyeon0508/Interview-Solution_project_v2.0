@@ -20,10 +20,6 @@
     <div class="report-page">
         <button type="button" id="delete" class="btn btn-outline-secondary" th:onclick="DeleteConfirm([[${report.id}]])">삭제</button>
         <h1>내 면접 리포트</h1>
-        <div id="report_info">
-            <p id="title" th:text="${report.title}"></p>
-            <p id="date" th:text="${report.createdAt}"></p>
-        </div>
         <!-- 첫 번째 질문 -->
         <div class="form1">
             <div class="content">
@@ -50,22 +46,21 @@
                     <p id="info_adverb1" th:text="${report.adverb1}"></p>
                 </div>
                 <!-- 차트 -->
-                <div class="chart" style="display: table; margin: 0 auto 10px auto;">
+                <div class="chart">
                     <p class="analysis">
                         <답변 내용 분석>
                     </p>
-                    <div class="repetition" style="float:left; padding-right: 50px; ">
-                        <canvas id="repetition1" width="50%" height="50%" style="width:500px;height:300px;"float:left;></canvas>
+                    <div class="repetition" style="width: 47%; float:left; margin-right:30px;">
+                        <canvas id="repetition1"></canvas>
                     </div>
-                    <div class="adverb" style="float:left;">
-                        <canvas id="adverb1" width="50%" height="50%" style="width:500px;height:300px;"></canvas>
+                    <div class="adverb" style="width: 47%; float:left;">
+                        <canvas id="adverb1"></canvas>
                     </div>
                 </div>
                 <th:block th:if="${report.comment1}">
                     <p class="comment" th:text="${report.comment1}"></p>
                 </th:block>
                 <th:block th:unless="${report.comment1}">
-                    <p class="comment">피드백이 존재하지 않습니다.</p>
                 </th:block>
             </div>
         </div>
@@ -97,22 +92,21 @@
                     <p id="info_adverb2" th:text="${report.adverb2}"></p>
                 </div>
                 <!-- 차트 -->
-                <div class="chart" style="display: table; margin: 0 auto 10px auto;">
+                <div class="chart">
                     <p class="analysis">
                         <답변 내용 분석>
                     </p>
-                    <div class="repetition" style="float:left; padding-right: 50px; ">
-                        <canvas id="repetition2" width="100%" height="100%" style="width:500px;height:300px;"float:left;></canvas>
+                    <div class="repetition" style="width: 47%; float:left; margin-right:30px;">
+                        <canvas id="repetition2"></canvas>
                     </div>
-                    <div class="adverb" style="float:left;">
-                        <canvas id="adverb2" width="100%" height="100%" style="width:500px;height:300px;"></canvas>
+                    <div class="adverb" style="width: 47%; float:left;">
+                        <canvas id="adverb2"></canvas>
                     </div>
                 </div>
                 <th:block th:if="${report.comment2}">
                     <p class="comment" th:text="${report.comment2}"></p>
                 </th:block>
                 <th:block th:unless="${report.comment2}">
-                    <p class="comment">피드백이 존재하지 않습니다.</p>
                 </th:block>
             </div>
         </div>
@@ -144,22 +138,21 @@
                     <p id="info_adverb3" th:text="${report.adverb3}"></p>
                 </div>
                 <!-- 차트 -->
-                <div class="chart" style="display: table; margin: 0 auto 10px auto;">
+                <div class="chart">
                     <p class="analysis">
                         <답변 내용 분석>
                     </p>
-                    <div class="repetition" style="float:left; padding-right: 50px; ">
-                        <canvas id="repetition3" width="200%" height="200%" style="width:500px;height:300px;"float:left;></canvas>
+                    <div class="repetition" style="width: 47%; float:left; margin-right:30px;">
+                        <canvas id="repetition3"></canvas>
                     </div>
-                    <div class="adverb" style="float:left;">
-                        <canvas id="adverb3" width="200%" height="200%" style="width:500px;height:300px;"></canvas>
+                    <div class="adverb" style="width: 47%; float:left;">
+                        <canvas id="adverb3"></canvas>
                     </div>
                 </div>
                 <th:block th:if="${report.comment3}">
                     <p class="comment" th:text="${report.comment3}"></p>
                 </th:block>
                 <th:block th:unless="${report.comment3}">
-                    <p class="comment">피드백이 존재하지 않습니다.</p>
                 </th:block>
             </div>
         </div>
