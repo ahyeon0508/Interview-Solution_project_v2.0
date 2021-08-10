@@ -41,9 +41,13 @@ h1{
     float: center;
 }
 
-.repetition, .adverb{
+.repetition, .adverb, .emotion, .eye_tracking{
     border: 1px solid rgb(211, 211, 211);
-    border-radius: 25px;
+    border-radius: 5px;
+    padding: 30px 15px 15px 15px;
+    margin: 0px 20px 0px 20px;
+    float: left;
+    width: 45%;
 }
 
 .info_stt{
@@ -75,4 +79,29 @@ h1{
 
 .chart{
     padding-bottom: 200px;
+}
+
+.face{
+    font-family: 'Nanum Gothic', sans-serif;
+    margin-top: 30px;
+    height: 250px;
+}
+
+.eye_tracking-img-1, .eye_tracking-img-2, .eye_tracking-img-3 {
+    transition: all 0.2s linear;
+}
+
+.eye_tracking-img-1:hover, .eye_tracking-img-2:hover, .eye_tracking-img-3:hover{
+    transform: scale(1.2);
+}
+
+.emotion_img{
+    float: left;
+    width: 65%;
+    height: 150px;
+}
+
+.emotion_result{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 14px;
 }

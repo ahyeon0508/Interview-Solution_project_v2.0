@@ -2,10 +2,8 @@
 var info_rep_1 = document.getElementById('info_rep1').innerHTML;
 var info_ad_1 = document.getElementById('info_adverb1').innerHTML;
 
-
 rep = JSON.parse(info_rep_1)
 ad = JSON.parse(info_ad_1)
-
 
 var rep_count = [];
 for (key in rep) {
@@ -49,6 +47,12 @@ var myChart = new Chart(ctx, {
         responsive: false,
         legend: {
             display: false,
+        },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
         },
         scales: {
             yAxes: [{
@@ -98,6 +102,12 @@ var myChart = new Chart(ctx, {
         legend: {
             display: false,
         },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -114,7 +124,49 @@ var myChart = new Chart(ctx, {
     }
 });
 
+var eye_tracking_1 = document.getElementById('info_eye_tracking1').innerHTML;
+var ctx = document.getElementById('eye_tracking_img_1').getContext('2d');
 
+var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            data: eye_tracking_1, 
+            borderColor: '#2196f3',           
+            backgroundColor: '#2196f3', 
+            fill: false,
+            showLine: false,
+        }]
+    },
+    options: {
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
+        responsive: false,
+        scales: {
+            xAxes: [{
+                display: false,
+                ticks: {
+                        min: -100,
+                        max: 700
+                    }
+            }],
+            yAxes: [{
+                display: false,
+                    ticks: {
+                        min: -100,
+                        max: 700
+                    }
+            }]
+        },
+    }
+});
 
 // 두 번째 질문
 var info_rep_2 = document.getElementById('info_rep2').innerHTML;
@@ -165,6 +217,12 @@ var myChart = new Chart(ctx, {
         legend: {
             display: false,
         },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -213,6 +271,12 @@ var myChart = new Chart(ctx, {
         legend: {
             display: false,
         },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -226,6 +290,50 @@ var myChart = new Chart(ctx, {
             display: true,
             text: '감탄사 빈도'
         }
+    }
+});
+
+var eye_tracking_2 = document.getElementById('info_eye_tracking2').innerHTML;
+var ctx = document.getElementById('eye_tracking_img_2').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            data: eye_tracking_2, 
+            borderColor: '#2196f3',           
+            backgroundColor: '#2196f3', 
+            fill: false,
+            showLine: false,
+        }]
+    },
+    options: {
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
+        responsive: false,
+        scales: {
+            xAxes: [{
+                display: false,
+                ticks: {
+                        min: -100,
+                        max: 700
+                    }
+            }],
+            yAxes: [{
+                display: false,
+                    ticks: {
+                        min: -100,
+                        max: 700
+                    }
+            }]
+        },
     }
 });
 
@@ -278,6 +386,12 @@ var myChart = new Chart(ctx, {
         legend: {
             display: false,
         },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -326,6 +440,12 @@ var myChart = new Chart(ctx, {
         legend: {
             display: false,
         },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -339,5 +459,49 @@ var myChart = new Chart(ctx, {
             display: true,
             text: '감탄사 빈도'
         }
+    }
+});
+
+var eye_tracking_3 = document.getElementById('info_eye_tracking3').innerHTML;
+var ctx = document.getElementById('eye_tracking_img_3').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            data: eye_tracking_3, 
+            borderColor: '#2196f3',           
+            backgroundColor: '#2196f3', 
+            fill: false,
+            showLine: false,
+        }]
+    },
+    options: {
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        hover: {
+            mode: null
+        },
+        responsive: false,
+        scales: {
+            xAxes: [{
+                display: false,
+                ticks: {
+                        min: -100,
+                        max: 700
+                    }
+            }],
+            yAxes: [{
+                display: false,
+                    ticks: {
+                        min: -100,
+                        max: 700
+                    }
+            }]
+        },
     }
 });
