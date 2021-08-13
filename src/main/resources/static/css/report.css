@@ -105,3 +105,8 @@ h1{
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 14px;
 }
+
+#adverb1, #adverb2, #adverb3, #repetition1, #repetition2, #repetition3{
+    width: auto;
+    height: auto;
+}
