@@ -48,6 +48,7 @@ h1{
     margin: 0px 20px 0px 20px;
     float: left;
     width: 45%;
+    height: 220px;
 }
 
 .info_stt{
@@ -80,7 +81,7 @@ h1{
 }
 
 .chart{
-    padding-bottom: 200px;
+    padding-bottom: 220px;
 }
 
 .face{

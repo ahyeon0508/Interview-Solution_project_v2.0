@@ -44,7 +44,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         legend: {
             display: false,
@@ -99,7 +99,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         legend: {
             display: false,
@@ -154,7 +154,7 @@ var myChart = new Chart(ctx, {
         hover: {
             mode: null
         },
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         scales: {
             xAxes: [{
@@ -220,7 +220,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         legend: {
             display: false,
@@ -275,7 +275,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         legend: {
             display: false,
@@ -328,7 +328,7 @@ var myChart = new Chart(ctx, {
         hover: {
             mode: null
         },
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         scales: {
             xAxes: [{
@@ -394,7 +394,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         legend: {
             display: false,
@@ -449,7 +449,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         legend: {
             display: false,
@@ -502,7 +502,7 @@ var myChart = new Chart(ctx, {
         hover: {
             mode: null
         },
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         scales: {
             xAxes: [{
