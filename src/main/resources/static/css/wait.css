@@ -172,3 +172,19 @@ input:checked + .slider:before {
 .ui.blue.basic.button{
     border-radius: 15px;
 }
+
+#back{
+    position: absolute;
+    z-index: 100;
+    background-color: #ffffff;
+    display:none;
+    left:0;
+    top:0;
+}
+#loadingBar{
+    position:absolute;
+    left:50%;
+    top: 40%;
+    display:none;
+    z-index:200;
+}

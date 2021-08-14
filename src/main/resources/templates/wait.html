@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link th:href="@{/css/wait.css}" rel="stylesheet" />
+    <script th:src="@{/js/wait.js}"></script>
 
     <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
@@ -26,6 +27,12 @@
                     method: 'GET',
                     data: {
                         result: reportID
+                    },
+                    beforeSend: function () {
+                        LoadingBarStart();
+                    },
+                    complete: function () {
+                        LoadingBarEnd();
                     },
                     success: function (response) {
                         alert("해당 모의 면접 공유여부 설정이 완료됐습니다.")
