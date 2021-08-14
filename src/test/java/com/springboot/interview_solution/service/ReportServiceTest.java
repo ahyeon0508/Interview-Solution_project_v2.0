@@ -17,7 +17,7 @@ class ReportServiceTest {
         String eyeTrack2 = "[{\\\"x\\\":500.08842067657343,\\\"y\\\":500.13825778518753}]";
         String eyeTrack3 = "[{\\\"x\\\":500.19398960557317,\\\"y\\\":500.0203635497563},{\\\"x\\\":501.9225319986008,\\\"y\\\":500.3201764431601}]";
         reportService.setEyeTracking(reportID,eyeTrack1,1);
-        reportService.setEyeTracking(reportID,eyeTrack1,2);
-        reportService.setEyeTracking(reportID,eyeTrack1,3);
+        reportService.setEyeTracking(reportID,eyeTrack2,2);
+        reportService.setEyeTracking(reportID,eyeTrack3,3);
     }
 }
