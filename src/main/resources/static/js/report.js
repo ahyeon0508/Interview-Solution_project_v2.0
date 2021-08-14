@@ -45,6 +45,7 @@ var myChart = new Chart(ctx, {
     },
     options: {
         responsive: false,
+        maintainAspectRatio: false,
         legend: {
             display: false,
         },
@@ -99,6 +100,7 @@ var myChart = new Chart(ctx, {
     },
     options: {
         responsive: false,
+        maintainAspectRatio: false,
         legend: {
             display: false,
         },
@@ -124,7 +126,11 @@ var myChart = new Chart(ctx, {
     }
 });
 
-var eye_tracking_1 = document.getElementById('info_eye_tracking1').innerHTML;
+
+var track1 = document.getElementById('info_eye_tracking1').innerHTML;
+var eye_tracking_1 = track1.split(',')
+eye_tracking_1=JSON.parse(eye_tracking_1)
+
 var ctx = document.getElementById('eye_tracking_img_1').getContext('2d');
 
 var myChart = new Chart(ctx, {
@@ -149,6 +155,7 @@ var myChart = new Chart(ctx, {
             mode: null
         },
         responsive: false,
+        maintainAspectRatio: false,
         scales: {
             xAxes: [{
                 display: false,
@@ -214,6 +221,7 @@ var myChart = new Chart(ctx, {
     },
     options: {
         responsive: false,
+        maintainAspectRatio: false,
         legend: {
             display: false,
         },
@@ -268,6 +276,7 @@ var myChart = new Chart(ctx, {
     },
     options: {
         responsive: false,
+        maintainAspectRatio: false,
         legend: {
             display: false,
         },
@@ -293,7 +302,9 @@ var myChart = new Chart(ctx, {
     }
 });
 
-var eye_tracking_2 = document.getElementById('info_eye_tracking2').innerHTML;
+var track2 = document.getElementById('info_eye_tracking2').innerHTML;
+var eye_tracking_2 = track2.split(',')
+eye_tracking_2=JSON.parse(eye_tracking_2)
 var ctx = document.getElementById('eye_tracking_img_2').getContext('2d');
 
 var myChart = new Chart(ctx, {
@@ -318,6 +329,7 @@ var myChart = new Chart(ctx, {
             mode: null
         },
         responsive: false,
+        maintainAspectRatio: false,
         scales: {
             xAxes: [{
                 display: false,
@@ -383,6 +395,7 @@ var myChart = new Chart(ctx, {
     },
     options: {
         responsive: false,
+        maintainAspectRatio: false,
         legend: {
             display: false,
         },
@@ -437,6 +450,7 @@ var myChart = new Chart(ctx, {
     },
     options: {
         responsive: false,
+        maintainAspectRatio: false,
         legend: {
             display: false,
         },
@@ -462,7 +476,9 @@ var myChart = new Chart(ctx, {
     }
 });
 
-var eye_tracking_3 = document.getElementById('info_eye_tracking3').innerHTML;
+var track3 = document.getElementById('info_eye_tracking3').innerHTML;
+var eye_tracking_3 = track3.split(',')
+eye_tracking_3=JSON.parse(eye_tracking_3)
 var ctx = document.getElementById('eye_tracking_img_3').getContext('2d');
 
 var myChart = new Chart(ctx, {
@@ -487,6 +503,7 @@ var myChart = new Chart(ctx, {
             mode: null
         },
         responsive: false,
+        maintainAspectRatio: false,
         scales: {
             xAxes: [{
                 display: false,
