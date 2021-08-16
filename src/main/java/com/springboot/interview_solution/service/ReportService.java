@@ -182,6 +182,6 @@ public class ReportService {
 
     public void emotion() {
         EmotionRecognition emotionRecognition = new EmotionRecognition();
-        System.out.println(emotionRecognition.detect());
+        System.out.println(emotionRecognition.detect("https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg"));
     }
 }

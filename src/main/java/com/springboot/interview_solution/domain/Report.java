@@ -40,18 +40,15 @@ public class Report {
     private String script1;
     private String script2;
     private String script3;
-    //    private JsonData adverb1; : 문자열을 JSON으로 읽을 수 있는지 확인
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String adverb1;
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String adverb2;
-    //    private String adverb2;
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String adverb3;
-    //    private String adverb3;
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String repetition1;
@@ -70,10 +67,13 @@ public class Report {
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String eyeTrack3;
+    @Type(type = "json")
     @Column(columnDefinition = "json")
     private String emotion1;
+    @Type(type = "json")
     @Column(columnDefinition = "json")
     private String emotion2;
+    @Type(type = "json")
     @Column(columnDefinition = "json")
     private String emotion3;
     private Double speed1;

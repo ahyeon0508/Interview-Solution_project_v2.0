@@ -9,20 +9,24 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class EmotionRecognition {
     private static final String subscriptionKey = "aeb12dbaeb714ad8814eab1f46997ef2";
     private static final String endpoint = "https://resourse01.cognitiveservices.azure.com/";
-
-    private static final String imageWithFaces =
-            "{\"url\":\"https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg\"}";
 // </environment>
 
-    public String detect() {
+    public String detect(String video1) {
         HttpClient httpclient = HttpClientBuilder.create().build();
+
+        String imageWithFaces= "{\"url\":\"" + video1 + "\"}";
 
         try
         {
@@ -54,21 +58,21 @@ public class EmotionRecognition {
 // <print>
             if (entity != null)
             {
-                // Format and display the JSON response.
-                System.out.println("REST Response:\n");
-
                 String jsonString = EntityUtils.toString(entity).trim();
                 if (jsonString.charAt(0) == '[') {
                     JSONArray jsonArray = new JSONArray(jsonString);
-//                    System.out.println(jsonArray.toString(2));
-                    return jsonArray.toString(2);
+                    JSONObject faceAttributes = jsonArray.getJSONObject(0);
+                    JSONObject emotion = faceAttributes.getJSONObject("faceAttributes");
+                    String value = emotion.getString("emotion");
+
+                    return value;
                 }
                 else if (jsonString.charAt(0) == '{') {
                     JSONObject jsonObject = new JSONObject(jsonString);
-//                    System.out.println(jsonObject.toString(2));
-                    return jsonObject.toString(2);
+                    JSONObject emotion = jsonObject.getJSONObject("faceAttributes");
+                    String value = emotion.getString("emotion");
+                    return value;
                 } else {
-//                    System.out.println(jsonString);
                     return jsonString;
                 }
             }
