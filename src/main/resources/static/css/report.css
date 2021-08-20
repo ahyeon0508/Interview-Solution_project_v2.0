@@ -51,7 +51,7 @@ h1{
     height: 220px;
 }
 
-.info_stt{
+.info_stt, #info_emotion1{
     visibility: hidden;
     width: 0;
     height: 0;
@@ -90,7 +90,7 @@ h1{
     height: 250px;
 }
 
-.emotion_img{
+#emotion_img{
     float: left;
     width: 65%;
     height: 150px;

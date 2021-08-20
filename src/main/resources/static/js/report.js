@@ -175,6 +175,42 @@ var myChart = new Chart(ctx, {
     }
 });
 
+var info_emotion1 = document.getElementById('info_emotion1').innerHTML;
+emotions = JSON.parse(info_emotion1)
+
+const emotion = Object.entries(emotions).sort(([, a], [, b]) => a - b);
+
+function emotion_img_info() {
+    var img_src;
+
+    if(emotion[0][0] == 'happiness'){
+        img_src = '@{/img/happiness.png}';
+    }
+    else if(emotion[0][0] == 'sadness'){
+        img_src = '@{/img/sadness.png}';
+
+    }
+    else if(emotion[0][0] == 'surprise'){
+        img_src = '@{/img/surprise.png}';
+
+    }
+    else if(emotion[0][0] == 'neutral'){
+        img_src = '@{/img/neutral.png}';
+
+    }
+    else{
+        img_src = '@{/img/기타.png}';
+    }
+
+    for (var i = 0; i < emotion.length; i++) {
+        document.getElementById('emotion_result1').innerHTML += emotion[i][0] + ' : ' + emotion[i][1];
+        document.getElementById('test').innerHTML += '<br>'
+    }
+
+    return img_src;
+}
+
+
 // 두 번째 질문
 var info_rep_2 = document.getElementById('info_rep2').innerHTML;
 var info_ad_2 = document.getElementById('info_adverb2').innerHTML;
