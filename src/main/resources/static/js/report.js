@@ -181,25 +181,27 @@ emotions = JSON.parse(info_emotion1)
 const emotion = Object.entries(emotions).sort(([, a], [, b]) => a - b);
 
 function emotion_img_info() {
-    var img_src;
+    // var img_src;
 
     if(emotion[0][0] == 'happiness'){
-        img_src = '@{/img/happiness.png}';
+        // img_src = '@{/img/happiness.png}';
+        document.getElementById('emotion_img').src = "/img/happiness.png"
     }
     else if(emotion[0][0] == 'sadness'){
-        img_src = '@{/img/sadness.png}';
-
+        // img_src = '@{/img/sadness.png}';
+        document.getElementById('emotion_img').src = "/img/sadness.png"
     }
     else if(emotion[0][0] == 'surprise'){
-        img_src = '@{/img/surprise.png}';
-
+        // img_src = '@{/img/surprise.png}';
+        document.getElementById('emotion_img').src = "/img/surprise.png"
     }
     else if(emotion[0][0] == 'neutral'){
-        img_src = '@{/img/neutral.png}';
-
+        // img_src = '@{/img/neutral.png}';
+        document.getElementById('emotion_img').src = "/img/neutral.png"
     }
     else{
-        img_src = '@{/img/기타.png}';
+        // img_src = '@{/img/기타.png}';
+        document.getElementById('emotion_img').src = "/img/기타.png"
     }
 
     for (var i = 0; i < emotion.length; i++) {
@@ -207,7 +209,7 @@ function emotion_img_info() {
         document.getElementById('test').innerHTML += '<br>'
     }
 
-    return img_src;
+    // return img_src;
 }
 
 

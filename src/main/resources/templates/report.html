@@ -65,8 +65,8 @@
                     <div class="emotion">
                         <p><표정인식 결과></p>
                         <p id="info_emotion1" th:text="${report.emotion1}"></p>
-                        <img id="emotion_img" th:src="">
-                            <script>document.getElementById('emotion_img').src=emotion_img_info()</script>
+                        <img id="emotion_img" th:src="@{/img/happiness.png}">
+                            <!-- <script>document.getElementById('emotion_img').src=emotion_img_info()</script> -->
                         <p id="emotion_result1"></p>
                     </div>
                 </div>

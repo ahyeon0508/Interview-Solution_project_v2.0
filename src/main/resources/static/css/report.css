@@ -91,9 +91,9 @@ h1{
 }
 
 #emotion_img{
+    width: 120px;
     float: left;
-    width: 65%;
-    height: 150px;
+    margin-left: 30px;
 }
 
 .emotion_result{
