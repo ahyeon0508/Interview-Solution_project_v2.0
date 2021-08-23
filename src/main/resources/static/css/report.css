@@ -30,7 +30,7 @@ h1{
     text-align: center;
 }
 
-.stt, .talk_speed{
+.stt{
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 14px;
     border: 1px solid rgb(211, 211, 211);
@@ -41,7 +41,7 @@ h1{
     float: center;
 }
 
-.repetition, .adverb, .emotion, .eye_tracking{
+.repetition, .adverb, .talk_speed, .eye_tracking{
     border: 1px solid rgb(211, 211, 211);
     border-radius: 5px;
     padding: 30px 15px 15px 15px;
@@ -84,22 +84,12 @@ h1{
     padding-bottom: 220px;
 }
 
-.face{
+.info{
     font-family: 'Nanum Gothic', sans-serif;
     margin-top: 30px;
     height: 250px;
 }
 
-#emotion_img{
-    width: 120px;
-    float: left;
-    margin-left: 30px;
-}
-
-.emotion_result{
-    font-family: 'Nanum Gothic', sans-serif;
-    font-size: 14px;
-}
 canvas{
     margin: 0 auto;
 }
