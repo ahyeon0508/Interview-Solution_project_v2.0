@@ -269,6 +269,7 @@ public class InterviewController {
     public ModelAndView test_record(){
         ModelAndView mv = new ModelAndView();
         mv.setViewName("test_record_video");
+        interviewService.convertVideo();
         return mv;
     }
 

@@ -4,6 +4,9 @@ import com.springboot.interview_solution.domain.RecordData;
 import com.springboot.interview_solution.domain.Report;
 import com.springboot.interview_solution.domain.StudentQuestion;
 import com.springboot.interview_solution.repository.ReportRepository;
+import com.xuggle.mediatool.IMediaViewer;
+import com.xuggle.mediatool.IMediaWriter;
+import com.xuggle.mediatool.ToolFactory;
 import lombok.AllArgsConstructor;
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacv.FrameGrabber;
@@ -14,6 +17,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
+import com.xuggle.mediatool.IMediaReader;
 import org.springframework.stereotype.Service;
 
 import javax.sound.sampled.*;
@@ -212,5 +216,30 @@ public class InterviewService {
         }
 
         return interviewQuestions;
+    }
+    public void convertVideo(){
+        String resourcePath = System.getProperty("user.dir")+"/src/main/resources/video/";
+        String videoPath = resourcePath + "test"  + ".webm";
+        String outputPath = resourcePath + "testvideo"  + ".mp4";
+        String ffmpeg = Loader.load(org.bytedeco.ffmpeg.ffmpeg.class);
+        try {
+            ProcessBuilder pb = new ProcessBuilder(
+                    ffmpeg,
+                    "-i",
+                    videoPath,
+                    "-i",
+                    videoPath,
+                    "-c:a",
+                    "aac",
+                    "-c:v",
+                    "copy",
+                    outputPath
+            );
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+            process.waitFor();
+        }catch (IOException | InterruptedException e){
+            e.printStackTrace();
+        }
     }
 }

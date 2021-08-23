@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -46,6 +46,7 @@
         media_recorder.addEventListener('stop', function() {
             // create local object URL from the recorded video blobs
             let video_local = URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm' }));
+            console.log(video_local);
             download_link.href = video_local;
         });
 
@@ -56,61 +57,6 @@
     stop_button.addEventListener('click', function() {
         media_recorder.stop();
     });
-    //         function onVideoFail(e) {
-    //             console.log('webcam fail!', e);
-    //         };
-    //         function hasGetUserMedia() {
-    //             // Note: Opera is unprefixed.
-    //             return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-    //                 navigator.mozGetUserMedia || navigator.msGetUserMedia);
-    //         }
-    //
-    //         if (hasGetUserMedia()) {
-    //             // Good to go!
-    //         } else {
-    //             alert('getUserMedia() is not supported in your browser');
-    //         }
-    //
-    //         window.URL = window.URL || window.webkitURL;
-    //         navigator.getUserMedia  = navigator.getUserMedia ||
-    //             navigator.webkitGetUserMedia ||
-    //             navigator.mozGetUserMedia ||
-    //             navigator.msGetUserMedia;
-    //
-    //         var video = document.querySelector('video');
-    //         var streamRecorder;
-    //         var webcamstream;
-    //
-    //         if (navigator.getUserMedia) {
-    //             navigator.getUserMedia({audio: true, video: true}, function(stream) {
-    //                 video.src = window.URL.createObjectURL(stream);
-    //                 webcamstream = stream;
-    // //  streamrecorder = webcamstream.record();
-    //             }, onVideoFail);
-    //         } else {
-    //             alert ('failed');
-    //         }
-    //
-    //         function startRecording() {
-    //             console.log("start")
-    //             streamRecorder = webcamstream.record();
-    //             setTimeout(stopRecording, 10000);
-    //         }
-    //         function stopRecording() {
-    //             console.log("stop")
-    //             streamRecorder.getRecordedData(postVideoToServer);
-    //         }
-    //         function postVideoToServer(videoblob) {
-    //
-    //             var data = {};
-    //             data.video = videoblob;
-    //             data.metadata = 'test metadata';
-    //             data.action = "upload_video";
-    //             //ajax로 비디오 저장
-    //         }
-    //         function onUploadSuccess() {
-    //             alert ('video uploaded');
-    //         }
 
 </script>
 
