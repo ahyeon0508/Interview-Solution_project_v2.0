@@ -8,25 +8,30 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.Java2DFrameConverter;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class EmotionRecognition {
-    private static final String subscriptionKey = "aeb12dbaeb714ad8814eab1f46997ef2";
+    private static final String subscriptionKey = "1e2e253d-1074-4093-af35-251f61a837b8";
     private static final String endpoint = "https://resourse01.cognitiveservices.azure.com/";
+    private static final String imageWithFaces = "{\"url\" : \"Users/yejin/IdeaProjects/Interview-Solution_project_v2.0/uploads/a.jpg\"}";
 // </environment>
 
-    public String detect(String video1) {
+    public String detect() throws FrameGrabber.Exception {
         HttpClient httpclient = HttpClientBuilder.create().build();
 
-        String imageWithFaces= "{\"url\":\"" + video1 + "\"}";
+        FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber("/Users/yejin/Downloads/IMG_6444.mp4");
+        frameGrabber.start();
+        Frame f;
 
         try
         {
@@ -47,6 +52,11 @@ public class EmotionRecognition {
             request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             // Request body.
+            Java2DFrameConverter c = new Java2DFrameConverter();
+            f = frameGrabber.grab();
+            BufferedImage bi = c.convert(f);
+            ImageIO.write(bi,"jpg", new File("/Users/yejin/IdeaProjects/Interview-Solution_project_v2.0/uploads/a.jpg"));
+
             StringEntity reqEntity = new StringEntity(imageWithFaces);
             request.setEntity(reqEntity);
 
@@ -64,6 +74,7 @@ public class EmotionRecognition {
                     JSONObject faceAttributes = jsonArray.getJSONObject(0);
                     JSONObject emotion = faceAttributes.getJSONObject("faceAttributes");
                     String value = emotion.getString("emotion");
+                    System.out.println(value);
 
                     return value;
                 }
@@ -76,6 +87,8 @@ public class EmotionRecognition {
                     return jsonString;
                 }
             }
+
+            frameGrabber.stop();
         }
         catch (Exception e)
         {

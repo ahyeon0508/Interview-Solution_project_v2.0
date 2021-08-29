@@ -11,6 +11,7 @@ import com.springboot.interview_solution.dto.ReportSpeedDto;
 import com.springboot.interview_solution.repository.ReportRepository;
 import com.springboot.interview_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.bytedeco.javacv.FrameGrabber;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -180,8 +181,8 @@ public class ReportService {
         reportRepository.save(report);
     }
 
-    public void emotion() {
+    public void emotion() throws FrameGrabber.Exception {
         EmotionRecognition emotionRecognition = new EmotionRecognition();
-        System.out.println(emotionRecognition.detect("https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg"));
+        System.out.println(emotionRecognition.detect());
     }
 }
