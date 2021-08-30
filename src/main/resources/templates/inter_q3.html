@@ -10,18 +10,6 @@
     <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
-        var position = [];
-
-        webgazer.setGazeListener(function (data, elapsedTime) {
-            if (data == null) {
-                return;
-            }
-            var xprediction = data.x;
-            var yprediction = data.y;
-
-            position.push({x : xprediction, y : yprediction});
-        }).begin();
-
         $(function(){
             $('#startbutton').click(function(){
                 var reportID = $(this).attr('name')
@@ -53,8 +41,7 @@
                     data:{
                         name:'finish',
                         question:3,
-                        reportID: reportID,
-                        position: JSON.stringify(position),
+                        reportID: reportID
                     },
                     success:function(response){
                         if (response.result != 'success') {

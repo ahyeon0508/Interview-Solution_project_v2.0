@@ -16,6 +16,54 @@
     <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
+        let position1 = [];
+        let videoTime1;
+        const videoTag1 = document.querySelector('#video1')
+        videoTag1.onloadedmetadata = function() {
+            videoTime1 = parseInt(this.duration)*5;
+        };
+        webgazer.setStaticVideo(videoTag1.captureStream()).setGazeListener(function (data, elapsedTime) {
+            if (data == null) {
+                return;
+            }
+            position1.push({x : xprediction, y : yprediction});
+            if(Object.keys(position1).length == videoTime1){
+                webgazer.stopVideo();
+            }
+        }).begin();
+
+        let position2 = [];
+        let videoTime2;
+        const videoTag2 = document.querySelector('#video2')
+        videoTag2.onloadedmetadata = function() {
+            videoTime2 = parseInt(this.duration)*5;
+        };
+        webgazer.setStaticVideo(videoTag2.captureStream()).setGazeListener(function (data, elapsedTime) {
+            if (data == null) {
+                return;
+            }
+            position2.push({x : xprediction, y : yprediction});
+            if(Object.keys(position2).length == videoTime2){
+                webgazer.stopVideo();
+            }
+        }).begin();
+
+        let position3 = [];
+        let videoTime3;
+        const videoTag3 = document.querySelector('#video3')
+        videoTag3.onloadedmetadata = function() {
+            videoTime3 = parseInt(this.duration)*5;
+        };
+        webgazer.setStaticVideo(videoTag3.captureStream()).setGazeListener(function (data, elapsedTime) {
+            if (data == null) {
+                return;
+            }
+            position3.push({x : xprediction, y : yprediction});
+            if(Object.keys(position3).length == videoTime3){
+                webgazer.stopVideo();
+            }
+        }).begin();
+
         $(document).ready(function () {
             var check = $("input[type='checkbox']");
             check.click(function () {
@@ -47,6 +95,24 @@
 
         $(document).ready(function () {
             $('.ui.accordion').accordion();
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url:'/student/interview/question/stop',
+                method:'POST',
+                data:{
+                    position1: JSON.stringify(position1),
+                    position2: JSON.stringify(position2),
+                    position3: JSON.stringify(position3),
+                },
+                success:function(response){
+                    if (response.result != 'success') {
+                        console.error(response.data)
+                        return;
+                    }
+                }
+            });
         });
     </script>
 </head>
@@ -87,7 +153,7 @@
             <div class="content">
                 <p class="transition hidden">
                     <div style="text-align: center">
-                        <video autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                        <video id="video1" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
                             <source th:src="@{/video/} + ${report.video1}" type="video/mp4">
                         </video>
                     </div>
@@ -100,7 +166,7 @@
             <div class="content">
                 <p class="transition hidden">
                     <div style="text-align: center">
-                        <video autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                        <video id="video2" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
                             <source th:src="@{/video/} + ${report.video2}" type="video/mp4">
                         </video>
                     </div>
@@ -113,7 +179,7 @@
             <div class="content">
                 <p class="transition hidden">
                     <div style="text-align: center">
-                        <video autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                        <video id="video3" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
                             <source th:src="@{/video/} + ${report.video3}" type="video/mp4">
                         </video>
                     </div>
