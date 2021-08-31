@@ -9,61 +9,13 @@
     <link th:href="@{/Semantic-UI-master/dist/semantic.min.css}" rel="stylesheet" />
     <script th:src="@{/Semantic-UI-master/dist/semantic.min.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link th:href="@{/css/wait.css}" rel="stylesheet" />
     <script th:src="@{/js/wait.js}"></script>
 
     <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
-        let position1 = [];
-        let videoTime1;
-        const videoTag1 = document.querySelector('#video1')
-        videoTag1.onloadedmetadata = function() {
-            videoTime1 = parseInt(this.duration)*5;
-        };
-        webgazer.setStaticVideo(videoTag1.captureStream()).setGazeListener(function (data, elapsedTime) {
-            if (data == null) {
-                return;
-            }
-            position1.push({x : xprediction, y : yprediction});
-            if(Object.keys(position1).length == videoTime1){
-                webgazer.stopVideo();
-            }
-        }).begin();
-
-        let position2 = [];
-        let videoTime2;
-        const videoTag2 = document.querySelector('#video2')
-        videoTag2.onloadedmetadata = function() {
-            videoTime2 = parseInt(this.duration)*5;
-        };
-        webgazer.setStaticVideo(videoTag2.captureStream()).setGazeListener(function (data, elapsedTime) {
-            if (data == null) {
-                return;
-            }
-            position2.push({x : xprediction, y : yprediction});
-            if(Object.keys(position2).length == videoTime2){
-                webgazer.stopVideo();
-            }
-        }).begin();
-
-        let position3 = [];
-        let videoTime3;
-        const videoTag3 = document.querySelector('#video3')
-        videoTag3.onloadedmetadata = function() {
-            videoTime3 = parseInt(this.duration)*5;
-        };
-        webgazer.setStaticVideo(videoTag3.captureStream()).setGazeListener(function (data, elapsedTime) {
-            if (data == null) {
-                return;
-            }
-            position3.push({x : xprediction, y : yprediction});
-            if(Object.keys(position3).length == videoTime3){
-                webgazer.stopVideo();
-            }
-        }).begin();
-
         $(document).ready(function () {
             var check = $("input[type='checkbox']");
             check.click(function () {
@@ -96,108 +48,200 @@
         $(document).ready(function () {
             $('.ui.accordion').accordion();
         });
-
-        $(document).ready(function () {
-            $.ajax({
-                url:'/student/interview/question/stop',
-                method:'POST',
-                data:{
-                    position1: JSON.stringify(position1),
-                    position2: JSON.stringify(position2),
-                    position3: JSON.stringify(position3),
-                },
-                success:function(response){
-                    if (response.result != 'success') {
-                        console.error(response.data)
-                        return;
-                    }
-                }
-            });
-        });
     </script>
 </head>
 
 <body>
-    <div th:replace="template.html :: fragment-stunav"></div>
+<div th:replace="template.html :: fragment-stunav"></div>
 
-    <div class="ui card">
-        <div class="check">
-            <th:block th:if="${report.share == True}">
-                <label class="switch">
-                    <input type="checkbox" th:id="${report.id}">
-                    <span class="slider round"></span>
-                </label>
-            </th:block>
-            <th:block th:if="${report.share == False}">
-                <label class="switch">
-                    <input type="checkbox" th:id="${report.id}">
-                    <span class="sliderF round"></span>
-                </label>
-            </th:block>
-        </div>
-
-        <h1>면접 대기</h1>
-        <p id="notice">분석에 시간이 다소 소요됩니다. <br> 질문을 누르시면 해당 영상을 볼 수 있으며, 영상 공개 여부를 설정할 수 있습니다.</p>
-        <form class="title-form" method="post" th:action="@{/wait/{id}(id=${report.id})}">
-            <p id="title_notice">▼ 아래 입력창에 모의 면접 영상 제목을 설정해보세요.</p>
-            <div class="ui input focus">
-                <input type="text" id="title" name="title" th:placeholder="${report.title}">
-            </div>
-            <input type="submit" id="complete" class="ui grey basic button" value="완료">
-        </form>
-        <div class="ui styled fluid accordion">
-            <div class="title">
-                <i class="dropdown icon"></i>
-                <span th:text="${report.question1}"></span>
-            </div>
-            <div class="content">
-                <p class="transition hidden">
-                    <div style="text-align: center">
-                        <video id="video1" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
-                            <source th:src="@{/video/} + ${report.video1}" type="video/mp4">
-                        </video>
-                    </div>
-                </p>
-            </div>
-            <div class="title">
-                <i class="dropdown icon"></i>
-                <span th:text="${report.question2}"></span>
-            </div>
-            <div class="content">
-                <p class="transition hidden">
-                    <div style="text-align: center">
-                        <video id="video2" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
-                            <source th:src="@{/video/} + ${report.video2}" type="video/mp4">
-                        </video>
-                    </div>
-                </p>
-            </div>
-            <div class="title">
-                <i class="dropdown icon"></i>
-                <span th:text="${report.question3}"></span>
-            </div>
-            <div class="content">
-                <p class="transition hidden">
-                    <div style="text-align: center">
-                        <video id="video3" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
-                            <source th:src="@{/video/} + ${report.video3}" type="video/mp4">
-                        </video>
-                    </div>
-                </p>
-            </div>
-        </div>
-        <div id="button">
-            <div class="move">
-                <input type="button" class="ui blue basic button" id="home" onClick="location.href='/student'" value="홈으로">
-            </div>
-            <div class="move">
-                <input type="button" id="myReport" class="ui blue basic button" onClick="location.href='/myVideo'"
-                    value="내 영상 확인">
-            </div>
-        </div>
+<div class="ui card">
+    <div class="check">
+        <th:block th:if="${report.share == True}">
+            <label class="switch">
+                <input type="checkbox" th:id="${report.id}">
+                <span class="slider round"></span>
+            </label>
+        </th:block>
+        <th:block th:if="${report.share == False}">
+            <label class="switch">
+                <input type="checkbox" th:id="${report.id}">
+                <span class="sliderF round"></span>
+            </label>
+        </th:block>
     </div>
 
-    <footer th:replace="template.html :: fragment-footer"></footer>
+    <h1>면접 대기</h1>
+    <p id="notice">분석에 시간이 다소 소요됩니다. <br> 질문을 누르시면 해당 영상을 볼 수 있으며, 영상 공개 여부를 설정할 수 있습니다.</p>
+    <form class="title-form" method="post" th:action="@{/wait/{id}(id=${report.id})}">
+        <p id="title_notice">▼ 아래 입력창에 모의 면접 영상 제목을 설정해보세요.</p>
+        <div class="ui input focus">
+            <input type="text" id="title" name="title" th:placeholder="${report.title}">
+        </div>
+        <input type="submit" id="complete" class="ui grey basic button" value="완료">
+    </form>
+    <div class="ui styled fluid accordion">
+        <div class="title">
+            <i class="dropdown icon"></i>
+            <span th:text="${report.question1}"></span>
+        </div>
+        <div class="content">
+            <p class="transition hidden">
+            <div style="text-align: center">
+                <video id="video1" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                    <source th:src="@{/video/} + ${report.video1}" type="video/mp4">
+                </video>
+            </div>
+            </p>
+        </div>
+        <script th:src="@{/js/webgazer.js}"></script>
+        <script>
+            let position1 = [];
+            let videoTime1;
+            const videoTag1 = document.querySelector('#video1')
+            videoTag1.onloadedmetadata = function () {
+                videoTime1 = parseInt(this.duration) * 5;
+            };
+            webgazer.setStaticVideo(videoTag1.captureStream()).setGazeListener(function (data, elapsedTime) {
+                if (data == null) {
+                    return;
+                }
+                let xprediction = data.x;
+                let yprediction = data.y;
+                position1.push({ x: xprediction, y: yprediction });
+                if (Object.keys(position1).length == videoTime1) {
+                    webgazer.stopVideo();
+                }
+            }).begin();
+        </script>
+        <div class="title">
+            <i class="dropdown icon"></i>
+            <span th:text="${report.question2}"></span>
+        </div>
+        <div class="content">
+            <p class="transition hidden">
+            <div style="text-align: center">
+                <video id="video2" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                    <source th:src="@{/video/} + ${report.video2}" type="video/mp4">
+                </video>
+            </div>
+            </p>
+        </div>
+        <script>
+            let position2 = [];
+            let videoTime2;
+            const videoTag2 = document.querySelector('#video2')
+            videoTag2.onloadedmetadata = function () {
+                videoTime2 = parseInt(this.duration) * 5;
+            };
+            webgazer.setStaticVideo(videoTag2.captureStream()).setGazeListener(function (data, elapsedTime) {
+                if (data == null) {
+                    return;
+                }
+                let xprediction = data.x;
+                let yprediction = data.y;
+                position2.push({ x: xprediction, y: yprediction });
+                if (Object.keys(position2).length == videoTime2) {
+                    webgazer.stopVideo();
+                }
+            }).begin();
+        </script>
+        <div class="title">
+            <i class="dropdown icon"></i>
+            <span th:text="${report.question3}"></span>
+        </div>
+        <div class="content">
+            <p class="transition hidden">
+            <div style="text-align: center">
+                <video id="video3" autoplay controls loop muted poster="" preload="" width='55%' height="55%">
+                    <source th:src="@{/video/} + ${report.video3}" type="video/mp4">
+                </video>
+            </div>
+            </p>
+        </div>
+        <script>
+            let position3 = [];
+            let videoTime3;
+            const videoTag3 = document.querySelector('#video3')
+            videoTag3.onloadedmetadata = function () {
+                videoTime3 = parseInt(this.duration) * 5;
+            };
+            webgazer.setStaticVideo(videoTag3.captureStream()).setGazeListener(function (data, elapsedTime) {
+                if (data == null) {
+                    return;
+                }
+                let xprediction = data.x;
+                let yprediction = data.y;
+                position3.push({ x: xprediction, y: yprediction });
+                if (Object.keys(position3).length == videoTime3) {
+                    webgazer.stopVideo();
+                }
+            }).begin();
+
+            $(function () {
+                var reportID = $("input[type='checkbox']").attr('id')
+                console.log(reportID+"ajax")
+                setTimeout(20000);
+                $.ajax({
+                    url: '/wait/eyeTracking/'+ reportID,
+                    method: 'POST',
+                    data: {
+                        // position1: JSON.stringify(position1),
+                        // position2: JSON.stringify(position2),
+                        // position3: JSON.stringify(position3),
+                        position1 : JSON.stringify("123"),
+                        position2: JSON.stringify("456"),
+                        position3: JSON.stringify("789"),
+                    },
+                    success: function (response) {
+                        if (response.result != 'success') {
+                            console.error(response.data)
+                            return;
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            console.log(position1)
+            console.log(position2)
+            console.log(position3)
+        </script>
+    </div>
+    <div id="button">
+        <div class="move">
+            <input type="button" class="ui blue basic button" id="home" onClick="location.href='/student'"
+                   value="홈으로">
+        </div>
+        <div class="move">
+            <input type="button" id="myReport" class="ui blue basic button" onClick="location.href='/myVideo'"
+                   value="내 영상 확인">
+        </div>
+    </div>
+</div>
+
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        var reportID = $("input[type='checkbox']").attr('id')-->
+<!--        console.log('ajax')-->
+<!--        $.ajax({-->
+<!--            url: '/wait/eyeTracking/'+ reportID,-->
+<!--            method: 'POST',-->
+<!--            data: {-->
+<!--                position1: JSON.stringify(position1),-->
+<!--                position2: JSON.stringify(position2),-->
+<!--                position3: JSON.stringify(position3),-->
+<!--            },-->
+<!--            success: function (response) {-->
+<!--                if (response.result != 'success') {-->
+<!--                    console.error(response.data)-->
+<!--                    return;-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+<footer th:replace="template.html :: fragment-footer"></footer>
 </body>
 
 </html>
