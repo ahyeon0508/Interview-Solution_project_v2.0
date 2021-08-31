@@ -98,6 +98,14 @@ public class ReportController {
         return mv;
     }
 
+    @RequestMapping(value = "wait/eyeTracking/{id}", method = RequestMethod.POST)
+    public String getEyeTrackingPost(@PathVariable("id") Long id, @RequestParam String position1, @RequestParam String position2, @RequestParam String position3){
+        reportService.setEyeTracking(id,position1,1);
+        reportService.setEyeTracking(id,position2,2);
+        reportService.setEyeTracking(id,position3,3);
+        return "redirect:/wait/" + id;
+    }
+
     @RequestMapping(value = "myVideo/delete/{id}", method = RequestMethod.GET)
     public String deleteMyReport(@PathVariable Long id) throws Exception {
         reportService.deleteReport(id);
