@@ -231,17 +231,6 @@ public class InterviewController {
             String name = param.get("name").toString();
             int question = Integer.parseInt(param.get("question").toString());
             int reportID = Integer.parseInt(param.get("reportID").toString());
-            JSONArray positionJson = new JSONArray(param.get("position").toString());
-
-            /*
-            for(int i=0;i<positionJson.length();i++){
-                JSONObject obj = positionJson.getJSONObject(i);
-                ArrayList<Point> arr = new ArrayList<>();
-                arr.add(new Point(obj.getInt("x"),obj.getInt("y")));
-                //System.out.println("x: "+obj.getInt("x")+"\ty: "+obj.getInt("y"));
-            }
-
-             */
 
             if(name.equals("finish")){
                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -253,7 +242,6 @@ public class InterviewController {
                 interviewService.stopVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),recordData);
                 executionTime = (stopTime - executionTime)/1000;
                 interviewService.makeFinalVideo(user.getUserID(),Integer.toString(reportID),Integer.toString(question),executionTime);
-                reportService.setEyeTracking(new Long(reportID),positionJson.toString(),question);
             }else{
                 data.put("result","error");
             }
