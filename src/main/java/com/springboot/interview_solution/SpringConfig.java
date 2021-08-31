@@ -44,7 +44,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin")
                 .permitAll()
-                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList","/infoStudent/**","/student/interview/question/record","/student/interview/question/stop");
+                .and().csrf().ignoringAntMatchers("/userIdCheck","/searchSchool", "/questionList","/myQuestionList","/infoStudent/**","/student/interview/question/record","/student/interview/question/stop","/wait/**");
     }
 
     @Override
