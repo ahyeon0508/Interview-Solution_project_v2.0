@@ -21,13 +21,13 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private JdbcTemplate jdbcTemplate;
 
-    //Spring security 필수 구현 method
+    /* Spring security 필수 구현 method */
     @Override
     public User loadUserByUsername(String userID) throws UsernameNotFoundException{
         return userRepository.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
     }
 
-    // signup
+    /* 회원가입 */
     public void signup(UserDto userDto){
         Boolean isTeacher = false;
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -46,12 +46,12 @@ public class UserService implements UserDetailsService {
                 .isTeacher(isTeacher).build());
     }
 
-    //validate duplication UserId
+    /* 아이디 중복 확인 */
     public Boolean validateDuplicateUserId(String userID){
         return userRepository.findByUserID(userID).isPresent();
     }
 
-    // signin
+    /* 로그인 */
     public Boolean signin(UserDto userDto) {
         String userID = userDto.getUserID();
         UserDetails user = userRepository.findByUserID(userID).orElseThrow(()-> new UsernameNotFoundException(userID));
@@ -60,24 +60,25 @@ public class UserService implements UserDetailsService {
         } else return false;
     }
 
+    /* 학생의 교사 정보 확인 */
     public Boolean loadIsTeacherByUserID(String userID){
         Boolean isTeacher = jdbcTemplate.queryForObject("select is_teacher from user where userID=?", Boolean.class, userID);
         return isTeacher;
     }
 
-    // findname
+    /* 이름으로 User 검색 */
     public User loadUserByUserName(String username) throws UsernameNotFoundException{
         return userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
     }
 
-    // changePW
+    /* 비밀번호 변경 */
     public void modifyPW(String userID, String password) throws Exception {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String newPW = encoder.encode(password);
         jdbcTemplate.update("update user set password=? where userID=?", new Object[]{newPW, userID});
     }
 
-    // 회원 정보 select
+    /* 회원 정보 select */
     public User loadUser(String userID) throws Exception {
         User user = null;
         try {
@@ -93,7 +94,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    //회원 정보 수정
+    /* 회원 정보 수정 */
     public void modifyUser(MyUserDto myUserDto) throws Exception {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String newPW = encoder.encode(myUserDto.getNewPassword());
@@ -113,7 +114,7 @@ public class UserService implements UserDetailsService {
         jdbcTemplate.update("update user set password=?, phone=?, school=?, grade=?, s_class=? where userID=?", newPW, myUserDto.getPhone(), myUserDto.getSchool(), myUserDto.getGrade(), myUserDto.getSClass(), myUserDto.getUserID());
     }
 
-    // 회원 탈퇴
+    /* 회원 탈퇴 */
     public void deleteUser(String userID) {
         jdbcTemplate.update("delete from user where userID=?", userID);
     }

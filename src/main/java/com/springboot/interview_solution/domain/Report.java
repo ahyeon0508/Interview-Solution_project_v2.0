@@ -40,6 +40,8 @@ public class Report {
     private String script1;
     private String script2;
     private String script3;
+
+    /* 부사어 */
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String adverb1;
@@ -49,6 +51,8 @@ public class Report {
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String adverb3;
+
+    /* 반복어 */
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String repetition1;
@@ -58,6 +62,8 @@ public class Report {
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String repetition3;
+
+    /* 시선추적 */
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String eyeTrack1;
@@ -67,25 +73,24 @@ public class Report {
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private String eyeTrack3;
-    @Type(type = "json")
-    @Column(columnDefinition = "json")
-    private String emotion1;
-    @Type(type = "json")
-    @Column(columnDefinition = "json")
-    private String emotion2;
-    @Type(type = "json")
-    @Column(columnDefinition = "json")
-    private String emotion3;
+
+    /* 말하기 속도 */
     private Double speed1;
     private Double speed2;
     private Double speed3;
+
+    /* 말하기 속도 (느리다, 빠르다, 적당하다) */
     private String sCorrect1;
     private String sCorrect2;
     private String sCorrect3;
+
+    /* 피드백 */
     private String comment1;
     private String comment2;
     private String comment3;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime comment1WritedAt;
     private LocalDateTime comment2WritedAt;
     private LocalDateTime comment3WritedAt;
@@ -96,6 +101,7 @@ public class Report {
     @ManyToOne
     private User teacher;
 
+    /* 공유 여부 */
     @ColumnDefault("false")
     private Boolean share;
 

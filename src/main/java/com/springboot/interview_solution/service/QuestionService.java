@@ -18,13 +18,14 @@ public class QuestionService {
     private final StudentQuestionRepository studentQuestionRepository;
     private final UserRepository userRepository;
 
-
+    /* 생성자 */
     public QuestionService(QuestionRepository questionRepository, StudentQuestionRepository studentQuestionRepository, UserRepository userRepository) {
         this.questionRepository = questionRepository;
         this.studentQuestionRepository = studentQuestionRepository;
         this.userRepository = userRepository;
     }
 
+    /* 질문 등록 */
     public Boolean enrollQuestion(String question,Integer department){
         if(questionRepository.existsByQuestion(question)){
             //question exists
@@ -36,25 +37,25 @@ public class QuestionService {
         }
     }
 
-    //get All Questions
+    /* 모든 질문 가져오기 */
     public List<Question> getAllQuestion(){
         List<Question> questions = questionRepository.findAll();
         return questions;
     }
 
-    //get Questions By department
+    /* 분야별 질문 가져오기 */
     public List<Question> getQuestionByDept(Integer department){
         List<Question> questions = questionRepository.findAllByDepartment(department);
         return questions;
     }
 
-    //get All myQuestions
+    /* 내 질문 모두 가져오기 */
     public List<Question> getAllMyQuestion(User user){
         List<Question> questions = studentQuestionRepository.findAllQuestionByUser(user);
         return questions;
     }
 
-    //get myQuestions By department
+    /* 내 질문 분야별 가져오기 */
     public List<Question> getMyQuestionByDept(Integer department, User user){
         List<Question> questions = studentQuestionRepository.findAllQuestionByUser(user);
         List<Question> result = new ArrayList<Question>();
@@ -66,7 +67,7 @@ public class QuestionService {
         return result;
     }
 
-    //search Question
+    /* 질문 검색 */
     public List<Question> searchQuestion(String word){
         List<Question> allQuestions = questionRepository.findAll();
         List<Question> questions = new ArrayList<Question>();
@@ -80,7 +81,7 @@ public class QuestionService {
         return questions;
     }
 
-    //search MyQuestion
+    /* 내 질문에서 검색 */
     public List<StudentQuestion> searchMyQuestion(String word,User user){
         List<StudentQuestion> allQuestions = studentQuestionRepository.findAllByUser(user);
         List<StudentQuestion> questions = new ArrayList<StudentQuestion>();
@@ -94,14 +95,14 @@ public class QuestionService {
         return questions;
     }
 
-    //search MyQuestionById
+    /* 질문 id로 내 질문 검색 */
     public StudentQuestion searchMyQuestion(Integer questionID){
         Long id = new Long(questionID);
         StudentQuestion question = studentQuestionRepository.findById(id).orElseThrow();
         return question;
     }
 
-    //pick up the Question List In StudentQuestion List
+    /* pick up the Question List In StudentQuestion List */
     public List<Question> getQuestionListInStudentQuestion(List<StudentQuestion> studentQuestions){
         List<Question> questions = new ArrayList<Question>();
         for(StudentQuestion q: studentQuestions){
@@ -110,7 +111,7 @@ public class QuestionService {
         return questions;
     }
 
-    // subtract myQuestions from Questions
+    /* subtract myQuestions from Questions */
     public List<Question> subtractQuestion(List<Question> myQuestionList, List<Question> questionList){
         List<Question> questions = questionList;
         for(Question myQ: myQuestionList){

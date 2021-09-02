@@ -23,6 +23,7 @@ public class ReportController {
 
     private final ReportService reportService;
 
+    /* 리포트 결과 생성 */
     @RequestMapping(value = "wait/{id}", method = RequestMethod.GET)
     public ModelAndView getWait(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("wait");
@@ -32,18 +33,21 @@ public class ReportController {
         return mv;
     }
 
+    /* 리포트 제목 변경 */
     @RequestMapping(value = "wait/{id}", method = RequestMethod.POST)
     public String postWait(@RequestParam("title") String title, @PathVariable("id") Long id) throws Exception {
         reportService.modifyTitle(id, title);
         return "redirect:/wait/" + id;
     }
 
+    /* 리포트 공유 변경 */
     @RequestMapping(value = "wait/share/{reportID}", method = RequestMethod.GET)
     public String waitSharePost(@PathVariable("reportID") Long id) throws Exception {
         reportService.modifyShare(id);
         return "redirect:/wait/" + id;
     }
 
+    /* 반 학생들 영상 가져오기 */
     @GetMapping(value = "classVideo/{id}")
     public ModelAndView getClassStudentVideo(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("studentVideo");
@@ -52,12 +56,14 @@ public class ReportController {
         return mv;
     }
 
+    /* 영상 피드백 보내기 */
     @PostMapping(value = "classVideo/{id}")
     public String postClassStudentVideo(@PathVariable("id") Long id, FeedbackDto feedbackDto) throws Exception {
         reportService.modifyFeedback(id, feedbackDto);
         return "redirect:/classVideo/" + id;
     }
 
+    /* 영상 피드백 삭제 */
     @GetMapping(value = "classVideo/{id}/delete1")
     public String deleteClassStudentFeedback1(@PathVariable("id") Long id) throws Exception {
         Report report = reportService.getReport(id);
@@ -65,6 +71,7 @@ public class ReportController {
         return "redirect:/classVideo/" + id;
     }
 
+    /* 영상 피드백2 삭제 */
     @PostMapping(value = "classVideo/{id}/delete2")
     public String deleteClassStudentFeedback2(@PathVariable("id") Long id) throws Exception {
         Report report = reportService.getReport(id);
@@ -72,6 +79,7 @@ public class ReportController {
         return "redirect:/classVideo/" + id;
     }
 
+    /* 영상 피드백3 삭제 */
     @PostMapping(value = "classVideo/{id}/delete3")
     public String deleteClassStudentFeedback3(@PathVariable("id") Long id) throws Exception {
         Report report = reportService.getReport(id);
@@ -79,6 +87,7 @@ public class ReportController {
         return "redirect:/classVideo/" + id;
     }
 
+    /* 내 리포트 가져오기 */
     @RequestMapping(value = "myVideo", method = RequestMethod.GET)
     public ModelAndView getMyReports() throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -90,6 +99,7 @@ public class ReportController {
         return mv;
     }
 
+    /* 내 리포트 상세 보기 */
     @RequestMapping(value = "myVideo/{id}", method = RequestMethod.GET)
     public ModelAndView getMyReport(@PathVariable Long id) throws Exception {
         ModelAndView mv = new ModelAndView("report");
@@ -98,15 +108,16 @@ public class ReportController {
         return mv;
     }
 
+    /* 내 리포트 삭제 */
     @RequestMapping(value = "myVideo/delete/{id}", method = RequestMethod.GET)
     public String deleteMyReport(@PathVariable Long id) throws Exception {
         reportService.deleteReport(id);
         return "redirect:/myVideo";
     }
 
+    /* 내 리포트 공유 변경 */
     @RequestMapping(value = "myVideo/share/{reportID}", method = RequestMethod.GET)
     public String myReportSharePost(@PathVariable("reportID") Long id) throws Exception {
-        System.out.println("A");
         reportService.modifyShare(id);
         return "redirect:/myVideo";
     }

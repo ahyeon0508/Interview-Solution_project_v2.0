@@ -19,7 +19,7 @@ public class TranscriptService {
     private final TranscriptRepository transcriptRepository;
     private JdbcTemplate jdbcTemplate;
 
-    // 생활기록부 저장
+    /* 생활기록부 저장 */
     public void setStudentTranscript(TranscriptDto transcriptDto, User user) {
         if(transcriptRepository.findTranscriptByGradeAndUser(transcriptDto.getGrade(),user).isPresent()) {
             Transcript transcript = transcriptRepository.findTranscriptByUser(user).orElseThrow();
@@ -36,13 +36,13 @@ public class TranscriptService {
         }
     }
 
-    // 생활기록부 가져오기
+    /* 생활기록부 가져오기 */
     public Transcript getStudentTranscript(User user) {
         Transcript transcript = transcriptRepository.findByUser(user);
         return transcript;
     }
 
-    // 생활기록부 학년 별로 가져오기
+    /* 생활기록부 학년 별로 가져오기 */
     public Transcript getStudentTranscriptByGrade(Integer grade,User user){
         Transcript transcript = transcriptRepository.findByGradeAndUser(grade, user);
         return transcript;

@@ -28,6 +28,7 @@ public class InfoController {
     private final TranscriptService transcriptService;
     private final LetterService letterService;
 
+    /* 학생 서류 정보 가져오기 */
     @RequestMapping(value = "/infoStudent", method = RequestMethod.GET)
     public ModelAndView getInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -40,6 +41,7 @@ public class InfoController {
         return mv;
     }
 
+    /* 성적 시각화 */
     @RequestMapping(value = "/infoStudent/visualize", method = RequestMethod.GET)
     public ModelAndView visualize() {
         ModelAndView mv = new ModelAndView("chart");
@@ -47,6 +49,7 @@ public class InfoController {
         return mv;
     }
 
+    /* 과목별 성적 시각화 */
     @RequestMapping(value = "/infoStudent/visualize/{subject}", method = RequestMethod.GET)
     public ModelAndView visualize(@PathVariable String subject) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -57,6 +60,7 @@ public class InfoController {
         return mv;
     }
 
+    /* 성적 입력 */
     @RequestMapping(value = "/infoStudent/grade", method = RequestMethod.POST)
     public String postInfo(GradeDto gradeInfo){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -65,6 +69,7 @@ public class InfoController {
         return "redirect:/infoStudent";
     }
 
+    /* 학년학기별 성적 입력 */
     @RequestMapping(value = "/infoStudent/grade/{gradeSemester}", method = RequestMethod.POST)
     public String postInfo(@PathVariable String gradeSemester, GradeDto gradeInfo){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -77,6 +82,7 @@ public class InfoController {
         return "redirect:/infoStudent/grade/"+gradeSemester;
     }
 
+    /* 성적 수정 */
     @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.PUT)
     public String updateInfo(@PathVariable("gradeSemester") String gradeSemester, @PathVariable("id") Long id, GradeDto gradeInfo){
         int grade = Character.getNumericValue(gradeSemester.charAt(0));
@@ -88,6 +94,7 @@ public class InfoController {
         return "redirect:/infoStudent/grade/"+gradeSemester;
     }
 
+    /* 학년학기별 성적 가져오기 */
     @RequestMapping(value = "/infoStudent/grade/{gradeSemester}")
     public ModelAndView getInfoByGradeAndSemester(@PathVariable String gradeSemester){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -108,12 +115,14 @@ public class InfoController {
         return mv;
     }
 
+    /* 성적 삭제 */
     @RequestMapping(value = "/infoStudent/grade/{gradeSemester}/{id}", method = RequestMethod.GET)
     public String deleteInfo(@PathVariable("gradeSemester") String gradeSemester, @PathVariable("id") Long id) {
         infoService.deleteStudentGrade(id);
         return "redirect:/infoStudent/grade/"+gradeSemester;
     }
 
+    /* 자기소개서 입력 */
     @RequestMapping(value = "/infoStudent/letter", method = RequestMethod.POST)
     public String postInfo(LetterDto letter){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -122,6 +131,7 @@ public class InfoController {
         return "redirect:/infoStudent";
     }
 
+    /* 학년별 학교생활기록부 입력 */
     @RequestMapping(value = "infoStudent/transcript/{grade}", method = RequestMethod.POST)
     public String postInfo(@PathVariable Integer grade, TranscriptDto transcriptDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -131,8 +141,9 @@ public class InfoController {
         return "redirect:/infoStudent/transcript/"+grade;
     }
 
+    /* 학년별 학교생활기록부 가져오기 */
     @RequestMapping(value = "/infoStudent/transcript/{grade}")
-    public ModelAndView getInfoByGradeAndSemester(@PathVariable int grade){
+    public ModelAndView getInfoByGrade(@PathVariable int grade){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         ModelAndView mv = new ModelAndView("upload");

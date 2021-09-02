@@ -23,6 +23,7 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
+    /* 질문 리스트 가져오기 */
     @RequestMapping(value = "/questionList")
     public ModelAndView questionList(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -48,6 +49,7 @@ public class QuestionController {
         return mv;
     }
 
+    /* 학과별 질문리스트 가져오기 (학생이 직접 입력한 질문, 교사가 보낸 질문 선택 가능) */
     @RequestMapping(value = "/questionList/{dept}")
     public ModelAndView questionListByDept(@PathVariable int dept){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,6 +83,7 @@ public class QuestionController {
         mv.setViewName("questionlist");
         return mv;
     }
+
     //ajax - nonstar->star
     @RequestMapping(value = "/questionList/check/{questionID}")
     public String checkQuestion(@PathVariable int questionID){
@@ -102,7 +105,7 @@ public class QuestionController {
         return "redirect:/questionList";
     }
 
-    //search
+    // 질문 검색
     @RequestMapping(value = "/questionList",method = RequestMethod.POST)
     public ModelAndView searchQuestion(@RequestParam("question_search")String word){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -122,6 +125,7 @@ public class QuestionController {
         return mv;
     }
 
+    /* 내 질문 리스트 가져오기 */
     @RequestMapping(value = "/myQuestionList")
     public ModelAndView myQuestionList(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -142,6 +146,7 @@ public class QuestionController {
         return mv;
     }
 
+    /* 파트별 내 질문 가져오기 */
     @RequestMapping(value = "/myQuestionList/{part}")
     public ModelAndView myQuestionListByPart(@PathVariable int part){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -164,7 +169,7 @@ public class QuestionController {
         return "redirect:/myQuestionList";
     }
 
-    //search
+    /* 내가 작성한 질문 중 검색 */
     @RequestMapping(value = "/myQuestionList",method = RequestMethod.POST)
     public ModelAndView searchMyQuestion(@RequestParam("question_search")String word){
         ModelAndView mv = new ModelAndView();
@@ -178,7 +183,7 @@ public class QuestionController {
         return mv;
     }
 
-    //add new Question in MyQuestionList
+    /* 질문 리스트에 추가 질문 저장 */
     @RequestMapping(value = "/myQuestionList/newQuestion")
     public String addNewQuestionBySelf(String question_str){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -188,7 +193,7 @@ public class QuestionController {
         return "redirect:/myQuestionList";
     }
 
-    //    studentId : report.student.userID
+    /* 교사가 특정 학생에게 질문 보낸 것 가져오기 */
     @GetMapping(value = "questionSend/{studentID}")
     public ModelAndView getQuestionSend(@PathVariable String studentID) {
         ModelAndView mv = new ModelAndView("questionSend");
@@ -201,8 +206,9 @@ public class QuestionController {
 //        System.out.println(studentQuestions.get(0).getQuestion());
         mv.addObject("questions", studentQuestions);
         return mv;
-    }
+    }문
 
+    /* 교사가 특정 학생에게 질문 보내기 */
     @PostMapping(value = "questionSend/{studentID}")
     public String PostQuestionSend(@PathVariable String studentID, @RequestParam("question") String question_str) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -212,6 +218,7 @@ public class QuestionController {
         return "redirect:/questionSend/" + studentID;
     }
 
+    /* 교사가 특정 학생에게 보낸 질문 삭제 */
     @GetMapping(value = "questionSend/delete/{questionID}")
     public String DeleteQuestionSend(@PathVariable("questionID") Integer questionID) {
         StudentQuestion question = questionService.searchMyQuestion(questionID);
@@ -219,6 +226,7 @@ public class QuestionController {
         return "redirect:/questionSend/" + question.getUser().getUserID();
     }
 
+    /* 질문 등록(서비스에서 제공하는 질) */
     @GetMapping(value = "enrollQuestion/")
     public String EnrollQuestionPage(){
         //dept=0
