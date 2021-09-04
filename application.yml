@@ -1,14 +1,15 @@
 server:
   address: localhost
-  port: 8088
+  port: 8080
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/interview?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
-    password: 2018
+#    password: 2018
 #    username: potato
 #    password: 1234
     username: root
+    password: Software@1234
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
