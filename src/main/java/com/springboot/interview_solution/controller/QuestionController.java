@@ -8,13 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.script.ScriptContext;
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.util.*;
 
 @AllArgsConstructor
@@ -206,7 +202,7 @@ public class QuestionController {
 //        System.out.println(studentQuestions.get(0).getQuestion());
         mv.addObject("questions", studentQuestions);
         return mv;
-    }문
+    }
 
     /* 교사가 특정 학생에게 질문 보내기 */
     @PostMapping(value = "questionSend/{studentID}")
