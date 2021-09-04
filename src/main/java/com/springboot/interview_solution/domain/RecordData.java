@@ -54,7 +54,7 @@ public class RecordData {
         VideoCapture capture = new VideoCapture(0);
         Mat img = new Mat();
         capture.read(img);
-        video = new VideoWriter(path + "_video.avi", VideoWriter.fourcc('D', 'I', 'V', 'X'), 20.0, img.size(), true);
+        video = new VideoWriter(path + "_video.avi", VideoWriter.fourcc('D', 'I', 'V', 'X'), 8.0, img.size(), true);
 
         // checks if system supports the data line
         if (!AudioSystem.isLineSupported(info)) {
