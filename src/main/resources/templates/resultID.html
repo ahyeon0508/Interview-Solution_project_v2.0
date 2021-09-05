@@ -1,3 +1,4 @@
+<!-- 아이디 찾기 페이지 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
@@ -13,15 +14,11 @@
         <div class="form">
             <form th:action="@{/resultid}" class="IDPW-form" method="post">
                 <div class="result">
-                    <!-- 해당하는 회원의 아이디 출력 -->
                     <p id="id">아이디 : <a th:text="${user}"/></p>
                 </div>
                 <div class="button">
-                    <!-- href 뒤에 로그인url 삽입 -->
                     <a href="/signin"><input type="submit" id="signin" value="로그인"></a>
-                    <!-- href 뒤에 비밀번호찾기url 삽입 -->
                     <input type="submit" id="findPW" onClick="location.href='/findpw'" value="비밀번호 찾기">
-                    <!-- href 뒤에 홈url 삽입 -->
                     <input type="button" id="home" onClick="location.href='/'" value="홈으로">
                 </div>
             </form>

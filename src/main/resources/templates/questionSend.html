@@ -1,3 +1,4 @@
+<!-- 예상질문 전송 페이지 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
@@ -33,8 +34,6 @@
                     <p th:text="${question.question.question}" />
                 </div>
                 <div class="delete">
-                    <!-- Q_DeleteConfirm 함수의 인자에 전송한 질문 id 넣어주면 될듯? : 고영희 찾기와 유사-->
-                    <!-- js로 이동해서 삭제할 예정 : 삭제 관련 url을 아현이한테 알려주거나 check.js에 url 입력하면 됨!-->
                     <button type="button" class="ui grey basic button"
                         th:onclick="Q_DeleteConfirm([[${question.id}]])">삭제</button>
                 </div>
