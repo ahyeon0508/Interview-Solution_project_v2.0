@@ -40,3 +40,13 @@ input[type=checkbox]:checked + label {
     font-family: 'Nanum Gothic', sans-serif;
     margin-bottom: -15px
 }
+
+#startcard{
+    margin: auto;
+    width: 80%;
+}
+
+#settingcard{
+    margin: auto;
+    width: 80%;
+}

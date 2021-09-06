@@ -174,12 +174,15 @@ input:checked + .slider:before {
 }
 
 #back{
-    position: absolute;
+    width:100%;
+    height:100%;
+    position: fixed;
+    left:0px;
+    top:0px;
     z-index: 100;
     background-color: #ffffff;
     display:none;
-    left:0;
-    top:0;
+    opacity: 0.3;
 }
 #loadingBar{
     position:absolute;
@@ -187,4 +190,14 @@ input:checked + .slider:before {
     top: 40%;
     display:none;
     z-index:200;
+}
+
+.loading{
+    width:100%;
+    height:100%;
+    position:fixed;
+    left:0px;
+    top:0px;
+    background:#fff;
+    z-index:1000; /* 이 값으로 레이어의 위치를 조정합니다. */
 }
