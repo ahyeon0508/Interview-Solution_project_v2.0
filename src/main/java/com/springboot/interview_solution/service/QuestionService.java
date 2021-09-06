@@ -120,7 +120,7 @@ public class QuestionService {
         return questions;
     }
 
-    // question -> Student Question
+    /* 일반 질문에서 User의 내 질문으로 등록 */
     public void enrollMyQuestion(Integer QuestionID,User student){
         long id = new Long(QuestionID);
         Question question = questionRepository.findById(id).orElseThrow();
@@ -137,7 +137,6 @@ public class QuestionService {
     }
 
     //enroll new Student Question by Teacher
-
     public void sendQuestionByTeacher(String question_str,String studentID,User teacher){
         //dept=1000
         enrollQuestion(question_str,1000);

@@ -35,8 +35,7 @@ public class InterviewController {
     RecordData recordData;
     Long executionTime;
 
-    /*Show Questions and select it*/
-    //show my Questions
+    /* User가 선택한 질문 제공 */
     @RequestMapping(value = "")
     public ModelAndView interStart(){
         // get user
@@ -57,7 +56,7 @@ public class InterviewController {
         mv.setViewName("inter_start");
         return mv;
     }
-    //show All Questions
+    /* 질문 리스트 제공 */
     @RequestMapping(value = "/question")
     public ModelAndView interStart_SelectAllQuestion(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -76,7 +75,7 @@ public class InterviewController {
         return mv;
     }
 
-    //select question in QuestionList
+    /* 학과별 질문 제공 */
     @RequestMapping(value = "/question/{dept}")
     public ModelAndView interStart_selectQuestion(@PathVariable int dept){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -111,7 +110,7 @@ public class InterviewController {
         return mv;
     }
 
-    //js: nonstar->star
+    /* User가 선택한 질문 학생질문 DB에 등록 */
     @RequestMapping(value = "/check/{questionID}")
     public String checkQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -121,7 +120,7 @@ public class InterviewController {
         return "redirect:/student/interview";
     }
 
-    //js: star->nonstar
+    /* User가 선택한 질문 학생질문 DB에서 제거 */
     @RequestMapping(value = "/uncheck/{questionID}")
     public String uncheckQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -131,7 +130,7 @@ public class InterviewController {
         return "redirect:/student/interview";
     }
 
-    /*Prepare the Interview and select Questions randomly*/
+    /* 면접 세팅 페이지 */
     @RequestMapping(value = "/setting")
     public ModelAndView interSetting(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -174,7 +173,7 @@ public class InterviewController {
         return mv;
     }
 
-    /*Interview Page*/
+    /* 질문별 면접 페이지 */
     @RequestMapping(value = "/question1/{reportID}")
     public ModelAndView interviewQ1(@PathVariable Long reportID){
         ModelAndView mv = new ModelAndView();
@@ -200,7 +199,7 @@ public class InterviewController {
         return mv;
     }
 
-    /*Start Interview*/
+    /* 인터뷰 시작 버튼, 영상 및 음성 녹화 */
     @ResponseBody
     @RequestMapping(value = "/question/record", method = RequestMethod.POST)
     public Map<String,Object> startVideo(HttpServletResponse response,@RequestParam String name, @RequestParam int question ,@RequestParam int reportID) throws IOException {
@@ -222,7 +221,7 @@ public class InterviewController {
         return data;
     }
 
-    /*Stop Interview*/
+    /* 인터뷰 멈춤 버튼, 영상 및 녹음 멈춤*/
     @ResponseBody
     @RequestMapping(value = "/question/stop")
     public Map<String,Object> stopVideo(@RequestParam  HashMap<Object,Object> param){

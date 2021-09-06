@@ -80,7 +80,7 @@ public class QuestionController {
         return mv;
     }
 
-    //ajax - nonstar->star
+    /* 질문 리스트에서 User가 선택한 질문 학생질문 DB에 등록 */
     @RequestMapping(value = "/questionList/check/{questionID}")
     public String checkQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -90,7 +90,7 @@ public class QuestionController {
         return "redirect:/questionList";
     }
 
-    //ajax: star->nonstar
+    /* 질문 리스트에서 User가 선택한 질문 학생질문 DB에서 제거 */
     @RequestMapping(value = "/questionList/uncheck/{questionID}")
     public String uncheckQuestion(@PathVariable int questionID){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -101,7 +101,7 @@ public class QuestionController {
         return "redirect:/questionList";
     }
 
-    // 질문 검색
+    /* 질문 검색 */
     @RequestMapping(value = "/questionList",method = RequestMethod.POST)
     public ModelAndView searchQuestion(@RequestParam("question_search")String word){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -157,10 +157,9 @@ public class QuestionController {
         return mv;
     }
 
-    // star->nonstar in My QuestionList
+    /* 내가 작성한 질문 중 선택한 질문 제거 */
     @RequestMapping(value = "/myQuestionList/uncheck/{questionID}")
     public String uncheckMyQuestion(@PathVariable int questionID) {
-        //delete the question in studentRepository
         questionService.deleteMyQuestion(questionID);
         return "redirect:/myQuestionList";
     }
@@ -199,7 +198,6 @@ public class QuestionController {
         User teacher = (User) authentication.getPrincipal();
 
         List<StudentQuestion> studentQuestions = questionService.getAllStudentQuestionByTeacher(studentID,teacher);
-//        System.out.println(studentQuestions.get(0).getQuestion());
         mv.addObject("questions", studentQuestions);
         return mv;
     }

@@ -25,10 +25,11 @@ public class RecordData {
     //Video
     private VideoWriter video;
 
+    // 녹화 진행 여부
     private boolean isRunning;
 
     /**
-     * Defines a default audio format used to record
+     * audio format
      */
     AudioFormat getAudioFormat() {
         AudioFormat.Encoding defaultEncoding = AudioFormat.Encoding.PCM_SIGNED;
@@ -42,11 +43,8 @@ public class RecordData {
     }
 
     /**
-     * Start recording sound.
-     * @throws LineUnavailableException if the system does not support the specified
-     * audio format nor open the audio data line.
+     * start recording audio and video
      */
-    // 확인부탁
     public void start(String path) throws LineUnavailableException {
         format = getAudioFormat();
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
@@ -79,13 +77,11 @@ public class RecordData {
             capture.read(img);
             video.write(img);
 
-            //eye tracking
         }
     }
 
     /**
-     * Stop recording sound.
-     * @throws IOException if any I/O error occurs.
+     * Stop recording audio and video
      */
     public void stop() throws IOException {
         isRunning = false;
@@ -98,9 +94,7 @@ public class RecordData {
     }
 
     /**
-     * Save recorded sound data into a .wav file format.
-     * @param wavFile The file to be saved.
-     * @throws IOException if any I/O error occurs.
+     * save audio and video files
      */
     public void save(File wavFile) throws IOException {
         byte[] audioData = recordBytes.toByteArray();
