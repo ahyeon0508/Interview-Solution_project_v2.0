@@ -1,7 +1,7 @@
 (function($) {
-  "use strict"; // Start of use strict
+  "use strict";
 
-  // Toggle the side navigation
+  // 네비게이션 토글
   $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
@@ -10,13 +10,13 @@
     };
   });
 
-  // Close any open menu accordions when window is resized below 768px
+  // 768px 아래일 때
   $(window).resize(function() {
     if ($(window).width() < 768) {
       $('.sidebar .collapse').collapse('hide');
     };
     
-    // Toggle the side navigation when window is resized below 480px
+    // 480px 아래일 때
     if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
       $("body").addClass("sidebar-toggled");
       $(".sidebar").addClass("toggled");
@@ -24,7 +24,7 @@
     };
   });
 
-  // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+  // 상단 탐색 시 스크롤 방지
   $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
     if ($(window).width() > 768) {
       var e0 = e.originalEvent,
@@ -34,7 +34,7 @@
     }
   });
 
-  // Scroll to top button appear
+  // 위로 스크롤 할 때 버튼 띄우기
   $(document).on('scroll', function() {
     var scrollDistance = $(this).scrollTop();
     if (scrollDistance > 100) {
@@ -44,7 +44,7 @@
     }
   });
 
-  // Smooth scrolling using jQuery easing
+  // 부드러운 스크롤
   $(document).on('click', 'a.scroll-to-top', function(e) {
     var $anchor = $(this);
     $('html, body').stop().animate({
@@ -53,4 +53,4 @@
     e.preventDefault();
   });
 
-})(jQuery); // End of use strict
+})(jQuery);

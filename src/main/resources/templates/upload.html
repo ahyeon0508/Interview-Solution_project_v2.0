@@ -66,6 +66,7 @@
     </script>
 
     <script>
+        <!-- 행 초기화 -->
         $(function() {
             $("#InputInfo").click(function() {
                 while ($("#example tr").length > 2) {
@@ -89,6 +90,7 @@
     </script>
 
     <script th:inline="javascript">
+        <!-- 대학별 자율문항 입력 -->
         $(function() {
             /*<![CDATA[*/
 
@@ -101,6 +103,7 @@
     </script>
 
     <script>
+        <!-- 학년, 학기 설정 -->
         $(document).ready(function() {
             var url = document.location.href;
             console.log(url);
@@ -379,6 +382,7 @@
         </form>
     </div>
     <script>
+        //내신 성적 학년, 학기 변경
         function Input_Info() {
             var grade = document.getElementById("input-grade");
             if (document.getElementById("grade").value != '학년') {
@@ -403,6 +407,7 @@
         }
     </script>
     <script>
+        //학교 생활 기록부 학년 변경
         function Input_Grade() {
             var grade = document.getElementById("input-script-grade");
             if (document.getElementById("script-grade").value != '학년') {
@@ -421,6 +426,7 @@
         }
     </script>
     <script>
+        //성적삭제
         function Delete(n) {
             var url = document.location.href;
             var grade_str = url.substr(url.length - 2, 1);
@@ -429,6 +435,7 @@
         }
     </script>
 
+    <!-- 문자열 길이 측정 -->
     <script>
         $(function() {
             $('#content1').keyup(function(e) {
