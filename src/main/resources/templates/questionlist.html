@@ -1,3 +1,4 @@
+<!-- 질문 리스트 페이지 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
@@ -6,6 +7,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script th:src="@{/js/util.js}"></script>
     <script>
+        //질문 체크여부 확인
         $(document).ready(function(){
             $('input[id*= "question_check"]').change(function(){
                 var questionID = $(this).val();

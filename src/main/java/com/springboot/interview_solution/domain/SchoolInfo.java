@@ -15,6 +15,7 @@ public class SchoolInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /* 학교 이름 */
     @Column(length = 100)
     private String name;
 

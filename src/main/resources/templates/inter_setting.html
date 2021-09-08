@@ -1,3 +1,4 @@
+<!-- 면접 세팅 페이지 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
@@ -10,7 +11,7 @@
 
 <body>
 <div class="wrapper">
-<div class="container">
+<div id="card" class="container">
     <div class="card text-center">
         <div class="card-header">
             <h5>2. Setting</h5>
@@ -31,6 +32,7 @@
 <footer th:replace="template.html :: fragment-footer"></footer>
 
 <script>
+    //현재 웹캠 비디오 띄우기
     var video = document.querySelector("#videoElement");
     console.log(video);
 

@@ -15,6 +15,7 @@ public class LetterService {
 
     private final LetterRepository letterRepository;
 
+    /* 자기소개서 입력 */
     public void setStudentLetter(LetterDto letterDto, User user) {
         if(letterRepository.findLetterByUser(user).isPresent()) {
             letterRepository.delete(letterRepository.findLetterByUser(user).orElseThrow(() -> new UsernameNotFoundException(user.getUsername())));
@@ -28,6 +29,7 @@ public class LetterService {
         );
     }
 
+    /* 자기소개서 가져오기 */
     public Letter getStudentLetter(User user){
         return letterRepository.findLetterByUser(user).orElse(new Letter(user, null, null, null, null));
     }

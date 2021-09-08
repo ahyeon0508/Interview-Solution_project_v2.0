@@ -23,9 +23,9 @@ public class Transcript {
 
     private Integer grade;
 
-    private String club;
-    private String dacs;//Detailed capabilities and specialties
-    private String overallOpinion;
+    private String club; // 동아리
+    private String dacs;// Detailed capabilities and specialties (세부능력 및 특기사항)
+    private String overallOpinion; // 행동특성 및 종합의견
 
     @Builder
     public Transcript (User user, Integer grade, String club, String dacs, String overallOpinion) {

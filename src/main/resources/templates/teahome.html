@@ -1,13 +1,18 @@
+<!-- 교사 홈 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <div th:replace="template.html :: fragment-header(title='교사 홈')"></div>
 </head>
+
 <body>
 <div th:replace="template.html :: fragment-teanav"></div>
+
+<!-- 상단 시작 -->
 <div class="wrapper">
 <div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +') fixed no-repeat;'">
     <div id="stuwrapper" class="row">
+        <!-- 배너 영역 -->
         <div class="col-lg-6 p-0">
             <div class="categories__item">
                 <div class="categories__text">
@@ -18,7 +23,7 @@
         </div>
     </div>
 </div>
-<!-- 내용 끝 -->
+<!-- 상단 끝, 내용 시작-->
 <section class="product spad">
     <div class="container">
         <div class="row">
@@ -30,14 +35,13 @@
         </div>
 
         <div class="container">
-            <!--학생 card 반복 / herf에는 학생면접영상 페이지로 -->
+            <!--학생 card 반복 -->
             <a th:each="report : ${reports}">
                 <a th:href="@{/classVideo/{id}(id=${report.id})}">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-6 col-md-4">
-                                    <!--src : 학생 이미지 있으면 그거, 아니면 기본 연회색 -->
                                     <img th:src="@{/img/연회색.png}" alt="" class="img-rounded img-responsive"/>
                                 </div>
                                 <div class="col-sm-6 col-md-8">
@@ -62,6 +66,8 @@
 
     </div>
 </section>
+    <!-- 내용 끝 -->
+
 </div>
 <footer th:replace="template.html :: fragment-footer"></footer>
 

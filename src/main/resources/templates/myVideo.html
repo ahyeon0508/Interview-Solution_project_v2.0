@@ -1,3 +1,4 @@
+<!-- 내영상페이지 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
@@ -15,6 +16,7 @@
     <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
+        // 모의면접 공유여부 설정
         $(document).ready(function () {
             var check = $("input[type='checkbox']");
             check.click(function () {
@@ -28,7 +30,7 @@
                         result: reportID
                     },
                     success: function (response) {
-                        alert("담임선생님께 해당 모의 면접이 공유되었습니다.")
+                        alert("해당 모의 면접 공유여부 설정이 완료됐습니다.")
                         return;
                     },
                     error: function () {

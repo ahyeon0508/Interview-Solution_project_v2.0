@@ -28,26 +28,26 @@ public class Grade {
     private Long id;
 
     @Column(name = "grade")
-    private Integer grade;
+    private Integer grade; // 학년
 
     @Column(name = "semester")
-    private Integer semester;
+    private Integer semester; // 학기
 
     @ManyToOne
     @JoinColumn(name = "user")
     private User user;
 
-    private String subject;
+    private String subject; // 교과
 
     @Column(name = "course")
-    private String course;
-    private Integer unitNumber;
-    private Integer ranking;
-    private Integer rawRanking;
-    private Double subjectMean;
-    private Double average;
-    private String achievement;
-    private Long numberOfStudent;
+    private String course; // 과목
+    private Integer unitNumber; // 단위수
+    private Integer ranking; // 석차등급
+    private Integer rawRanking; // 원점수
+    private Double subjectMean; // 과목평균
+    private Double average; // 표준편차
+    private String achievement; // 성취도
+    private Long numberOfStudent; // 학생 수
 
     @Builder
     public Grade (Integer grade, Integer semester, User user, String subject, String course,

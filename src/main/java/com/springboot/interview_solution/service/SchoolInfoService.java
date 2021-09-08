@@ -20,10 +20,12 @@ public class SchoolInfoService {
     private String totalCount = "2395";
     private String url = "http://career.go.kr/cnet/openapi/getOpenApi?apiKey=" + apiKey + "&svcType=api&svcCode=SCHOOL&contentType=xml&gubun=high_list&perPage="+totalCount;
 
+    /* 생성자 */
     public SchoolInfoService(SchoolInfoRepository schoolInfoRepository) {
         this.schoolInfoRepository = schoolInfoRepository;
     }
 
+    /* 학교 정보 크롤링 */
     public void collectInfo() {
         try {
             Document doc = Jsoup.connect(url).get();
@@ -37,6 +39,8 @@ public class SchoolInfoService {
         }
 
     }
+
+    /* 학교 이름으로 학교 정보 찾기 */
     public List<String> findAllByName(String schoolName){
         List<String> allSchoolNames = schoolInfoRepository.findAllSchoolName();
         List<String> schoolNames = new ArrayList<String>();

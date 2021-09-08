@@ -1,3 +1,4 @@
+<!-- 메인 페이지 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
@@ -9,22 +10,21 @@
     <div class="container-fluid" th:style="'background:url('+ @{/img/introbackground.svg} +') no-repeat fixed; background-size:cover;'">
 
         <div class="row">
-            <!-- herf = index.html(여기) -->
             <a id="intrologo" href="/">
                 <img th:src="@{/img/logo.png}" alt="logo" height="25">
             </a>
         </div>
 
-        <!-- 내용 시작 -->
+        <!-- 배너 시작 -->
         <div class="row justify-content-around">
             <div class="col-lg-5 p-0">
                 <div id="intro">
                     <h1 id="introh1">새내기路(로)</h1>
-                    <!-- herf에 로그인 -->
                     <a href="/signin" class="btn btn-outline-primary"><Strong> Log in </Strong></a>
                 </div>
             </div>
             <div class="col-lg-3 p-0">
+                <!-- 학생 버튼 -->
                 <dic id="studentbutton" class="categories__item" href="/student" th:style="'background:url('+ @{/img/introstubutton.svg} +') no-repeat; background-size:cover;'">
                     <div class="categories__text">
                         <h4>학생</h4>
@@ -33,6 +33,7 @@
                 </dic>
             </div>
             <div class="col-lg-3 p-0">
+                <!-- 교사 버튼 -->
                 <div id="teacherbutton" class="categories__item" href="/teacher" th:style="'background:url('+ @{/img/introteabutton.svg} +') no-repeat; background-size:cover;'">
                     <div class="categories__text">
                         <h4>교사</h4>
@@ -42,7 +43,7 @@
             </div>
         </div>
     </div>
-    <!-- 내용 끝 -->
+    <!-- 배너 끝 -->
 
     <!-- 기능 소개 시작 -->
     <section class="product spad">
@@ -57,7 +58,7 @@
             <div class="row property__gallery">
                 <div class="col-lg-6 col-md-6 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic" th:style="'background:url('+ @{/img/세팅화면.png} +');'">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/세팅화면.png} +'); background-size: cover;'">
                         </div>
                         <div class="product__item__text">
                             <h4>스스로 모의 면접</h4>
@@ -67,7 +68,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic" th:style="'background:url('+ @{/img/질문리스트.png} +');'">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/질문리스트.png} +'); background-size: cover;'">
                         </div>
                         <div class="product__item__text">
                             <h4>다양한 질문 제공</h4>
@@ -77,7 +78,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic" th:style="'background:url('+ @{/img/내면접리포트.png} +');'">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/리포트.png} +'); background-size: cover;'">
                         </div>
                         <div class="product__item__text">
                             <h4>면접 분석 리포트</h4>
@@ -87,7 +88,7 @@
                 </div>
                 <div class="col-lg-6 col-md-4 col-sm-6 mix women">
                     <div class="product__item">
-                        <div class="product__item__pic" th:style="'background:url('+ @{/img/모의면접영상.png} +');'">
+                        <div class="product__item__pic" th:style="'background:url('+ @{/img/모의면접영상.png} +'); background-size: cover;'">
                         </div>
                         <div class="product__item__text">
                             <h4>선생님과 공유</h4>

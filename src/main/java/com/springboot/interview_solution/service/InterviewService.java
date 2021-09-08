@@ -29,8 +29,7 @@ public class InterviewService {
 
     private final ReportRepository reportRepository;
 
-    //private Boolean stopButton;
-
+    /* 영상, 음성 녹화 */
     public void recordingVideo(String userID,String reportID,String questionNum, RecordData recordData){
         //60 seconds
         final int RECORD_TIME = 60000;
@@ -59,7 +58,7 @@ public class InterviewService {
 
     }
 
-
+    /* 영상, 녹화 멈춤 */
     public void stopVideo(String userID,String reportID,String questionNum,RecordData recordData){
         // Insert audio file path (reportID+'_'+question_num)
         String uploadPath = System.getProperty("user.dir")+"/src/main/resources/video/"+userID+"_"+reportID+"_"+questionNum;
@@ -76,6 +75,7 @@ public class InterviewService {
 
     }
 
+    /* 영상, 녹화 파일 하나의 파일로 병합 */
     public void makeFinalVideo(String userID, String reportID, String questionNum,Long executionTime) {
         String resourcePath = System.getProperty("user.dir")+"/src/main/resources/video/";
         String videoPath = resourcePath + userID + "_" + reportID + "_" + questionNum + "_video"  + ".avi";
@@ -122,49 +122,6 @@ public class InterviewService {
 
     }
 
-    /*
-    public void eyeTracking(String path){
-        //path = video path
-
-        CascadeClassifier faceDetector = new CascadeClassifier("/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/haarcascade_frontalface.xml");
-        CascadeClassifier eyeDetector = new CascadeClassifier("/Users/hyewonjin/Interview-Solution_project_v2.0/src/main/resources/video/haarcascade_eye.xml");
-
-        VideoCapture cap = new VideoCapture(path);
-        if(cap.isOpened()==false){
-            exit(0);
-        }
-
-        Mat img = new Mat();
-        Mat faceImg = new Mat();
-        Mat eyeImg = new Mat();
-        while(true){
-            cap.read(img);
-
-            //Face detection
-            Mat grayImg = new Mat();
-            Imgproc.cvtColor(img,grayImg,Imgproc.COLOR_BGR2GRAY);
-            MatOfRect coords = new MatOfRect();
-            faceDetector.detectMultiScale(grayImg,coords);
-
-            Rect[] biggest;
-            Rect[] coordsArray = coords.toArray().clone();
-            if(coords.toArray().length>1){
-                biggest.set(new double[4]);
-                for(int i=0;i<coords.toArray().length;i++){
-                    if(coordsArray[i].width > biggest[0].width){
-                        biggest[0] = coordsArray[i];
-                    }
-                }
-            }
-
-
-
-            //동영상 초 알아내기
-        }
-
-    }*/
-
-
     // select Question before interview
     public List<Question> selectMyQuestion(List<StudentQuestion> questionList, int listSize){
         Random r = new Random();
@@ -189,6 +146,8 @@ public class InterviewService {
 
         return interviewQuestions;
     }
+
+    /* 면접 질문 3개 랜덤 선택 */
     public List<Question> selectQuestion(List<Question> questionList, int listSize){
         Random r = new Random();
         int[] overlapNum = new int[3];

@@ -1,3 +1,4 @@
+<!-- 템플릿 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
@@ -17,26 +18,25 @@
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
 </head>
-
+<!-- 1. 학생 상단바 -->
 <nav th:fragment="fragment-stunav" class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <!--herf : 학생 홈으로-->
         <a class="navbar-brand" href="/student">
             <img th:src="@{/img/logo.png}" alt="" height="25">
         </a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- herf에 내 영상으로 연결 -->
+                <!-- 내 영상 -->
                 <li class="nav-item"><a class="nav-link" href="/myVideo">내 영상</a></li>
-                <!-- herf에 내 질문으로 연결 -->
+                <!-- 내 질문-->
                 <li class="nav-item"><a class="nav-link" href="/myQuestionList">내 질문</a></li>
-                <!-- herf에 질문 리스트로 연결 -->
+                <!-- 질문 리스트 -->
                 <li class="nav-item"><a class="nav-link" href="/questionList">질문 리스트</a></li>
             </ul>
         </div>
 
         <ul>
-            <!--로그인 되어있을 때-->
+            <!--로그인 되어있을 때 유저-->
             <div class="dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-bs-toggle="dropdown" aria-expanded="true">
@@ -49,7 +49,7 @@
                     <li><a class="dropdown-item" href="/signout">로그아웃</a></li>
                 </ul>
             </div>
-
+            <!--로그인 안 되어있을 때 유저-->
             <div sec:authorize="!isAuthenticated()">
                 <a class="nav-link" href="/signin" id="user" role="button">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
@@ -60,16 +60,16 @@
     </div>
 </nav>
 
+<!-- 2. 교사 상단바 -->
 <nav th:fragment="fragment-teanav" class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <!--herf : 학생 홈으로-->
         <a class="navbar-brand" href="/teacher">
             <img th:src="@{/img/logo.png}" alt="" height="25" class="d-inline-block align-top">
         </a>
         <ul class="navbar-nav navbar-right mb-2 mb-lg-0"></ul>
 
         <ul>
-            <!--로그인 되어있을 때-->
+            <!--로그인 되어있을 때 유저-->
             <div class="dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-bs-toggle="dropdown" aria-expanded="true">
@@ -82,7 +82,7 @@
                 </ul>
             </div>
 
-
+            <!--로그인 안 되어있을 때 유저-->
             <div sec:authorize="!isAuthenticated()">
                 <a class="nav-link" href="/signin" id="user" role="button">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
@@ -93,12 +93,13 @@
     </div>
 </nav>
 
+<!-- 3. 푸터 -->
 <footer footer th:fragment="fragment-footer" class="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright__text">
-                    <p>Copyright SSU Software18 made by 말하는 감자들(수현,아현,혜원,예진)</p>
+                    <p>Copyright SSU Software18 made by 말하는 감자들(유진,수현,아현,혜원,예진)</p>
                 </div>
             </div>
         </div>

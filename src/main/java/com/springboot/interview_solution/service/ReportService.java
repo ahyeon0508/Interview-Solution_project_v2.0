@@ -37,23 +37,27 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final UserRepository userRepository;
 
+    /* 생성자 */
     @Autowired
     ReportService(ReportRepository reportRepository, UserRepository userRepository) {
         this.reportRepository = reportRepository;
         this.userRepository = userRepository;
     }
 
+    /* 초기 리포트 생성 (질문, 학생 매칭) */
+    @Transactional
     public Long setReport(User student, List<Question> questions) {
         //get user teacher
         User teacher;
         if(StringUtils.isEmpty(student.getTeacher())){
             String teacherID = userRepository.findMyTeacher(student.getSchool(), student.getGrade(), student.getsClass());
-            if(teacherID.isEmpty()){
-                teacher = null;
-            }else{
+            try{
+                teacherID.isEmpty();
                 student.setTeacher(teacherID);
                 userRepository.save(student);
                 teacher = userRepository.findByUserID(teacherID).orElseThrow();
+            }catch (NullPointerException e){
+                teacher = null;
             }
 
         }else{
@@ -79,6 +83,8 @@ public class ReportService {
         return report.getId();
     }
 
+    /* 시선추적 */
+    @Transactional
     public void setEyeTracking(Long id, String eyeTrack, int question){
         Report report = reportRepository.findById(id);
         if(!eyeTrack.isEmpty()){
@@ -93,18 +99,24 @@ public class ReportService {
         reportRepository.save(report);
     }
 
+    /* 제목 변경 */
+    @Transactional
     public void modifyTitle(Long id, String title) {
         Report report = reportRepository.findById(id);
         report.setTitle(title);
         reportRepository.save(report);
     }
 
+    /* 공유 여부 변경 */
+    @Transactional
     public void modifyShare(Long id) {
         Report report = reportRepository.findById(id);
         report.setShare(!report.getShare());
         reportRepository.save(report);
     }
 
+    /* 피드백 수정 */
+    @Transactional
     public void modifyFeedback(Long id, FeedbackDto feedbackDto) {
         Report report = reportRepository.findById(id);
         if(feedbackDto.getFeedback1() != null) {
@@ -120,6 +132,8 @@ public class ReportService {
         reportRepository.save(report);
     }
 
+    /* 피드백 삭제 */
+    @Transactional
     public void deleteFeedback(Report report, Integer number) {
         if(number == 1) {
             report.setComment1(null);
@@ -134,23 +148,28 @@ public class ReportService {
         reportRepository.save(report);
     }
 
+    /* 사용자 리포트 모두 가져오기 */
     public List<Report> getReports(User user) throws Exception {
         return reportRepository.findByStudent(user);
     }
 
+    /* 리포트 상세 보기 */
     public Report getReport(Long id) throws Exception {
         return reportRepository.findReportById(id);
     }
 
+    /* 리포트 삭제 */
     @Transactional
     public void deleteReport(Long id) throws Exception{
         reportRepository.deleteById(id);
     }
 
+    /* 학생 리포트 가져오기 */
     public List<Report> getStudentReport(User user) throws Exception {
         return reportRepository.findReportsByTeacherAndShare(user, true);
     }
 
+    /* 숫자를 아라비아 숫자로 읽은 STT를 한글 숫자로 변경 */
     public String readNumber(String num_string) {
 
         String[] han1 = {"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"};
@@ -181,6 +200,8 @@ public class ReportService {
         return answer;
     }
 
+    /* 리포트 생성 */
+    @Transactional
     public void makeReport(Long id) {
         Report report = reportRepository.findById(id);
         if(report.getAudio1() != null) {
@@ -207,6 +228,7 @@ public class ReportService {
         reportRepository.save(report);
     }
 
+    /* 말하기 속도 측정 */
     public ReportSpeedDto reportSpeed(String script, Double speed) {
         int text_count;
         String character_extraction;
@@ -241,6 +263,7 @@ public class ReportService {
         return new ReportSpeedDto(speech_speed);
     }
 
+    /* stt */
     public ReportSTTDto reportStt(String audioFilePath) {
         String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
         String openApiURL2 = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken";

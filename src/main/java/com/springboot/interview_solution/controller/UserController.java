@@ -31,20 +31,20 @@ public class UserController {
     private final SchoolInfoService schoolInfoService;
     private final ReportService reportService;
 
-    // main
+    /* 메인 페이지 */
     @GetMapping(value = "/")
     public String main(){
         return "index";
     }
 
-    // student home
+    /* 학생 메인 페이지 */
     @GetMapping(value = "/student")
     public String getStudentHome() {
         return "stuhome";
     }
 
 
-    // teacher home
+    /* 교사 메인 페이지 */
     @GetMapping(value = "/teacher")
     public ModelAndView getTeacherHome() throws Exception {
         ModelAndView mv = new ModelAndView("teahome");
@@ -55,18 +55,20 @@ public class UserController {
         return mv;
     }
 
-    // signup
+    /* 회원가입 페이지 연동 */
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String getStudentSignup(){
         return "signup";
     }
 
+    /* 회원가입 */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String postStudentSignup(UserDto student){
         userService.signup(student);
         return "redirect:/signin";
     }
-    //school information
+
+    /* 학교 정보 검색 */
     @RequestMapping(value = "/searchSchool",method = RequestMethod.GET)
     @ResponseBody
     public List<String> searchSchoolInfo(@RequestParam("term") String school){
@@ -77,7 +79,7 @@ public class UserController {
         return schoolInfo;
     }
 
-    //UserId validate duplicate
+    /* 아이디 유효성 확인 */
     @ResponseBody
     @RequestMapping(value = "/userIdCheck", method = RequestMethod.POST)
     public HashMap<String,String> validUserId(@RequestBody String userID){
@@ -91,12 +93,13 @@ public class UserController {
         return responseMsg;
     }
 
-    // signin
+    /* 로그인 페이지 연동 */
     @RequestMapping(value = "/signin", method = RequestMethod.GET)
     public String getStudentSignin() {
         return "signin";
     }
 
+    /* 로그인 결과 (회원 정보에 따라 학생 메인 페이지 또는 교사 메인 페이지로 이동) */
     @RequestMapping(value = "/resultSignin", method = RequestMethod.GET)
     public String resultStudentSignin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -106,17 +109,20 @@ public class UserController {
         else return "redirect:/student";
     }
 
+    /* 로그아웃 */
     @GetMapping(value = "/signout")
     public String signout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/signin";
     }
 
+    /* 아이디 찾기 페이지 연동 */
     @RequestMapping(value = "/findid", method = RequestMethod.GET)
     public String getFindID() {
         return "findID";
     }
 
+    /* 아이디 찾기 */
     @RequestMapping(value = "/findid", method = RequestMethod.POST)
     public String postFindID(Model model, @RequestParam("username") String username,
                              @RequestParam("phone") String phone) {
@@ -132,11 +138,13 @@ public class UserController {
             return "redirect:/findID";
     }
 
+    /* 비밀번호 찾기 페이지 연동 */
     @RequestMapping(value = "findpw", method = RequestMethod.GET)
     public String getFindPW() {
         return "findPW";
     }
 
+    /* 비밀번호 찾기 */
     @RequestMapping(value = "findpw", method = RequestMethod.POST)
     public String postFindPW(Model model, @RequestParam("username") String username,
                              @RequestParam("userID") String userID, @RequestParam("phone") String phone) {
@@ -152,11 +160,13 @@ public class UserController {
             return "redirect:/findpw";
     }
 
+    /* 비밀번호 변경 페이지 연동 */
     @RequestMapping(value = "resultpw/{userid}", method = RequestMethod.GET)
     public String getChangePW(@PathVariable String userid) {
         return "resultPW";
     }
 
+    /* 비밀번호 변경 */
     @RequestMapping(value = "resultpw/{userid}", method = RequestMethod.POST)
     public String postChangePW(@PathVariable String userid, @RequestParam("password") String password,
                                @RequestParam("passwordChk") String passwordChk) throws Exception {
@@ -168,7 +178,7 @@ public class UserController {
         }
     }
 
-    // mypage
+    /* 마이 페이지 */
     @RequestMapping(value = "mypage", method = RequestMethod.GET)
     public String getMyPage(Authentication authentication, Model model) throws Exception {
         User user = (User) authentication.getPrincipal();

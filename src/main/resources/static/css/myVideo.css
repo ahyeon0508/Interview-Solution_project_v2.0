@@ -4,7 +4,8 @@ h1{
     color: #9CC1D9;
     font-family: 'Nanum Gothic', sans-serif;
     padding: 50px 0 20px 0;
-    font-size: 30px;
+    font-size: 40px;
+    font-weight: bolder;
     text-align: center;
 }
 
@@ -15,11 +16,12 @@ h1{
 .content{
     display: table;
     margin: 30px auto 30px auto;
-    border: 1px solid gray;
+    border: 1px solid rgb(211, 211, 211);
     border-radius: 25px;
     width: 800px;
     padding: 20px 0 20px 0;
     text-align: center;
+    box-shadow: 1px 1px 1px 1px rgb(224, 224, 224);
 }
 
 .content > p{
@@ -28,6 +30,7 @@ h1{
     margin: 0 -40px 0 0px;
     font-size: 20px;
     float: left;
+    font-weight: 400;
 }
 
 .switch {

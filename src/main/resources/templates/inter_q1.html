@@ -1,3 +1,4 @@
+<!-- 첫 번째 질문 페이지 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
@@ -10,6 +11,7 @@
     <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <script>
+        //시선추적
         var position = [];
 
         webgazer.setGazeListener(function (data, elapsedTime) {
@@ -22,6 +24,7 @@
             position.push({x : xprediction, y : yprediction});
         }).begin();
 
+        // 질문시작 버튼
         $(function(){
             $('#startbutton').click(function(){
                 var reportID = $(this).attr('name')
@@ -44,6 +47,8 @@
                 });
             });
         });
+
+        // 다음으로 버튼
         $(function(){
             $('#finishbutton').click(function(){
                 var reportID = $(this).attr('name')
@@ -86,12 +91,9 @@
         </div>
         <div class="card-footer text-muted">
             <!-- 질문 시작 -->
-            <!--장고 : <input type="button" id="startbutton" name="{{user.id}}" report="{{reportID}}" value="질문시작">-->
             <input type="button" id="startbutton" th:name="${reportID}" value="질문시작">
 
             <!-- 질문 끝 -->
-            <!--장고 : <input type="button" id="finishbutton" name="{{user.id}}" onClick="location.href='{% url 'website:interviewQ2' reportID=reportID %}'" value="다음으로">-->
-            <!--<input type="button" id="finishbutton" th:name="${reportID}" th:onClick="'location.href=\''+ @{/student/interview/question2/{id}(id=${reportID})} +'\';'" value="다음으로">-->
             <input type="button" id="finishbutton" th:name="${reportID}" value="다음으로">
         </div>
     </div>
