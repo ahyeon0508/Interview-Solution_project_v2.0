@@ -24,52 +24,48 @@
             position.push({x : xprediction, y : yprediction});
         }).begin();
 
-        //질문 시작 버튼
-        $(function(){
-            $('#startbutton').click(function(){
-                var reportID = $(this).attr('name')
-                $.ajax({
-                    url:'/student/interview/question/record',
-                    method:'POST',
-                    data:{
-                        name:'start',
-                        question: 2,
-                        reportID: reportID
-                    },
-                    dataType: 'text',
-                    async: true,
-                    success:function(response){
-                        if (response.result != 'success') {
-                            console.error(response.data)
-                            return;
-                        }
+        // 질문시작 버튼
+        $(document).on("click", '#startbutton', function () {
+            var reportID = $(this).attr('name')
+            $.ajax({
+                url: '/student/interview/question/record',
+                method: 'POST',
+                data: {
+                    name: 'start',
+                    question: 2,
+                    reportID: reportID
+                },
+                dataType: 'text',
+                async: true,
+                success: function (response) {
+                    if (response.result != 'success') {
+                        console.error(response.data)
+                        return;
                     }
-                });
+                }
             });
         });
 
-        //질문 끝 버튼
-        $(function(){
-            $('#finishbutton').click(function(){
-                var reportID = $(this).attr('name')
-                $.ajax({
-                    url:'/student/interview/question/stop',
-                    method:'POST',
-                    data:{
-                        name:'finish',
-                        question:2,
-                        reportID: reportID,
-                        position: JSON.stringify(position),
-                    },
-                    success:function(response){
-                        if (response.result != 'success') {
-                            console.error(response.data)
-                            return;
-                        }else{
-                            window.location.href = "/student/interview/question3/" + reportID;
-                        }
+        // 다음으로 버튼
+        $(document).on("click", '#finishbutton', function () {
+            var reportID = $(this).attr('name')
+            $.ajax({
+                url: '/student/interview/question/stop',
+                method: 'POST',
+                data: {
+                    name: 'finish',
+                    question: 2,
+                    reportID: reportID,
+                    position: JSON.stringify(position),
+                },
+                success: function (response) {
+                    if (response.result != 'success') {
+                        console.error(response.data)
+                        return;
+                    } else {
+                        window.location.href = "/student/interview/question3/" + reportID;
                     }
-                });
+                }
             });
         });
     </script>
