@@ -5,6 +5,7 @@ import com.springboot.interview_solution.domain.User;
 import com.springboot.interview_solution.dto.FeedbackDto;
 import com.springboot.interview_solution.dto.ReportDto;
 import com.springboot.interview_solution.service.ReportService;
+import com.springboot.interview_solution.service.SttService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,6 +24,7 @@ import java.util.List;
 public class ReportController {
 
     private final ReportService reportService;
+    private final SttService sttService;
 
     /* 리포트 결과 생성 */
     @RequestMapping(value = "wait/{id}", method = RequestMethod.GET)
@@ -137,5 +140,11 @@ public class ReportController {
             os.write(data, 0, read);
         }
         os.flush();
+    }
+
+    @GetMapping("/test")
+    public String kakaoStt () throws MalformedURLException {
+        sttService.kakaoStt();
+        return "test";
     }
 }
