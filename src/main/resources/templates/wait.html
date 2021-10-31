@@ -29,12 +29,6 @@
                     data: {
                         result: reportID
                     },
-                    beforeSend: function () {
-                        LoadingBarStart();
-                    },
-                    complete: function () {
-                        LoadingBarEnd();
-                    },
                     success: function (response) {
                         alert("해당 모의 면접 공유여부 설정이 완료됐습니다.")
                         return;
