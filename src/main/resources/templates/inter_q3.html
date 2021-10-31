@@ -23,26 +23,24 @@
             position.push({x : xprediction, y : yprediction});
         }).begin();
 
-        $(function(){
-            $('#startbutton').click(function(){
-                var reportID = $(this).attr('name')
-                $.ajax({
-                    url:'/student/interview/question/record',
-                    method:'POST',
-                    data:{
-                        name:'start',
-                        question: 3,
-                        reportID: reportID
-                    },
-                    dataType: 'text',
-                    async: true,
-                    success:function(response){
-                        if (response.result != 'success') {
-                            console.error(response.data)
-                            return;
-                        }
+        $(document).on("click", '#startbutton', function () {
+            var reportID = $(this).attr('name')
+            $.ajax({
+                url: '/student/interview/question/record',
+                method: 'POST',
+                data: {
+                    name: 'start',
+                    question: 1,
+                    reportID: reportID
+                },
+                dataType: 'text',
+                async: true,
+                success: function (response) {
+                    if (response.result != 'success') {
+                        console.error(response.data)
+                        return;
                     }
-                });
+                }
             });
         });
         $(function(){
