@@ -11,11 +11,11 @@ input[type=checkbox] + label {
     cursor: pointer;
     line-height: 22px;
     padding-left: 30px;
-    background: url('https://www.flaticon.com/svg/static/icons/svg/2107/2107992.svg') left/22px no-repeat;
+    background: url('https://cdn-icons-png.flaticon.com/512/149/149220.png') left/22px no-repeat;
 }
 
 input[type=checkbox]:checked + label {
-    background-image: url('https://www.flaticon.com/svg/static/icons/svg/2107/2107957.svg');
+    background-image: url('https://cdn-icons.flaticon.com/png/512/4369/premium/4369505.png?token=exp=1635689075~hmac=ce791c6d1835d635aa71e42cd57159a9');
 }
 
 #container {
