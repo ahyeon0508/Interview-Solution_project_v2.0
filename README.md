@@ -38,7 +38,7 @@
 &nbsp;&nbsp;&nbsp;[그림 2]는 ER diagram이다.
 
 <p align="center" style="color:gray">
-  <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/135191751-2fd8d007-f663-4dba-af3d-dad856414a29.png" alt="구조도" width="50%" height="50%"  />
+  <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/147386142-93d44fba-1c4b-4fe9-a112-f07c51235075.png" alt="구조도" width="50%" height="50%"  />
   <br>[그림 1] 시스템 구조도<br>
 </p><br><br>
 
