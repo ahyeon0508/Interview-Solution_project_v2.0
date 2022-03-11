@@ -130,6 +130,18 @@
 ### 6. 참고문헌
 강귀석(2020), "메가스터디 교육 기술분석보고서" 3-4쪽, 한국IR협의회  
 윤정아(2019), “학생부 관리에만 480만원 … 입시코디 학원 4배”, 문화일보
+
+### 7. license 
+```
+@inproceedings{papoutsaki2016webgazer,
+  author = {Alexandra Papoutsaki and Patsorn Sangkloy and James Laskey and Nediyana Daskalova and Jeff Huang and James Hays},
+  title = {WebGazer: Scalable Webcam Eye Tracking Using User Interactions},
+  booktitle = {Proceedings of the 25th International Joint Conference on Artificial Intelligence (IJCAI)},
+  pages = {3839--3845},
+  year = {2016},
+  organization={AAAI}
+}
+```
   
 -----------------
 ## 프로젝트 기간
